@@ -28,3 +28,29 @@ yarn create react-app [name]		# create-react-app with yarn
 [firebase]
 firebase deploy						# deploy code to firebase
 firebase serve						# run local server through firebase
+
+[curl]
+curl [web_address]					# dump a webpage to the terminal
+curl -L [address]					# follow a link and dump the results
+curl --verbose probably also -v		# run with verbose
+
+[nmap]
+nmap [web-address]					# see what ports are open at address
+
+[byobu]
+F2									# create a new window
+F3									# move to prev window
+F4									# move to next window
+F5									# refresh status notifications
+F6									# detach from session and logout
+Shift+F6							# detach session don't logout
+F7									# enter scrollback/search mode
+F8									# rename current window
+F9									# launch config menu
+F12									# GNU escape key
+Ctrl+A								# byobu escape key
+Shift+F2							# split screen horizontally
+Crtl+F2								# split screen vertically
+Shift+F3							# move focus to next split
+Shift+F4							# move focus to previous split
+Shift+F5							# collapse all splits
