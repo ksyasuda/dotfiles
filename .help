@@ -1,1 +1,30 @@
-../.help
+[tmux]
+tmux new -s [name]					# start new session named [name]
+tmux a -t [name]					# attatch to session named [name]
+C+b %								# vertical split
+C+b "								# horizontal split
+C+b d								# detach from session
+C+b c								# create new tab
+C+b n								# next tab
+
+[sybmolic links]
+ln -s [file] [symbolic link]		# creates a symbolic link for [file]
+ln -sr [file] [path_to_sym_file]	# creates symlink in a diff directory
+
+[cool commands]
+bashtop								# top but better
+vtop								# top but better
+gotop								# top but better
+htop								# top but better
+glances								# show system information
+screenfetch							# show system info and logo
+neofetch							# screenfetch but with colors kinda
+
+[yarn]
+yarn global add [package]			# adds a package globally
+yard add [package]					# add a package
+yarn create react-app [name]		# create-react-app with yarn
+
+[firebase]
+firebase deploy						# deploy code to firebase
+firebase serve						# run local server through firebase
