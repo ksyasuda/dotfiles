@@ -90,7 +90,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting web-search colored-man-pages k)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting web-search colored-man-pages k zsh-256color)
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/plugins/git/git.plugin.zsh
@@ -233,6 +233,8 @@ export PATH=$PATH:/home/sudacode/.gem/ruby/2.7.0/bin
 export PATH=$PATH:/home/sudacode/go/bin
 alias freud='cd /home/sudacode/'
 export PATH="$PATH:`yarn global bin`"
+
+export TERM=xterm-256color
 
 #Enable tab completions for flags in colorls
 source $(dirname $(gem which colorls))/tab_complete.sh
