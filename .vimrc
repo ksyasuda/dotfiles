@@ -16,6 +16,8 @@ autocmd vimenter * NERDTree "launch nerdtree on vim start
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
+"map open NERDTree to F2
+map <F2> :NERDTreeToggle<CR>
 
 let g:onedark_termcolors=256 "enable 256 colors
 
@@ -76,4 +78,11 @@ Plug 'valloric/youcompleteme'
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
+
+packloadall "enable prettier
+let g:prettier#autoformat = 1
+let g:prettier#config#tab_width = 4
+let g:prettier#config#print_width = 80
+let g:prettier#config#use_tabs = 'true'
+map <C-s> <Plug>(Prettier)
 
