@@ -54,3 +54,15 @@ Crtl+F2								# split screen vertically
 Shift+F3							# move focus to next split
 Shift+F4							# move focus to previous split
 Shift+F5							# collapse all splits
+
+[pip]
+pip list							# list pip packages installed
+
+[python virtual env]
+source env/bin/activate				# activate the virtual environment
+echo $VIRTUAL_ENV 					# prints the path to the virtual env
+which -a python						# lists the install locations of python
+
+[tar]
+tar [address]						# download a file from address
+
