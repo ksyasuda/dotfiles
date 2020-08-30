@@ -71,3 +71,8 @@ set nonumber						# remove line numbers from file
 Ctrl+w h							# shift focus left pane
 Ctrl+w l							# shift fous right pane
 :nohls								# remove search hilighting until next search
+
+[markdown]
+grip <markdown file>				# open a live-server for markdown file
+**<>**								# bold
+---									# line

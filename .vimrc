@@ -1,4 +1,4 @@
-syntax on				"enable syntax hilighting
+syntax on				"enable syntax hilighting 
 set laststatus=2		"enable status bar
 set number				"turn on line numbers
 set colorcolumn=80		"set color column on col 80
@@ -70,6 +70,7 @@ let g:NERDTreeGitStatusUseNerdFonts = 1
 "youcompleteme for autocompletion
 "vim-polyglot for better syntax hilighting
 "Auto pairs for paren/bracket pairing
+"markdown-preview
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -77,6 +78,8 @@ Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'valloric/youcompleteme'
 
 Plug 'sheerun/vim-polyglot'
+
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 call plug#end()
 
@@ -93,6 +96,7 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
+"NERDTree hilight files by extension
 call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
 call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
@@ -108,6 +112,12 @@ call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 "auto-close-tag configuration
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md'
+let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
 
-let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js'
+"markdown-preview
+"let g:mkdp_refresh_slow = 1
+"let g:mkdp_markdown_css = '/home/sudacode/.vim/github-markdown.css'
+let vim_markdown_preview_github=1
+let vim_markdown_preview_toggle=2 "set images to load on write
+let vim_markdown_preview_temp_file=1 "remove the rendered preview
