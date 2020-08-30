@@ -1,6 +1,9 @@
 [tmux]
 tmux new -s [name]					# start new session named [name]
 tmux a -t [name]					# attatch to session named [name]
+tmux ls								# list tmux sessions
+tmux kill-ses -t [name]				# kill tmux session named [name]
+C+b $								# rename session
 C+b %								# vertical split
 C+b "								# horizontal split
 C+b d								# detach from session
