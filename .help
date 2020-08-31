@@ -79,3 +79,10 @@ Ctrl+w l							# shift fous right pane
 grip <markdown file>				# open a live-server for markdown file
 **<>**								# bold
 ---									# line
+
+[pacman]
+pacman -Rs package_name				# remove a package and all deps not needed
+pacman -Rsu package_name			# if above command does not work
+
+[ctags]
+ctags -R .							# index the current directory with ctags
