@@ -75,7 +75,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 
-"Plug 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme'
 
 Plug 'sheerun/vim-polyglot'
 
