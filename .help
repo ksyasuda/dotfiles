@@ -62,9 +62,11 @@ Shift+F5							# collapse all splits
 pip list							# list pip packages installed
 
 [python virtual env]
+python3 -m venv env					# create the env directory
 source env/bin/activate				# activate the virtual environment
 echo $VIRTUAL_ENV 					# prints the path to the virtual env
 which -a python						# lists the install locations of python
+deactivate							# when in a virtual session deactivates it
 
 [tar]
 tar [address]						# download a file from address
@@ -79,6 +81,8 @@ Ctrl+w l							# shift fous right pane
 grip <markdown file>				# open a live-server for markdown file
 **<>**								# bold
 ---									# line
+[...](link)							# inline-style link
+[desc](link "hover title")			# inline-style link with hover title
 
 [pacman]
 pacman -Rs package_name				# remove a package and all deps not needed
@@ -90,3 +94,14 @@ ctags -R .							# index the current directory with ctags
 [ssh]
 # ssh into aws Ubuntu server for eecs485
 ssh -i eecs485deploy.pem ubuntu@ec2-3-137-139-85.us-east-2.compute.amazonaws.com
+[wget]
+wget [address]						# download a file/files
+
+unzip (file)						# unzips zip file
+
+[wine]
+wine (file)							# install a windows file
+winefile							# opens the windows file system
+
+[onedrive]
+onedrive --synchronize				# sync the onedrive folder to the cloud

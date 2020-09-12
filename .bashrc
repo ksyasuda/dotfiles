@@ -176,3 +176,7 @@ PS1="\033[1;35m[ \d | \@ ]\033[0m\e[44;0;36m[\w]\e[1;92m\$(git_branch)\e[44;0;91
 # Add this line at the end of .bashrc:
 #((_ble_bash)) && ble-attach
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
