@@ -79,6 +79,8 @@ Ctrl+w l							# shift fous right pane
 grip <markdown file>				# open a live-server for markdown file
 **<>**								# bold
 ---									# line
+[...](link)							# inline-style link
+[desc](link "hover title")			# inline-style link with hover title
 
 [pacman]
 pacman -Rs package_name				# remove a package and all deps not needed
@@ -86,3 +88,15 @@ pacman -Rsu package_name			# if above command does not work
 
 [ctags]
 ctags -R .							# index the current directory with ctags
+
+[wget]
+wget [address]						# download a file/files
+
+unzip (file)						# unzips zip file
+
+[wine]
+wine (file)							# install a windows file
+winefile							# opens the windows file system
+
+[onedrive]
+onedrive --synchronize				# sync the onedrive folder to the cloud
