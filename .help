@@ -62,9 +62,11 @@ Shift+F5							# collapse all splits
 pip list							# list pip packages installed
 
 [python virtual env]
+python3 -m venv env					# create the env directory
 source env/bin/activate				# activate the virtual environment
 echo $VIRTUAL_ENV 					# prints the path to the virtual env
 which -a python						# lists the install locations of python
+deactivate							# when in a virtual session deactivates it
 
 [tar]
 tar [address]						# download a file from address
