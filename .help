@@ -86,3 +86,7 @@ pacman -Rsu package_name			# if above command does not work
 
 [ctags]
 ctags -R .							# index the current directory with ctags
+
+[ssh]
+# ssh into aws Ubuntu server for eecs485
+ssh -i eecs485deploy.pem ubuntu@ec2-3-137-139-85.us-east-2.compute.amazonaws.com
