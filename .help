@@ -105,3 +105,13 @@ winefile							# opens the windows file system
 
 [onedrive]
 onedrive --synchronize				# sync the onedrive folder to the cloud
+
+[netstat]
+netstat -ltnp | grep -w ':PORT'		# show process running on port PORT
+	l - only show lisening sockets
+	t - display tcp connections
+	n - show numerical addresses
+	p - show PID and process name
+	grep -w - matching of exact string
+
+
