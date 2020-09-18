@@ -68,7 +68,7 @@ let g:NERDTreeGitStatusUseNerdFonts = 1
 "youcompleteme for autocompletion
 "vim-polyglot for better syntax hilighting
 "Auto pairs for paren/bracket pairing
-"markdown-preview
+"sqlutilities
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -77,7 +77,7 @@ Plug 'valloric/youcompleteme'
 
 Plug 'sheerun/vim-polyglot'
 
-"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'vim-scripts/SQLUtilities'
 
 call plug#end()
 
@@ -86,7 +86,7 @@ let g:prettier#autoformat = 1
 let g:prettier#config#tab_width = 4
 let g:prettier#config#print_width = 80
 let g:prettier#config#use_tabs = 'true'
-autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml PrettierAsync
+autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql PrettierAsync
 map <C-s> <Plug>(Prettier)
 
 " NERDTress File highlighting
