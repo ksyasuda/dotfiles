@@ -91,6 +91,9 @@ pacman -Rsu package_name			# if above command does not work
 [ctags]
 ctags -R .							# index the current directory with ctags
 
+[ssh]
+# ssh into aws Ubuntu server for eecs485
+ssh -i eecs485deploy.pem ubuntu@ec2-3-137-139-85.us-east-2.compute.amazonaws.com
 [wget]
 wget [address]						# download a file/files
 
@@ -105,3 +108,13 @@ onedrive --synchronize				# sync the onedrive folder to the cloud
 
 [text2pdf]
 text2pdf [input file] > [output]  	# convert input file to pdf named output
+
+
+[netstat]
+netstat -ltnp | grep -w ':PORT'		# show process running on port PORT
+	l - only show lisening sockets
+	t - display tcp connections
+	n - show numerical addresses
+	p - show PID and process name
+	grep -w - matching of exact string
+
