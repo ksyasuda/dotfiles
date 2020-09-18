@@ -102,3 +102,6 @@ winefile							# opens the windows file system
 
 [onedrive]
 onedrive --synchronize				# sync the onedrive folder to the cloud
+
+[text2pdf]
+text2pdf [input file] > [output]  	# convert input file to pdf named output
