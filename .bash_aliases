@@ -14,6 +14,7 @@ alias count='ls -l | wc -l'
 alias ns='npm start'
 alias yb='yarn build'
 alias ys='yarn start'
+alias yi='yarn install'
 alias fd='firebase deploy'
 
 # This is specific to WSL 2. If the WSL 2 VM goes rogue and decides not to free
