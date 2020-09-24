@@ -236,6 +236,8 @@ export PATH="$PATH:`yarn global bin`"
 
 export TERM=xterm-256color
 
+export PATH=$PATH:/home/sudacode/.local/bin
+
 #Enable tab completions for flags in colorls
 source $(dirname $(gem which colorls))/tab_complete.sh
 
