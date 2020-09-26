@@ -143,3 +143,6 @@ ibus-setup							# start daemon and launch config
 Ctrl+z								# stop job
 bg									# restart in background
 Ctrl+Alt+Shift						# switch between languages
+
+[httpie]
+http [url]							# send get request with pretty printing/colors

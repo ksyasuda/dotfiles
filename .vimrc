@@ -120,3 +120,6 @@ let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_toggle=2 "set images to load on write
 let vim_markdown_preview_temp_file=1 "remove the rendered preview
+
+"Show coding time today in vim
+map <C-`> <Esc>:WakaTimeToday<CR>
