@@ -118,9 +118,12 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md'
 let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
 
+"markdown-preview
+"let g:mkdp_refresh_slow = 1
+"let g:mkdp_markdown_css = '/home/sudacode/.vim/github-markdown.css'
+let vim_markdown_preview_github=1
+let vim_markdown_preview_toggle=2 "set images to load on write
+let vim_markdown_preview_temp_file=1 "remove the rendered preview
 
-
-
-
-
-
+"Show coding time today in vim
+map <C-`> <Esc>:WakaTimeToday<CR>
