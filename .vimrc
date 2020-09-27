@@ -12,13 +12,17 @@ set smartcase			"set search case based on search query
 set noerrorbells		"no error bells
 set title				"set title of vim based on file open
 
+let vim_markdown_preview_github=1
+let vim_markdown_preview_toggle=1
+let vim_markdown_preview_temp_file=0
+
 autocmd vimenter * NERDTree "launch nerdtree on vim start
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
+
 "map open NERDTree to F2
 map <F2> :NERDTreeToggle<CR>
-
 let g:onedark_termcolors=256 "enable 256 colors
 
 if !has('gui_running')
@@ -114,9 +118,9 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md'
 let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
 
-"markdown-preview
-"let g:mkdp_refresh_slow = 1
-"let g:mkdp_markdown_css = '/home/sudacode/.vim/github-markdown.css'
-let vim_markdown_preview_github=1
-let vim_markdown_preview_toggle=2 "set images to load on write
-let vim_markdown_preview_temp_file=1 "remove the rendered preview
+
+
+
+
+
+
