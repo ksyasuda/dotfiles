@@ -66,6 +66,8 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ }
 let g:NERDTreeGitStatusUseNerdFonts = 1
 
+let g:ycm_autoclose_preview_window_after_completion=1
+
 
 "VIMPLUG START 
 "nerdtree-git for git integratino to nerdtree prob doesn't work
