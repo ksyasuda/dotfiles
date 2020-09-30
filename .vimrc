@@ -12,13 +12,17 @@ set smartcase			"set search case based on search query
 set noerrorbells		"no error bells
 set title				"set title of vim based on file open
 
+let vim_markdown_preview_github=1
+let vim_markdown_preview_toggle=1
+let vim_markdown_preview_temp_file=0
+
 autocmd vimenter * NERDTree "launch nerdtree on vim start
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
+
 "map open NERDTree to F2
 map <F2> :NERDTreeToggle<CR>
-
 let g:onedark_termcolors=256 "enable 256 colors
 
 if !has('gui_running')
@@ -61,6 +65,8 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Unknown'   :'?',
                 \ }
 let g:NERDTreeGitStatusUseNerdFonts = 1
+
+let g:ycm_autoclose_preview_window_after_completion=1
 
 
 "VIMPLUG START 
