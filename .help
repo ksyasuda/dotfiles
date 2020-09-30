@@ -146,3 +146,6 @@ Ctrl+Alt+Shift						# switch between languages
 
 [httpie]
 http [url]							# send get request with pretty printing/colors
+
+[tcm] - Typed CSS Modules			# generate styles.css.d.ts file
+tsm [directory or file]				# generate styles.d.ts for each file or specific file
