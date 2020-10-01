@@ -80,6 +80,7 @@ cw									# delete word and enter insert mode
 ^u									# go up half a page
 ^d									# go down half a page
 s/<pattern>/<replace>				# search and replace for pattern
+V [select line]						# Use visual line to select multiple lines
 
 [markdown]
 grip <markdown file>				# open a live-server for markdown file
