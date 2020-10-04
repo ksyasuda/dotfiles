@@ -23,8 +23,6 @@ autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
 
 "map open NERDTree to F2
 map <F2> :NERDTreeToggle<CR>
-let g:onedark_termcolors=256 "enable 256 colors
-
 if !has('gui_running')
   set t_Co=256
 endif
@@ -47,9 +45,29 @@ packadd! onedark.vim "add onedark colorcheme may not work
 colorscheme onedark  "set colorsheme as onedark
 
 "set colorscheme of lightline may nor work
+"let g:lightline = {
+"  \ 'colorscheme': 'onedark',
+"  \ }
+
 let g:lightline = {
-  \ 'colorscheme': 'onedark',
-  \ }
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste', 'gitbranch' ],
+      \             [ 'readonly', 'filename', 'modified',  ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'charvaluehex', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+	  \ 'component': {
+	  \   'charhexvalue': '0x%B'
+	  \ },
+      \ }
+
+set noshowmode "disable default vim insert text at bottom
+let g:onedark_termcolors=256 "enable 256 colors
 
 "NERDTreeGit !might not work
 let g:NERDTreeGitStatusIndicatorMapCustom = {
@@ -87,6 +105,8 @@ Plug 'vim-scripts/SQLUtilities'
 
 Plug 'ryanoasis/vim-devicons'
 
+Plug 'itchyny/vim-gitbranch'
+
 call plug#end()
 
 packloadall "enable prettier
@@ -94,7 +114,7 @@ let g:prettier#autoformat = 1
 let g:prettier#config#tab_width = 4
 let g:prettier#config#print_width = 80
 let g:prettier#config#use_tabs = 'true'
-autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql PrettierAsync
+"autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql PrettierAsync
 map <C-s> <Plug>(Prettier)
 
 " NERDTress File highlighting
