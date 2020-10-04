@@ -12,15 +12,20 @@ set smartcase			"set search case based on search query
 set noerrorbells		"no error bells
 set title				"set title of vim based on file open
 
+let vim_markdown_preview_github=1
+let vim_markdown_preview_toggle=1
+let vim_markdown_preview_temp_file=0
+
 autocmd vimenter * NERDTree "launch nerdtree on vim start
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
+
+
+map <C-c> :nohls<Cr>
+
 "map open NERDTree to F2
 map <F2> :NERDTreeToggle<CR>
-
-let g:onedark_termcolors=256 "enable 256 colors
-
 if !has('gui_running')
   set t_Co=256
 endif
@@ -30,10 +35,33 @@ set termguicolors
 packadd! onedark.vim "add onedark colorcheme may not work
 colorscheme onedark  "set colorsheme as onedark
 
-"set colorscheme of lightline may nor work
+"set colorscheme of lightline
+"let g:lightline = {
+"  \ 'colorscheme': 'onedark',
+"  \ }
+      "\ 'colorscheme': 'onedark',
+      "\ 'colorscheme': 'material',
+      "\ 'colorscheme': 'darcula',
+
 let g:lightline = {
-  \ 'colorscheme': 'onedark',
-  \ }
+      \ 'colorscheme': 'deus',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste', 'gitbranch' ],
+      \             [ 'readonly', 'filename', 'modified',  ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'charvaluehex', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+	  \ 'component': {
+	  \   'charhexvalue': '0x%B'
+	  \ },
+      \ }
+
+set noshowmode "disable default vim insert text at bottom
+let g:onedark_termcolors=256 "enable 256 colors
 
 "NERDTreeGit !might not work
 let g:NERDTreeGitStatusIndicatorMapCustom = {
@@ -70,6 +98,10 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'vim-scripts/SQLUtilities'
 
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'itchyny/vim-gitbranch'
+
 call plug#end()
 
 packloadall "enable prettier
@@ -77,7 +109,8 @@ let g:prettier#autoformat = 1
 let g:prettier#config#tab_width = 4
 let g:prettier#config#print_width = 80
 let g:prettier#config#use_tabs = 'true'
-autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql,*.cpp,*.h PrettierAsync
+"autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql,*.cpp,*.h PrettierAsync
+"autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql PrettierAsync
 map <C-s> <Plug>(Prettier)
 
 " NERDTress File highlighting
@@ -87,23 +120,38 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 endfunction
 
 "NERDTree hilight files by extension
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#282c34')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#282c34')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('html', 'red', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#282c34')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#282c34')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#282c34')
+call NERDTreeHighlightFile('js', 'yellow', 'none', '#ffa500', '#282c34')
+call NERDTreeHighlightFile('jsx', 'yellow', 'none', '#ffa500', '#282c34')
+call NERDTreeHighlightFile('tsx', 'yellow', 'none', '#ffa500', '#282c34')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#282c34')
+call NERDTreeHighlightFile('cpp', 'blue', 'none', 'blue', '#282c34')
+call NERDTreeHighlightFile('h', 'cyan', 'none', 'cyan', '#282c34')
+call NERDTreeHighlightFile('txt', 'blue', 'none', 'red', '#282c34')
 
+let g:NERDTreeColorMapCustom = {
+    \ "Modified"  : ["#528AB3", "NONE", "NONE", "NONE"],
+    \ "Staged"    : ["#538B54", "NONE", "NONE", "NONE"],
+    \ "Untracked" : ["#BE5849", "NONE", "NONE", "NONE"],
+    \ "Dirty"     : ["#299999", "NONE", "NONE", "NONE"],
+    \ "Clean"     : ["#87939A", "NONE", "NONE", "NONE"]
+    \ }
+
+set encoding=utf8
+set guifont=FiraCode\ Nerd\ Font\ 11
 "auto-close-tag configuration
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md'
-let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md,*.tsx,*.ts,*.jsx'
+let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md,*.tsx,*.ts,*.jsx'
 
 "markdown-preview
 "let g:mkdp_refresh_slow = 1
@@ -111,6 +159,9 @@ let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_toggle=2 "set images to load on write
 let vim_markdown_preview_temp_file=1 "remove the rendered preview
+
+set encoding=UTF-8
+set guifont=FiraCode\ Nerd\ Font\ 11
 
 "Show coding time today in vim
 map <C-`> <Esc>:WakaTimeToday<CR>

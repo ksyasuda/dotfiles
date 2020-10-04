@@ -76,6 +76,11 @@ set nonumber						# remove line numbers from file
 Ctrl+w h							# shift focus left pane
 Ctrl+w l							# shift fous right pane
 :nohls								# remove search hilighting until next search
+cw									# delete word and enter insert mode
+^u									# go up half a page
+^d									# go down half a page
+s/<pattern>/<replace>				# search and replace for pattern
+V [select line]						# Use visual line to select multiple lines
 
 [markdown]
 grip <markdown file>				# open a live-server for markdown file
@@ -146,3 +151,9 @@ Ctrl+Alt+Shift						# switch between languages
 
 [httpie]
 http [url]							# send get request with pretty printing/colors
+
+[tcm] - Typed CSS Modules			# generate styles.css.d.ts file
+tsm [directory or file]				# generate styles.d.ts for each file or specific file
+
+[ranger]
+ranger 								# open text-based file-manage
