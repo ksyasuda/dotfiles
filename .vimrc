@@ -104,19 +104,32 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 endfunction
 
 "NERDTree hilight files by extension
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#282c34')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#282c34')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('html', 'red', 'none', 'yellow', '#282c34')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#282c34')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#282c34')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#282c34')
+call NERDTreeHighlightFile('js', 'yellow', 'none', '#ffa500', '#282c34')
+call NERDTreeHighlightFile('jsx', 'yellow', 'none', '#ffa500', '#282c34')
+call NERDTreeHighlightFile('tsx', 'yellow', 'none', '#ffa500', '#282c34')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#282c34')
+call NERDTreeHighlightFile('cpp', 'blue', 'none', 'blue', '#282c34')
+call NERDTreeHighlightFile('h', 'cyan', 'none', 'cyan', '#282c34')
+call NERDTreeHighlightFile('txt', 'blue', 'none', 'red', '#282c34')
+
+let g:NERDTreeColorMapCustom = {
+    \ "Modified"  : ["#528AB3", "NONE", "NONE", "NONE"],
+    \ "Staged"    : ["#538B54", "NONE", "NONE", "NONE"],
+    \ "Untracked" : ["#BE5849", "NONE", "NONE", "NONE"],
+    \ "Dirty"     : ["#299999", "NONE", "NONE", "NONE"],
+    \ "Clean"     : ["#87939A", "NONE", "NONE", "NONE"]
+    \ }
 
 set encoding=utf8
 set guifont=FiraCode\ Nerd\ Font\ 11
@@ -130,6 +143,9 @@ let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_toggle=2 "set images to load on write
 let vim_markdown_preview_temp_file=1 "remove the rendered preview
+
+set encoding=UTF-8
+set guifont=FiraCode\ Nerd\ Font\ 11
 
 "Show coding time today in vim
 map <C-`> <Esc>:WakaTimeToday<CR>
