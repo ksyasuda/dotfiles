@@ -85,6 +85,8 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'vim-scripts/SQLUtilities'
 
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 packloadall "enable prettier
@@ -116,6 +118,8 @@ call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
+set encoding=utf8
+set guifont=FiraCode\ Nerd\ Font\ 11
 "auto-close-tag configuration
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md'
 let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
