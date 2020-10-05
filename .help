@@ -157,3 +157,8 @@ tsm [directory or file]				# generate styles.d.ts for each file or specific file
 
 [ranger]
 ranger 								# open text-based file-manage
+
+[nmcli]								# netwrok manager command line interface
+nmcli device						# lists all device
+nmcli device wifi					# list wifi networks
+nmcli device connct wlp1s0 -ask		# connect to wifi and enter password
