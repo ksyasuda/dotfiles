@@ -117,6 +117,9 @@ let g:prettier#config#use_tabs = 'true'
 "autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql PrettierAsync
 map <C-s> <Plug>(Prettier)
 
+"map Ctrl+c to nohls
+map<C-c> :nohls<CR>
+
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
