@@ -21,36 +21,30 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
 
+
+map <C-c> :nohls<Cr>
+
 "map open NERDTree to F2
 map <F2> :NERDTreeToggle<CR>
 if !has('gui_running')
   set t_Co=256
 endif
 
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  set termguicolors
-endif
+set termguicolors
 
 packadd! onedark.vim "add onedark colorcheme may not work
 colorscheme onedark  "set colorsheme as onedark
 
-"set colorscheme of lightline may nor work
+"set colorscheme of lightline
 "let g:lightline = {
 "  \ 'colorscheme': 'onedark',
 "  \ }
+      "\ 'colorscheme': 'onedark',
+      "\ 'colorscheme': 'material',
+      "\ 'colorscheme': 'darcula',
 
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'deus',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste', 'gitbranch' ],
       \             [ 'readonly', 'filename', 'modified',  ] ],
@@ -84,6 +78,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ }
 let g:NERDTreeGitStatusUseNerdFonts = 1
 
+"configure youcompleteme to close after finished
 let g:ycm_autoclose_preview_window_after_completion=1
 
 
@@ -114,6 +109,7 @@ let g:prettier#autoformat = 1
 let g:prettier#config#tab_width = 4
 let g:prettier#config#print_width = 80
 let g:prettier#config#use_tabs = 'true'
+"autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql,*.cpp,*.h PrettierAsync
 "autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql PrettierAsync
 map <C-s> <Plug>(Prettier)
 
@@ -157,8 +153,8 @@ let g:NERDTreeColorMapCustom = {
 set encoding=utf8
 set guifont=FiraCode\ Nerd\ Font\ 11
 "auto-close-tag configuration
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md'
-let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md,*.tsx,*.ts,*.jsx'
+let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md,*.tsx,*.ts,*.jsx'
 
 "markdown-preview
 "let g:mkdp_refresh_slow = 1
