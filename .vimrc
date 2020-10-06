@@ -58,7 +58,6 @@ let g:prettier#autoformat = 1
 let g:prettier#config#tab_width = 4
 let g:prettier#config#print_width = 80
 let g:prettier#config#use_tabs = 'true'
-"autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql,*.cpp,*.h PrettierAsync
 "autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql PrettierAsync
 map <C-s> <Plug>(Prettier)
 
@@ -173,8 +172,8 @@ let g:lightline = {
 	  \ },
       \ }
 
-# COLORSCHEME
 
+" Colorschemes
 packadd! onedark.vim "add onedark colorcheme may not work
 colorscheme onedark  "set colorsheme as onedark
 
