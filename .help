@@ -162,3 +162,9 @@ ranger 								# open text-based file-manage
 nmcli device						# lists all device
 nmcli device wifi					# list wifi networks
 nmcli device connct wlp1s0 -ask		# connect to wifi and enter password
+
+[picom]								# to blur stuff
+picom &								# run picom in background
+
+[i3-gaps]
+Alt+Shift+G							# open up the gap manager
