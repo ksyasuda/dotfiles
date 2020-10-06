@@ -21,7 +21,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
 
-
 map <C-c> :nohls<Cr>
 
 "map open NERDTree to F2
@@ -31,34 +30,6 @@ if !has('gui_running')
 endif
 
 set termguicolors
-
-packadd! onedark.vim "add onedark colorcheme may not work
-colorscheme onedark  "set colorsheme as onedark
-
-"set colorscheme of lightline
-"let g:lightline = {
-"  \ 'colorscheme': 'onedark',
-"  \ }
-      "\ 'colorscheme': 'onedark',
-      "\ 'colorscheme': 'material',
-      "\ 'colorscheme': 'darcula',
-
-let g:lightline = {
-      \ 'colorscheme': 'deus',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste', 'gitbranch' ],
-      \             [ 'readonly', 'filename', 'modified',  ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'charvaluehex', 'fileformat', 'fileencoding', 'filetype' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'gitbranch#name'
-      \ },
-	  \ 'component': {
-	  \   'charhexvalue': '0x%B'
-	  \ },
-      \ }
 
 set noshowmode "disable default vim insert text at bottom
 let g:onedark_termcolors=256 "enable 256 colors
@@ -81,28 +52,6 @@ let g:NERDTreeGitStatusUseNerdFonts = 1
 "configure youcompleteme to close after finished
 let g:ycm_autoclose_preview_window_after_completion=1
 
-
-"VIMPLUG START 
-"nerdtree-git for git integratino to nerdtree prob doesn't work
-"youcompleteme for autocompletion
-"vim-polyglot for better syntax hilighting
-"Auto pairs for paren/bracket pairing
-"sqlutilities
-call plug#begin('~/.vim/plugged')
-
-Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
-
-Plug 'valloric/youcompleteme'
-
-Plug 'sheerun/vim-polyglot'
-
-Plug 'vim-scripts/SQLUtilities'
-
-Plug 'ryanoasis/vim-devicons'
-
-Plug 'itchyny/vim-gitbranch'
-
-call plug#end()
 
 packloadall "enable prettier
 let g:prettier#autoformat = 1
@@ -168,3 +117,72 @@ set guifont=FiraCode\ Nerd\ Font\ 11
 
 "Show coding time today in vim
 map <C-`> <Esc>:WakaTimeToday<CR>
+
+"VIMPLUG START 
+"nerdtree-git for git integratino to nerdtree prob doesn't work
+"youcompleteme for autocompletion
+"vim-polyglot for better syntax hilighting
+"Auto pairs for paren/bracket pairing
+"sqlutilities
+call plug#begin('~/.vim/plugged')
+
+Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'valloric/youcompleteme'
+
+Plug 'sheerun/vim-polyglot'
+
+Plug 'vim-scripts/SQLUtilities'
+
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'itchyny/vim-gitbranch'
+
+Plug 'morhetz/gruvbox'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'ntk148v/vim-horizon'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'tomasr/molokai'
+
+call plug#end()
+
+
+"set colorscheme of lightline
+"let g:lightline = {
+"  \ 'colorscheme': 'onedark',
+"  \ }
+      "\ 'colorscheme': 'onedark',
+      "\ 'colorscheme': 'material',
+      "\ 'colorscheme': 'darcula',
+
+let g:lightline = {
+      \ 'colorscheme': 'deus',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste', 'gitbranch' ],
+      \             [ 'readonly', 'filename', 'modified',  ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'charvaluehex', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+	  \ 'component': {
+	  \   'charhexvalue': '0x%B'
+	  \ },
+      \ }
+
+# COLORSCHEME
+
+packadd! onedark.vim "add onedark colorcheme may not work
+colorscheme onedark  "set colorsheme as onedark
+
+"Tokyo night conifg
+let g:tokyonight_style='night'
+let g:tokyonight_transparent_background=1
+let g:tokyonight_enable_italic=1
+
+"let g:molokai_original = 1
+let g:rehash256 = 1
+
