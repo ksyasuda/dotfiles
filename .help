@@ -168,3 +168,14 @@ picom &								# run picom in background
 
 [i3-gaps]
 Alt+Shift+G							# open up the gap manager
+
+[feg]								# set background image
+feh --bg-scale ~/OneDrive/Pictures/what\ are\ the\ chances.jpg
+
+[xprop]								# run xprops
+Click on window and get information from the Window Manager about it
+
+[Linux startup]
+1. Set dektop with ./.fehbg
+2. run picom to set transparency in the background with picom &
+3. Alt+Shift+g to go into gap mode and press i for inner gap and + 4 times
