@@ -179,3 +179,7 @@ Click on window and get information from the Window Manager about it
 1. Set dektop with ./.fehbg
 2. run picom to set transparency in the background with picom &
 3. Alt+Shift+g to go into gap mode and press i for inner gap and + 4 times
+
+[redirect stderr]
+append 2>/dev/null to redirect filehandle 2 (STDERR) to /dev/null, which is
+literally nothing
