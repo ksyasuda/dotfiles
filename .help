@@ -183,3 +183,9 @@ Click on window and get information from the Window Manager about it
 [redirect stderr]
 append 2>/dev/null to redirect filehandle 2 (STDERR) to /dev/null, which is
 literally nothing
+[network-manager]
+nmtui								# launch network manager gui
+nmcli								# network manager cli
+
+[konsole]
+Ctrl+Shift+m						# toggle the menu bar on konsole
