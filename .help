@@ -92,6 +92,8 @@ grip <markdown file>				# open a live-server for markdown file
 [pacman]
 pacman -Rs package_name				# remove a package and all deps not needed
 pacman -Rsu package_name			# if above command does not work
+sudo pacman -Qtdq					# check for orphaned packages
+sudo pacman -Rns $(pacman -Qtdq)	# remove orphaned packages
 
 [ctags]
 ctags -R .							# index the current directory with ctags
@@ -189,3 +191,9 @@ nmcli								# network manager cli
 
 [konsole]
 Ctrl+Shift+m						# toggle the menu bar on konsole
+
+[pfetch]
+another fetch command
+
+[cava]
+cava								# sound visualizer
