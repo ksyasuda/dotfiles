@@ -197,3 +197,12 @@ another fetch command
 
 [cava]
 cava								# sound visualizer
+
+[disown]							# remove a job from table of active jobs
+disown %[jobnumber] 				# removes active job [jobnumber]
+
+[jobs]
+jobs -l								# list all active jobs
+
+[ps]
+ps -l								# list active processes
