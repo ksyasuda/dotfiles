@@ -176,9 +176,9 @@ PS1="\033[1;35m[ \d | \@ ]\033[0m\e[44;0;36m[\w]\e[1;92m\$(git_branch)\e[44;0;91
 # Add this line at the end of .bashrc:
 #((_ble_bash)) && ble-attach
 
-export GTK_IM_MODULE=ibus
+export GTK_IM_MODULE=xim
 export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
+export QT_IM_MODULE=xim
 
 
 export NVM_DIR="$HOME/.nvm"

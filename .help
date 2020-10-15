@@ -39,6 +39,7 @@ curl --verbose probably also -v		# run with verbose
 
 [nmap]
 nmap [web-address]					# see what ports are open at address
+sudo lsof -i -P -n | grep LISTEN    # listen for stuff on ports
 
 [byobu]
 F2									# create a new window
