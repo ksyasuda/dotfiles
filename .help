@@ -207,3 +207,13 @@ jobs -l								# list all active jobs
 
 [ps]
 ps -l								# list active processes
+
+[doom emacs]
+Meta=SPACE
+Meta+.                              # open file search
+Meta+b                              # open buffer settings
+Meta+b+m                            # set bookmark
+Meta+Return                         # open bookmark selector
+Meta+h                              # help
+Meta+t                              # toggle menu
+Meta+o+p                            # toggle nerdtree like thing
