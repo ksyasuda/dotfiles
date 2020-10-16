@@ -217,3 +217,6 @@ Meta+Return                         # open bookmark selector
 Meta+h                              # help
 Meta+t                              # toggle menu
 Meta+o+p                            # toggle nerdtree like thing
+
+[bpytop]
+New and improved bashtop written in python
