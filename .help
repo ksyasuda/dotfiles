@@ -91,6 +91,7 @@ grip <markdown file>				# open a live-server for markdown file
 [desc](link "hover title")			# inline-style link with hover title
 
 [pacman]
+pacman -Syu --ignore=[package name]	# update/upgrade all but packages in ignore
 pacman -Rs package_name				# remove a package and all deps not needed
 pacman -Rsu package_name			# if above command does not work
 sudo pacman -Qtdq					# check for orphaned packages
@@ -220,3 +221,10 @@ Meta+o+p                            # toggle nerdtree like thing
 
 [bpytop]
 New and improved bashtop written in python
+
+[w3m]
+w3m www.google.com					# terminal web browswer
+
+[bluetoothctl]
+scan on								# turn on scan
+pair [device id]					# connect to device

@@ -17,6 +17,7 @@ alias ys='yarn start'
 alias yi='yarn install'
 alias fd='firebase deploy'
 alias c=clear
+alias btop=bpytop
 
 # This is specific to WSL 2. If the WSL 2 VM goes rogue and decides not to free
 # up memory, this command will free your memory after about 20-30 seconds.
