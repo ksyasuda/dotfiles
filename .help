@@ -228,3 +228,7 @@ w3m www.google.com					# terminal web browswer
 [bluetoothctl]
 scan on								# turn on scan
 pair [device id]					# connect to device
+
+[locate]
+locate [filename]					# return path to file
+suda updatedb -v					# update the db with new files
