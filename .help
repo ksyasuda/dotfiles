@@ -232,3 +232,6 @@ pair [device id]					# connect to device
 [locate]
 locate [filename]					# return path to file
 suda updatedb -v					# update the db with new files
+
+[md2pdf]
+md2pdf <markdown file>				# convert markdown file to pdf
