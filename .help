@@ -96,6 +96,7 @@ pacman -Rs package_name				# remove a package and all deps not needed
 pacman -Rsu package_name			# if above command does not work
 sudo pacman -Qtdq					# check for orphaned packages
 sudo pacman -Rns $(pacman -Qtdq)	# remove orphaned packages
+suda rm /var/lib/pacman/db.lck		# remove the lock file for pacman
 
 [ctags]
 ctags -R .							# index the current directory with ctags
@@ -179,13 +180,12 @@ feh --bg-scale ~/OneDrive/Pictures/what\ are\ the\ chances.jpg
 [xprop]								# run xprops
 Click on window and get information from the Window Manager about it
 
-[Linux startup]
-1. Set dektop with ./.fehbg
-2. run picom to set transparency in the background with picom &
-3. Alt+Shift+g to go into gap mode and press i for inner gap and + 4 times
+[Linux keybindings]
+Alt+Shift+g to go into gap mode and press i for inner gap and + 4 times
 
 [redirect stderr]
 append 2>/dev/null to redirect filehandle 2 (STDERR) to /dev/null, which is
+
 literally nothing
 [network-manager]
 nmtui								# launch network manager gui
@@ -235,3 +235,15 @@ suda updatedb -v					# update the db with new files
 
 [md2pdf]
 md2pdf <markdown file>				# convert markdown file to pdf
+
+[glow]
+# Read from file
+glow README.md
+# Read from stdin
+glow -
+# Fetch README from GitHub / GitLab
+glow github.com/charmbracelet/glow
+# Fetch markdown from HTTP
+glow https://host.tld/file.md
+# stash document from cli
+glow stash README.md

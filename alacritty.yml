@@ -242,7 +242,7 @@ colors:
     cursor:     '#82aaff' # syntax-cursor-color
   selection:
     text:       CellForeground
-    background: '#282c34' # syntax-selection-color
+    background: '#6d6d6d' # syntax-selection-color
   normal:
     black:      '#464b55'
     red:        '#e06c75'
