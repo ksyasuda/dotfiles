@@ -247,3 +247,6 @@ glow github.com/charmbracelet/glow
 glow https://host.tld/file.md
 # stash document from cli
 glow stash README.md
+
+[Notifications]
+/usr/share/dbus-1/services

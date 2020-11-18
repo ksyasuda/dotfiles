@@ -90,7 +90,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting web-search colored-man-pages zsh-256color)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting web-search colored-man-pages zsh-256color wakatime)
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/plugins/git/git.plugin.zsh
@@ -227,21 +227,31 @@ LS_COLORS="di=42;1;95:*.mp3=1;32;41:fi=0;91:*.c=1;96:*.js=1;93:*.h=1;35:ex=1;32:
 
 PS2="===>"
 
+# Add gem to PATH
 export PATH=$PATH:/home/sudacode/.gem/ruby/2.7.0/bin
 
-
+# Add go to PATH
 export PATH=$PATH:/home/sudacode/go/bin
 alias freud='cd /home/sudacode/'
+
+# Add yarn to PATH
 export PATH="$PATH:`yarn global bin`"
 
 export TERM=xterm-256color
 
 export PATH=$PATH:/home/sudacode/.local/bin
 
+export PATH=$PATH:/home/sudacode/.emacs.d/bin
+
 #Enable tab completions for flags in colorls
 source $(dirname $(gem which colorls))/tab_complete.sh
 
+export PATH="$PATH:/usr/lib/jvm/java-8-openjdk/bin"
+
+export GTK_IM_MODULE=xim
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=xim
+ibus-daemon -drx
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-neofetch
