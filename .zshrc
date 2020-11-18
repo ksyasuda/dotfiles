@@ -90,7 +90,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting web-search colored-man-pages k zsh-256color)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting web-search colored-man-pages zsh-256color)
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/plugins/git/git.plugin.zsh
@@ -243,3 +243,5 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+neofetch
