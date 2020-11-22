@@ -212,12 +212,38 @@ POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='033'
 #POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='black'
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='197'
 #POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='black'
-# -----------------------------------END OF POWERLEVEL CONFIG------------------
+#! -----------------------------------END OF POWERLEVEL CONFIG------------------
 
 #LS_COLORS="di=42;1;30:*.mp3=1;32;41:fi=0;91:*.c=1;96:*.js=1;93:*.h=1;35:ex=1;32:*.html=1;36:*.cpp=1;96:*.txt=1;91:*Makefile=1;35:*.css=1;36:*.as=1;36:ow=1;42;93:*.ttf=0;91:*.png=0;91:*README=4;31:*.jpg=0;91:*.md=4;31:*.json=1;94:*.as=0;35:*.obj=0;35:*.correct=1;94"
 
 
 LS_COLORS="di=42;1;95:*.mp3=1;32;41:fi=0;91:*.c=1;96:*.js=1;93:*.h=1;35:ex=1;32:*.html=1;36:*.cpp=1;96:*.txt=1;91:*Makefile=1;35:*.css=1;36:*.as=1;36:ow=1;42;93:*.ttf=0;91:*.png=0;91:*README=4;31:*.jpg=0;91:*.md=4;31:*.json=1;94:*.as=0;35:*.obj=0;35:*.correct=1;94"
+
+# # ex = EXtractor for all kinds of archives
+# # usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *.deb)       ar x $1      ;;
+      *.tar.xz)    tar xf $1    ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
 
 
 ### for use with xserver... causes screenfetch and neofetch to not work unless xserver is running
@@ -237,20 +263,29 @@ alias freud='cd /home/sudacode/'
 # Add yarn to PATH
 export PATH="$PATH:`yarn global bin`"
 
+# set terminal color to 256 color
 export TERM=xterm-256color
 
 export PATH=$PATH:/home/sudacode/.local/bin
 
+# add emacs to path
 export PATH=$PATH:/home/sudacode/.emacs.d/bin
 
 #Enable tab completions for flags in colorls
 source $(dirname $(gem which colorls))/tab_complete.sh
 
+# add pythno to PATH
+export PATH="$PATH:/usr/bin/python"
+
+# add jdk-8 to path
 export PATH="$PATH:/usr/lib/jvm/java-8-openjdk/bin"
 
-export GTK_IM_MODULE=xim
+## ibus config
+export GTK_IM_MODULE=ibus
+# will make libreoffice work
 export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=xim
+export QT_IM_MODULE=ibus
+export QT4_IM_MODULE=xim
 ibus-daemon -drx
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

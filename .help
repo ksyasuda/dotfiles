@@ -250,3 +250,10 @@ glow stash README.md
 
 [Notifications]
 /usr/share/dbus-1/services
+
+[crontab]
+crontab -e							# edit the cronjobs for user
+crontab -l							# list all cronjobs
+
+[youtube-dl]
+youtube-dl [url]					# download a video from youtube

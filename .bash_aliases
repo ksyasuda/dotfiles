@@ -19,6 +19,27 @@ alias fd='firebase deploy'
 alias c=clear
 alias btop=bpytop
 alias open='xdg-open'
+# colored grep
+alias grep='grep --color=auto'
+# use all cores
+alias uac="sh ~/.bin/main/000*"
+# update yay
+alias upall="yay -Syu --noconfirm"
+# so I don't gotta type suda pacman every time
+alias pacman="suda pacman"
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias update-fc="suda fc-cache -fv"
+# youtube-dl
+alias yta-best="youtube-dl --extract-audio --audio-format best"
+alias yta-mp3="youtube-dl --extract-audio --audio-format mp3"
+alias ytv-best="youtube-dl -f bestvideo+bestaudio"
+# cleanup orphaned packages
+alias cleanup='suda pacman -Rns $(pacman -Qtdq)'
+# get error message from journalctl
+alias jctl='journalctl -p 3 -xb'
+
+
+
 
 # This is specific to WSL 2. If the WSL 2 VM goes rogue and decides not to free
 # up memory, this command will free your memory after about 20-30 seconds.
