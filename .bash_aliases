@@ -19,8 +19,6 @@ alias fd='firebase deploy'
 alias c=clear
 alias btop=bpytop
 alias open='xdg-open'
-# colored grep
-alias grep='grep --color=auto'
 # use all cores
 alias uac="sh ~/.bin/main/000*"
 # update yay

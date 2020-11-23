@@ -257,3 +257,6 @@ crontab -l							# list all cronjobs
 
 [youtube-dl]
 youtube-dl [url]					# download a video from youtube
+
+[pgrep]
+pgrep -af name]						# searches for process with name [name]
