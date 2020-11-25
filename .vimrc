@@ -11,30 +11,65 @@ set hlsearch			"hilight search
 set smartcase			"set search case based on search query
 set noerrorbells		"no error bells
 set title				"set title of vim based on file open
+set mouse=a
 
+set encoding=UTF-8
+set guifont=FiraCode\ Nerd\ Font\ 18
+
+"VIMPLUG START
+"nerdtree-git for git integratino to nerdtree prob doesn't work
+"youcompleteme for autocompletion
+"vim-polyglot for better syntax hilighting
+"Auto pairs for paren/bracket pairing
+"sqlutilities
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'valloric/youcompleteme'
+
+Plug 'sheerun/vim-polyglot'
+
+Plug 'vim-scripts/SQLUtilities'
+
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'itchyny/vim-gitbranch'
+
+Plug 'ap/vim-css-color'
+
+Plug 'wakatime/vim-wakatime'
+
+Plug 'jbgutierrez/vim-better-comments'
+
+Plug 'itchyny/lightline.vim'
+
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+Plug 'morhetz/gruvbox'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'ntk148v/vim-horizon'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'tomasr/molokai'
+Plug 'joshdick/onedark.vim'
+
+call plug#end()
+
+let g:wakatime_PythonBinary = '/usr/bin/python'  " (Default: 'python')
+let g:wakatime_OverrideCommandPrefix = '/usr/bin/wakatime'  " (Default: '')
+
+"Markdown preview
 let vim_markdown_preview_github=1
 let vim_markdown_preview_toggle=1
 let vim_markdown_preview_temp_file=0
 
+"NERDTREE
 autocmd vimenter * NERDTree "launch nerdtree on vim start
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
-
-map <C-c> :nohls<Cr>
-
-"map open NERDTree to F2
-map <F2> :NERDTreeToggle<CR>
-if !has('gui_running')
-  set t_Co=256
-endif
-
-set termguicolors
-
-set noshowmode "disable default vim insert text at bottom
-let g:onedark_termcolors=256 "enable 256 colors
-
-"NERDTreeGit !might not work
 let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'✹',
                 \ 'Staged'    :'✚',
@@ -48,21 +83,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Unknown'   :'?',
                 \ }
 let g:NERDTreeGitStatusUseNerdFonts = 1
-
-"configure youcompleteme to close after finished
-let g:ycm_autoclose_preview_window_after_completion=1
-
-
-packloadall "enable prettier
-let g:prettier#autoformat = 1
-let g:prettier#config#tab_width = 4
-let g:prettier#config#print_width = 80
-let g:prettier#config#use_tabs = 'true'
-"autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.xml,*.sql PrettierAsync
-map <C-s> <Plug>(Prettier)
-
-"map Ctrl+c to nohls
-map<C-c> :nohls<CR>
 
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
@@ -98,63 +118,15 @@ let g:NERDTreeColorMapCustom = {
     \ "Clean"     : ["#87939A", "NONE", "NONE", "NONE"]
     \ }
 
-set encoding=utf8
-set guifont=FiraCode\ Nerd\ Font\ 11
-"auto-close-tag configuration
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.md,*.tsx,*.ts,*.jsx'
-let g:closetag_xhtml_filenames = '*.html,*.xhtml,*.jsx,*.js,*.md,*.tsx,*.ts,*.jsx'
+"PRETTIER
+packloadall "enable prettier
+let g:prettier#autoformat = 1
+let g:prettier#config#tab_width = 4
+let g:prettier#config#print_width = 80
+let g:prettier#config#use_tabs = 'true'
 
-"markdown-preview
-"let g:mkdp_refresh_slow = 1
-"let g:mkdp_markdown_css = '/home/sudacode/.vim/github-markdown.css'
-let vim_markdown_preview_github=1
-let vim_markdown_preview_toggle=2 "set images to load on write
-let vim_markdown_preview_temp_file=1 "remove the rendered preview
-
-set encoding=UTF-8
-set guifont=FiraCode\ Nerd\ Font\ 11
-
-"Show coding time today in vim
-map <C-`> <Esc>:WakaTimeToday<CR>
-
-"VIMPLUG START 
-"nerdtree-git for git integratino to nerdtree prob doesn't work
-"youcompleteme for autocompletion
-"vim-polyglot for better syntax hilighting
-"Auto pairs for paren/bracket pairing
-"sqlutilities
-call plug#begin('~/.vim/plugged')
-
-Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
-
-Plug 'valloric/youcompleteme'
-
-Plug 'sheerun/vim-polyglot'
-
-Plug 'vim-scripts/SQLUtilities'
-
-Plug 'ryanoasis/vim-devicons'
-
-Plug 'itchyny/vim-gitbranch'
-
-Plug 'morhetz/gruvbox'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'ntk148v/vim-horizon'
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'tomasr/molokai'
-
-call plug#end()
-
-
-"set colorscheme of lightline
-"let g:lightline = {
-"  \ 'colorscheme': 'onedark',
-"  \ }
-      "\ 'colorscheme': 'onedark',
-      "\ 'colorscheme': 'material',
-      "\ 'colorscheme': 'darcula',
-
+"LIGHTLINE
+" 'onedark', 'material', 'darcula'
 let g:lightline = {
       \ 'colorscheme': 'deus',
       \ 'active': {
@@ -172,8 +144,15 @@ let g:lightline = {
 	  \ },
       \ }
 
+"COLORSCHEME
+if !has('gui_running')
+  set t_Co=256
+endif
 
-" Colorschemes
+set termguicolors
+
+set noshowmode "disable default vim insert text at bottom
+let g:onedark_termcolors=256 "enable 256 colors
 packadd! onedark.vim "add onedark colorcheme may not work
 colorscheme onedark  "set colorsheme as onedark
 
@@ -185,3 +164,10 @@ let g:tokyonight_enable_italic=1
 "let g:molokai_original = 1
 let g:rehash256 = 1
 
+"KEYBINDINGS
+map <C-c> :nohls<Cr>
+map <F2> :NERDTreeToggle<CR>
+map <C-s> <Plug>(Prettier)
+map<C-c> :nohls<CR>
+map <C-`> <Esc>:WakaTimeToday<CR>
+map <F5> :!{}
