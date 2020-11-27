@@ -1,4 +1,4 @@
-# Dotfiles
+# Sudacode Dotfiles
 
-A collection of my Linux (Arch btw) dotfiles and some additional configuration
-for applications like ***doom emacs***
+A collection of my Linux (Arch btw) dotfiles such as `.zshrc`, `.vimrc`,
+and `.bash_aliases`
