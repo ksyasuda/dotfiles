@@ -47,6 +47,8 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
+Plug 'jiangmiao/auto-pairs'
+
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ntk148v/vim-horizon'
