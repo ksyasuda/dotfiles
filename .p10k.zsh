@@ -59,14 +59,14 @@
     nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
     nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
-    # node_version          # node.js version
+    node_version          # node.js version
     # go_version            # go version (https://golang.org)
     # rust_version          # rustc version (https://www.rust-lang.org)
     # dotnet_version        # .NET version (https://dotnet.microsoft.com)
     # php_version           # php version (https://www.php.net/)
     # laravel_version       # laravel php framework version (https://laravel.com/)
-    # java_version          # java version (https://www.java.com/)
-    # package               # name@version from package.json (https://docs.npmjs.com/files/package.json)
+    java_version          # java version (https://www.java.com/)
+    package               # name@version from package.json (https://docs.npmjs.com/files/package.json)
     rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
     rvm                     # ruby version from rvm (https://rvm.io)
     fvm                     # flutter version management (https://github.com/leoafarias/fvm)
@@ -92,13 +92,14 @@
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
     # vpn_ip                # virtual private network indicator
+    todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     # load                  # CPU load
     # disk_usage            # disk usage
     # ram                   # free RAM
     # swap                  # used swap
-    todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+    battery
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
@@ -801,13 +802,13 @@
   typeset -g POWERLEVEL9K_LOAD_WHICH=5
   # Load color when load is under 50%.
   # typeset -g POWERLEVEL9K_LOAD_NORMAL_FOREGROUND=0
-  # typeset -g POWERLEVEL9K_LOAD_NORMAL_BACKGROUND=2
+  typeset -g POWERLEVEL9K_LOAD_NORMAL_BACKGROUND=2
   # Load color when load is between 50% and 70%.
   # typeset -g POWERLEVEL9K_LOAD_WARNING_FOREGROUND=0
-  # typeset -g POWERLEVEL9K_LOAD_WARNING_BACKGROUND=3
+  typeset -g POWERLEVEL9K_LOAD_WARNING_BACKGROUND=3
   # Load color when load is over 70%.
   # typeset -g POWERLEVEL9K_LOAD_CRITICAL_FOREGROUND=0
-  # typeset -g POWERLEVEL9K_LOAD_CRITICAL_BACKGROUND=1
+  typeset -g POWERLEVEL9K_LOAD_CRITICAL_BACKGROUND=1
   # Custom icon.
   # typeset -g POWERLEVEL9K_LOAD_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
@@ -1553,7 +1554,7 @@
   typeset -g POWERLEVEL9K_BATTERY_STAGES='\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
   # Don't show the remaining time to charge/discharge.
   typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
-  # typeset -g POWERLEVEL9K_BATTERY_BACKGROUND=0
+  typeset -g POWERLEVEL9K_BATTERY_BACKGROUND=4
 
   #####################################[ wifi: wifi speed ]#####################################
   # WiFi color.
