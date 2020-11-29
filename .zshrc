@@ -258,6 +258,7 @@ export PATH=$PATH:/home/sudacode/.gem/ruby/2.7.0/bin
 
 # Add go to PATH
 export PATH=$PATH:/home/sudacode/go/bin
+
 alias freud='cd /home/sudacode/'
 
 # Add yarn to PATH
@@ -288,5 +289,9 @@ export QT_IM_MODULE=ibus
 export QT4_IM_MODULE=xim
 ibus-daemon -drx
 
+export GTK_IM_MODULE_FILE=/etc/gtk-2.0/gtk.immodules
+export GTK_IM_MODULE_FILE=/usr/lib/gtk-3.0/3.0.0/immodules.cache
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+neofetch

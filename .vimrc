@@ -1,4 +1,4 @@
-syntax on				"enable syntax hilighting 
+syntax on
 set laststatus=2		"enable status bar
 set number				"turn on line numbers
 set colorcolumn=80		"set color column on col 80
@@ -11,17 +11,10 @@ set hlsearch			"hilight search
 set smartcase			"set search case based on search query
 set noerrorbells		"no error bells
 set title				"set title of vim based on file open
-set mouse=a
+set mouse=a             " enable mouse in vim
 
 set encoding=UTF-8
 set guifont=FiraCode\ Nerd\ Font\ 18
-
-"VIMPLUG START
-"nerdtree-git for git integratino to nerdtree prob doesn't work
-"youcompleteme for autocompletion
-"vim-polyglot for better syntax hilighting
-"Auto pairs for paren/bracket pairing
-"sqlutilities
 
 call plug#begin('~/.vim/plugged')
 
@@ -48,6 +41,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 Plug 'jiangmiao/auto-pairs'
+
+Plug 'mhinz/vim-startify'
 
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }

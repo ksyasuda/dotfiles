@@ -152,7 +152,7 @@ LS_COLORS="di=42;1;95:*.mp3=1;32;41:fi=0;91:*.c=1;96:*.js=1;93:*.h=1;35:ex=1;32:
 export VISUAL=vim
 PS2="\e[41;94m===>\e[0m \e[91m"
 
-export PATH=$PATH:/home/ksyasuda/go/bin
+# export PATH=$PATH:/home/ksyasuda/go/bin
 
 
 PS1="\033[1;35m[ \d | \@ ]\033[0m\e[44;0;36m[\w]\e[1;92m\$(git_branch)\e[44;0;91m\n$: "	
@@ -176,9 +176,9 @@ PS1="\033[1;35m[ \d | \@ ]\033[0m\e[44;0;36m[\w]\e[1;92m\$(git_branch)\e[44;0;91
 # Add this line at the end of .bashrc:
 #((_ble_bash)) && ble-attach
 
-export GTK_IM_MODULE=xim
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=xim
+# export GTK_IM_MODULE=xim
+# export XMODIFIERS=@im=ibus
+# export QT_IM_MODULE=xim
 
 
 export NVM_DIR="$HOME/.nvm"
