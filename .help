@@ -267,3 +267,11 @@ pidof [name]						# gets the pid of the process with [name]
 
 [gparted]
 Use application gparted to format USB drive
+
+[getopts]
+while getopts "vk" arg; do
+	case $arg in
+		v) verbose=1;;
+		k) justKillIt=1;;
+	esac
+done
