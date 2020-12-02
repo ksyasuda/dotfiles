@@ -267,3 +267,7 @@ pidof [name]						# gets the pid of the process with [name]
 
 [gparted]
 Use application gparted to format USB drive
+
+[conky]
+# launch conky set up by Arcolinux team
+conky -c /home/sudacode/.config/conky/AUR-ArcoLinux-Plasma.conkyrc
