@@ -275,3 +275,7 @@ while getopts "vk" arg; do
 		k) justKillIt=1;;
 	esac
 done
+
+[conky]
+# launch conky set up by Arcolinux team
+conky -c /home/sudacode/.config/conky/AUR-ArcoLinux-Plasma.conkyrc
