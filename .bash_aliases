@@ -24,6 +24,11 @@ alias yb='yarn build'
 alias ys='yarn start'
 alias yi='yarn install'
 
+## Git
+alias gs='git status'
+alias gc='git commit'
+alias gp='git push'
+
 ## Helpful
 alias count='ls -l | wc -l'
 # use all cores
@@ -50,3 +55,4 @@ alias c=clear
 alias btop=bpytop
 alias fd='firebase deploy'
 alias open='xdg-open'
+alias glow='glow -p'

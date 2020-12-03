@@ -82,6 +82,7 @@ cw									# delete word and enter insert mode
 ^d									# go down half a page
 s/<pattern>/<replace>				# search and replace for pattern
 V [select line]						# Use visual line to select multiple lines
+:g/^$/d								# Remove all blank lines from a file
 
 [markdown]
 grip <markdown file>				# open a live-server for markdown file
@@ -286,3 +287,8 @@ ahmia.fi							# dark web search engine
 [jq]
 jq < [file]							# json prettier
 cat file.json | jq					# pretty
+
+[github api]
+curl -i -u your_username:your_token https://api.github.com/user
+curl -i -H "Authorization: token <access token>" \
+    https://api.github.com/user/repos
