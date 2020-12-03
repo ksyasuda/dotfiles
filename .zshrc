@@ -10,7 +10,9 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/sudacode/.oh-my-zsh"
-export PATH="$HOME/scripts:$PATH"
+# export PATH="$HOME/scripts:$PATH"
+# source the files in scripts directory
+source ~/scripts
 export EDITOR=vim
 
 if [ -f ~/.bash_aliases ]; then

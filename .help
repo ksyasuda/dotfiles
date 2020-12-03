@@ -279,3 +279,10 @@ done
 [conky]
 # launch conky set up by Arcolinux team
 conky -c /home/sudacode/.config/conky/AUR-ArcoLinux-Plasma.conkyrc
+
+[tor]
+ahmia.fi							# dark web search engine
+
+[jq]
+jq < [file]							# json prettier
+cat file.json | jq					# pretty
