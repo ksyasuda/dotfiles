@@ -1,45 +1,52 @@
-alias eecs='cd /home/sudacode/projects/eecs370/project4/'
+## SUDA
+alias suda='sudo'
+
+## Colorls
 alias lca='colorls -A --sd -X'
 alias lc='colorls --sd -X'
 alias lcl='colorls --sd -Xl'
 alias lcla='colorls -lA --sd -X'
 alias lcal='colorls -lA --sd -X'
-alias scripts='cd /home/sudacode/scripts'
-alias freud='cd /home/sudacode/'
-alias expl='explorer.exe .'
+
+## Pacman/Yay
+# update without noconfirm
 alias spu='sudo pacman -Syu'
-alias suda='sudo'
-# alias grip='python -m grip'
-alias count='ls -l | wc -l'
+# cuz i'm lazy
+alias pacman="suda pacman"
+# cleanup orphaned packages
+alias cleanup='suda pacman -Rns $(pacman -Qtdq)'
+# update yay
+alias upall="yay -Syu --noconfirm"
+
+## Npm/Yarn
 alias ns='npm start'
 alias yb='yarn build'
 alias ys='yarn start'
 alias yi='yarn install'
-alias fd='firebase deploy'
-alias c=clear
-alias btop=bpytop
-alias open='xdg-open'
+
+## Helpful
+alias count='ls -l | wc -l'
 # use all cores
 alias uac="sh ~/.bin/main/000*"
-# update yay
-alias upall="yay -Syu --noconfirm"
-# so I don't gotta type suda pacman every time
-alias pacman="suda pacman"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias update-fc="suda fc-cache -fv"
-# youtube-dl
+
+## youtube-dl
 alias yta-best="youtube-dl --extract-audio --audio-format best"
 alias yta-mp3="youtube-dl --extract-audio --audio-format mp3"
 alias ytv-best="youtube-dl -f bestvideo+bestaudio"
-# cleanup orphaned packages
-alias cleanup='suda pacman -Rns $(pacman -Qtdq)'
 # get error message from journalctl
 alias jctl='journalctl -p 3 -xb'
 
-
-
-
-# This is specific to WSL 2. If the WSL 2 VM goes rogue and decides not to free
-# up memory, this command will free your memory after about 20-30 seconds.
-#   Details: https://github.com/microsoft/WSL/issues/4166#issuecomment-628493643
+## This is specific to WSL 2. If the WSL 2 VM goes rogue and decides not to free
+## up memory, this command will free your memory after about 20-30 seconds.
+## Details: https://github.com/microsoft/WSL/issues/4166#issuecomment-628493643
 alias drop_cache="sudo sh -c \"echo 3 >'/proc/sys/vm/drop_caches' && swapoff -a && swapon -a && printf '\n%s\n' 'Ram-cache and Swap Cleared'\""
+
+## I'm Lazy
+alias scripts='cd /home/sudacode/scripts'
+alias freud='cd /home/sudacode/'
+alias c=clear
+alias btop=bpytop
+alias fd='firebase deploy'
+alias open='xdg-open'
