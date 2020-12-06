@@ -292,3 +292,8 @@ cat file.json | jq					# pretty
 curl -i -u your_username:your_token https://api.github.com/user
 curl -i -H "Authorization: token <access token>" \
     https://api.github.com/user/repos
+
+[conky]
+Ctrl+Mod(alt)+c						# toggle conky
+Ctrl+Mod+PgUp						# next conky
+Ctrl+Mod+PgDn						# prev conky
