@@ -54,6 +54,9 @@ Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
+let g:ycm_autoclose_preview_window_after_insertion = 1 "close ycm help window after accepting option
+" let g:ycm_autoclose_preview_window_after_completion = 1
+
 let g:wakatime_PythonBinary = '/usr/bin/python'  " (Default: 'python')
 let g:wakatime_OverrideCommandPrefix = '/usr/bin/wakatime'  " (Default: '')
 
