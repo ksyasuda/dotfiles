@@ -292,6 +292,9 @@ ibus-daemon -drx
 export GTK_IM_MODULE_FILE=/etc/gtk-2.0/gtk.immodules
 export GTK_IM_MODULE_FILE=/usr/lib/gtk-3.0/3.0.0/immodules.cache
 
+
+export VISUAL=vim
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # ~/scripts/random_starter.sh
