@@ -36,6 +36,7 @@ alias uac="sh ~/.bin/main/000*"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias update-fc="suda fc-cache -fv"
 alias unlock-db='suda rm /var/lib/pacman/db.lck'
+alias dn='deactivate_node'
 
 ## youtube-dl
 alias yta-best="youtube-dl --extract-audio --audio-format best"
