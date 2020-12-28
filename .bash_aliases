@@ -37,7 +37,7 @@ alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias update-fc="suda fc-cache -fv"
 alias unlock-db='suda rm /var/lib/pacman/db.lck'
 alias dn='deactivate_node'
-alias logs='ksystemlog'
+alias logs='ksystemlog &'
 
 ## youtube-dl
 alias yta-best="youtube-dl --extract-audio --audio-format best"
