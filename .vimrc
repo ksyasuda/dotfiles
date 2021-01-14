@@ -161,7 +161,7 @@ let g:NERDTreeColorMapCustom = {
 "PRETTIER
 packloadall "enable prettier
 let g:prettier#autoformat = 1
-let g:prettier#config#tab_width = 4
+let g:prettier#config#tab_width = 2
 let g:prettier#config#print_width = 80
 let g:prettier#config#use_tabs = 'true'
 
