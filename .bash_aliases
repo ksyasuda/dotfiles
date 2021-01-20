@@ -59,3 +59,4 @@ alias btop=bpytop
 alias fd='firebase deploy'
 alias open='xdg-open'
 alias glow='glow -p'
+alias jn='jupyter-notebook'
