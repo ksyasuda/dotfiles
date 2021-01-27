@@ -295,6 +295,9 @@ export GTK_IM_MODULE_FILE=/usr/lib/gtk-3.0/3.0.0/immodules.cache
 
 export VISUAL=vim
 
+# source the Xmodmap file to get custom keybindings
+[[ -f ~/.Xmodmap  ]] && xmodmap ~/.Xmodmap
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # ~/scripts/random_starter.sh
