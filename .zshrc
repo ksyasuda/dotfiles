@@ -90,7 +90,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting colored-man-pages zsh-256color wakatime vi-mode)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting colored-man-pages zsh-256color vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/plugins/git/git.plugin.zsh
