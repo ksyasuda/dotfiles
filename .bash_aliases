@@ -41,7 +41,7 @@ alias logs='ksystemlog &'
 
 ## youtube-dl
 alias yta-best="youtube-dl --extract-audio --audio-format best"
-alias yta-mp3="youtube-dl --extract-audio --audio-format mp3"
+alias yta-mp3="youtube-dl --extract-audio --audio-format mp3 --config-location ~/.config/youtube-dl/config.audio"
 alias ytv-best="youtube-dl -f bestvideo+bestaudio"
 # get error message from journalctl
 alias jctl='journalctl -p 3 -xb'
@@ -63,3 +63,5 @@ alias jn='jupyter-notebook'
 alias blog='cd ~/projects/React/github/Sudacode-Blog-V3'
 alias venv='source env/bin/activate'
 alias eecs492='cd ~/projects/eecs492'
+alias music=ncmpcpp
+alias reload='source ~/.zshrc'
