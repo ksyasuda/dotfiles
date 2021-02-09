@@ -207,6 +207,7 @@ let g:rehash256 = 1
 "KEYBINDINGS
 map <C-c> :nohls<Cr>
 map <F2> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 map <C-s> <Plug>(Prettier)
 map<C-c> :nohls<CR>
 map <C-`> <Esc>:WakaTimeToday<CR>
