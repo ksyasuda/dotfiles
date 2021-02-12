@@ -46,6 +46,8 @@ Plug 'mhinz/vim-startify'
 
 Plug 'alvan/vim-closetag'
 
+Plug 'MathSquared/vim-python-sql'
+
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ntk148v/vim-horizon'
