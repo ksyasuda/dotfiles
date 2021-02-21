@@ -214,3 +214,4 @@ map <C-s> <Plug>(Prettier)
 map<C-c> :nohls<CR>
 map <C-`> <Esc>:WakaTimeToday<CR>
 map <F5> :!{}
+
