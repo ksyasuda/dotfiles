@@ -66,3 +66,4 @@ alias eecs492='cd ~/projects/eecs492'
 alias music=ncmpcpp
 alias reload='source ~/.zshrc'
 alias golf='cd ~/projects/Python/SudacodeGolf/ && source env/bin/activate'
+alias prolog=swipl
