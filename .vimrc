@@ -212,5 +212,5 @@ map <F2> :NERDTreeToggle<CR>
 map <C-n> :NERDTreeToggle<CR>
 map <C-s> <Plug>(Prettier)
 map<C-c> :nohls<CR>
-map <C-`> <Esc>:WakaTimeToday<CR>
-map <F5> :!{}
+map <F5> :!
+map <C-T> :ter++close<CR>
