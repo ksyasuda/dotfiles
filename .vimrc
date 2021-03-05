@@ -34,8 +34,6 @@ Plug 'ap/vim-css-color'
 
 Plug 'wakatime/vim-wakatime'
 
-Plug 'jbgutierrez/vim-better-comments'
-
 Plug 'itchyny/lightline.vim'
 
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -47,6 +45,8 @@ Plug 'mhinz/vim-startify'
 Plug 'alvan/vim-closetag'
 
 Plug 'MathSquared/vim-python-sql'
+
+Plug 'MaxMEllon/vim-jsx-pretty'
 
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -163,9 +163,6 @@ let g:NERDTreeColorMapCustom = {
 "PRETTIER
 packloadall "enable prettier
 let g:prettier#autoformat = 1
-let g:prettier#config#tab_width = 2
-let g:prettier#config#print_width = 80
-let g:prettier#config#use_tabs = 'true'
 
 "LIGHTLINE
 " 'onedark', 'material', 'darcula'
