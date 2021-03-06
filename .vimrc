@@ -211,3 +211,4 @@ map <C-s> <Plug>(Prettier)
 map<C-c> :nohls<CR>
 map <F5> :!
 map <C-T> :ter++close<CR>
+map <C-D> :YcmShowDetailedDiagnostic<CR>
