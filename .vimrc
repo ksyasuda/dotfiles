@@ -163,6 +163,7 @@ let g:NERDTreeColorMapCustom = {
 "PRETTIER
 packloadall "enable prettier
 let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
 
 "LIGHTLINE
 " 'onedark', 'material', 'darcula'
@@ -211,3 +212,4 @@ map <C-s> <Plug>(Prettier)
 map<C-c> :nohls<CR>
 map <F5> :!
 map <C-T> :ter++close<CR>
+map <C-D> :YcmShowDetailedDiagnostic<CR>
