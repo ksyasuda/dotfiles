@@ -67,3 +67,5 @@ alias music=ncmpcpp
 alias reload='source ~/.zshrc'
 alias golf='cd ~/projects/Python/SudacodeGolf/ && source env/bin/activate'
 alias prolog=swipl
+alias chess='cd ~/projects/React/github/sudacode-chess/'
+alias temps='curl wttr.in'
