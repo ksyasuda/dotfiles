@@ -48,6 +48,10 @@ Plug 'MathSquared/vim-python-sql'
 
 Plug 'MaxMEllon/vim-jsx-pretty'
 
+Plug 'tpope/vim-commentary'
+
+Plug 'dense-analysis/ale'
+
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ntk148v/vim-horizon'
@@ -58,6 +62,9 @@ Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
+"ale
+" Fix files with prettier, and then ESLint.
+let b:ale_fixers = ['prettier', 'eslint']
 
 "vim-closetag
 " filenames like *.xml, *.html, *.xhtml, ...
@@ -91,6 +98,7 @@ let g:closetag_regions = {
     \ 'javascript.jsx': 'jsxRegion',
     \ }
 
+
 let g:ycm_autoclose_preview_window_after_insertion = 1 "close ycm help window after accepting option
 " let g:ycm_autoclose_preview_window_after_completion = 1
 
@@ -103,11 +111,12 @@ let vim_markdown_preview_toggle=1
 let vim_markdown_preview_temp_file=0
 
 "NERDTREE
-autocmd vimenter * NERDTree "launch nerdtree on vim start
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd vimenter * NERDTree "launch nerdtree on vim start
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 let NERDTreeShowHidden=0 "show hidden files use capital 'I' to toggle
-autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
+"autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
+
 let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'✹',
                 \ 'Staged'    :'✚',
@@ -131,6 +140,7 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
+
 
 "NERDTree hilight files by extension
 call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#282c34')
