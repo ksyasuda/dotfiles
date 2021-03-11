@@ -112,7 +112,7 @@ let vim_markdown_preview_temp_file=0
 
 "NERDTREE
 "autocmd vimenter * NERDTree "launch nerdtree on vim start
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeWinPos = "right" "open nerdtree on the right
 let NERDTreeShowHidden=0 "show hidden files use capital 'I' to toggle
 "autocmd VimEnter * wincmd p "put the cursor back into the editing pane on start
