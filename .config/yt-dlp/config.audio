@@ -1,0 +1,18 @@
+# Lines starting with # are comments
+
+# Always extract audio
+-x
+
+# Do not copy the mtime
+--no-mtime
+
+--embed-thumbnail
+--abort-on-error
+
+# Geo Restriction
+--geo-bypass
+
+--add-metadata
+
+# Save all videos under YouTube directory in your home directory
+-o ~/temp/%(title)s-%(album)s.%(ext)s
