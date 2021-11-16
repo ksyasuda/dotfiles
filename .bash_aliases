@@ -87,3 +87,5 @@ alias bar='~/SudacodeRice/scripts/launch_desktop.sh'
 
 ## Rice
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias pushdots='config push senpai'
+alias cs='config status'
