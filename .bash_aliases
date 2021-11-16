@@ -86,4 +86,4 @@ alias chrome='google-chrome-beta --profile-directory="Profile 1" &>/dev/null &'
 alias bar='~/SudacodeRice/scripts/launch_desktop.sh'
 
 ## Rice
-alias config='/usr/bin/git --git-dir=$HOME/rice/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
