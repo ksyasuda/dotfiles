@@ -287,3 +287,6 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # # <<< conda initialize <<<
 
 # neofetch
+
+# added by Snowflake SnowSQL installer
+export PATH=/home/sudacode/.bin:$PATH
