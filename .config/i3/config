@@ -382,6 +382,8 @@ exec --no-startup-id i3-msg 'workspace 6: '; exec emacsclient -n -c -e '(+vte
 
 exec --no-startup-id /usr/bin/emacs --daemon
 
+exec --no-startup-id /usr/bin/SVPManager
+
 exec_always --no-startup-id /usr/bin/alternating_layouts.py
 
 # ------------------------------------------------------------------------------
@@ -539,7 +541,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 
 # using plasma's logout screen instead of i3's
-# bindsym $mod+Shift+e exec --no-startup-id qdbus-qt5 org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
+bindsym $mod+Shift+q exec --no-startup-id qdbus-qt5 org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
 
 
 # start rofi tabswitcher
