@@ -92,6 +92,18 @@
 
 (lsp-ui-mode)
 
+;; (require 'lsp-python-ms)
+;; (use-package lsp-python-ms
+;;   :init (setq lsp-python-ms-auto-install-server t)
+;;   :hook (python-mode . (lambda ()
+;;                           (require 'lsp-python-ms)
+;;                           (lsp))))  ; or lsp-deferred
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
 
 (use-package! lsp-mode
   :commands lsp
@@ -108,8 +120,8 @@
 ;; (setq python-shell-interpreter "ipython"
 ;;         python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
 
-(setf (lsp-session-folders-blacklist (lsp-session)) nil)
-(lsp--persist-session (lsp-session))
+; (setf (lsp-session-folders-blacklist (lsp-session)) nil)
+; (lsp--persist-session (lsp-session))
 
 (advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))
 
@@ -135,37 +147,6 @@
     (all-the-icons-dired-mode 1)))
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
-;;; peep dired
-(use-package! peep-dired
-  :ensure t
-  :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
-  :bind (:map dired-mode-map
-              ("P" . peep-dired)))
-
-
-;;; company tabnine
-(use-package! company-tabnine)
-
-(after! company
-    (setq +lsp-company-backends '(company-tabnine :separate company-capf company-yasnippet company-shell))
-    (setq company-show-quick-access t)
-    (setq company-idle-delay 0)
-    (define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)
-)
-
-(require 'company-tabnine)
-
-;;; lsp jedi
-
-(use-package! lsp-jedi)
-  ; :config
-  ; (with-eval-after-load "lsp-mode"
-  ;   ;; (add-to-list 'lsp-disabled-clients 'pyls)
-  ;   (add-to-list 'lsp-enabled-clients 'jedi)
-  ;   (add-to-list 'lsp-enabled-clients 'lsp)))
-
-;; (defun my/python-mode-hook ()
-;;   (add-to-list 'company-backends 'company-jedi))
 
 ;;; enacs application framework
 (use-package eaf
@@ -213,7 +194,7 @@
 
 (after! vterm
   (set-popup-rule! "*doom:vterm-popup:main" :size 0.45 :vslot -4 :select t :quit nil :ttl 0 :side 'right)
-  )
+)
 
 ;;; gif screencast
 
@@ -226,15 +207,8 @@
 ;;; HOOKS
 
 
-(add-hook 'python-mode 'python-pylint)
-; (add-hook 'sh-mode-hook 'flycheck-mode)
-
-; enable bash language server
-;(setq lsp-auto-configure nil)
-
 (add-hook 'org-mode-hook #'org-bullets-mode)
 (add-hook 'before-save-hook 'py-isort-before-save)
-
 
 ;;; SQL MODE
 
@@ -268,10 +242,6 @@
 
   ; (add-hook 'sql-interactive-mode-hook 'my-sql-save-history-hook 'upercase-sql-keywords')
 
-;;; mozc for emacs
-(require 'mozc)
-(setq default-input-method "japanese-mozc")
-
 (after! flyspell
   (setq flyspell-lazy-idle-seconds 2))
 
@@ -286,13 +256,6 @@
 (setq browse-url-browser-function 'browse-url-firefox)
 
 
-(setq jedi:setup-keys t)
-(setq jedi:complete-on-dot t)
-(setq jedi:environment-virtualenv ["source", "./env/bin/activate"])
-(setq jedi:key-complete ["Tab"])
-(setq format-all-debug nil)
-(setq projectile-project-search-path '("~/Projects/" "~/Work/Projects/"))
-
 (setq lsp-ui-doc-position 'bottom)
 (setq lsp-ui-doc-alignment 'window)
 (setq lsp-ui-doc-max-height 25)
@@ -301,11 +264,12 @@
 (setq lsp-ui-peek-mode t)
 (setq lsp-ui-peek-enable t)
 (setq lsp-ui-doc-delay 0.25)
-(setq company-quickhelp-delay 0.5)
-(setq lsp-jedi-python-library-directories '(/usr .env/lib/))
 
 (setq eaf-terminal-font-size 12)
 (setq lsp-treemacs-sync-mode 1)
+
+;; (setq lsp-python-ms-auto-install-server t)
+(add-hook 'python-mode-hook #'lsp) ; or lsp-deferred
 
 
 (after! 'treemacs
