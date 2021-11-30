@@ -493,7 +493,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 
-bindsym $mod+Shift+a exec /usr/local/bin/aniwrapper
+bindsym $mod+Shift+a exec /usr/bin/aniwrapper
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -547,6 +547,9 @@ bindsym $mod+Shift+q exec --no-startup-id qdbus-qt5 org.kde.ksmserver /KSMServer
 # start rofi tabswitcher
 bindsym Mod1+ISO_Left_Tab exec --no-startup-id $HOME/SudacodeRice/scripts/tabswitcher.sh
 # changer borders
+
+smart_borders on
+
 bindsym Mod1+y border pixel 7
 bindsym Mod1+u border none
 
