@@ -7,7 +7,7 @@ alias lcl='colorls --sd --gs -Xl'
 alias lcla='colorls -lA --sd --gs -X'
 alias lcal='colorls -lA --sd --gs -X'
 alias lct='colorls --gs --tree=5'
-alias ls='colorls --sd -Xl'
+alias ls='colorls --sd -X'
 
 ## Pacman/Yay
 # update without noconfirm

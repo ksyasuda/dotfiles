@@ -10,7 +10,7 @@ fi
 #If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export ZSH="/home/sudacode/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/scripts:$PATH"
 export PATH="$HOME/Work/scripts:$PATH"
 export PATH="$HOME/Work/rofi/:$PATH"
