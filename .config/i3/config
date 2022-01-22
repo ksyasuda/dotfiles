@@ -337,7 +337,7 @@ for_window [class="VirtualBox Machine"] floating enable, border none;
 # # Assign and move spotify to workspace 9
 # for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws2
 
-assign [class="^firefox$"] $ws1
+# assign [class="^firefox$"] $ws1
 # assign [class="^Google-chrome-beta$"] $ws1
 assign [class="^Code$"] $ws7
 assign [class="^discord$"] $ws10
@@ -378,9 +378,9 @@ exec --no-startup-id /usr/bin/variety --profile /home/sudacode/.config/variety/
 
 # exec --no-startup-id i3-msg 'workspace 3: ﱘ'; exec $term -e ncmpcpp
 exec --no-startup-id i3-msg 'workspace 4: '; exec emc ~/org/
-exec --no-startup-id i3-msg 'workspace 6: '; exec emacsclient -n -c -e '(+vterm/here nil)'
+# exec --no-startup-id i3-msg 'workspace 6: '; exec emacsclient -n -c -e '(+vterm/here nil)'
 
-exec --no-startup-id /usr/bin/emacs --daemon
+# exec --no-startup-id /usr/bin/emacs --daemon
 
 exec --no-startup-id /usr/bin/SVPManager
 

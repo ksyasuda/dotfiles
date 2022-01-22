@@ -1,4 +1,10 @@
+alias sudo='sudo -v; sudo '
 alias suda='sudo'
+
+alias qutebrowser="qutebrowser --qt-arg stylesheet $HOME/.local/share/qutebrowser/fix-tooltips.qss"
+
+# Aniwrapper
+alias aniwrapper='aniwrapper -qD 144'
 
 ## Colorls
 alias lca='colorls -A --sd --gs -X'
@@ -24,9 +30,10 @@ alias ys='yarn start'
 alias yi='yarn install'
 
 ## Git
-alias gs='git status'
-alias gc='git commit'
-alias gp='git push'
+alias gst='git status'
+alias gcmt='git commit'
+alias gpush='git push'
+alias gpull='git pull'
 
 ## Helpful
 alias count='ls -l | wc -l'
@@ -78,12 +85,17 @@ alias ncdu='ncdu --color dark'
 alias updates='~/SudacodeRice/scripts/package-updates'
 alias aliases='cat ~/.bash_aliases'
 alias sauce='~/Videos/sauce/'
-alias aniedit='emc ~/Projects/Scripts/ani-cli/'
 alias wmedit='emc ~/.config/i3/config'
-alias ani='cd $HOME/Projects/Scripts/ani-cli'
+alias ani='cd $HOME/Projects/Scripts/aniwrapper'
 alias archvm='VBoxManage startvm "arch-vm"'
 alias chrome='google-chrome-beta --profile-directory="Profile 1" &>/dev/null &'
 alias bar='~/SudacodeRice/scripts/launch_desktop.sh'
+alias nord=nordvpn
+alias lzd=lazydocker
+alias lzg=lazygit
+alias mounts='sudo ~/scripts/mounts.sh'
+alias dc=docker-compose # sorry calculator
+alias vimconf='vim ~/.vimrc'
 
 ## Rice
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'

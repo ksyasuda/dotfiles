@@ -1,65 +1,23 @@
---[[
-lvim is the global options object
-
-Linters should be
-filled in as strings with either
-a global executable or a path to
-an executable
-]]
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
-
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "onedarker"
-
--- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
--- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
--- unmap a default keymapping
--- lvim.keys.normal_mode["<C-Up>"] = ""
--- edit a default keymapping
--- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
-
--- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
--- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
--- local _, actions = pcall(require, "telescope.actions")
--- lvim.builtin.telescope.defaults.mappings = {
---   -- for input mode
---   i = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---     ["<C-n>"] = actions.cycle_history_next,
---     ["<C-p>"] = actions.cycle_history_prev,
---   },
---   -- for normal mode
---   n = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---   },
--- }
-
--- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnostics" },
--- }
-
--- TODO: User Config for predefined plugins
--- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
+-- Nvimtree
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 1
-
--- if you don't want all the parsers change this to a table of the ones you want
+lvim.builtin.nvimtree.hide_dotfiles = 0
+-- Treesitter
+lvim.builtin.treesitter.highlight.enabled = true
+lvim.builtin.treesitter.matchup.enable = true
+lvim.builtin.treesitter.context_commentstring.enable = true
+local components = require("lvim.core.lualine.components")
+lvim.builtin.lualine.sections.lualine_a = { "mode" }
+lvim.builtin.lualine.sections.lualine_c = { components.python_env }
+lvim.builtin.lualine.sections.lualine_y = { components.location, }
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
   "c",
@@ -72,82 +30,82 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "dockerfile",
+  "markdown",
+  "make"
 }
-
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
--- generic LSP settings
-
--- ---@usage disable automatic installation of servers
--- lvim.lsp.automatic_servers_installation = false
-
--- ---@usage Select which servers should be configured manually. Requires `:LvimCacheRest` to take effect.
--- See the full default list `:lua print(vim.inspect(lvim.lsp.override))`
--- vim.list_extend(lvim.lsp.override, { "pyright" })
-
--- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("jedi-language-server", opts)
-
--- you can set a custom on_attach function that will be used for all the language servers
--- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
--- lvim.lsp.on_attach_callback = function(client, bufnr)
---   local function buf_set_option(...)
---     vim.api.nvim_buf_set_option(bufnr, ...)
---   end
---   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
--- end
--- you can overwrite the null_ls setup table (useful for setting the root_dir function)
--- lvim.lsp.null_ls.setup = {
---   root_dir = require("lspconfig").util.root_pattern("Makefile", ".git", "node_modules"),
--- }
--- or if you need something more advanced
--- lvim.lsp.null_ls.setup.root_dir = function(fname)
---   if vim.bo.filetype == "javascript" then
---     return require("lspconfig/util").root_pattern("Makefile", ".git", "node_modules")(fname)
---       or require("lspconfig/util").path.dirname(fname)
---   elseif vim.bo.filetype == "php" then
---     return require("lspconfig/util").root_pattern("Makefile", ".git", "composer.json")(fname) or vim.fn.getcwd()
---   else
---     return require("lspconfig/util").root_pattern("Makefile", ".git")(fname) or require("lspconfig/util").path.dirname(fname)
---   end
--- end
-
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- formatters
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   { exe = "black", filetypes = { "python" } },
   { exe = "isort", filetypes = { "python" } },
   {
     exe = "prettier",
-    ---@usage arguments to pass to the formatter
-    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
     args = { "--print-with", "80" },
-    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
     filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
   },
+  { exe = "shfmt", filetypes = { "shell", "sh" }, args = {'-i=0','-sr', '-ci'} },
 }
 
--- -- set additional linters
+-- linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
   { exe = "flake8", filetypes = { "python" } },
   {
     exe = "shellcheck",
-    fieltypes = { "shell" },
-    ---@usage arguments to pass to the formatter
-    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-    args = { "--severity", "warning" },
+    filetypes = { "shell", "sh" },
   },
-  -- {
-  --   exe = "codespell",
-  --   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-  --   filetypes = { "javascript", "python" },
-  -- },
 }
 
+-- lsp signature cfg
+local lsp_signature_cfg = {
+  debug = false, -- set to true to enable debug logging
+  -- log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
+  -- default is  ~/.cache/nvim/lsp_signature.log
+  verbose = false, -- show debug line number
+
+  bind = true, -- This is mandatory, otherwise border config won't get registered.
+               -- If you want to hook lspsaga or other signature handler, pls set to false
+  doc_lines = 10, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
+                 -- set to 0 if you DO NOT want any API comments be shown
+                 -- This setting only take effect in insert mode, it does not affect signature help in normal
+                 -- mode, 10 by default
+
+  floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
+
+  floating_window_above_cur_line = true, -- try to place the floating above the current line when possible Note:
+  -- will set to true when fully tested, set to false will use whichever side has more space
+  -- this setting will be helpful if you do not want the PUM and floating win overlap
+  fix_pos = true,  -- set to true, the floating window will not auto-close until finish all parameters
+  hint_enable = true, -- virtual hint enable
+  hint_prefix = "🐼 ",  -- Panda for parameter
+  hint_scheme = "String",
+  use_lspsaga = false,  -- set to true if you want to use lspsaga popup
+  hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
+  max_height = 20, -- max height of signature floating_window, if content is more than max_height, you can scroll down
+                   -- to view the hiding contents
+  max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+  handler_opts = {
+    border = "rounded"   -- double, rounded, single, shadow, none
+  },
+
+  always_trigger = true, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
+
+  auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
+  extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
+  zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
+
+  padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
+
+  transparency = 85, -- disabled by default, allow floating win transparent value 1~100
+  shadow_blend = 36, -- if you using shadow as border use this set the opacity
+  shadow_guibg = 'Black', -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
+  timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
+  toggle_key = '<C-l>' -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
+}
 
 -- Additional Plugins
 lvim.plugins = {
@@ -163,14 +121,14 @@ lvim.plugins = {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
     config = function()
-      require "lsp_signature".setup()
+      require "lsp_signature".setup(lsp_signature_cfg)
     end
   },
   {
     "rmagatti/goto-preview",
     config = function()
     require('goto-preview').setup {
-          width = 120; -- Width of the floating window
+          width = 100; -- Width of the floating window
           height = 25; -- Height of the floating window
           default_mappings = false; -- Bind default mappings
           debug = false; -- Print debug information
@@ -184,7 +142,33 @@ lvim.plugins = {
       }
     end
   },
-  'ethanholz/nvim-lastplace',
+  {
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    ft = "markdown",
+    config = function()
+      vim.g.mkdp_auto_start = 1
+    end,
+  },
+  {
+		"ethanholz/nvim-lastplace",
+		event = "BufRead",
+		config = function()
+			require("nvim-lastplace").setup({
+				lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+				lastplace_ignore_filetype = {
+					"gitcommit", "gitrebase", "svn", "hgcommit",
+				},
+				lastplace_open_folds = true,
+			})
+		end,
+	},
+  'wakatime/vim-wakatime',
+  'ap/vim-css-color',
+  "p00f/nvim-ts-rainbow",
+  "tzachar/cmp-tabnine",
+  "onsails/lspkind-nvim",
+  "rcarriga/nvim-notify",
 }
 
 -- add jedi_language_server
@@ -192,22 +176,105 @@ lvim.lsp.templates_dir = join_paths(get_runtime_dir(), "after", "ftplugin")
 local opts = {}
 require("lvim.lsp.manager").setup("jedi_language_server", opts)
 
--- lsp_signature
-require "lsp_signature".setup()
+require'lspconfig'.sqlls.setup{}
 
-require'nvim-lastplace'.setup {
-    lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
-    lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
-    lastplace_open_folds = true
+-- add bashls
+-- require('lspconfig').bashls.setup{}
+require'lspconfig'.bashls.setup{}
+
+-- Setup nvim-cmp.
+local cmp = require'cmp'
+-- cmp.setup({
+--   snippet = {
+--     -- REQUIRED - you must specify a snippet engine
+--     expand = function(args)
+--       -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+--       require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+--       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+--       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+--     end,
+--   },
+--   mapping = {
+--     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+--     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+--     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+--     ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+--     ['<C-e>'] = cmp.mapping({
+--       i = cmp.mapping.abort(),
+--       c = cmp.mapping.close(),
+--     }),
+--     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+--   },
+--   sources = cmp.config.sources({
+--     { name = 'nvim_lsp' },
+--   }, {
+--     { name = 'buffer' },
+--   })
+-- })
+
+-- -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+-- cmp.setup.cmdline('/', {
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })
+
+-- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- cmp.setup.cmdline(':', {
+--   sources = cmp.config.sources({
+--     { name = 'path' }
+--   }, {
+--     { name = 'cmdline' }
+--   })
+-- })
+
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig')['jedi_language_server'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['sqls'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['bashls'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['dockerls'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['jsonls'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['sumneko_lua'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['pyright'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['dotls'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['yamlls'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['html'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['eslint'].setup {
+  capabilities = capabilities
 }
 
+-- lsp_signature
+-- require'lsp_signature'.setup(lsp_signature_cfg)
+
 require('goto-preview').setup {
-    width = 220; -- Width of the floating window
-    height = 55; -- Height of the floating window
+    width = 150; -- Width of the floating window
+    height = 45; -- Height of the floating window
     border = {"↖", "─" ,"┐", "│", "┘", "─", "└", "│"}; -- Border characters of the floating window
     default_mappings = true; -- Bind default mappings
     debug = false; -- Print debug information
-    opacity = nil; -- 0-100 opacity level of the floating window where 100 is fully transparent.
+    opacity = 55; -- 0-100 opacity level of the floating window where 100 is fully transparent.
     resizing_mappings = false; -- Binds arrow keys to resizing the floating window.
     post_open_hook = nil; -- A function taking two arguments, a buffer and a window to be ran as a hook.
     -- These two configs can also be passed down to the goto-preview definition and implementation calls for one off "peak" functionality.
@@ -224,7 +291,7 @@ vim.g.symbols_outline = {
     auto_preview = true,
     position = 'right',
     relative_width = true,
-    width = 25,
+    width = 30,
     show_numbers = false,
     show_relative_numbers = false,
     show_symbol_details = true,
@@ -270,9 +337,116 @@ vim.g.symbols_outline = {
     }
 }
 
-vim.api.nvim_set_keymap("n", "ss", "<cmd>SymbolsOutline<CR>", {noremap=true})
+-- lsp-kind
+local lspkind = require('lspkind')
+cmp.setup {
+  formatting = {
+    format = lspkind.cmp_format({
+      with_text = false, -- do not show text alongside icons
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      -- before = function (entry, vim_item)
+      --   ...
+      -- return vim_item
+      -- end
+    })
+  }
+}
 
+-- tabnine
+require'cmp'.setup {
+ sources = {
+ 	{ name = 'cmp_tabnine' },
+ },
+}
+
+local source_mapping = {
+	buffer = "[Buffer]",
+	nvim_lsp = "[LSP]",
+	nvim_lua = "[Lua]",
+	cmp_tabnine = "[TN]",
+	path = "[Path]",
+}
+
+-- tabnine
+require'cmp'.setup {
+	sources = {
+		{ name = 'cmp_tabnine' },
+	},
+	formatting = {
+		format = function(entry, vim_item)
+			vim_item.kind = lspkind.presets.default[vim_item.kind]
+			local menu = source_mapping[entry.source.name]
+			if entry.source.name == 'cmp_tabnine' then
+				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+					menu = entry.completion_item.data.detail .. ' ' .. menu
+				end
+				vim_item.kind = ''
+			end
+			vim_item.menu = menu
+			return vim_item
+		end
+	},
+}
+
+-- nvim-notify
+-- require("notify").setup({
+--   -- Animation style (see below for details)
+--   stages = "fade_in_slide_out",
+
+--   -- Function called when a new window is opened, use for changing win settings/config
+--   on_open = nil,
+
+--   -- Function called when a window is closed
+--   on_close = nil,
+
+--   -- Render function for notifications. See notify-render()
+--   render = "default",
+
+--   -- Default timeout for notifications
+--   timeout = 4000,
+
+--   -- For stages that change opacity this is treated as the highlight behind the window
+--   -- Set this to either a highlight group, an RGB hex value e.g. "#000000" or a function returning an RGB code for dynamic values
+--   background_colour = "Normal",
+
+--   -- Minimum width for notification windows
+--   minimum_width = 50,
+
+--   -- Icons for the different levels
+--   icons = {
+--     ERROR = "",
+--     WARN = "",
+--     INFO = "",
+--     DEBUG = "",
+--     TRACE = "✎",
+--   },
+-- })
+
+-- custom settings
+local init_custom_options = function()
+  local custom_options = {
+    relativenumber = true,
+    colorcolumn = "80",
+    scrolloff = 10,
+    ignorecase = true,
+    smartcase = true,
+    tabstop = 4,
+    shiftwidth = 4,
+    undofile = false,
+  }
+
+  for k, v in pairs(custom_options) do
+    vim.opt[k] = v
+  end
+end
+init_custom_options()
+
+-- move windows to right side of screen
+vim.cmd("autocmd! BufEnter * if &ft ==# 'help' | wincmd L | endif")
+vim.cmd("autocmd! BufEnter * if &ft ==# 'man' | wincmd L | endif")
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- lvim.autocommands.custom_groups = {
 --   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
