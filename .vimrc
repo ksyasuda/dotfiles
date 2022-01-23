@@ -6,9 +6,11 @@ set tw=80
 set shiftwidth=4
 set tabstop=4
 set autoindent
+set ignorecase
+set smartcase
+set incsearch
 set smartindent
 set hlsearch
-set smartcase
 set ignorecase
 set noerrorbells
 set title
@@ -40,20 +42,18 @@ Plug 'pechorin/any-jump.vim'
 Plug 'tpope/vim-commentary'
 Plug 'shime/vim-livedown'
 Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
-Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'ap/vim-css-color'
+Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
 Plug 'wakatime/vim-wakatime'
-Plug 'itchyny/vim-gitbranch'
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'maximbaz/lightline-ale'
-" On-demand lazy load
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+Plug 'osyo-manga/vim-over'
 " colorschemes
 Plug 'joshdick/onedark.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main'  }
@@ -518,21 +518,29 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>cd  :<C-u>CocCommand fzf-preview.CocDiagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>ce  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>cc  :<C-u>CocCommand fzf-preview.CommandPallete<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <space>co  :<C-u>CocOutline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <space>cs  :<C-u>CocCommand fzf-preview.BufferLines<cr>
 " Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>cj  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>cp  :<C-u>CocListResume<CR>
+" show references with fzf
+nnoremap <silent><nowait> <space>cr  :<C-u>CocCommand fzf-preview.CocReferences<CR>
+" show implementations with fzf
+nnoremap <leader><nowait> <space>ci  :<C-U>CocCommand fzf-preview.CocImplementations<Cr>
+"------------------------------------------------------------------------------
+"which key
+"------------------------------------------------------------------------------
+set timeoutlen=400
 
 "------------------------------------------------------------------------------
 " custom commands
@@ -542,7 +550,10 @@ command! Config execute ":e ~/.vimrc"
 "------------------------------------------------------------------------------
 "KEYBINDINGS
 "------------------------------------------------------------------------------
-let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 map <F5> :!
 map <C-n> :NERDTreeToggle<CR>
 map <C-l> :LivedownToggle<CR>
@@ -550,12 +561,16 @@ nnoremap <C-T> :wa<CR>:vertical botright term ++kill=term<CR>
 " fzf
 nmap // :CocCommand fzf-preview.Lines<CR>
 nmap ?? :CocCommand fzf-preview.BufferLines<CR>
+" search fzf, refs, impls, defs
 nmap <leader>sf :FZF<CR>
 " buffers
 nmap <leader>bb :CocCommand fzf-preview.Buffers<CR>
 nmap <leader>bB :CocCommand fzf-preview.AllBuffers<CR>
 nmap <leader>bk :bdelete<CR>
-nmap <leader>bn :enew<CR>
+nmap <leader>bn :bnext<CR>
+nmap <leader>bp :bprev<CR>
+map <C-J> :bnext<CR>
+map <C-K> :bprev<CR>
 " git
 nmap <leader>gg :tab term ++close lazygit<CR>
 nmap <leader>gc :CocCommand fzf-preview.GitLogs<CR>
@@ -569,14 +584,8 @@ nmap <leader>j  :AnyJump<CR>
 " toggle/open
 nmap <leader>on  :NERDTreeToggle<CR>
 nmap <leader>ot  :vertical botright ter<CR>
-" peek/preview
-nmap <leader>pr :CocCommand fzf-preview.CocReferences<Cr>
-nmap <leader>pi :CocCommand fzf-preview.CocImplementations<Cr>
-nmap <leader>pd :CocCommand fzf-preview.CocDiagnostics<Cr>
+nmap <leader>oo :OverCommandLine<CR>
 " search
 nmap <leader>sc :nohls<Cr>
 "toggle coc outline
-nmap <leader>to :CocOutline<CR>
-"which key
-set timeoutlen=400
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+noremap <leader>to :CocOutline<CR>
