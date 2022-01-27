@@ -27,8 +27,8 @@ window:
   # must be at least `2`, while using a value of `0` for columns and lines will
   # fall back to the window manager's recommended size.
   dimensions:
-    columns: 180
-    lines: 45
+    columns: 150
+    lines: 42
 
   # Window position (changes require restart)
   #
@@ -46,8 +46,8 @@ window:
     x: 0
     y: 0
 
-    # Spread additional padding evenly around the terminal content.
-    # dynamic_padding: true
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: true
 
   # Window decorations
   #
@@ -58,7 +58,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  #decorations: full
+  decorations: none
 
   # Startup Mode (changes require restart)
   #
@@ -80,11 +80,11 @@ window.dynamic_title:
   true
 
   # Window class (Linux/BSD only):
-  #class:
+class:
   # Application instance name
-  #instance: Alacritty
+  instance: Alacritty
   # General application class
-  #general: Alacritty
+  general: Alacritty
 
   # GTK theme variant (Linux/BSD only)
   #
@@ -99,6 +99,10 @@ gtk_theme_variant: dark
 
 # Scrolling distance multiplier.
 #multiplier: 3
+
+dpi:
+  x: 144.000000
+  y: 144.000000
 
 # Font configuration
 font:
@@ -149,7 +153,7 @@ font:
   # style: Bold Italic
 
   # Point size
-  size: 12.0
+  size: 11.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -389,7 +393,7 @@ vi_mode_style: Block
 #thickness: 0.15
 
 # Live config reload (changes require restart)
-#live_config_reload: true
+live_config_reload: true
 
 # Shell
 #
@@ -401,8 +405,8 @@ vi_mode_style: Block
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-#shell:
-#  program: /bin/bash
+shell:
+  program: /usr/bin/zsh
 #  args:
 #    - --login
 
@@ -423,7 +427,7 @@ vi_mode_style: Block
 #winpty_backend: false
 
 # Send ESC (\x1b) before characters when alt is pressed.
-#alt_send_esc: true
+alt_send_esc: true
 
 #mouse:
 # Click settings
@@ -788,7 +792,6 @@ mouse_bindings:
 #   - Info
 #   - Debug
 #   - Trace
-#log_level: Warn
-
+log_level: Warn
 # Print all received window events.
 #print_events: false

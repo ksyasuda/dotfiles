@@ -5,7 +5,6 @@ configuration {
     display-drun:	"Apps";
     drun-display-format: "{name}";
     dpi: 144;
-    markup: true;
 }
 
 
@@ -111,9 +110,6 @@ window {
     border: 0;
     background-color: var(background);
     border-radius: 12px;
-    /* fullscreen: true; */
-    /* width: 85%; */
-    /* height: 75%; */
     width: 90%;
     height: 85%;
     anchor: center;
@@ -164,8 +160,7 @@ entry {
 }
 
 inputbar {
-    padding: 7px;
-    margin: 7px;
+    margin: 11px 0px 5px 0px;
     spacing: 0;
     text-color: var(normal-foreground);
     children: [ prompt,textbox-prompt-colon,entry,case-indicator ];

@@ -1,4 +1,5 @@
 syntax on
+set noshowmode "disable default vim insert text at bottom
 set laststatus=2
 set number
 set colorcolumn=80
@@ -23,6 +24,7 @@ set scrolloff=8
 set sidescrolloff=8
 " show candidates for vim commands with tab
 set wildmenu
+set background=dark
 
 set encoding=UTF-8
 set guifont=FiraCode\ Nerd\ Font\ 18
@@ -30,17 +32,26 @@ set guifont=FiraCode\ Nerd\ Font\ 18
 " lsp handled by coc
 let g:ale_disable_lsp = 1
 
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source '~/.vimrc'
+\| endif
+
 call plug#begin('~/.vim/plugged')
 
-Plug 'mhinz/vim-startify'
-Plug 'kristijanhusak/vim-carbon-now-sh'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-fugitive'
 Plug 'pechorin/any-jump.vim'
-Plug 'tpope/vim-commentary'
-Plug 'shime/vim-livedown'
 Plug 'jiangmiao/auto-pairs'
 Plug 'ap/vim-css-color'
 Plug 'ap/vim-buftabline'
@@ -54,27 +65,41 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'maximbaz/lightline-ale'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'osyo-manga/vim-over'
+Plug 'voldikss/vim-floaterm'
+" Plug 'windwp/vim-floaterm-repl'
+
 " colorschemes
 Plug 'joshdick/onedark.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main'  }
-Plug 'sainnhe/sonokai'
 Plug 'romgrk/doom-one.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'morhetz/gruvbox'
+Plug 'vv9k/vim-github-dark'
 
 call plug#end()
 
+
+"------------------------------------------------------------------------------
+" Enable :Man <man_page>
+"------------------------------------------------------------------------------
+runtime ftplugin/man.vim
+"------------------------------------------------------------------------------
+" Force help/man buffers into vertical split
+"------------------------------------------------------------------------------
+autocmd FileType help wincmd L
+autocmd FileType man wincmd L
+
+"------------------------------------------------------------------------------
+"jump to remembered position in file if available
+"------------------------------------------------------------------------------
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
 "------------------------------------------------------------------------------
 " Carbon Now
 "------------------------------------------------------------------------------
 " carbon now
 " let g:carbon_now_sh_base_url = 'http://localhost:8888'
 let g:carbon_now_sh_browser = 'firefox'
-
-"jump to remembered position in file if available
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-endif
-
 "------------------------------------------------------------------------------
 "fzf
 "------------------------------------------------------------------------------
@@ -297,6 +322,8 @@ let g:prettier#exec_cmd_path = "/usr/bin/prettier"
 let g:lightline = {}
 " 'one', 'material', 'darcula', 'deus'
 let g:lightline.colorscheme = "deus"
+" let g:lightline.colorscheme = "one"
+" let g:lightline.colorscheme = "darcula"
 let g:lightline.component_function = {
       \   'fugitive': 'MyFugitive',
       \   'readonly': 'Readonly',
@@ -378,19 +405,28 @@ endfunction
 "COLORSCHEME
 "------------------------------------------------------------------------------
 set t_Co=256
-set termguicolors
-set noshowmode "disable default vim insert text at bottom
-let g:onedark_termcolors=256 "enable 256 colors
+" set termguicolors
+" let g:onedark_termcolors=256 "enable 256 colors
 " colorscheme onedark  "set colorsheme as onedark
+
 "material theme
 " let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'darker'
 " let g:material_theme_style = 'darker-community'
-colorscheme material
+" colorscheme material
 
-let g:doom_one_terminal_colors = v:true
+" let g:doom_one_terminal_colors = v:true
 " colorscheme doom-one
+
+let g:gruvbox_contrast_dark = "medium" "default
+" let g:gruvbox_contrast_dark = "soft"
+let g:gruvbox_improved_strings = 0
+let g:gruvbox_improved_warnings = 1
+colorscheme gruvbox
+
+" let g:gh_color = "soft"
+" colorscheme ghdark
 
 "------------------------------------------------------------------------------
 """bash language server
@@ -541,12 +577,23 @@ nnoremap <leader><nowait> <space>ci  :<C-U>CocCommand fzf-preview.CocImplementat
 "which key
 "------------------------------------------------------------------------------
 set timeoutlen=400
-
+"------------------------------------------------------------------------------
+" dadbod ui
+"------------------------------------------------------------------------------
+let g:db_ui_save_location = '~/.sql'
+"------------------------------------------------------------------------------
+" Floaterm
+"------------------------------------------------------------------------------
+let g:floaterm_width = 0.80
+let g:floaterm_height = 0.88
+let g:floaterm_opener = 'vsplit'
+let g:floaterm_autoclose = 1
 "------------------------------------------------------------------------------
 " custom commands
 "------------------------------------------------------------------------------
 command! Reload execute "source ~/.vimrc"
 command! Config execute ":e ~/.vimrc"
+command! Env execute ":Dotenv .env"
 "------------------------------------------------------------------------------
 "KEYBINDINGS
 "------------------------------------------------------------------------------
@@ -557,24 +604,25 @@ nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 map <F5> :!
 map <C-n> :NERDTreeToggle<CR>
 map <C-l> :LivedownToggle<CR>
-nnoremap <C-T> :wa<CR>:vertical botright term ++kill=term<CR>
+" nnoremap <C-T> :wa<CR>:vertical botright term ++kill=term<CR>
+nnoremap <C-T> :wa<CR>:FloatermToggle<CR>
 " fzf
 nmap // :CocCommand fzf-preview.Lines<CR>
 nmap ?? :CocCommand fzf-preview.BufferLines<CR>
 " search fzf, refs, impls, defs
-nmap <leader>sf :FZF<CR>
+nmap <leader>ff :FloatermNew --title=fzf fzf<CR>
 " buffers
-nmap <leader>bb :CocCommand fzf-preview.Buffers<CR>
 nmap <leader>bB :CocCommand fzf-preview.AllBuffers<CR>
+nmap <leader>bb :CocCommand fzf-preview.Buffers<CR>
 nmap <leader>bk :bdelete<CR>
 nmap <leader>bn :bnext<CR>
 nmap <leader>bp :bprev<CR>
 map <C-J> :bnext<CR>
 map <C-K> :bprev<CR>
 " git
-nmap <leader>gg :tab term ++close lazygit<CR>
 nmap <leader>gc :CocCommand fzf-preview.GitLogs<CR>
 nmap <leader>gf :CocCommand fzf-preview.GitFiles<CR>
+nmap <leader>gg :FloatermNew --title=lazygit lazygit<CR>
 nmap <leader>gs :CocCommand fzf-preview.GitStatus<CR>
 " help
 nmap <leader>hc :CocCommand fzf-preview.CommandPalette<CR>
@@ -582,9 +630,12 @@ nmap <leader>hk :Maps<CR>
 " any jump plugin
 nmap <leader>j  :AnyJump<CR>
 " toggle/open
-nmap <leader>on  :NERDTreeToggle<CR>
-nmap <leader>ot  :vertical botright ter<CR>
+nmap <leader>ob :FloatermNew --title=bpytop bpytop<CR>
+nmap <leader>od :FloatermNew --title=lazydocker lazydocker<CR>
+nmap <leader>on :FloatermNew --title=ncmpcpp ncmpcpp<CR>
 nmap <leader>oo :OverCommandLine<CR>
+nmap <leader>or :FloatermNew --title=ranger ranger --cmd="cd $PWD"<CR>
+nmap <leader>ot :vertical botright ter ++kill=terminal ++close<CR>
 " search
 nmap <leader>sc :nohls<Cr>
 "toggle coc outline

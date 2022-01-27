@@ -96,9 +96,11 @@ alias lzg=lazygit
 alias mounts='sudo ~/scripts/mounts.sh'
 alias dc=docker-compose # sorry calculator
 alias vimconf='vim ~/.vimrc'
+alias sctl=systemctl
 
 ## Rice
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias pushdots='config push senpai'
 alias commitdots='config commit'
 alias cs='config status'
+alias f=floaterm
