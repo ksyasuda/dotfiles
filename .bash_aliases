@@ -1,6 +1,8 @@
 alias sudo='sudo -v; sudo '
 alias suda='sudo'
 
+alias vi=vim
+
 alias qutebrowser="qutebrowser --qt-arg stylesheet $HOME/.local/share/qutebrowser/fix-tooltips.qss"
 
 # Aniwrapper
@@ -60,6 +62,9 @@ alias drop_cache="sudo sh -c \"echo 3 >'/proc/sys/vm/drop_caches' && swapoff -a 
 # mkdir
 alias mkdir='mkdir -p'
 
+# wallpapers
+alias mysan='feh --bg-scale ~/.wallpapers/MYSanGun-Inverted.png ~/.wallpapers/MYSanGun.png'
+
 ## I'm Lazy
 alias scripts='cd /home/sudacode/scripts'
 alias freud='cd /home/sudacode/'
@@ -97,6 +102,7 @@ alias mounts='sudo ~/scripts/mounts.sh'
 alias dc=docker-compose # sorry calculator
 alias vimconf='vim ~/.vimrc'
 alias sctl=systemctl
+alias pyex='python -m'
 
 ## Rice
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
