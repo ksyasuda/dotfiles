@@ -103,6 +103,7 @@ alias dc=docker-compose # sorry calculator
 alias vimconf='vim ~/.vimrc'
 alias sctl=systemctl
 alias pyex='python -m'
+alias get='aria2c'
 
 ## Rice
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'

@@ -1,0 +1,2 @@
+vf=@blackout:!lavfi=graph=,vapoursynth=file=%52%/home/sudacode/.local/share/SVP4/scripts/68786801.py:buffered-frames=4:concurrent-frames=8
+af=@silencedetect:!lavfi=graph=%32%silencedetect=noise=-45dB:d=0.85
