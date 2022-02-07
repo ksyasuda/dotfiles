@@ -104,6 +104,7 @@ alias vimconf='vim ~/.vimrc'
 alias sctl=systemctl
 alias pyex='python -m'
 alias get='aria2c'
+alias links="vim ~/.links.md"
 
 ## Rice
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'

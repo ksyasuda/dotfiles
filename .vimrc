@@ -19,19 +19,22 @@ set title
 set mouse=a
 set relativenumber
 set splitright
-set expandtab
 set cursorline
 set scrolloff=8
 set sidescrolloff=8
 set wildmenu " show candidates for vim commands with tab
+set wildignore=*.o,*.obj,*.bak,*.exe
 set background=dark
 set showmatch
 set nocompatible " no more vi
+set list
+set listchars=tab:\ ,trail:
 " set path from current directory and all directories under
 set path=$PWD/**
 
 set encoding=UTF-8
 set guifont=FiraCode\ Nerd\ Font\ 18
+set expandtab
 
 
 " lsp handled by coc
@@ -135,7 +138,9 @@ let g:fzf_action = {
   \ 'ctrl-q': function('s:build_quickfix_list'),
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-n': 'next',
+  \}
 
 " Customize fzf colors to match your color scheme
 " - fzf#wrap translates this to a set of `--color` options
@@ -159,24 +164,38 @@ let g:fzf_colors =
 " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
 "   'previous-history' instead of 'down' and 'up'.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+" command! -bang -nargs=? -complete=dir Files
+"   \ call fzf#run(fzf#wrap('files', fzf#vim#with_preview({'dir': <q-args>, 'sink': 'e', 'source': 'rg --files --hidden'}), <bang>0))
+
+command! -bang -nargs=? -complete=dir AllFiles
+  \ call fzf#run(fzf#wrap('allfiles', fzf#vim#with_preview({'dir': <q-args>, 'sink': 'e', 'source': 'rg --files --hidden --no-ignore'}), <bang>0))
+
 "------------------------------------------------------------------------------
 "ale
 "------------------------------------------------------------------------------
-function! FormatShell(buffer) abort
-  return {
-  \   'command': 'shfmt -i=0 -ci -sr'
-  \}
-endfunction
 
-execute ale#fix#registry#Add('shfmt', 'FormatShell', ['sh'], 'shfmt for shell')
+" function! FormatShell(buffer) abort
+"   return {
+"   \   'command': 'shfmt -i=4 -ci -sr'
+"   \}
+" endfunction
+" execute ale#fix#registry#Add('shfmt', 'FormatShell', ['sh'], 'shfmt for shell')
+
+let g:ale_sh_shellcheck_executable = '/usr/bin/shellcheck'
+let g:ale_sh_shellcheck_options = '-s bash -o all -e 2250'
+let g:ale_sh_shfmt_options = '-i=4 -ci -sr'
+let g:ale_fix_on_save = 1
+" let g:ale_set_quickfix = 1
+let g:ale_virtualenv_dir_names = ['env']
 
 let g:ale_linter_aliases = {'javascriptreact': ['css', 'javascript'], 'typescriptreact': ['css', 'javascript']}
 let g:ale_linters = {'javascriptreact': ['css', 'javascript'], 'typescriptreact': ['css', 'javascript'], 'python': ['pylint','pycodestyle', 'pydocstyle'], 'sh': ['shellcheck']}
 " Fix files with prettier, and then ESLint.
-let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace'], 'javascript': ['prettier', 'eslint'], 'sh': ['FormatShell'], 'typescript': ['eslint'], 'python': ['autopep8'], 'sql': ['pgformatter']}
-
-let g:ale_fix_on_save = 1
-let g:ale_virtualenv_dir_names = ['env']
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace'], 'javascript': ['prettier', 'eslint'], 'sh': ['shfmt'], 'typescript': ['eslint'], 'python': ['black']}
 
 "------------------------------------------------------------------------------
 "vim-closetag
@@ -543,7 +562,7 @@ nnoremap <silent><nowait> <space>cd  :<C-u>CocCommand fzf-preview.CocDiagnostics
 " Manage extensions.
 nnoremap <silent><nowait> <space>ce  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>cc  :<C-u>CocCommand fzf-preview.CommandPallete<cr>
+nnoremap <silent><nowait> <space>cc  :<C-u>CocCommand fzf-preview.CommandPalette<cr>
 " Find symbol of current document.
 nnoremap <silent><nowait> <space>co  :<C-u>CocOutline<cr>
 " Search workspace symbols.
@@ -558,6 +577,7 @@ nnoremap <silent><nowait> <space>cp  :<C-u>CocListResume<CR>
 nnoremap <silent><nowait> <space>cr  :<C-u>CocCommand fzf-preview.CocReferences<CR>
 " show implementations with fzf
 nnoremap <leader><nowait> <space>ci  :<C-U>CocCommand fzf-preview.CocImplementations<Cr>
+
 "------------------------------------------------------------------------------
 "which key
 "------------------------------------------------------------------------------
@@ -576,6 +596,7 @@ let g:floaterm_position = 'center'
 
 let g:floaterm_autoclose = 1
 " let g:floaterm_autohide = 2
+
 "------------------------------------------------------------------------------
 " custom commands
 "------------------------------------------------------------------------------
@@ -590,19 +611,30 @@ command! Aniwrapper execute ":FloatermNew aniwrapper -qtdoomone -D 144"
 "------------------------------------------------------------------------------
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
+" imap <TAB> <C-N>
+nmap <F4> :set paste!<Bar>set paste?<CR>
+nmap <F5> :!
 nmap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nmap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-nmap <F5> :!
 nmap <C-n> :NERDTreeToggle<CR>
 " nnoremap <C-T> :wa<CR>:vertical botright term ++kill=term<CR>
-nmap <C-T> :wa<CR>:FloatermToggle<CR>
+nmap <C-T> :wa<CR>:FloatermToggle floatingterm<CR>
+tnoremap <C-T> <C-\><C-n>:FloatermToggle floatingterm<CR>
 nmap Q !!$SHELL<CR>
+
+" reselect visual selection after indent
+vnoremap < <gv
+vnoremap > >gv
+
+" open file under cursor, create if necessary
+nnoremap gF :view <cfile><cr>
 
 " fzf
 nnoremap // :CocCommand fzf-preview.Lines<CR>
 nnoremap ?? :CocCommand fzf-preview.BufferLines<CR>
+
 " search fzf, refs, impls, defs
-nmap <leader>ff :FloatermNew --title=fzf --opener=vsplit fzf<CR>
+nmap <leader>ff :CocCommand fzf-preview.ProjectFiles<CR>
 " aniwrapper/ani-cli (until i find better use for a keys)
 nmap <leader>as :FloatermNew --title=aniwrapper aniwrapper -qtdoomone -D144<CR>
 nmap <leader>ad :FloatermNew --title=aniwrapper ani-cli -q720p -cd/home/sudacode/Videos/sauce -D144<CR>
@@ -617,9 +649,10 @@ nmap <C-K> :bprev<CR>
 " git
 nmap <leader>gc :CocCommand fzf-preview.GitLogs<CR>
 nmap <leader>gf :CocCommand fzf-preview.GitFiles<CR>
-nmap <leader>gg :FloatermNew --title=lazygit --opener=vsplit lazygit<CR>
+nmap <leader>gg :FloatermNew --title=lazygit --opener=vsplit --width=1.0 --height=1.0 lazygit<CR>
 nmap <leader>gs :CocCommand fzf-preview.GitStatus<CR>
-" help
+nmap gr  :<C-u>CocCommand fzf-preview.CocReferences<CR>
+" help/history
 nmap <leader>hc :CocCommand fzf-preview.CommandPalette<CR>
 nmap <leader>hk :Maps<CR>
 " insert snippets
@@ -633,9 +666,13 @@ nmap <leader>on :FloatermNew --title=ncmpcpp --opener=vsplit ncmpcpp<CR>
 nmap <leader>oo :OverCommandLine<CR>
 nmap <leader>or :FloatermNew --title=ranger --opener=vsplit ranger --cmd="cd $PWD"<CR>
 " nmap <leader>ot :vertical botright ter ++kill=terminal ++close<CR>
-nmap <leader>ot :FloatermNew --title=floaterm --wintype=vsplit --position=rightbelow --width=0.5<CR>
+nmap <leader>ot :FloatermNew --title=floaterm --name=vsplit-term --wintype=vsplit --position=botright --width=0.5<CR>
 
 " search
 nmap <leader>sc :nohls<Cr>
+nmap <leader>sf :Files<Cr>
+nmap <leader>sF :AllFiles<Cr>
 " toggle coc outline
 nmap <leader>to :CocOutline<CR>
+nmap <leader>tt :FloatermToggle vsplit-term<CR>
+tnoremap <leader>tt <C-\><C-N>:FloatermToggle vsplit-term<CR>
