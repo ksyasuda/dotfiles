@@ -2,6 +2,7 @@ alias sudo='sudo -v; sudo '
 alias suda='sudo'
 
 alias vi=vim
+alias vim=nvim
 
 alias qutebrowser="qutebrowser --qt-arg stylesheet $HOME/.local/share/qutebrowser/fix-tooltips.qss"
 
@@ -104,7 +105,7 @@ alias vimconf='vim ~/.vimrc'
 alias sctl=systemctl
 alias pyex='python -m'
 alias get='aria2c'
-alias links="vim ~/.links.md"
+alias links="vim ~/.links"
 
 ## Rice
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'

@@ -92,7 +92,7 @@
   :hook
   (sh-mode . 'lsp))
 
-(setq shfmt-arguments '("-i=0" "-sr" "-ci"))
+(setq shfmt-arguments '("-i=4" "-sr" "-ci"))
 (add-hook 'sh-mode-hook 'shfmt-on-save-mode 'display-fill-column-indicator--turn-on)
 
 (advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))

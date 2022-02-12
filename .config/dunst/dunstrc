@@ -34,7 +34,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = 9x48
+    offset = 12x54
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
