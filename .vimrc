@@ -26,11 +26,11 @@ set wildmenu " show candidates for vim commands with tab
 set wildignore=*.o,*.obj,*.bak,*.exe
 set background=dark
 set showmatch
-set nocompatible " no more vi
+" set nocompatible " no more vi
 set list
 set listchars=tab:\ ,trail:
 " set path from current directory and all directories under
-set path=$PWD/**
+" set path=$PWD/**
 set encoding=UTF-8
 set guifont=FiraCode\ Nerd\ Font\ 18
 set expandtab
@@ -100,7 +100,9 @@ if has('nvim')
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/nvim-cmp'
+  Plug 'j-hui/fidget.nvim'
   Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'ksyasuda/lsp_lines.nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'onsails/lspkind-nvim'
   Plug 'ray-x/lsp_signature.nvim'
@@ -137,16 +139,16 @@ if has('nvim')
   let g:fzf_command = 'fzf --height 90% --width=85% --layout=reverse --preview "bat --color=always {}"'
   source ~/.config/nvim/keybindings.vim
 
+  " nvim plugins
   source ~/.config/nvim/plugin-confs/bufferline.lua
-  source ~/.config/nvim/plugin-confs/presence.lua
   source ~/.config/nvim/plugin-confs/dashboard-art.vim
   source ~/.config/nvim/plugin-confs/dashboard-nvim.lua
   source ~/.config/nvim/plugin-confs/git-blame.lua
   source ~/.config/nvim/plugin-confs/gitsigns.lua
   source ~/.config/nvim/plugin-confs/lspfuzzy.lua
   source ~/.config/nvim/plugin-confs/lualine.lua
-  " source ~/.config/nvim/plugin-confs/neogit.lua
   source ~/.config/nvim/plugin-confs/nvimtree.lua
+  source ~/.config/nvim/plugin-confs/presence.lua
   source ~/.config/nvim/plugin-confs/treesitter.lua
   source ~/.config/nvim/plugin-confs/whichkey.lua
 
@@ -155,11 +157,14 @@ if has('nvim')
   source ~/.config/nvim/plugin-confs/lsp-kind.lua
   source ~/.config/nvim/plugin-confs/lsp-signature.lua
   source ~/.config/nvim/plugin-confs/lspconfig.lua
+  source ~/.config/nvim/plugin-confs/lsplines.lua
   source ~/.config/nvim/plugin-confs/null-ls.lua
   source ~/.config/nvim/plugin-confs/nvim-cmp.lua
+  source ~/.config/nvim/plugin-confs/fidget.lua
   source ~/.config/nvim/plugin-confs/symbols-outline.lua
   source ~/.config/nvim/plugin-confs/trouble.lua
 
+  " nvim and vim plugins
   source ~/.vim/plugin-confs/floaterm.vim
   source ~/.vim/plugin-confs/fzf.vim
   source ~/.vim/plugin-confs/lightline.vim
@@ -226,9 +231,11 @@ endif
 set t_Co=256
 if has('nvim')
     set termguicolors
-    " colorscheme doom-one
+    colorscheme doom-one
     " colorscheme dracula
-    colorscheme github_dark
+    " colorscheme github_dark
+    " colorscheme onedark
+    " colorscheme onedarkpro
 else
     " let g:onedark_termcolors=256 "enable 256 colors
     " colorscheme onedark  "set colorsheme as onedark

@@ -70,7 +70,7 @@ nmap <leader>hk :Maps<CR>
 
 nmap <leader>isp :-1read $HOME/Templates/python.py<CR>4jw
 
-nmap <leader>j  :AnyJump<CR>
+nmap <leader>j :AnyJump<CR>
 
 nmap K :lua vim.lsp.buf.hover()<CR>
 
@@ -82,6 +82,7 @@ nmap <leader>ld :lua vim.lsp.buf.declaration()<CR>
 nmap <leader>lh :lua vim.lsp.buf.signature_help()<CR>
 nmap <leader>li :lua vim.lsp.buf.implementation()<CR>
 nmap <leader>lr :lua vim.lsp.buf.references()<CR>
+nmap <leader>lR :lua vim.lsp.buf.rename()<CR>
 nmap <leader>ls :lua vim.lsp.buf.document_symbol()<CR>
 nmap <leader>lt :lua vim.lsp.buf.type_definition()<CR>
 nmap <leader>lw :lua vim.lsp.buf.workspace_symbol()<CR>
