@@ -78,6 +78,7 @@ let g:maplocalleader = ','
 if has('nvim')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   " Plug 'nvim-telescope/telescope.nvim'
 
   " Plug 'TimUntersberger/neogit'
@@ -91,7 +92,6 @@ if has('nvim')
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'nvim-lualine/lualine.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'ojroques/nvim-lspfuzzy'
 
   Plug 'L3MON4D3/LuaSnip'
