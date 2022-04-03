@@ -10,6 +10,8 @@ settings:
     global: false
   content.blocking.method:
     global: both
+  content.geolocation:
+    https://www.google.com: true
   content.headers.accept_language:
     global: en-US,en;q=0.5
   content.headers.custom:

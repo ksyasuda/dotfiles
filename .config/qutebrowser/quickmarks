@@ -141,12 +141,10 @@ AniDL https://anidl.org/
 AnimeKaizoku - Free Anime Mini Encodes Download Library https://animekaizoku.com/
 Browse :: Nyaa https://nyaa.si/
 SWAG setup - LinuxServer.io https://docs.linuxserver.io/general/swag
-alexta69/metube: youtube-dl web UI https://github.com/alexta69/metube
 Algram/ytdl-webserver: 📻 Webserver for downloading youtube videos. Ready for docker. https://github.com/Algram/ytdl-webserver
 Custom Domain Names for Home Servers — Technically Wizardry https://www.technicallywizardry.com/custom-domain-names-for-home-servers/
 Point Domain Name To Your Home Web Server – Individual Opinion https://www.inopinion.org/howto/point-domain-name-home-web-server/
 Jellyfin http://192.168.86.54:8096/web/index.html#!/home.html
-MeTube http://192.168.86.54:8081/
 awesome-selfhosted/awesome-selfhosted: A list of Free Software network services and web applications which can be hosted on your own servers https://github.com/awesome-selfhosted/awesome-selfhosted
 Netdata Cloud https://app.netdata.cloud/spaces/ksyasuda-space/rooms/general/overview
 Dashboard - sudacode - Duo https://admin-a5cd15af.duosecurity.com/
@@ -172,3 +170,6 @@ thebox gitea https://thebox.sudacode.com/gitea/
 youtube https://www.youtube.com/
 theboxdash https://dash.sudacode.com/
 juice leaks https://mega.nz/folder/vJgTFQJI#z8PZ4pL9QGUbmogSroV_tw
+geekhack https://geekhack.org/index.php
+metube https://thebox.sudacode.com/metube/
+f1tv https://f1tv.formula1.com/
