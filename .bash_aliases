@@ -18,6 +18,10 @@ alias lcal='colorls -lA --sd --gs -X'
 alias lct='colorls --gs --tree=5'
 alias ls='colorls --sd -X'
 
+# Kitty
+alias kimg='kitty +kitten icat'
+alias kdiff='kitty +kitten diff'
+
 ## Pacman/Yay
 # update without noconfirm
 alias spu='sudo pacman -Syu'

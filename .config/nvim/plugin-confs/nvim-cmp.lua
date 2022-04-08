@@ -73,9 +73,11 @@ cmp.setup({
       })
     },
     sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
+      { name = "copilot", group_index = 2 },
+      { name = 'nvim_lsp', group_index = 2},
       -- { name = 'vsnip' }, -- For vsnip users.
-      { name = 'luasnip' }, -- For luasnip users.
+      { name = "pathh", group_index = 2 },
+      { name = 'luasnip', group_index = 2}, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
       -- { name = 'snippy' }, -- For snippy users.
     }, {
