@@ -21,6 +21,7 @@ settings:
     global: true
   content.notifications.enabled:
     https://mail.google.com: true
+    https://navidrome.sudacode.com: true
     https://thebox.sudacode.com: true
     https://www.netflix.com: true
     https://www.reddit.com: true
