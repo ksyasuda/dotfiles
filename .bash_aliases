@@ -4,6 +4,10 @@ alias suda='sudo'
 alias vi=vim
 alias vim=nvim
 
+# wireguard
+alias wgu='nmcli c up wg0'
+alias wgd='nmcli c down wg0'
+
 alias qutebrowser="qutebrowser --qt-arg stylesheet $HOME/.local/share/qutebrowser/fix-tooltips.qss"
 
 # Aniwrapper
