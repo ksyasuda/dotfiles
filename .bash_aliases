@@ -4,9 +4,7 @@ alias suda='sudo'
 alias vi=vim
 alias vim=nvim
 
-# wireguard
-alias wgu='nmcli c up wg0'
-alias wgd='nmcli c down wg0'
+alias nvidia-settings='nvidia-settings --config=/home/sudacode/nvidia/settings'
 
 alias qutebrowser="qutebrowser --qt-arg stylesheet $HOME/.local/share/qutebrowser/fix-tooltips.qss"
 
@@ -21,6 +19,9 @@ alias lcla='colorls -lA --sd --gs -X'
 alias lcal='colorls -lA --sd --gs -X'
 alias lct='colorls --gs --tree=5'
 alias ls='colorls --sd -X'
+
+alias vfzf='vim $(fzf --height=45% --layout=reverse --preview="bat --style=numbers --color=always --line-range :500 {}")'
+alias fvim='vim $(fzf --height=45% --layout=reverse --preview="bat --style=numbers --color=always --line-range :500 {}")'
 
 # Kitty
 alias kimg='kitty +kitten icat'
@@ -121,3 +122,7 @@ alias pushdots='config push senpai'
 alias commitdots='config commit'
 alias cs='config status'
 alias f=floaterm
+
+# wireguard
+alias wgu='nmcli c up wg0'
+alias wgd='nmcli c down wg0'

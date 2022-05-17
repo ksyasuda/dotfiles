@@ -27,7 +27,6 @@ export MANPAGER='nvim +Man!'
 # export FZF_DEFAULT_COMMAND='fd --type f'
 # follow symbolic links and no git
 # export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
-# export FZF_DEFAULT_COMMAND='fd --type f --exclude .git'
 
 if [ -f ~/.bash_aliases ]; then
 	. $HOME/.bash_aliases
