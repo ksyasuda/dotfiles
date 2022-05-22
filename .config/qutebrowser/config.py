@@ -4,15 +4,23 @@ import dracula.draw
 config.load_autoconfig(True)
 
 config.set("colors.webpage.darkmode.enabled", True)
+config.set("colors.webpage.darkmode.contrast", 0.45)
 
 c.content.blocking.method = "both"
 c.content.default_encoding = "utf-8"
 c.content.pdfjs = True  # display pdfs
+c.content.headers.do_not_track = True
+c.content.headers.user_agent = (
+    "Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0"
+)
 c.zoom.default = "125%"
+
 
 # c.url.default_page = "https://dash.suda.codes"
 c.url.start_pages = ["https://dash.suda.codes", "https://links.suda.codes"]
 c.editor.command = ["kitty", "-e", "nvim", "{}"]
+# c.url.searchengines["DEFAULT"] = "https://duckduckgo.com/?q={}"
+c.url.searchengines["DEFAULT"] = "https://google.com/search?q={}"
 c.url.searchengines["a"] = "https://wiki.archlinux.org/?search={}"
 c.url.searchengines["ap"] = "https://www.archlinux.org/packages/?sort=&q={}"
 c.url.searchengines["aur"] = "https://aur.archlinux.org/packages/?K={}"
