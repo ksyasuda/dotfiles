@@ -3,8 +3,9 @@ import dracula.draw
 # Load existing settings made via :set
 config.load_autoconfig(True)
 
-config.set("colors.webpage.darkmode.enabled", True)
-config.set("colors.webpage.darkmode.contrast", 0.45)
+c.zoom.default = "125%"
+# config.set("colors.webpage.darkmode.enabled", True)
+# config.set("colors.webpage.darkmode.contrast", 0.45)
 
 c.content.blocking.method = "both"
 c.content.default_encoding = "utf-8"
@@ -13,7 +14,7 @@ c.content.headers.do_not_track = True
 c.content.headers.user_agent = (
     "Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0"
 )
-c.zoom.default = "125%"
+c.content.blocking.whitelist = ["suda.codes", "sudacode.com"]
 
 
 # c.url.default_page = "https://dash.suda.codes"
@@ -25,16 +26,16 @@ c.url.searchengines["a"] = "https://wiki.archlinux.org/?search={}"
 c.url.searchengines["ap"] = "https://www.archlinux.org/packages/?sort=&q={}"
 c.url.searchengines["aur"] = "https://aur.archlinux.org/packages/?K={}"
 c.url.searchengines["r"] = "https://www.reddit.com/r/{}"
-c.url.searchengines["p"] = "https://docs.python.org/3/library/{}"
+c.url.searchengines["py"] = "https://docs.python.org/3/library/{}"
+c.url.searchengines["pi"] = "https://pypi.org/project/{}"
 c.url.searchengines["yt"] = "https://www.youtube.com/results?search_query={}"
 c.url.searchengines["ytc"] = "https://www.youtube.com/c/{}"
 
 c.aliases["gd"] = "open -t http://192.168.4.77:4000"
 
-
 config.bind(
     "<Ctrl-Shift-m>",
-    "hint links spawn --detach mpv {hint-url}",
+    "hint links spawn kitty -e /home/sudacode/.bin/metube '{hint-url}'",
 )
 
 config.bind(
