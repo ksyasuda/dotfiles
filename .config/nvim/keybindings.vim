@@ -112,7 +112,7 @@ nmap <leader>sf :Files<Cr>
 nmap <leader>sh :History:<CR>
 nmap <leader>s/ :History/<CR>
 
-nnoremap <silent> <Leader>tc :DashboardChangeColorscheme<CR>
+nnoremap <silent> <Leader>tc :Colors<CR>
 nmap <leader>tf :wa<CR>:FloatermToggle floatterm<CR>
 nmap <leader>to :SymbolsOutline<CR>
 nmap <leader>tp :FloatermToggle ipython<CR>

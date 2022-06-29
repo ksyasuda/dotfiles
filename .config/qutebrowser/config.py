@@ -4,6 +4,14 @@ import dracula.draw
 config.load_autoconfig(True)
 
 c.zoom.default = "125%"
+c.qt.highdpi = True
+c.fonts.default_family = [
+    "JetBrainsMono Nerd Font",
+    "NotoSansSymbols",
+    "PowerlineSymbols",
+    "DejaVu Sans Mono",
+    "Monospace",
+]
 # config.set("colors.webpage.darkmode.enabled", True)
 # config.set("colors.webpage.darkmode.contrast", 0.45)
 

@@ -165,7 +165,6 @@ if has('nvim')
   " nvim and vim plugins
   source ~/.vim/plugin-confs/floaterm.vim
   source ~/.vim/plugin-confs/fzf.vim
-  source ~/.vim/plugin-confs/lightline.vim
   source ~/.vim/plugin-confs/vim-closetag.vim
   source ~/.vim/plugin-confs/wakatime.vim
 
