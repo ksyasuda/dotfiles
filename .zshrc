@@ -1,9 +1,13 @@
+[ -f ~/.environment ] && . ~/.environment
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 LS_COLORS="di=42;1;90:*.mp3=1;32;41:fi=0;91:*.c=1;96:*.js=1;93:*.h=1;35:ex=1;32:*.html=1;36:*.cpp=1;96:*.txt=1;91:*Makefile=1;95:*.css=1;36:*.as=1;36:ow=1;42;93:*.ttf=0;91:*.png=0;91:*README=4;31:*.jpg=0;91:*.md=4;31:*.json=1;94:*.as=0;35:*.obj=0;35:*.correct=1;94:*.py=1;91:*.ipynb=3;91"
 PS2="===>"
+
+bindkey '^ ' autosuggest-accept
 
 # ex = EXtractor for all kinds of archives
 # usage: ex <file>
@@ -34,77 +38,6 @@ ex ()
 get_git_commit_hash() {
 	git rev-parse HEAD | cut -c -12
 }
-
-
-# export CLASSPATH="$CLASSPATH:/usr/share/java/mariadb-jdbc/mariadb-java-client.jar"
-# export EDITOR=vim
-# export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude .git'
-# export FZF_DEFAULT_COMMAND='fd --type f'
-# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-# export PATH="$PATH:/usr/lib/jvm/java-8-openjdk/bin"
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-# export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-# export VISUAL=vim
-export ARCHFLAGS="-arch x86_64"
-export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
-export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-export EDITOR=nvim
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export GOPATH="$XDG_DATA_HOME"/go
-export GRIPHOME="$XDG_CONFIG_HOME/grip"
-export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
-export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
-export LANG=en_US.UTF-8
-export MANPAGER='nvim +Man!'
-export MANPATH="/usr/local/man:$MANPATH"
-export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
-export MPLAYER_HOME="$XDG_CONFIG_HOME"/mplayer
-export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
-export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
-export PATH="$HOME/.bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/Projects/Python/Sudasong/src/:$PATH"
-export PATH="$HOME/Work/rofi/:$PATH"
-export PATH="$HOME/Work/scripts:$PATH"
-export PATH="$HOME/scripts:$PATH"
-export PATH=$PATH:/home/sudacode/.emacs.d/bin
-export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
-export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
-export SQLITE_HISTORY="$XDG_CACHE_HOME"/sqlite_history
-export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/yubikey-agent/yubikey-agent.sock"
-export TERM=xterm-256color
-export TERMINFO="$XDG_DATA_HOME"/terminfo
-export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
-export VISUAL=nvim
-export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
-export XDG_CACHE_DIR="$HOME/.cache"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-export ZSH="$HOME/.oh-my-zsh"
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
-export _Z_DATA="$XDG_DATA_HOME/z"
-## ibus config
-# export GTK_IM_MODULE=ibus
-# # will make libreoffice work
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
-export QT4_IM_MODULE=xim
-export GLFW_IM_MODULE=ibus
-ibus-daemon -drx
-
-# export SPACESHIP_TIME_SHOW=true
-# export SPACESHIP_GCLOUD_SHOW=false
-# export SPACESHIP_EXIT_CODE_SHOW=true
-# export SPACESHIP_TIME_COLOR=blue
-# export SPACESHIP_VENV_PREFIX=" "
-# export SPACESHIP_DIR_TRUNC=0
-# eval spaceship_vi_mode_enable
-
-
-bindkey '^ ' autosuggest-accept
 
 if [ -f ~/.bash_aliases ]; then
 	. $HOME/.bash_aliases
