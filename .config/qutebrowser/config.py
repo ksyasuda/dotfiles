@@ -1,4 +1,8 @@
+from os import getenv
+
 import dracula.draw
+
+HOME = getenv("HOME")
 
 # Load existing settings made via :set
 config.load_autoconfig(True)
@@ -41,21 +45,29 @@ c.url.searchengines["ytc"] = "https://www.youtube.com/c/{}"
 
 c.aliases["gd"] = "open -t http://192.168.4.77:4000"
 
-config.bind(
-    "<Ctrl-Shift-m>",
-    "hint links spawn kitty -e /home/sudacode/.bin/metube '{hint-url}'",
-)
 
-config.bind(
-    "M",
-    "hint links spawn --detach mpv {hint-url}",
-)
-
-config.bind("Y", "hint links spawn kitty -e youtube-dlp {hint-url}")
 config.bind(
     "<Ctrl-Shift-d>",
     "hint links spawn --detach kitty -e yt-dlp {hint-url}",
 )
+config.bind(
+    "<Ctrl-Shift-m>",
+    "hint links spawn ~/.bin/metube '{hint-url}'",
+)
+config.bind(
+    "M",
+    "hint links spawn --detach mpv {hint-url}",
+)
+config.bind(
+    "<Ctrl-Shift-m>",
+    "hint links spawn ~/.bin/metube '{hint-url}'",
+)
+config.bind(
+    "W",
+    "hint links spawn ~/.bin/wallabag-add.py '{hint-url}'",
+)
+
+config.bind("Y", "hint links spawn kitty -e youtube-dlp {hint-url}")
 
 config.bind("<Ctrl-=>'", "zoom-in")
 config.bind("<Ctrl+->'", "zoom-out")

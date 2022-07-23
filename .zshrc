@@ -49,6 +49,8 @@ if [ -f ~/Work/.aliases ]; then
 	. $HOME/Work/.aliases
 fi
 
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh='kitty +kitten ssh'
+
 #POWERLEVEL9K_MODE='nerdfont'
 #POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_MODE='nerdfont-complete'
