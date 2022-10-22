@@ -93,7 +93,7 @@ HISTCONTROL=ignoreboth
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting vi-mode git zsh-z)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting git zsh-z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,5 +120,7 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 
 # added by Snowflake SnowSQL installer
 export PATH=/home/sudacode/.bin:$PATH
+
+bindkey -v
 
 eval $(thefuck --alias)

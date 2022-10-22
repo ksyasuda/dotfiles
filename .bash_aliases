@@ -1,15 +1,16 @@
+#!/usr/bin/env bash
 alias sudo='sudo -v; sudo '
 alias suda='sudo'
 
 alias vi=vim
 alias vim=nvim
 
-alias nvidia-settings='nvidia-settings --config=/home/sudacode/nvidia/settings'
+alias nvidia-settings='nvidia-settings --config=~/nvidia/settings'
 
-alias qutebrowser="qutebrowser --qt-arg stylesheet $HOME/.local/share/qutebrowser/fix-tooltips.qss"
+alias qutebrowser="qutebrowser --qt-arg stylesheet ~/.local/share/qutebrowser/fix-tooltips.qss"
 
 # Aniwrapper
-alias aniwrapper='aniwrapper -qD 144'
+alias aniwrapper='aniwrapper -D 144'
 
 ## Colorls
 alias lca='colorls -A --sd --gs -X'

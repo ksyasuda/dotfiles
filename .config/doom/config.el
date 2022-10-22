@@ -34,7 +34,7 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 12.0))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16 :weight 'medium :dpi 144) doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 16 :weight 'medium :dpi 144))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -76,6 +76,35 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; make _ part of word
+(defadvice evil-inner-word (around underscore-as-word activate)
+  (let ((table (copy-syntax-table (syntax-table))))
+    (modify-syntax-entry ?_ "w" table)
+    (with-syntax-table table
+      ad-do-it)))
+
+;; COPILOT ;;
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         :map copilot-completion-map
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)))
+
+;; EAF ;;
+(add-load-path! (expand-file-name "~/Downloads/emacs-application-framework"))
+(require 'eaf)
+(require 'eaf-pdf-viewer)
+(require 'eaf-browser)
+(require 'eaf-jupyter)
+(require 'eaf-markdown-previewer)
+(require 'eaf-image-viewer)
+(require 'eaf-org-previewer)
+(require 'eaf-video-player)
+(require 'eaf-rss-reader)
 
 ;;-------;;
 ;; VTERM ;;
@@ -119,6 +148,24 @@
     (all-the-icons-dired-mode 1)))
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
+
+;; DIRED ;;
+(evil-define-key 'normal dired-mode-map
+  (kbd "M-i") 'dired-display-file
+  (kbd "h") 'dired-up-directory
+  (kbd "l") 'dired-open-file
+  (kbd "C") 'dired-do-copy
+  (kbd "D") 'dired-do-delete
+  (kbd "J") 'dired-goto-file
+  (kbd "M") 'dired-do-chmod
+  (kbd "O") 'dired-do-chown
+  (kbd "P") 'dired-do-print
+  (kbd "R") 'dired-do-rename
+  (kbd "T") 'dired-do-touch
+  (kbd "Y") 'dired-copy-filenamecopy
+  (kbd "+") 'dired-create-directory
+  (kbd "-") 'dired-up-directory)
+
 ;;-----------;;
 ;; VARIABLES ;;
 ;;-----------;;
@@ -131,7 +178,8 @@
 (setq +pretty-code-enabled-modes nil)
 (setq prettify-symbols-mode nil)
 (setq global-prettify-symbols-mode nil)
-(setq lsp-diagnostic-package :none)
+(setq lsp-diagnostics-provider :none)
+(setq lsp-signature-function 'lsp-signature-posframe)
 (setq shfmt-arguments '("-i" "0" "-ci" "-sr"))
 
 ;; (setq lsp-ui-doc-position 'bottom)
@@ -181,6 +229,10 @@
        (:prefix ("p" . "+peek")
         :desc "Find definitions"
         "d" #'lsp-ui-peek-find-definitions)))
+
+(map! :leader
+       :desc "Toggle vterm"
+       "t t" #'+vterm/toggle)
 
 (map! :leader
        :desc "nohls"

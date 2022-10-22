@@ -45,6 +45,8 @@ c.url.searchengines["ytc"] = "https://www.youtube.com/c/{}"
 
 c.aliases["gd"] = "open -t http://192.168.4.77:4000"
 
+c.spellcheck.languages = ["en-US"]
+
 
 config.bind(
     "<Ctrl-Shift-d>",
