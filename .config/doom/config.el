@@ -91,8 +91,28 @@
   :bind (("C-TAB" . 'copilot-accept-completion-by-word)
          ("C-<tab>" . 'copilot-accept-completion-by-word)
          :map copilot-completion-map
-         ("<tab>" . 'copilot-accept-completion)
-         ("TAB" . 'copilot-accept-completion)))
+         ("C-<spc>" . 'copilot-accept-completion)
+         ("C-SPC" . 'copilot-accept-completion)))
+
+;; (use-package lsp-pyright
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                           (require 'lsp-pyright)
+;;                           (lsp))))  ; or lsp-deferred
+
+(use-package lsp-jedi
+  :ensure t
+  :config
+  (with-eval-after-load "lsp-mode"
+    (add-to-list 'lsp-disabled-clients 'pyls)
+    (add-to-list 'lsp-enabled-clients 'jedi)
+    (add-to-list 'lsp-enabled-clients 'bash-ls)
+    (add-to-list 'lsp-enabled-clients 'lsp)))
+
+
+;; (setq lsp-jedi-workspace-extra-paths
+;;   (vconcat lsp-jedi-workspace-extra-paths
+;;            ["/home/me/src/my-project/.venv/lib/python3.10/site-packages"]))
 
 ;; EAF ;;
 (add-load-path! (expand-file-name "~/Downloads/emacs-application-framework"))
@@ -169,7 +189,6 @@
 ;;-----------;;
 ;; VARIABLES ;;
 ;;-----------;;
-;; :set relativenumber
 (setq display-line-numbers-type 'relative)
 (setq rainbow-delimiters-mode t)
 (setq confirm-kill-emacs nil)
@@ -178,21 +197,7 @@
 (setq +pretty-code-enabled-modes nil)
 (setq prettify-symbols-mode nil)
 (setq global-prettify-symbols-mode nil)
-(setq lsp-diagnostics-provider :none)
-(setq lsp-signature-function 'lsp-signature-posframe)
 (setq shfmt-arguments '("-i" "0" "-ci" "-sr"))
-
-;; (setq lsp-ui-doc-position 'bottom)
-;; (setq lsp-ui-doc-alignment 'window)
-;; (setq lsp-ui-doc-max-height 25)
-;; (setq lsp-ui-doc-max-width 350)
-;; (setq lsp-ui-doc-mode t)
-;; (setq lsp-ui-peek-mode t)
-;; (setq lsp-ui-peek-enable t)
-;; (setq lsp-ui-doc-delay 0.25)
-
-;; (setq eaf-terminal-font-size 12)
-;; (setq lsp-treemacs-sync-mode 1)
 
 ;;--------;;
 ;; HOOKS  ;;
@@ -201,6 +206,32 @@
 (add-hook 'before-save-hook 'py-isort-before-save)
 (add-hook 'python-mode-hook #'lsp) ; or lsp-deferred
 (add-hook 'sh-mode-hook 'shfmt-on-save-mode 'flycheck-mode)
+
+(setq lsp-ui-sideline-enable t)
+(setq lsp-ui-sideline-show-hover t)
+(setq lsp-ui-sideline-show-diagnostics t)
+(setq lsp-ui-sideline-show-code-actions t)
+(setq lsp-ui-sideline-show-code-lenses t)
+(setq lsp-ui-sideline-ignore-duplicate t)
+(setq lsp-ui-doc-enable t)
+(setq lsp-ui-doc-show-with-cursor nil)
+(setq lsp-ui-doc-show-with-mouse t)
+(setq lsp-ui-doc-position 'at-point)
+(setq lsp-ui-doc-header t)
+(setq lsp-ui-doc-include-signature t)
+(setq lsp-ui-doc-max-width 150)
+(setq lsp-ui-doc-max-height 30)
+(setq lsp-ui-doc-use-childframe t)
+(setq lsp-ui-doc-use-webkit t)
+(setq lsp-ui-flycheck-enable t)
+(setq lsp-ui-imenu-enable t)
+(setq lsp-ui-imenu-kind-position 'top)
+(setq lsp-ui-sideline-enable t)
+(setq lsp-ui-sideline-show-hover t)
+(setq lsp-ui-sideline-show-diagnostics t)
+(setq lsp-ui-sideline-show-code-actions t)
+(setq lsp-ui-sideline-show-code-lenses t)
+(setq lsp-ui-sideline-ignore-duplicate t)
 
 ;;--------;;
 ;; AFTER  ;;
@@ -211,10 +242,16 @@
 ;;--------------;;
 ;; KEYBINDINGS  ;;
 ;;--------------;;
+(define-key! "<mouse-9>" #'+popup/toggle)
+
 (map! :leader
       (:prefix ("o" . "+open")
       :desc "Launch lsp-ui-imenu"
       "i" #'lsp-ui-imenu))
+
+(map! :leader
+      :desc "Toggle lsp-ui-doc"
+      "c h" #'lsp-ui-doc-glance)
 
 (map! :leader
       (:prefix ("c" . "+code")
@@ -233,6 +270,10 @@
 (map! :leader
        :desc "Toggle vterm"
        "t t" #'+vterm/toggle)
+
+(map! :leader
+       :desc "Toggle vterm"
+       "t p" #'+popup/toggle)
 
 (map! :leader
        :desc "nohls"
