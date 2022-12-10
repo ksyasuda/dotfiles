@@ -80,7 +80,6 @@ alias mysan='feh --bg-scale ~/.wallpapers/MYSanGun-Inverted.png ~/.wallpapers/MY
 alias scripts='cd /home/sudacode/scripts'
 alias freud='cd /home/sudacode/'
 alias c=clear
-alias btop=bpytop
 alias fd='firebase deploy'
 alias open='xdg-open'
 alias glow='glow -p'

@@ -22,6 +22,12 @@ require("null-ls").setup({
         null_ls.builtins.diagnostics.jsonlint,
         -- require("null-ls").builtins.diagnostics.luacheck,
         null_ls.builtins.diagnostics.markdownlint,
+        -- null_ls.builtins.diagnostics.sqlfluff.with({
+        --     extra_args = {
+        --         "--dialect", "oracle"
+        --     }
+        -- }),
+        null_ls.builtins.formatting.sql_formatter,
         null_ls.builtins.diagnostics.pylint,
         null_ls.builtins.diagnostics.pydocstyle.with({
             extra_args = { "--config=$ROOT/setup.cfg" }

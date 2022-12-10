@@ -28,7 +28,6 @@ nmap gDf :Telescope lsp_definitions<CR>
 nmap gF :edit <cfile><cr>
 nmap gT :Telescope lsp_type_definitions<CR>
 nmap gb :Gitsigns blame_line<CR>
-" nmap gd :lua vim.lsp.buf.definition()<CR>
 nmap gi :Telescope lsp_implementations<CR>
 nmap gj :Telescope jumplist<CR>
 nmap gl :lua vim.lsp.buf.code_lens()<CR>
@@ -48,23 +47,19 @@ nmap <leader>bn :bnext<CR>
 nmap <leader>bp :bprev<CR>
 
 nmap <leader>ca :lua vim.lsp.buf.code_action()<CR>
-nmap <leader>cc :vert Copilot<CR>
 nmap <leader>cd :Telescope diagnostics<CR>
-" nmap <leader>cl :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <silent> <Leader>cn :DashboardNewFile<CR>
+nmap <leader>cp :vert Copilot panel<CR>
+nmap <leader>cs :lua require("copilot.suggestion").toggle_auto_trigger()<CR>
 
+nnoremap <leader>fb :Telescope buffers<cr>
 nnoremap <leader>ff :Telescope find_files<cr>
 nnoremap <leader>fg :Telescope live_grep<cr>
-nnoremap <leader>fb :Telescope buffers<cr>
-nnoremap <leader>fh :Telescope help_tags<cr>
-nmap <silent> <Leader>fa :DashboardFindWord<CR>
-nmap <silent> <Leader>fb :DashboardJumpMark<CR>
-nmap <silent> <Leader>fh :DashboardFindHistory<CR>
+nnoremap <leader>fh :Telescope oldfiles<cr>
+nnoremap <leader>fd :e ~/.config/nvim/init.vim<cr>
 
 nmap <leader>gb :Gitsigns blame_line<CR>
 nmap <leader>gc :Telescope git_commits<CR>
 nmap <leader>gf :Telescope git_files<CR>
-" nmap <leader>gg :Neogit<CR>
 nmap <leader>gg :FloatermNew --title=lazygit --width=1.0 --height=1.0 --opener=vsplit lazygit<CR>
 nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
 nnoremap gR <cmd>Telescope lsp_references<cr>
@@ -73,7 +68,7 @@ nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
 nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
 
 nmap <leader>hc :Telescope commands<CR>
-nmap <leader>hh :Telescope tags<CR>
+nnoremap <leader>hv :Telescope help_tags<cr>
 nmap <leader>hk :Telescope keymaps<CR>
 nmap <leader>hs :Telescope spell_suggest<CR>
 
@@ -81,7 +76,6 @@ nmap <leader>isp :-1read $HOME/Templates/python.py<CR>4jw
 
 nmap <leader>j :AnyJump<CR>
 
-" nmap K :DocsViewToggle<CR>
 nmap K :lua vim.lsp.buf.hover()<CR>
 
 nmap <leader>ld :Telescope lsp_definitions<CR>
@@ -98,7 +92,8 @@ nmap <leader>lw :Telescope lsp_dynamic_workspace_symbols<CR>
 
 nmap <leader>n :NvimTreeToggle<CR>
 
-nmap <leader>ob :FloatermNew --title=bpytop --opener=vsplit bpytop<CR>
+nmap <leader>ob :Telescope file_browser<CR>
+nmap <leader>oB :FloatermNew --title=bpytop --opener=vsplit bpytop<CR>
 nmap <leader>od :FloatermNew --title=lazydocker --opener=vsplit lazydocker<CR>
 nmap <leader>of :wa<CR>:FloatermToggle floatterm<CR>
 nmap <leader>oh :FloatermNew --title=floaterm --name=split-term --opener=edit --wintype=split --position=botright --height=0.45<CR>
@@ -121,7 +116,6 @@ nmap <leader>s/ :Telescope search_history<CR>
 
 nnoremap <silent> <Leader>tc :Telescope colorscheme<CR>
 nmap <leader>tf :wa<CR>:FloatermToggle floatterm<CR>
-nmap <leader>to :SymbolsOutline<CR>
 nmap <leader>tp :FloatermToggle ipython<CR>
 nmap <leader>tP :FloatermToggle ipython-full<CR>
 nmap <leader>tt :FloatermToggle split-term<CR>
@@ -129,12 +123,6 @@ nmap <leader>tt :FloatermToggle split-term<CR>
 nmap <leader>wa :lua vim.lsp.buf.add_workspace_folder()<CR>
 nmap <leader>wl :lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
 nmap <leader>wr :lua vim.lsp.buf.remove_workspace_folder()<CR>
-
-" nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
-" nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
-" nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-" nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
-" nnoremap <leader>xx <cmd>TroubleToggle<cr>
 
 nmap <leader>y "+
 vmap <leader>y "+
