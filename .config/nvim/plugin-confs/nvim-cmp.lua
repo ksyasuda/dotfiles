@@ -175,7 +175,7 @@ cmp.setup({
 })
 
 
-local servers = { 'bashls', 'jedi_language_server', 'sqlls', 'jsonls', 'yamlls', 'vimls', 'dotls', 'dockerls' }
+local servers = { 'bashls', 'jedi_language_server', 'sqlls', 'jsonls', 'yamlls', 'vimls', 'dotls', 'dockerls', 'lua_ls' }
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
         -- on_attach = my_custom_on_attach,

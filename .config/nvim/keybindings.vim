@@ -51,7 +51,7 @@ nmap <leader>cd :Telescope diagnostics<CR>
 nmap <leader>cp :vert Copilot panel<CR>
 nmap <leader>cs :lua require("copilot.suggestion").toggle_auto_trigger()<CR>
 
-nnoremap <leader>fb :Telescope buffers<cr>
+nnoremap <leader>fb :Telescope file_browser<cr>
 nnoremap <leader>ff :Telescope find_files<cr>
 nnoremap <leader>fg :Telescope live_grep<cr>
 nnoremap <leader>fh :Telescope oldfiles<cr>
@@ -93,6 +93,7 @@ nmap <leader>lw :Telescope lsp_dynamic_workspace_symbols<CR>
 nmap <leader>n :NvimTreeToggle<CR>
 
 nmap <leader>ob :Telescope file_browser<CR>
+nmap <leader>oc :ChatGPT<CR>
 nmap <leader>oB :FloatermNew --title=bpytop --opener=vsplit bpytop<CR>
 nmap <leader>od :FloatermNew --title=lazydocker --opener=vsplit lazydocker<CR>
 nmap <leader>of :wa<CR>:FloatermToggle floatterm<CR>

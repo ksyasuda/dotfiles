@@ -13,13 +13,13 @@ alias qutebrowser="qutebrowser --qt-arg stylesheet ~/.local/share/qutebrowser/fi
 alias aniwrapper='aniwrapper -D 144'
 
 ## Colorls
-alias lca='colorls -A --sd --gs -X'
-alias lc='colorls --sd --gs -X'
-alias lcl='colorls --sd --gs -Xl'
-alias lcla='colorls -lA --sd --gs -X'
-alias lcal='colorls -lA --sd --gs -X'
-alias lct='colorls --gs --tree=5'
-alias ls='colorls --sd -X'
+alias lca='colorls -A --sd --gs -X --dark'
+alias lc='colorls --sd --gs -X --dark'
+alias lcl='colorls --sd --gs -Xl --dark'
+alias lcla='colorls -lA --sd --gs -X --dark'
+alias lcal='colorls -lA --sd --gs -X --dark'
+alias lct='colorls --gs --tree=5 --dark'
+alias ls='colorls --sd -X --dark'
 
 alias vfzf='vim $(fzf --height=45% --layout=reverse --preview="bat --style=numbers --color=always --line-range :500 {}")'
 alias fvim='vim $(fzf --height=45% --layout=reverse --preview="bat --style=numbers --color=always --line-range :500 {}")'

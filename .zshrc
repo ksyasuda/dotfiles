@@ -95,6 +95,10 @@ HISTCONTROL=ignoreboth
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(zsh-autosuggestions zsh-syntax-highlighting git zsh-z)
 
+. ~/github/zsh-syntax-highlighting/zsh-syntax-highlighting.sh
+
+. /usr/share/fzf/fzf-extras.zsh
+
 source $ZSH/oh-my-zsh.sh
 
 # set battery stages and colors

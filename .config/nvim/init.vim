@@ -77,5 +77,5 @@ command! Aniwrapper execute ":FloatermNew aniwrapper -qtdoomone -D 144"
 
 set termguicolors
 " colorscheme doom-one
-colorscheme onedarkpro
+colorscheme onedark
 " colorscheme github_dark

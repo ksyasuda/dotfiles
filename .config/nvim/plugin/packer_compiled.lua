@@ -74,6 +74,12 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["ChatGPT.nvim"] = {
+    config = { "\27LJ\2\nè\6\0\0\6\0\26\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0006\3\4\0=\3\5\0025\3\6\0005\4\a\0=\4\b\3=\3\t\0025\3\n\0005\4\v\0005\5\f\0=\5\r\4=\4\14\3=\3\15\0025\3\16\0005\4\17\0005\5\18\0=\5\r\4=\4\14\0035\4\19\0=\4\20\3=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\2B\0\2\1K\0\1\0\fkeymaps\1\0\4\14scroll_up\n<C-u>\nclose\n<C-c>\16scroll_down\n<C-d>\14yank_last\n<C-y>\18openai_params\1\0\a\nmodel\21text-davinci-003\ntop_p\3\1\16temperature\3\0\15max_tokens\3¨\2\21presence_penalty\3\0\22frequency_penalty\3\0\6n\3\1\15chat_input\16win_options\1\0\1\17winhighlight\18Normal:Normal\1\0\2\14top_align\vcenter\btop\r Prompt \1\0\2\nstyle\frounded\14highlight\16FloatBorder\1\0\1\vprompt\n ÔÜí \16chat_window\vborder\ttext\1\0\1\btop\14 ChatGPT \1\0\2\nstyle\frounded\14highlight\16FloatBorder\1\0\1\rfiletype\fchatgpt\16chat_layout\tsize\1\0\2\vheight\b80%\nwidth\b80%\1\0\2\rrelative\veditor\rposition\b50%\20welcome_message\20WELCOME_MESSAGE\1\0\5\18question_sign\bÔÄá\17loading_text\floading\18yank_register\6+\20max_line_length\3x\16answer_sign\bÔÆß\nsetup\fchatgpt\frequire\0" },
+    loaded = true,
+    path = "/home/sudacode/.local/share/nvim/site/pack/packer/start/ChatGPT.nvim",
+    url = "https://github.com/jackMort/ChatGPT.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/sudacode/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -131,7 +137,7 @@ _G.packer_plugins = {
   },
   ["copilot.lua"] = {
     after = { "copilot-cmp" },
-    config = { "\27LJ\2\nÙ\3\0\0\6\0\20\0\0306\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0005\4\t\0=\4\5\3=\3\n\0026\3\v\0009\3\f\0039\3\r\3'\5\14\0B\3\2\2'\4\15\0&\3\4\3=\3\16\0024\3\0\0=\3\17\2B\0\2\0016\0\0\0'\2\18\0B\0\2\0029\0\19\0B\0\1\1K\0\1\0\24toggle_auto_trigger\23copilot.suggestion\26server_opts_overrides\24plugin_manager_path\22/site/pack/packer\tdata\fstdpath\afn\bvim\15suggestion\1\0\4\tprev\n<M-[>\vaccept\n<Tab>\fdismiss\n<C-]>\tnext\n<M-]>\1\0\3\17auto_trigger\2\rdebounce\3K\fenabled\2\npanel\1\0\1\25copilot_node_command\tnode\vkeymap\1\0\5\14jump_prev\a[[\vaccept\t<CR>\topen\v<C-CR>\frefresh\agr\14jump_next\a]]\1\0\2\17auto_refresh\1\fenabled\2\nsetup\fcopilot\frequire-\1\0\4\0\3\0\0066\0\0\0009\0\1\0003\2\2\0)\3d\0B\0\3\1K\0\1\0\0\rdefer_fn\bvim\0" },
+    config = { "\27LJ\2\nÙ\3\0\0\6\0\20\0\0306\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0005\4\t\0=\4\5\3=\3\n\0026\3\v\0009\3\f\0039\3\r\3'\5\14\0B\3\2\2'\4\15\0&\3\4\3=\3\16\0024\3\0\0=\3\17\2B\0\2\0016\0\0\0'\2\18\0B\0\2\0029\0\19\0B\0\1\1K\0\1\0\24toggle_auto_trigger\23copilot.suggestion\26server_opts_overrides\24plugin_manager_path\22/site/pack/packer\tdata\fstdpath\afn\bvim\15suggestion\1\0\4\tprev\n<M-[>\tnext\n<M-]>\fdismiss\n<C-]>\vaccept\n<Tab>\1\0\3\rdebounce\3K\fenabled\2\17auto_trigger\2\npanel\1\0\1\25copilot_node_command\tnode\vkeymap\1\0\5\14jump_prev\a[[\frefresh\agr\topen\v<C-CR>\14jump_next\a]]\vaccept\t<CR>\1\0\2\17auto_refresh\1\fenabled\2\nsetup\fcopilot\frequire-\1\0\4\0\3\0\0066\0\0\0009\0\1\0003\2\2\0)\3d\0B\0\3\1K\0\1\0\0\rdefer_fn\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -184,12 +190,6 @@ _G.packer_plugins = {
     path = "/home/sudacode/.local/share/nvim/site/pack/packer/start/goto-preview",
     url = "https://github.com/rmagatti/goto-preview"
   },
-  ["hover.nvim"] = {
-    config = { "\27LJ\2\nz\0\0\3\0\4\0\n6\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0B\0\2\0016\0\0\0'\2\3\0B\0\2\1K\0\1\0\31hover.providers.dictionary\24hover.providers.man\24hover.providers.lsp\frequire∞\2\1\0\a\0\17\0!6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0003\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\0016\0\b\0009\0\t\0009\0\n\0'\2\v\0'\3\f\0006\4\0\0'\6\1\0B\4\2\0029\4\1\0045\5\r\0B\0\5\0016\0\b\0009\0\t\0009\0\n\0'\2\v\0'\3\14\0006\4\0\0'\6\1\0B\4\2\0029\4\15\0045\5\16\0B\0\5\1K\0\1\0\1\0\1\tdesc\24hover.nvim (select)\17hover_select\agK\1\0\1\tdesc\15hover.nvim\6K\6n\bset\vkeymap\bvim\17preview_opts\1\0\1\vborder\frounded\tinit\1\0\2\19preview_window\1\ntitle\2\0\nsetup\nhover\frequire\0" },
-    loaded = true,
-    path = "/home/sudacode/.local/share/nvim/site/pack/packer/start/hover.nvim",
-    url = "https://github.com/lewis6991/hover.nvim"
-  },
   ["lsp_lines.nvim"] = {
     loaded = true,
     path = "/home/sudacode/.local/share/nvim/site/pack/packer/start/lsp_lines.nvim",
@@ -204,6 +204,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sudacode/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/sudacode/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -320,10 +325,10 @@ time([[Setup for doom-one.nvim]], false)
 time([[packadd for doom-one.nvim]], true)
 vim.cmd [[packadd doom-one.nvim]]
 time([[packadd for doom-one.nvim]], false)
--- Config for: hover.nvim
-time([[Config for hover.nvim]], true)
-try_loadstring("\27LJ\2\nz\0\0\3\0\4\0\n6\0\0\0'\2\1\0B\0\2\0016\0\0\0'\2\2\0B\0\2\0016\0\0\0'\2\3\0B\0\2\1K\0\1\0\31hover.providers.dictionary\24hover.providers.man\24hover.providers.lsp\frequire∞\2\1\0\a\0\17\0!6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0003\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\0016\0\b\0009\0\t\0009\0\n\0'\2\v\0'\3\f\0006\4\0\0'\6\1\0B\4\2\0029\4\1\0045\5\r\0B\0\5\0016\0\b\0009\0\t\0009\0\n\0'\2\v\0'\3\14\0006\4\0\0'\6\1\0B\4\2\0029\4\15\0045\5\16\0B\0\5\1K\0\1\0\1\0\1\tdesc\24hover.nvim (select)\17hover_select\agK\1\0\1\tdesc\15hover.nvim\6K\6n\bset\vkeymap\bvim\17preview_opts\1\0\1\vborder\frounded\tinit\1\0\2\19preview_window\1\ntitle\2\0\nsetup\nhover\frequire\0", "config", "hover.nvim")
-time([[Config for hover.nvim]], false)
+-- Config for: ChatGPT.nvim
+time([[Config for ChatGPT.nvim]], true)
+try_loadstring("\27LJ\2\nè\6\0\0\6\0\26\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0006\3\4\0=\3\5\0025\3\6\0005\4\a\0=\4\b\3=\3\t\0025\3\n\0005\4\v\0005\5\f\0=\5\r\4=\4\14\3=\3\15\0025\3\16\0005\4\17\0005\5\18\0=\5\r\4=\4\14\0035\4\19\0=\4\20\3=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\2B\0\2\1K\0\1\0\fkeymaps\1\0\4\14scroll_up\n<C-u>\nclose\n<C-c>\16scroll_down\n<C-d>\14yank_last\n<C-y>\18openai_params\1\0\a\nmodel\21text-davinci-003\ntop_p\3\1\16temperature\3\0\15max_tokens\3¨\2\21presence_penalty\3\0\22frequency_penalty\3\0\6n\3\1\15chat_input\16win_options\1\0\1\17winhighlight\18Normal:Normal\1\0\2\14top_align\vcenter\btop\r Prompt \1\0\2\nstyle\frounded\14highlight\16FloatBorder\1\0\1\vprompt\n ÔÜí \16chat_window\vborder\ttext\1\0\1\btop\14 ChatGPT \1\0\2\nstyle\frounded\14highlight\16FloatBorder\1\0\1\rfiletype\fchatgpt\16chat_layout\tsize\1\0\2\vheight\b80%\nwidth\b80%\1\0\2\rrelative\veditor\rposition\b50%\20welcome_message\20WELCOME_MESSAGE\1\0\5\18question_sign\bÔÄá\17loading_text\floading\18yank_register\6+\20max_line_length\3x\16answer_sign\bÔÆß\nsetup\fchatgpt\frequire\0", "config", "ChatGPT.nvim")
+time([[Config for ChatGPT.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads

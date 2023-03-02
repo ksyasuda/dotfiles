@@ -79,42 +79,42 @@ require('packer').startup(function(use)
         run = function() vim.fn['fzf#install']() end
     }
 
-    use {
-        "lewis6991/hover.nvim",
-        config = function()
-            require("hover").setup {
-                init = function()
-                    -- Require providers
-                    require("hover.providers.lsp")
-                    -- require('hover.providers.gh')
-                    -- require('hover.providers.jira')
-                    require('hover.providers.man')
-                    require('hover.providers.dictionary')
-                end,
-                preview_opts = {
-                    border = "rounded"
-                    -- border = {
-                    --     { "╭", "FloatBorder" },
-                    --     { "─", "FloatBorder" },
-                    --     { "╮", "FloatBorder" },
-                    --     { "│", "FloatBorder" },
-                    --     { "╯", "FloatBorder" },
-                    --     { "─", "FloatBorder" },
-                    --     { "╰", "FloatBorder" },
-                    --     { "│", "FloatBorder" },
-                    -- }
-                },
-                -- Whether the contents of a currently open hover window should be moved
-                -- to a :h preview-window when pressing the hover keymap.
-                preview_window = false,
-                title = true
-            }
+    -- use {
+    --     "lewis6991/hover.nvim",
+    --     config = function()
+    --         require("hover").setup {
+    --             init = function()
+    --                 -- Require providers
+    --                 require("hover.providers.lsp")
+    --                 -- require('hover.providers.gh')
+    --                 -- require('hover.providers.jira')
+    --                 require('hover.providers.man')
+    --                 require('hover.providers.dictionary')
+    --             end,
+    --             preview_opts = {
+    --                 border = "rounded"
+    --                 -- border = {
+    --                 --     { "╭", "FloatBorder" },
+    --                 --     { "─", "FloatBorder" },
+    --                 --     { "╮", "FloatBorder" },
+    --                 --     { "│", "FloatBorder" },
+    --                 --     { "╯", "FloatBorder" },
+    --                 --     { "─", "FloatBorder" },
+    --                 --     { "╰", "FloatBorder" },
+    --                 --     { "│", "FloatBorder" },
+    --                 -- }
+    --             },
+    --             -- Whether the contents of a currently open hover window should be moved
+    --             -- to a :h preview-window when pressing the hover keymap.
+    --             preview_window = false,
+    --             title = true
+    --         }
 
-            -- Setup keymaps
-            vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
-            vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
-        end
-    }
+    --         -- Setup keymaps
+    --         vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
+    --         vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
+    --     end
+    -- }
 
     use 'ap/vim-css-color'
     use 'jiangmiao/auto-pairs'
@@ -240,4 +240,70 @@ require('packer').startup(function(use)
     use {
         'projekt0n/github-nvim-theme'
     }
+
+    use({
+      "jackMort/ChatGPT.nvim",
+        config = function()
+          require("chatgpt").setup({
+              welcome_message = WELCOME_MESSAGE, -- set to "" if you don't like the fancy robot
+              loading_text = "loading",
+              question_sign = "", -- you can use emoji if you want e.g. 🙂
+              answer_sign = "ﮧ", -- 🤖
+              max_line_length = 120,
+              yank_register = "+",
+              chat_layout = {
+                relative = "editor",
+                position = "50%",
+                size = {
+                  height = "80%",
+                  width = "80%",
+                },
+              },
+              chat_window = {
+                filetype = "chatgpt",
+                border = {
+                  highlight = "FloatBorder",
+                  style = "rounded",
+                  text = {
+                    top = " ChatGPT ",
+                  },
+                },
+              },
+              chat_input = {
+                prompt = "  ",
+                border = {
+                  highlight = "FloatBorder",
+                  style = "rounded",
+                  text = {
+                    top_align = "center",
+                    top = " Prompt ",
+                  },
+                },
+                win_options = {
+                  winhighlight = "Normal:Normal",
+                },
+              },
+              openai_params = {
+                model = "text-davinci-003",
+                frequency_penalty = 0,
+                presence_penalty = 0,
+                max_tokens = 300,
+                temperature = 0,
+                top_p = 1,
+                n = 1,
+              },
+              keymaps = {
+                close = "<C-c>",
+                yank_last = "<C-y>",
+                scroll_up = "<C-u>",
+                scroll_down = "<C-d>",
+              }
+            }
+            )end,
+        requires = {
+          "MunifTanjim/nui.nvim",
+          "nvim-lua/plenary.nvim",
+          "nvim-telescope/telescope.nvim"
+        }
+    })
 end)
