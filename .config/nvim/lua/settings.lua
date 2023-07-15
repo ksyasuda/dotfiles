@@ -1,6 +1,7 @@
 local g = vim.g
 local o = vim.o
 local A = vim.api
+local l = vim.lsp
 
 g.mapleader = " "
 g.maplocalleader = ','
@@ -41,3 +42,17 @@ o.cmdheight = 1
 o.updatetime = 300
 o.timeoutlen = 500
 o.pumwidth=35
+
+local border = {
+    { "╭", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "╮", "FloatBorder" },
+    { "│", "FloatBorder" },
+    { "╯", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "╰", "FloatBorder" },
+    { "│", "FloatBorder" },
+}
+
+l.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+l.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })

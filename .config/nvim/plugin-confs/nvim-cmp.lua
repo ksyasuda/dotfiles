@@ -1,7 +1,6 @@
 -- Setup nvim-cmp.
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -57,10 +56,10 @@ cmp.setup({
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
+        ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            select = false,
         },
         -- ["<Tab>"] = cmp.mapping(function(fallback)
         -- if cmp.visible() then
@@ -74,6 +73,8 @@ cmp.setup({
         ["<Tab>"] = vim.schedule_wrap(function(fallback)
           if cmp.visible() and has_words_before() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
           else
             fallback()
           end
@@ -117,9 +118,41 @@ cmp.setup({
         }
     },
     formatting = {
+        -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+        -- mode = 'symbol_text',
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
-          local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 75 })(entry, vim_item)
+          local kind = require("lspkind").cmp_format({
+              mode = "symbol_text",
+              maxwidth = 75,
+              symbol_map = {
+                Copilot = "",
+                Function = "󰊕",
+                Text = "󰊄",
+                Method = "󰆧",
+                Operator = "󰆕",
+                Keyword = "󰌋",
+                Variable = "󰂡",
+                Field = "󰇽",
+                Class = "󰠱",
+                Interface = "",
+                Module = "",
+                Property = "󰜢",
+                Unit = "",
+                Value = "󰎠",
+                Enum = "",
+                Snippet = "",
+                Color = "󰏘",
+                File = "󰈙",
+                Reference = "",
+                Folder = "󰉋",
+                EnumMember = "",
+                Constant = "󰏿",
+                Struct = "",
+                Event = "",
+                TypeParameter = "󰅲",
+              },
+          })(entry, vim_item)
           local strings = vim.split(kind.kind, "%s", { trimempty = true })
           kind.kind = " " .. strings[1] .. " "
           kind.menu = "    (" .. strings[2] .. ")"
@@ -139,9 +172,10 @@ cmp.setup({
     },
     sources = cmp.config.sources({
         { name = "copilot", group_index = 2 },
+        { name = "path", group_index = 2 },
         { name = 'nvim_lsp', group_index = 2 },
         { name = 'nvim_lsp_signature_help', group_index = 2 },
-        { name = "path", group_index = 2 },
+        { name = 'nvim_lsp_document_symbol', group_index = 2 },
         { name = 'luasnip', group_index = 2 }, -- For luasnip users.
         {
           name = 'buffer',
@@ -163,19 +197,53 @@ cmp.setup({
     sorting = {
         priority_weight = 2,
         comparators = {
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
+          require("copilot_cmp.comparators").prioritize,
+          require("copilot_cmp.comparators").score,
+          require("copilot_cmp.comparators").recently_used,
+          require("copilot_cmp.comparators").kind,
+          require("copilot_cmp.comparators").sort_text,
+          require("copilot_cmp.comparators").length,
+          require("copilot_cmp.comparators").order,
+
+          -- Below is the default comparitor list and order for nvim-cmp
+          cmp.config.compare.offset,
+          -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+          cmp.config.compare.exact,
+          cmp.config.compare.score,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
         },
-    }
+  },
 })
 
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
 
-local servers = { 'bashls', 'jedi_language_server', 'sqlls', 'jsonls', 'yamlls', 'vimls', 'dotls', 'dockerls', 'lua_ls' }
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
+  })
+})
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+local servers = { 'bashls', 'jedi_language_server', 'sqlls', 'jsonls', 'yamlls', 'vimls', 'dotls', 'dockerls', 'html', 'cssls', 'lua_ls' }
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
         -- on_attach = my_custom_on_attach,
@@ -183,9 +251,9 @@ for _, lsp in ipairs(servers) do
     }
 end
 
--- cmp.event:on("menu_opened", function()
---   vim.b.copilot_suggestion_hidden = true
--- end)
--- cmp.event:on("menu_closed", function()
---   vim.b.copilot_suggestion_hidden = false
--- end)
+cmp.event:on("menu_opened", function()
+  vim.b.copilot_suggestion_hidden = true
+end)
+cmp.event:on("menu_closed", function()
+  vim.b.copilot_suggestion_hidden = false
+end)

@@ -20,7 +20,7 @@ require('packer').startup(function(use)
           vim.defer_fn(function()
             require('copilot').setup({
               panel = {
-                enabled = true,
+                enabled = false,
                 auto_refresh = false,
                 keymap = {
                   jump_prev = "[[",
@@ -29,13 +29,18 @@ require('packer').startup(function(use)
                   refresh = "gr",
                   open = "<C-CR>"
                 },
+                layout = {
+                  position = "right", -- | top | left | right
+                  ratio = 0.4
+                },
               },
               suggestion = {
-                enabled = true,
+                enabled = false,
                 auto_trigger = true,
                 debounce = 75,
                 keymap = {
-                 accept = "<Tab>",
+                 accept = "<C-l>",
+                 -- accept = "<Right>",
                  next = "<M-]>",
                  prev = "<M-[>",
                  dismiss = "<C-]>",
@@ -54,7 +59,15 @@ require('packer').startup(function(use)
               -- },
               copilot_node_command = 'node', -- Node version must be < 18
               plugin_manager_path = vim.fn.stdpath("data") .. "/site/pack/packer",
-              server_opts_overrides = {},
+              server_opts_overrides = {
+                trace = "verbose",
+                settings = {
+                  advanced = {
+                    listCount = 10, -- #completions for panel
+                    inlineSuggestCount = 4, -- #completions for getCompletions
+                  }
+                },
+              }
             })
         require("copilot.suggestion").toggle_auto_trigger()
         end, 100)
@@ -63,10 +76,12 @@ require('packer').startup(function(use)
 
     use {
       "zbirenbaum/copilot-cmp",
-      after = { "copilot.lua" },
+      -- after = { "copilot.lua" },
       config = function ()
           require("copilot_cmp").setup({
-              method = "getCompletionsCycling",
+              suggestion = { enabled = false },
+              panel = { enabled = false },
+              -- method = "getCompletionsCycling",
               -- formatters = {
               --   insert_text = require("copilot_cmp.format").remove_existing
               -- }
@@ -173,7 +188,13 @@ require('packer').startup(function(use)
         'hrsh7th/cmp-path'
     }
     use {
+        'hrsh7th/cmp-cmdline'
+    }
+    use {
         'hrsh7th/cmp-buffer'
+    }
+    use {
+        'hrsh7th/cmp-nvim-lsp-document-symbol'
     }
     use {
         'j-hui/fidget.nvim'
@@ -243,67 +264,14 @@ require('packer').startup(function(use)
 
     use({
       "jackMort/ChatGPT.nvim",
-        config = function()
-          require("chatgpt").setup({
-              welcome_message = WELCOME_MESSAGE, -- set to "" if you don't like the fancy robot
-              loading_text = "loading",
-              question_sign = "", -- you can use emoji if you want e.g. 🙂
-              answer_sign = "ﮧ", -- 🤖
-              max_line_length = 120,
-              yank_register = "+",
-              chat_layout = {
-                relative = "editor",
-                position = "50%",
-                size = {
-                  height = "80%",
-                  width = "80%",
-                },
-              },
-              chat_window = {
-                filetype = "chatgpt",
-                border = {
-                  highlight = "FloatBorder",
-                  style = "rounded",
-                  text = {
-                    top = " ChatGPT ",
-                  },
-                },
-              },
-              chat_input = {
-                prompt = "  ",
-                border = {
-                  highlight = "FloatBorder",
-                  style = "rounded",
-                  text = {
-                    top_align = "center",
-                    top = " Prompt ",
-                  },
-                },
-                win_options = {
-                  winhighlight = "Normal:Normal",
-                },
-              },
-              openai_params = {
-                model = "text-davinci-003",
-                frequency_penalty = 0,
-                presence_penalty = 0,
-                max_tokens = 300,
-                temperature = 0,
-                top_p = 1,
-                n = 1,
-              },
-              keymaps = {
-                close = "<C-c>",
-                yank_last = "<C-y>",
-                scroll_up = "<C-u>",
-                scroll_down = "<C-d>",
-              }
-            }
-            )end,
         requires = {
           "MunifTanjim/nui.nvim",
           "nvim-lua/plenary.nvim",
           "nvim-telescope/telescope.nvim"
         }
     })
+
+    use 'khaveesh/vim-fish-syntax'
+
+    use { "catppuccin/nvim", as = "catppuccin" }
 end)

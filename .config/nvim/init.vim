@@ -35,6 +35,7 @@ source ~/.config/nvim/plugin-confs/null-ls.lua
 source ~/.config/nvim/plugin-confs/nvim-cmp.lua
 source ~/.config/nvim/plugin-confs/fidget.lua
 source ~/.config/nvim/plugin-confs/symbols-outline.lua
+source ~/.config/nvim/plugin-confs/chatgpt.lua
 " source ~/.config/nvim/plugin-confs/copilot.lua
 " source ~/.config/nvim/plugin-confs/lsp-signature.lua
 " source ~/.config/nvim/plugin-confs/nvim-docs-view.lua
@@ -49,6 +50,7 @@ source ~/.vim/plugin-confs/wakatime.vim
 source ~/.config/nvim/plugin-confs/dracula.lua
 source ~/.config/nvim/plugin-confs/github-theme.lua
 source ~/.config/nvim/plugin-confs/onedarkpro.lua
+source ~/.config/nvim/plugin-confs/catppuccin.lua
 
 source ~/.config/nvim/lua/toggle_lsp_diagnostics.lua
 
@@ -75,7 +77,9 @@ command! Ovewrite execute ":w !sudo tee %"
 command! PS execute ":PackerSync"
 command! Aniwrapper execute ":FloatermNew aniwrapper -qtdoomone -D 144"
 
-set termguicolors
+" set termguicolors
 " colorscheme doom-one
-colorscheme onedark
-" colorscheme github_dark
+" colorscheme onedark
+colorscheme catppuccin
+highlight Pmenu ctermfg=white ctermbg=black gui=NONE guifg=white guibg=#282C34
+highlight PmenuSel guifg=purple guibg=red
