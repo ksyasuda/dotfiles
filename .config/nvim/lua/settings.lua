@@ -5,8 +5,9 @@ local l = vim.lsp
 
 g.mapleader = " "
 g.maplocalleader = ','
-g.fzf_command = 'fzf --height 90% --width=85% --layout=reverse --preview "bat --color=always {}"'
-o.completeopt="menu,menuone,noselect"
+g.fzf_command =
+'fzf --height 90% --width=85% --layout=reverse --preview "bat --color=always {}"'
+o.completeopt = "menu,menuone,noselect"
 o.showmode = false
 o.termguicolors = true
 o.background = 'dark'
@@ -30,7 +31,8 @@ o.cursorline = true
 o.scrolloff = 8
 o.sidescrolloff = 8
 o.wildmenu = true
-o.wildignore= '.git,.hg,.svn,CVS,.DS_Store,.idea,.vscode,.vscode-test,node_modules'
+o.wildignore =
+'.git,.hg,.svn,CVS,.DS_Store,.idea,.vscode,.vscode-test,node_modules'
 o.showmatch = true
 o.list = true
 o.listchars = 'tab:»·,trail:·,nbsp:·,extends:>,precedes:<'
@@ -41,18 +43,17 @@ o.hidden = true
 o.cmdheight = 1
 o.updatetime = 300
 o.timeoutlen = 500
-o.pumwidth=35
+o.pumwidth = 35
+o.foldmethod = 'marker'
+g.db_ui_use_nerd_fonts = 1
 
 local border = {
-    { "╭", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╮", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "╯", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╰", "FloatBorder" },
-    { "│", "FloatBorder" },
+	{ "╭", "FloatBorder" }, { "─", "FloatBorder" }, { "╮", "FloatBorder" },
+	{ "│", "FloatBorder" }, { "╯", "FloatBorder" }, { "─", "FloatBorder" },
+	{ "╰", "FloatBorder" }, { "│", "FloatBorder" }
 }
 
-l.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
-l.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+l.handlers["textDocument/signatureHelp"] =
+    vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+l.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover,
+	{ border = border })

@@ -1,0 +1,1 @@
+../mpv-youtube-upnext/youtube-upnext.lua

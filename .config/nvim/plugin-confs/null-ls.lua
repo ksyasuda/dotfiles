@@ -15,12 +15,15 @@ require("null-ls").setup({
     sources = {
         -- null_ls.builtins.completion.spell,
         null_ls.builtins.completion.luasnip,
-        null_ls.builtins.code_actions.gitsigns,
+        -- null_ls.builtins.code_actions.gitsigns,
         null_ls.builtins.code_actions.shellcheck,
+        null_ls.builtins.code_actions.eslint, null_ls.builtins.diagnostics.tsc,
         null_ls.builtins.diagnostics.cppcheck,
         null_ls.builtins.diagnostics.gitlint,
+        null_ls.builtins.diagnostics.eslint
+            .with({ cmd = "eslint-language-server" }),
         null_ls.builtins.diagnostics.jsonlint,
-        -- require("null-ls").builtins.diagnostics.luacheck,
+        require("null-ls").builtins.diagnostics.luacheck,
         null_ls.builtins.diagnostics.markdownlint,
         -- null_ls.builtins.diagnostics.sqlfluff.with({
         --     extra_args = {
@@ -28,31 +31,30 @@ require("null-ls").setup({
         --     }
         -- }),
         null_ls.builtins.formatting.sql_formatter,
-        null_ls.builtins.diagnostics.pylint,
+        null_ls.builtins.diagnostics.pylint, null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.diagnostics.pycodestyle,
         null_ls.builtins.diagnostics.pydocstyle.with({
             extra_args = { "--config=$ROOT/setup.cfg" }
-        }),
-        null_ls.builtins.diagnostics.vint,
+        }), null_ls.builtins.diagnostics.vint,
         null_ls.builtins.diagnostics.shellcheck.with({
-            extra_args = { "-s", "bash", "-o", "add-default-case, check-set-e-suppressed, check-unassigned-uppercase, deprecate-which, quote-safe-variables" }
-        }),
-        null_ls.builtins.diagnostics.ansiblelint,
+            extra_args = {
+                "-s", "bash", "-o",
+                "add-default-case, check-set-e-suppressed, check-unassigned-uppercase, deprecate-which, quote-safe-variables"
+            }
+        }), null_ls.builtins.diagnostics.ansiblelint,
         null_ls.builtins.formatting.json_tool,
-        -- require("null-ls").builtins.formatting.lua_format,
+        require("null-ls").builtins.formatting.lua_format,
         null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.prettier,
-        -- handled by lsp server
+        null_ls.builtins.formatting.prettier, -- handled by lsp server
         -- require("null-ls").builtins.formatting.rustfmt,
         null_ls.builtins.formatting.shfmt.with({
             filetypes = { "sh", "bash" },
             extra_args = { "-i", "0", "-ci", "-sr" }
-        }),
-        null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.isort,
-        null_ls.builtins.formatting.djlint,
+        }), null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.isort, null_ls.builtins.formatting.djlint
         -- null_ls.builtins.hover.printenv
         -- null_ls.builtins.formatting.tidy
-    },
+    }
 })
 
 -- local markdownlint = {

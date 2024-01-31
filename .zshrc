@@ -99,6 +99,8 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting git zsh-z)
 
 . /usr/share/fzf/fzf-extras.zsh
 
+export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+
 source $ZSH/oh-my-zsh.sh
 
 # set battery stages and colors
@@ -123,7 +125,9 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # added by Snowflake SnowSQL installer
-export PATH=/home/sudacode/.bin:$PATH
+export PATH="/home/sudacode/.bin:$PATH"
+export PATH="/usr/local/lib/:$PATH"
+export PATH="/usr/lib/ccache/bin/:$PATH"
 
 bindkey -v
 

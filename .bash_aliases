@@ -2,7 +2,7 @@
 alias sudo='sudo -v; sudo '
 alias suda='sudo'
 
-alias vi=vim
+alias vi=nvim
 alias vim=nvim
 
 alias nvidia-settings='nvidia-settings --config=~/nvidia/settings'
@@ -21,8 +21,7 @@ alias lcal='colorls -lA --sd --gs -X --dark'
 alias lct='colorls --gs --tree=5 --dark'
 alias ls='colorls --sd -X --dark'
 
-alias vfzf='vim $(fzf --height=45% --layout=reverse --preview="bat --style=numbers --color=always --line-range :500 {}")'
-alias fvim='vim $(fzf --height=45% --layout=reverse --preview="bat --style=numbers --color=always --line-range :500 {}")'
+alias vimf='vim $(fzf --height=45% --layout=reverse --preview="bat --style=numbers --color=always --line-range :500 {}")'
 
 # Kitty
 alias kimg='kitty +kitten icat'
@@ -80,7 +79,6 @@ alias mysan='feh --bg-scale ~/.wallpapers/MYSanGun-Inverted.png ~/.wallpapers/MY
 alias scripts='cd /home/sudacode/scripts'
 alias freud='cd /home/sudacode/'
 alias c=clear
-alias fd='firebase deploy'
 alias open='xdg-open'
 alias glow='glow -p'
 alias jn='jupyter-notebook'

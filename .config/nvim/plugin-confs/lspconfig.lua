@@ -1,9 +1,12 @@
-local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-
+-- local opts = { noremap = true, silent = true }
+-- vim.api.nvim_set_keymap('n', '<space>e',
+--     '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+-- vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>',
+--     opts)
+-- vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>',
+--     opts)
+-- vim.api.nvim_set_keymap('n', '<space>q',
+--     '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -41,8 +44,8 @@ local on_attach = function(client, bufnr)
     -- end
 end
 
-vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+-- vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+-- vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
 -- squared corners
 
@@ -60,20 +63,17 @@ vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335
 -- rounded
 
 local border = {
-    { "╭", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╮", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "╯", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╰", "FloatBorder" },
-    { "│", "FloatBorder" },
+    { "╭", "FloatBorder" }, { "─", "FloatBorder" }, { "╮", "FloatBorder" },
+    { "│", "FloatBorder" }, { "╯", "FloatBorder" }, { "─", "FloatBorder" },
+    { "╰", "FloatBorder" }, { "│", "FloatBorder" }
 }
 
-
 local handlers = {
-    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover,
+        { border = border }),
+    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers
+        .signature_help,
+        { border = border })
 }
 
 -- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -93,7 +93,7 @@ local DEFAULT_SETTINGS = {
             -- The list icon to use for servers that are pending installation.
             server_pending = "◍",
             -- The list icon to use for servers that are not installed.
-            server_uninstalled = "◍",
+            server_uninstalled = "◍"
         },
         keymaps = {
             -- Keymap to expand a server in the UI
@@ -105,8 +105,8 @@ local DEFAULT_SETTINGS = {
             -- Keymap to update all installed servers
             update_all_servers = "U",
             -- Keymap to uninstall a server
-            uninstall_server = "X",
-        },
+            uninstall_server = "X"
+        }
     },
 
     -- The directory in which to install all servers.
@@ -117,7 +117,7 @@ local DEFAULT_SETTINGS = {
         -- and is not recommended.
         --
         -- Example: { "--proxy", "https://proxyserver" }
-        install_args = {},
+        install_args = {}
     },
     on_attach = on_attach,
     handlers = handlers,
@@ -128,7 +128,7 @@ local DEFAULT_SETTINGS = {
 
     -- Limit for the maximum amount of servers to be installed at the same time. Once this limit is reached, any further
     -- servers that are requested to be installed will be put in a queue.
-    max_concurrent_installers = 4,
+    max_concurrent_installers = 4
 }
 
 vim.diagnostic.config({
@@ -136,7 +136,7 @@ vim.diagnostic.config({
     signs = true,
     underline = false,
     update_in_insert = false,
-    severity_sort = true,
+    severity_sort = true
 })
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -155,7 +155,9 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
 
     local diagnostic_message = ""
     for i, diagnostic in ipairs(line_diagnostics) do
-        diagnostic_message = diagnostic_message .. string.format("%d: %s", i, diagnostic.message or "")
+        diagnostic_message = diagnostic_message ..
+            string.format("%d: %s", i,
+                diagnostic.message or "")
         print(diagnostic_message)
         if i ~= #line_diagnostics then
             diagnostic_message = diagnostic_message .. "\n"
@@ -166,24 +168,8 @@ end
 
 -- vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
 
-local lsp_installer = require("nvim-lsp-installer")
-
 -- Register a handler that will be called for each installed server when it's ready (i.e. when installation is finished
 -- or if the server is already installed).
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
-
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
-
-    -- This setup() function will take the provided server configuration and decorate it with the necessary properties
-    -- before passing it onwards to lspconfig.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    server:setup(DEFAULT_SETTINGS)
-end)
-
 
 -- local servers = { 'jedi_language_server', 'bashls', 'vimls', 'yamlls', 'dockerls', 'rust_analyzer', 'clangd', 'ansiblels' }
 -- for _, lsp in pairs(servers) do
