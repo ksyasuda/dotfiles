@@ -48,7 +48,7 @@ local ui = require "user-input-module"
 local list = require "scroll-list"
 
 local o = {
-    API_key = "AIzaSyAiXDAueA9Kn_hbqxb5lN38vFI3IviA3gg",
+    API_key = "",
 
     -- number of search results to show in the list
     num_results = 40,
