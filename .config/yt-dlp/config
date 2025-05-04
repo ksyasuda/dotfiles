@@ -1,0 +1,25 @@
+--geo-bypass
+--embed-metadata
+--embed-thumbnail
+--embed-subs
+
+
+# Always extract audio
+# -x
+
+# Do not copy the mtime
+--no-mtime
+
+
+--user-agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+
+# --username oauth2 --password ''
+
+# Save all videos under YouTube directory in your home directory
+-o ~/videos/YouTube/%(title)s.%(ext)s
+
+--sponsorblock-mark all
+--sponsorblock-remove sponsor,selfpromo,intro,outro
+--sponsorblock-chapter-title "[SponsorBlock] %(category_names)l"
+--sponsorblock-api https://sponsor.ajay.app
+--sponsorblock-chapter-title all

@@ -1,0 +1,3 @@
+[submodule ".config/mpv"]
+	path = .config/mpv
+	url = git@gitea.suda.codes:sudacode/mpv.git
