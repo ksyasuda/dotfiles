@@ -1,0 +1,19 @@
+2025-03-15 11:14:36,792 __main__ INFO:209 Creating player manager
+2025-03-15 11:14:36,792 __main__ INFO:211 Filtering for player: /usr/bin/mpv
+2025-03-15 11:14:36,795 __main__ INFO:56 Starting main loop
+2025-03-15 11:14:46,385 __main__ INFO:20 Received signal to stop, exiting
+2025-03-15 11:16:38,985 __main__ INFO:209 Creating player manager
+2025-03-15 11:16:38,985 __main__ INFO:211 Filtering for player: zen-browser
+2025-03-15 11:16:38,987 __main__ INFO:56 Starting main loop
+2025-03-15 11:17:04,285 __main__ INFO:155 Player has appeared: firefox
+2025-03-15 11:17:12,010 __main__ INFO:20 Received signal to stop, exiting
+2025-03-15 11:17:14,562 __main__ INFO:209 Creating player manager
+2025-03-15 11:17:14,562 __main__ INFO:211 Filtering for player: firefox
+2025-03-15 11:17:14,565 __main__ INFO:60 Initialize new player: firefox
+2025-03-15 11:17:14,566 __main__ INFO:56 Starting main loop
+2025-03-15 11:19:35,500 __main__ INFO:20 Received signal to stop, exiting
+2025-03-15 12:35:35,101 __main__ INFO:209 Creating player manager
+2025-03-15 12:35:35,101 __main__ INFO:211 Filtering for player: firefox
+2025-03-15 12:35:35,104 __main__ INFO:60 Initialize new player: firefox
+2025-03-15 12:35:35,105 __main__ INFO:56 Starting main loop
+2025-03-15 12:35:56,559 __main__ INFO:20 Received signal to stop, exiting

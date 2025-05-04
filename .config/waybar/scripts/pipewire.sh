@@ -1,0 +1,1 @@
+../../../projects/scripts/waybar/pipewire.sh
