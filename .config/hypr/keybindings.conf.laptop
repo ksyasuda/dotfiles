@@ -1,5 +1,5 @@
 # Set programs that you use
-$terminal = FONTCONFIG_FILE=/home/sudacode/.config/ghostty/ghostty-fonts.conf uwsm app -sa -- ghostty
+$terminal = uwsm app -sa -- ghostty
 $fileManager = uwsm app -sa -- dolphin
 # $menu = rofi -show drun
 # https://github.com/Vladimir-csp/uwsm#2-service-startup-notification-and-vars-set-by-compositor
@@ -11,7 +11,7 @@ $mainMod = ALT # Sets "Windows" key as main modifier
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 bind = $mainMod, RETURN, exec, $terminal
 bind = $mainMod, Q, killactive,
-bind = $mainMod SHIFT, M, exec, uwsm stop
+bind = $mainMod, M, exec, uwsm stop
 bind = $mainMod, E, exec, $fileManager
 bind = $mainMod, V, togglefloating,
 bind = $mainMod, d, exec, $menu
@@ -37,32 +37,32 @@ bind = CTRL+ALT, j, focusmonitor, r
 bind = CTRL+ALT, k, focusmonitor, l
 
 # Switch workspaces with mainMod + [0-9]
-bind = $mainMod, 1, split-workspace, 1
-bind = $mainMod, 2, split-workspace, 2
-bind = $mainMod, 3, split-workspace, 3
-bind = $mainMod, 4, split-workspace, 4
-bind = $mainMod, 5, split-workspace, 5
-bind = $mainMod, 6, split-workspace, 6
-bind = $mainMod, 7, split-workspace, 7
-bind = $mainMod, 8, split-workspace, 8
-bind = $mainMod, 9, split-workspace, 9
-bind = $mainMod, 0, split-workspace, 10
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
 
 # Move active window to a workspace with mainMod + SHIFT + [0-9]
-bind = $mainMod SHIFT, 1, split-movetoworkspacesilent, 1
-bind = $mainMod SHIFT, 2, split-movetoworkspacesilent, 2
-bind = $mainMod SHIFT, 3, split-movetoworkspacesilent, 3
-bind = $mainMod SHIFT, 4, split-movetoworkspacesilent, 4
-bind = $mainMod SHIFT, 5, split-movetoworkspacesilent, 5
-bind = $mainMod SHIFT, 6, split-movetoworkspacesilent, 6
-bind = $mainMod SHIFT, 7, split-movetoworkspacesilent, 7
-bind = $mainMod SHIFT, 8, split-movetoworkspacesilent, 8
-bind = $mainMod SHIFT, 9, split-movetoworkspacesilent, 9
-bind = $mainMod SHIFT, 0, split-movetoworkspacesilent, 10
+bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
+bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
+bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
+bind = $mainMod SHIFT, 4, movetoworkspacesilent, 4
+bind = $mainMod SHIFT, 5, movetoworkspacesilent, 5
+bind = $mainMod SHIFT, 6, movetoworkspacesilent, 6
+bind = $mainMod SHIFT, 7, movetoworkspacesilent, 7
+bind = $mainMod SHIFT, 8, movetoworkspacesilent, 8
+bind = $mainMod SHIFT, 9, movetoworkspacesilent, 9
+bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
 
 # Example special workspace (scratchpad)
-bind = SUPER, S, togglespecialworkspace, magic
-bind = CTRL SHIFT, S, movetoworkspace, special:magic
+bind = $mainMod, S, togglespecialworkspace, magic
+bind = $mainMod SHIFT, S, movetoworkspace, special:magic
 
 # Scroll through existing workspaces with mainMod + scroll
 bind = $mainMod, mouse_down, workspace, e+1
@@ -81,11 +81,10 @@ bindel = ,XF86MonBrightnessUp, exec, brightnessctl s 10%+
 bindel = ,XF86MonBrightnessDown, exec, brightnessctl s 10%-
 
 # Requires playerctl
-bindl = , XF86AudioNext, exec, mpc next
-bindl = , XF86AudioPause, exec, mpc toggle
-bindl = , XF86AudioPlay, exec, mpc toggle
-bindl = , XF86AudioPrev, exec, mpc prev
-# bindl = , XF86AudioStop, exec, mpc stop
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPause, exec, playerctl play-pause
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioPrev, exec, playerctl previous
 
 # rofi
 bind = $mainMod SHIFT, v, exec, uwsm app -sb -- rofi-rbw
@@ -99,7 +98,7 @@ bind = $mainMod SHIFT, n, exec, swaync-client -t
 # mpv add
 bind = SUPER, m, exec, ~/.local/bin/mpv-add.sh
 
-bind = SUPER SHIFT, s, exec, slurp | grim -g - - | wl-copy
+bind = SUPER SHIFT, s, exec, ~/.local/bin/screenshot.sh
 bind = ,code:107, exec, ~/.local/bin/screenshot.sh
 bind = SUPER SHIFT, o, exec, ~/.local/bin/ocr.sh
 bind = $mainMod, o, exec, ~/.local/bin/ocr.sh
@@ -115,6 +114,3 @@ bind = CTRL, F10, pass, class:^(com\.obsproject\.Studio)$
 
 bind = CTRL SHIFT, D, exec, ~/.local/bin/dragon
 bind = CTRL ALT, F, exec, ~/.local/bin/favorite-wallpaper
-
-bind = $mainMod, z, exec, uwsm app -sb -- zen-browser
-
