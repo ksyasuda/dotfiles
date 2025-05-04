@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if pgrep -af "waybar -c /home/sudacode/.config/waybar/catppuccin-macchiato/config-battery.jsonc -s /home/sudacode/.config/waybar/catppuccin-macchiato/style.css" ||
+    pgrep -af "waybar -c /home/sudacode/.config/waybar/catppuccin-macchiato/config.jsonc -s /home/sudacode/.config/waybar/catppuccin-macchiato/style.css"; then
+    killall waybar
+fi
+
+BASE_DIR="$HOME/.config/waybar/catppuccin-macchiato"
+NODE_NAME="$(hyprctl systeminfo | grep -i "node name" | sed 's/Node name: //')"
+
+if [[ "$NODE_NAME" = "sc-arch" ]]; then
+    CONFIG="$BASE_DIR/config.jsonc"
+else
+    CONFIG="$BASE_DIR/config-laptop.jsonc"
+fi
+
+
+
+waybar -c "$CONFIG" -s "$BASE_DIR/style.css" &>/dev/null &
