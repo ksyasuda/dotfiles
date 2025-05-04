@@ -9,7 +9,7 @@
 }
 
 window#waybar {
-  background-color: @mantle;
+  background-color: transparent;
   color: @text;
   /* border-radius: 0.69em; */
 }
@@ -112,6 +112,12 @@ button:hover {
   padding: 0 10px;
   margin: 5px 1px;
   color: @text;
+}
+
+.modules-left,
+.modules-right,
+.modules-center {
+  background-color: @mantle;
 }
 
 .modules-left > widget:first-child > #workspaces {
@@ -254,7 +260,7 @@ label:focus {
   background-color: @yellow;
   color: @mantle;
   padding: 0 10px;
-  margin: 5px 1px;
+  margin: 5px 1px 5px 5px;
 }
 
 #custom-launcher {
@@ -274,7 +280,7 @@ label:focus {
   background-color: @blue;
   color: @crust;
   padding: 0 10px;
-  margin: 5px 1px;
+  margin: 5px 5px 5px 1px;
 }
 
 #battery.critical:not(.charging) {
@@ -305,4 +311,11 @@ label:focus {
   color: @base;
   padding: 0 10px;
   margin: 5px 1px;
+}
+
+#custom-notification {
+  font-family: "JetBrainsMono Nerd Font";
+  padding: 5px;
+  background-color: transparent;
+  color: @maroon;
 }
