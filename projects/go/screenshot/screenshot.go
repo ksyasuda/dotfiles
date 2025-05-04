@@ -2,7 +2,9 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"os/exec"
@@ -29,10 +31,61 @@ func notify(body, title string) {
 	if title == "" {
 		title = scriptName
 	}
-	cmd := exec.Command("notify-send", title, body)
+	cmd := exec.Command("notify-send", "-a", "Screenshot", "-i", "camera", title, body)
 	if err := cmd.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "notify error: %v\n", err)
 	}
+}
+
+func notifyWithIcon(iconPath, body, title string) {
+	if title == "" {
+		title = scriptName
+	}
+	resizedPath := iconPath + ".icon.png"
+	resizeCmd := exec.Command("convert", iconPath, "-resize", "128x128^", "-gravity", "center", "-extent", "128x128", resizedPath)
+	if err := resizeCmd.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "resize error: %v\n", err)
+		resizedPath = iconPath // fallback to original if resize fails
+	}
+	cmd := exec.Command("notify-send", "-a", "Screenshot", "--hint", "string:image-path:"+resizedPath, title, body)
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "notify error: %v\n", err)
+	}
+	os.Remove(resizedPath)
+}
+
+func moveFile(src, dst string) error {
+	in, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer in.Close()
+	out, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+	if _, err := io.Copy(out, in); err != nil {
+		return err
+	}
+	return os.Remove(src)
+}
+
+func getActiveWindowGeom() (string, error) {
+	type activeWindow struct {
+		At   [2]int `json:"at"`
+		Size [2]int `json:"size"`
+	}
+	cmd := exec.Command("hyprctl", "-j", "activewindow")
+	out, err := cmd.Output()
+	if err != nil {
+		return "", err
+	}
+	var win activeWindow
+	if err := json.Unmarshal(out, &win); err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%d,%d %dx%d", win.At[0], win.At[1], win.Size[0], win.Size[1]), nil
 }
 
 func checkDeps() {
@@ -47,9 +100,9 @@ func main() {
 	checkDeps()
 	options := []Option{
 		{"1. Select a region and save", []string{"sh", "-c", fmt.Sprintf("slurp | grim -g - '%s'", tmpScreenshot)}},
-		{"2. Select a region and copy to clipboard", []string{"sh", "-c", "slurp | grim -g - - | wl-copy"}},
+		{"2. Select a region and copy to clipboard", []string{"sh", "-c", fmt.Sprintf("slurp | grim -g - '%s' && wl-copy < '%s'", tmpScreenshot, tmpScreenshot)}},
 		{"3. Whole screen", []string{"grim", tmpScreenshot}},
-		{"4. Current window", []string{"sh", "-c", fmt.Sprintf("hyprctl -j activewindow | jq -r '\\.at[0],(\\.at[1]) \\.size[0]x(\\.size[1])' | grim -g - '%s'", tmpScreenshot)}},
+		{"4. Current window", []string{"current-window"}},
 		{"5. Edit", []string{"sh", "-c", "slurp | grim -g - - | swappy -f -"}},
 		{"6. Quit", []string{"true"}},
 	}
@@ -82,11 +135,21 @@ func main() {
 			notify("An error occurred while taking the screenshot.", "")
 			os.Exit(1)
 		}
-		notify("Screenshot copied to clipboard", "")
+		notifyWithIcon(tmpScreenshot, "Screenshot copied to clipboard", "")
 		os.Exit(0)
 	}
 
-	if err := exec.Command(selected.Cmd[0], selected.Cmd[1:]...).Run(); err != nil {
+	if selected.Cmd[0] == "current-window" {
+		geom, err := getActiveWindowGeom()
+		if err != nil {
+			notify(fmt.Sprintf("Failed to get current window geometry: %v", err), "")
+			os.Exit(1)
+		}
+		if err := exec.Command("grim", "-g", geom, tmpScreenshot).Run(); err != nil {
+			notify(fmt.Sprintf("An error occurred while taking the screenshot (grim -g '%s'): %v", geom, err), "")
+			os.Exit(1)
+		}
+	} else if err := exec.Command(selected.Cmd[0], selected.Cmd[1:]...).Run(); err != nil {
 		notify("An error occurred while taking the screenshot.", "")
 		os.Exit(1)
 	}
@@ -105,9 +168,11 @@ func main() {
 	}
 
 	dest := strings.TrimSpace(string(fileOut))
-	if err := os.Rename(tmpScreenshot, dest); err != nil {
+	if _, err := os.Stat(tmpScreenshot); os.IsNotExist(err) {
+		notify(fmt.Sprintf("Screenshot file %s does not exist. Save failed.", tmpScreenshot), "")
+	} else if err := moveFile(tmpScreenshot, dest); err != nil {
 		notify(fmt.Sprintf("Failed to save screenshot to %s", dest), "")
 	} else {
-		notify(fmt.Sprintf("Screenshot saved to %s", dest), "")
+		notifyWithIcon(dest, fmt.Sprintf("Screenshot saved to %s", dest), "")
 	}
 }

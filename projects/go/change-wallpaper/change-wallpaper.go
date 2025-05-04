@@ -189,7 +189,7 @@ func changeWallpaper(wallpaperPath, topic string) {
 }
 
 func notify(message, urgency string) {
-	cmd := exec.Command("notify-send", "-i", "hyprpaper", "-u", urgency, "change-wallpaper.go", message)
+	cmd := exec.Command("notify-send", "-a", "change-wallpaper", "-i", "hyprpaper", "-u", urgency, "change-wallpaper.go", message)
 	if err := cmd.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error sending notification: %v\n", err)
 	}
@@ -197,7 +197,7 @@ func notify(message, urgency string) {
 
 // notifyWithIcon sends a notification with a custom icon (wallpaper image)
 func notifyWithIcon(message, urgency, iconPath string) {
-	cmd := exec.Command("notify-send", "-i", iconPath, "-u", urgency, "change-wallpaper.go", message)
+	cmd := exec.Command("notify-send", "-a", "change-wallpaper", "-i", iconPath, "-u", urgency, "change-wallpaper.go", message)
 	if err := cmd.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error sending notification: %v\n", err)
 	}

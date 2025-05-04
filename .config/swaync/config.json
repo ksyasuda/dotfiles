@@ -2,24 +2,26 @@
   "$schema": "/etc/xdg/swaync/configSchema.json",
   "positionX": "right",
   "positionY": "top",
-	"cssPriority": "user",
+  "cssPriority": "user",
 
-  "control-center-width": 380,
-  "control-center-height": 860, 
-  "control-center-margin-top": 2,
+  "control-center-width": 420,
+  "control-center-height": 860,
+  "control-center-margin-top": 0,
   "control-center-margin-bottom": 2,
-  "control-center-margin-right": 1,
+  "control-center-margin-right": 0,
   "control-center-margin-left": 0,
 
-  "notification-window-width": 400,
-  "notification-icon-size": 48,
-  "notification-body-image-height": 160,
-  "notification-body-image-width": 200,
+  "notification-2fa-action": true,
+  "notification-inline-replies": false,
+  "notification-window-width": 500,
+  "notification-icon-size": 64,
+  "notification-body-image-height": 400,
+  "notification-body-image-width": 225,
 
   "timeout": 4,
   "timeout-low": 2,
   "timeout-critical": 6,
-  
+
   "fit-to-screen": false,
   "keyboard-shortcuts": true,
   "image-visibility": "when-available",
@@ -41,6 +43,8 @@
     }
   },
   "widgets": [
+    "menubar#label",
+    "buttons-grid",
     "mpris",
     "title",
     "dnd",
@@ -58,6 +62,22 @@
     "mpris": {
       "image-size": 96,
       "image-radius": 12
+    },
+    "label": {
+      "max-lines": 1,
+      "text": "󰒋"
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "",
+          "command": "~/.config/rofi/scripts/rofi-wifi-menu.sh"
+        },
+        {
+          "label": "",
+          "command": "~/.config/rofi/scripts/rofi-bluetooth.sh"
+        }
+      ]
     }
   }
 }
