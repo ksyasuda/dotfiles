@@ -1,0 +1,7 @@
+local ts = require("telescope")
+ts.load_extension("fzf")
+ts.load_extension("color_names")
+ts.load_extension("file_browser")
+ts.load_extension("glyph")
+ts.load_extension("ui-select")
+ts.load_extension("noice")

@@ -1,0 +1,6 @@
+plugin
+spell
+.git
+*.old
+.repro
+test
