@@ -132,7 +132,9 @@ func downloadRandomWallpaper(wallpaperPath string, r *rand.Rand, topics []string
 	// Select a random image from the results
 	randomIndex := r.Intn(len(wallhavenResp.Data))
 	wallpaperURL := wallhavenResp.Data[randomIndex].Path
-	filename := filepath.Base(wallpaperURL)
+	orig := filepath.Base(wallpaperURL)
+	sanitizedTopic := strings.ReplaceAll(strings.ToLower(displayName), " ", "-")
+	filename := fmt.Sprintf("%s-%s", sanitizedTopic, orig)
 	filepath := filepath.Join(wallpaperPath, filename)
 
 	fmt.Fprintf(os.Stderr, "Downloading: %s\n", filename)
