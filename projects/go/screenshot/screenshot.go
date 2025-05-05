@@ -105,7 +105,6 @@ func main() {
 		{"4. Current monitor", []string{"sh", "-c", fmt.Sprintf("grim -o \"$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')\" '%s'", tmpScreenshot)}},
 		{"5. Current window", []string{"current-window"}},
 		{"6. Edit", []string{"sh", "-c", "slurp | grim -g - - | swappy -f -"}},
-		{"7. Quit", []string{"true"}},
 	}
 
 	var menu bytes.Buffer
@@ -114,7 +113,7 @@ func main() {
 		menu.WriteByte('\n')
 	}
 
-	rofi := exec.Command("rofi", "-dmenu", "-i", "-p", "Enter option or select from the list", "-mesg", "Select a Screenshot Option", "-format", "i", "-theme-str", "listview {columns: 2; lines: 3;} window {width: 55%;}", "-yoffset", "30", "-xoffset", "30", "-a", "0", "-no-custom", "-location", "0")
+	rofi := exec.Command("rofi", "-dmenu", "-i", "-p", "Select option", "-mesg", "Select a Screenshot Option", "-format", "i", "-theme-str", "listview {columns: 1; lines: 6;} window {width: 25%;}", "-yoffset", "30", "-xoffset", "30", "-no-custom", "-location", "0", "-theme", "~/.config/rofi/launchers/type-2/style-2.rasi")
 	rofi.Stdin = &menu
 	out, err := rofi.Output()
 	if err != nil {

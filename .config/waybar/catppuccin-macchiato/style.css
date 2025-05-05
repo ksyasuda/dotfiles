@@ -316,6 +316,7 @@ label:focus {
 #custom-notification {
   font-family: "JetBrainsMono Nerd Font";
   margin: 5px 6px 5px 5px;
+  padding: 5px;
   background-color: transparent;
   color: @maroon;
 }
