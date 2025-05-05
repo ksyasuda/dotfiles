@@ -25,13 +25,7 @@ type Config struct {
 }
 
 var defaultTopics = []string{
-	"132262 - Mobuseka",
-	"konosuba",
-	"bunny girl senpai",
-	"oshi no ko",
-	"kill la kill",
 	"lofi",
-	"eminence in shadow",
 }
 
 func loadConfig() []string {
