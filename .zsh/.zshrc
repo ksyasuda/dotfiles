@@ -1,1 +1,1 @@
-.zshrc##default
+.zshrc##os.Darwin
