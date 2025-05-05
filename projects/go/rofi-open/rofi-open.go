@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -22,7 +21,7 @@ func loadConfig() (*Config, error) {
 		return nil, err
 	}
 	path := filepath.Join(home, ".config", "rofi-open", "config.json")
-	data, err := ioutil.ReadFile(path)
+	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
@@ -37,53 +36,6 @@ var (
 	BROWSER    = "zen-browser"
 	OPEN_TYPES = []string{"window", "tab"}
 	OPTIONS    = []string{
-		"Anilist - https://anilist.co/home",
-		"Authentik - https://auth.suda.codes",
-		"Capital One - https://myaccounts.capitalone.com/accountSummary",
-		"Chase Bank - https://secure03ea.chase.com/",
-		"ChatGPT - https://chat.openai.com/chat",
-		"Cloudflare - https://dash.cloudflare.com/",
-		"CoinMarketCap - https://coinmarketcap.com/",
-		"Deemix - http://pve-main:3358",
-		"F1TV - https://f1tv.suda.codes",
-		"Fidelity - https://login.fidelity.com/",
-		"Gitea - https://gitea.suda.codes",
-		"Github - https://github.com",
-		"Ghostfolio - http://pve-main:3334",
-		"Grafana - http://pve-main:3000",
-		"Homepage - https://suda.codes",
-		"Immich - https://immich.suda.codes",
-		"Jellyseerr - https://jellyseerr.suda.codes",
-		"Jellyfin - https://jellyfin.suda.codes",
-		"Jellyfin (YouTube) - http://pve-main:8097",
-		"Jellyfin (Vue) - http://pve-main:8098",
-		"Karakeep - https://karakeep.suda.codes",
-		"Komga - http://oracle-vm:3332",
-		"Lidarr - http://pve-main:3357",
-		"MeTube - https://metube.suda.codes",
-		"Navidrome - https://navidrome.suda.codes",
-		"Nzbhydra - https://nzbhydra.suda.codes",
-		"OpenBooks - https://openbooks.suda.codes",
-		"Pihole - https://pihole.suda.codes/admin",
-		"Pihole2 - https://pihole2.suda.codes/admin",
-		"Proxmox - https://thebox.unicorn-ilish.ts.net",
-		"qBittorrent - https://qbit.suda.codes",
-		"Paperless - https://paperless.suda.codes",
-		"Prometheus - http://prometheus:9090",
-		"Radarr - https://radarr.suda.codes",
-		"Reddit (Anime) - https://www.reddit.com/r/anime/",
-		"Reddit (Selfhosted) - https://www.reddit.com/r/selfhosted/",
-		"Sabnzbd - https://sabnzbd.suda.codes",
-		"Sonarr - https://sonarr.suda.codes",
-		"Sonarr Anime - http://pve-main:6969",
-		"Sudacode - https://sudacode.com",
-		"Tailscale - https://login.tailscale.com/admin/machines",
-		"Tranga - http://pve-main:9555",
-		"Truenas - https://truenas.unicorn-ilish.ts.net",
-		"Tdarr - https://tdarr.suda.codes",
-		"Umami - https://umami.sudacode.com",
-		"Vaultwarden - https://vault.suda.codes",
-		"Wallabag - https://wallabag.suda.codes",
 		"Youtube - https://youtube.com",
 	}
 )
@@ -94,6 +46,16 @@ func main() {
 	if err != nil {
 		fmt.Println("Error loading config:", err)
 		os.Exit(1)
+	}
+
+	// Override BROWSER if set in config
+	if cfg.Browser != "" {
+		BROWSER = cfg.Browser
+	}
+
+	// Override OPTIONS if set in config
+	if len(cfg.Options) > 0 {
+		OPTIONS = cfg.Options
 	}
 
 	var openType string
