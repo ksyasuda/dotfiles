@@ -15,6 +15,14 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 HISTFILESIZE=2000
 HISTCONTROL=ignoreboth
+# as soon as you hit enter, append to $HISTFILE
+setopt INC_APPEND_HISTORY
+# merge history from all running shells
+setopt SHARE_HISTORY
+# ignore duplicates and trivial commands
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+
 
 # fpath=(/Users/sudacode/.docker/completions $fpath)
 FPATH="$HOME/.docker/completions:$FPATH"
