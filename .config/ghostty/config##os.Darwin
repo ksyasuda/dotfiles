@@ -1,0 +1,18 @@
+font-family = JetBrainsMono Nerd Font
+window-title-font-family = JetBrainsMono Nerd Font
+font-size = 12
+font-feature = +calt
+font-feature = +liga
+font-feature = +dlig
+theme = catppuccin-macchiato
+cursor-style = block
+window-padding-x = 10
+window-padding-y = 10
+window-decoration = true
+window-height = 46
+window-width = 180
+confirm-close-surface = false
+copy-on-select = clipboard
+app-notifications = no-clipboard-copy
+keybind = all:ctrl+enter=unbind
+keybind = all:ctrl+grave_accent=toggle_quick_terminal
