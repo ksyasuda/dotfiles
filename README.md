@@ -1,6 +1,6 @@
 # Dotfiles
 
-![rice]()
+![rice](https://github.com/user-attachments/assets/34c9afb4-63a5-453f-86a4-ebd7c30f74ca)
 
 ## Current Setup
 
@@ -15,7 +15,8 @@
 - Status Bar: [Waybar](https://github.com/Alexays/Waybar)
   - [config.jsonc](.config/waybar/catppuccin-macchiato/config.jsonc)
   - [style.css](.config/waybar/catppuccin-macchiato/style.css)
-- Application Launcher: [Rofi](https://github.com/davatorium/rofi)
+- Applicati![rice](https://github.com/user-attachments/assets/19c6ba07-ef1c-4af3-a14c-2960b6e11cc7)
+on Launcher: [Rofi](https://github.com/davatorium/rofi)
   - [default theme](.config/rofi/config.rasi)
 - Terminal Emulator: [Ghostty](https://ghostty.org/)
   - [config](.config/ghostty/config)
