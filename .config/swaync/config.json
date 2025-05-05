@@ -5,7 +5,7 @@
   "cssPriority": "user",
 
   "control-center-width": 420,
-  "control-center-height": 860,
+  "control-center-height": 1111,
   "control-center-margin-top": 0,
   "control-center-margin-bottom": 2,
   "control-center-margin-right": 0,
@@ -66,18 +66,6 @@
     "label": {
       "max-lines": 1,
       "text": "󰒋"
-    },
-    "buttons-grid": {
-      "actions": [
-        {
-          "label": "",
-          "command": "~/.config/rofi/scripts/rofi-wifi-menu.sh"
-        },
-        {
-          "label": "",
-          "command": "~/.config/rofi/scripts/rofi-bluetooth.sh"
-        }
-      ]
     }
   }
 }
