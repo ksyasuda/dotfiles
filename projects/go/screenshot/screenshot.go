@@ -102,9 +102,10 @@ func main() {
 		{"1. Select a region and save", []string{"sh", "-c", fmt.Sprintf("slurp | grim -g - '%s'", tmpScreenshot)}},
 		{"2. Select a region and copy to clipboard", []string{"sh", "-c", fmt.Sprintf("slurp | grim -g - '%s' && wl-copy < '%s'", tmpScreenshot, tmpScreenshot)}},
 		{"3. Whole screen", []string{"grim", tmpScreenshot}},
-		{"4. Current window", []string{"current-window"}},
-		{"5. Edit", []string{"sh", "-c", "slurp | grim -g - - | swappy -f -"}},
-		{"6. Quit", []string{"true"}},
+		{"4. Current monitor", []string{"sh", "-c", fmt.Sprintf("grim -o \"$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')\" '%s'", tmpScreenshot)}},
+		{"5. Current window", []string{"current-window"}},
+		{"6. Edit", []string{"sh", "-c", "slurp | grim -g - - | swappy -f -"}},
+		{"7. Quit", []string{"true"}},
 	}
 
 	var menu bytes.Buffer
