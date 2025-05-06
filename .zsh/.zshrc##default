@@ -11,10 +11,18 @@ source ~/.environment
 source <(fzf --zsh)
 
 eval $(thefuck --alias)
+
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-HISTFILESIZE=2000
 HISTCONTROL=ignoreboth
+HISTSIZE=10000       # max lines kept in memory
+SAVEHIST=10000       # max lines saved to $HISTFILE
+
+# 2. Behavior flags
+setopt APPEND_HISTORY     # append, don’t rewrite the entire file on exit
+setopt INC_APPEND_HISTORY # write each command as it’s entered
+setopt SHARE_HISTORY      # merge history across all running zsh’s
+setopt HIST_IGNORE_ALL_DUPS  # don’t record a command if it’s already in history
+setopt HIST_IGNORE_SPACE     # don’t record commands that start with a space
 
 # fpath=(/Users/sudacode/.docker/completions $fpath)
 FPATH="$HOME/.docker/completions:$FPATH"

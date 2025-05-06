@@ -12,7 +12,7 @@
   "control-center-margin-left": 0,
 
   "notification-2fa-action": true,
-  "notification-inline-replies": false,
+  "notification-inline-replies": true,
   "notification-window-width": 500,
   "notification-icon-size": 64,
   "notification-body-image-height": 400,
@@ -62,6 +62,18 @@
     "mpris": {
       "image-size": 96,
       "image-radius": 12
+    },
+    "volume": {
+      "label": "",
+      "show-per-app": true,
+      "show-per-app-icon": true,
+      "show-per-app-label": true,
+      "empty-list-label": "No applications using audio",
+      "expand-button-label": "",
+      "collapse-button-label": "ﬔ",
+      "icon-size": 24,
+      "animation-type": "slide_down",
+      "animation-duration": 250
     },
     "label": {
       "max-lines": 1,
