@@ -213,6 +213,7 @@ label:focus {
   /* background-color: @overlay0; */
   background-color: @surface0;
   color: @mantle;
+  margin: 5px;
 }
 
 #tray > .passive {
