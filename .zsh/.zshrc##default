@@ -63,4 +63,13 @@ zstyle :compinstall filename /home/sudacode/.zsh/.zshrc
 
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
+
+# load both the URL‐quoting and paste‐magic widgets
+autoload -Uz url-quote-magic bracketed-paste-magic
+
+# tell url-quote-magic which chars to escape
+zstyle ':url-quote-magic:*' url-quotes ''
+
+# bind it to both typing and pasting
+zle   -N self-insert       url-quote-magic
+zle   -N bracketed-paste   bracketed-paste-magic
