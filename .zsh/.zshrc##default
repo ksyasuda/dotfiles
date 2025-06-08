@@ -46,7 +46,6 @@ bindkey -M vicmd '^[[A' history-substring-search-up
 bindkey -M vicmd '^[[B' history-substring-search-down
 bindkey '^ ' autosuggest-accept
 
-
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _complete _ignored _match _approximate
