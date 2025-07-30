@@ -13,7 +13,7 @@ alias qutebrowser="qutebrowser --qt-arg stylesheet ~/.local/share/qutebrowser/fi
 alias aniwrapper='aniwrapper -D 144'
 
 ## Colorls
-alias ls='exa -M --group-directories-first --icons --color=always --group --git'
+alias ls='eza -M --group-directories-first --icons --color=always --group --git'
 alias ll='ls -l'
 alias la='ls -la'
 
