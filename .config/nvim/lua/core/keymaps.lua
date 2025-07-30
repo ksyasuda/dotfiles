@@ -12,10 +12,14 @@ local nosilent = { noremap = true }
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+function create_custom_command(trigger, command, description)
+	-- Create a custom command with the given trigger, command, and description
+	vim.api.nvim_create_user_command(trigger, command, { desc = description })
+end
 -- Custom commands
-vim.api.nvim_create_user_command("Config", "edit ~/.config/nvim", {})
-vim.api.nvim_create_user_command("Keymaps", "edit ~/.config/nvim/lua/core/keymaps.lua", {})
-vim.api.nvim_create_user_command("Hypr", "edit ~/.config/hypr/hyprland.conf", {})
+create_custom_command("Config", "edit ~/.config/nvim", "Edit nvim configuration")
+create_custom_command("Keymaps", "edit ~/.config/nvim/lua/core/keymaps.lua", "Edit Hyprland keybindings")
+create_custom_command("Hypr", "edit ~/.config/hypr/hyprland.conf", "Edit Hyprland configuration")
 
 -- {{{ Basic Mappings
 local basic_mappings = {
@@ -34,10 +38,10 @@ local basic_mappings = {
 local buffer_navigation_mappings = {
 	{ key = "<C-J>", cmd = ":bnext<CR>", desc = "Next buffer", mode = "n" },
 	{ key = "<C-K>", cmd = ":bprev<CR>", desc = "Previous buffer", mode = "n" },
-	{ key = "<leader>bb", cmd = ":Telescope buffers<CR>", desc = "List buffers", mode = "n", group = "Buffers" },
-	{ key = "<leader>bk", cmd = ":bdelete<CR>", desc = "Delete buffer", mode = "n", group = "Buffers" },
-	{ key = "<leader>bn", cmd = ":bnext<CR>", desc = "Next buffer", mode = "n", group = "Buffers" },
-	{ key = "<leader>bp", cmd = ":bprev<CR>", desc = "Previous buffer", mode = "n", group = "Buffers" },
+	{ key = "<leader>bb", cmd = ":Telescope buffers<CR>", desc = "List buffers", mode = "n" },
+	{ key = "<leader>bk", cmd = ":bdelete<CR>", desc = "Delete buffer", mode = "n" },
+	{ key = "<leader>bn", cmd = ":bnext<CR>", desc = "Next buffer", mode = "n" },
+	{ key = "<leader>bp", cmd = ":bprev<CR>", desc = "Previous buffer", mode = "n" },
 }
 --}}}
 
@@ -68,84 +72,72 @@ local terminal_mappings = {
 		cmd = ":ToggleTerm name=toggleterm<CR>",
 		desc = "Toggle terminal",
 		mode = "n",
-		group = "Toggle",
 	},
 	{
 		key = "<leader>tT",
 		cmd = ":ToggleTerm name=toggleterm-full direction=tab<CR>",
 		desc = "Toggle full terminal",
 		mode = "n",
-		group = "Toggle",
 	},
 	{
 		key = "<leader>ot",
 		cmd = ":ToggleTerm name=toggleterm<CR>",
 		desc = "Open terminal",
 		mode = "n",
-		group = "Open",
 	},
 	{
 		key = "<leader>oT",
 		cmd = ":ToggleTerm name=toggleterm-full direction=tab<CR>",
 		desc = "Open full terminal",
 		mode = "n",
-		group = "Open",
 	},
 	{
 		key = "<leader>ts",
 		cmd = ":TermSelect<CR>",
 		desc = "Select terminal",
 		mode = "n",
-		group = "Terminal",
 	},
 	{
 		key = "<leader>tv",
 		cmd = ":ToggleTerm direction=vertical name=toggleterm-vert<CR>",
 		desc = "Toggle vertical terminal",
 		mode = "n",
-		group = "Terminal",
 	},
 	{
 		key = "<leader>th",
 		cmd = ":ToggleTerm direction=horizontal name=toggleterm-hori<CR>",
 		desc = "Toggle horizontal terminal",
 		mode = "n",
-		group = "Terminal",
 	},
 	{
 		key = "<leader>ov",
 		cmd = ":ToggleTerm direction=vertical name=toggleterm-vert<CR>",
 		desc = "Open vertical terminal",
 		mode = "n",
-		group = "Open",
 	},
 	{
 		key = "<leader>oh",
 		cmd = ":ToggleTerm direction=horizontal name=toggleterm-hori<CR>",
 		desc = "Open horizontal terminal",
 		mode = "n",
-		group = "Open",
 	},
 	{
 		key = "<leader>tf",
 		cmd = ":ToggleTerm name=toggleterm<CR>",
 		desc = "Toggle terminal",
 		mode = "n",
-		group = "Terminal",
 	},
 	{
 		key = "<leader>-",
 		cmd = ":ToggleTerm direction='horizontal'<CR>",
 		desc = "Toggle horizontal terminal",
 		mode = "n",
-		group = "Horizontal Terminal",
 	},
 	{
 		key = "<leader>|",
 		cmd = ":ToggleTerm direction='vertical'<CR>",
 		desc = "Toggle vertical terminal",
 		mode = "n",
-		group = "Vertical Terminal",
 	},
 }
 --}}}

@@ -10,7 +10,6 @@ vim.notify = require("notify")
 ---@usage addToWhichKey(mappings, group)
 ---@example addToWhichKey({{key = "n", cmd = "next", mode = "n", desc = "Next Line", group = "Navigation"}, {key = "t", group = "example"})
 function M.addToWhichKey(mappings, group)
-	local wk_mappings = {}
 	if group then
 		whichkey.add({ group.key, group = group.group })
 	end
@@ -21,6 +20,7 @@ function M.addToWhichKey(mappings, group)
 		return
 	end
 	for _, mapping in ipairs(mappings) do
+		local wk_mappings = {}
 		if not mapping.key or mapping.key == "" then
 			vim.notify("Error: Key is empty or nil", "error")
 			return
@@ -38,9 +38,11 @@ function M.addToWhichKey(mappings, group)
 
 		wk_mappings[1] = mapping.key
 		wk_mappings[2] = mapping.cmd
-		wk_mappings.mode = mapping.mode
-		wk_mappings.desc = mapping.desc or "No Description"
-		wk_mappings.group = mapping.group or "No Group"
+		wk_mappings.mode = mapping.mode or "n"
+		wk_mappings.desc = mapping.desc
+		if mapping.group then
+			wk_mappings.group = mapping.group
+		end
 		whichkey.add(wk_mappings)
 	end
 end
