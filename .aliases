@@ -1,0 +1,5 @@
+alias pissh='ssh -Y pi@192.168.1.118'
+alias share='mount -t cifs //192.168.4.53/pishare /share -o username=pi,iocharset=utf8,uid=sudacode,gid=sudacode'
+alias lconf='lvim ~/.config/lvim/config.lua'
+alias dcre='dc up -d --force-recreate'
+alias lofi="nohup mpv 'https://www.youtube.com/watch?v=jfKfPfyJRdk' >/dev/null 2>&1 &"

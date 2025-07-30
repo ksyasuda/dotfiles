@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 	"time"
 )
@@ -21,29 +22,42 @@ const (
 )
 
 type Config struct {
-	Topics []string `json:"topics"`
+	Topics       []string `json:"topics"`
+	Keep         int      `json:"keep"`         // Number of wallpapers to keep (0 = never delete)
+	WallpaperDir string   `json:"wallpaperDir"` // Directory to store wallpapers
 }
 
 var defaultTopics = []string{
 	"lofi",
 }
 
-func loadConfig() []string {
+const defaultKeep = 10
+
+func loadConfig() (topics []string, keep int, wallpaperDir string) {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		return defaultTopics
+		return defaultTopics, defaultKeep, wallpaperDir
 	}
 	configPath := filepath.Join(homeDir, ".config", "change-wallpaper", "config.json")
 	file, err := os.Open(configPath)
 	if err != nil {
-		return defaultTopics
+		return defaultTopics, defaultKeep, wallpaperDir
 	}
 	defer file.Close()
 	var cfg Config
-	if err := json.NewDecoder(file).Decode(&cfg); err != nil || len(cfg.Topics) == 0 {
-		return defaultTopics
+	if err := json.NewDecoder(file).Decode(&cfg); err != nil {
+		return defaultTopics, defaultKeep, wallpaperDir
 	}
-	return cfg.Topics
+	if len(cfg.Topics) == 0 {
+		cfg.Topics = defaultTopics
+	}
+	if cfg.Keep < 0 {
+		cfg.Keep = defaultKeep
+	}
+	if cfg.WallpaperDir == "" {
+		cfg.WallpaperDir = wallpaperDir
+	}
+	return cfg.Topics, cfg.Keep, cfg.WallpaperDir
 }
 
 type WallhavenResponse struct {
@@ -57,7 +71,7 @@ func main() {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	// Load topics from config or use defaults
-	topics := loadConfig()
+	topics, keep, configWallpaperDir := loadConfig()
 
 	// Check if a file path was provided as argument
 	if len(os.Args) > 1 {
@@ -75,14 +89,26 @@ func main() {
 		os.Exit(1)
 	}
 
-	wallpaperPath := filepath.Join(homeDir, wallpaperDir)
+	// Use config wallpaper directory if set, otherwise use default
+	var wallpaperPath string
+	if configWallpaperDir != "" {
+		if strings.HasPrefix(configWallpaperDir, "~/") {
+			wallpaperPath = filepath.Join(homeDir, configWallpaperDir[2:])
+		} else if configWallpaperDir == "~" {
+			wallpaperPath = homeDir
+		} else {
+			wallpaperPath = configWallpaperDir
+		}
+	} else {
+		wallpaperPath = filepath.Join(homeDir, wallpaperDir)
+	}
 	if err := os.MkdirAll(wallpaperPath, 0755); err != nil {
 		fmt.Fprintf(os.Stderr, "Error creating wallpaper directory: %v\n", err)
 		os.Exit(1)
 	}
 
 	// Download and set new wallpaper
-	newWallpaper, topic := downloadRandomWallpaper(wallpaperPath, r, topics)
+	newWallpaper, topic := downloadRandomWallpaper(wallpaperPath, r, topics, keep)
 	if newWallpaper != "" {
 		changeWallpaper(newWallpaper, topic)
 	} else {
@@ -91,7 +117,33 @@ func main() {
 	}
 }
 
-func downloadRandomWallpaper(wallpaperPath string, r *rand.Rand, topics []string) (string, string) {
+func downloadRandomWallpaper(wallpaperPath string, r *rand.Rand, topics []string, keep int) (string, string) {
+	// Clean up old wallpapers before downloading a new one, if keep > 0
+	if keep > 0 {
+		files, err := os.ReadDir(wallpaperPath)
+		if err == nil && len(files) > keep {
+			type fileInfo struct {
+				name string
+				mod  int64
+			}
+			var fileInfos []fileInfo
+			for _, f := range files {
+				if !f.IsDir() {
+					info, err := f.Info()
+					if err == nil {
+						fileInfos = append(fileInfos, fileInfo{f.Name(), info.ModTime().Unix()})
+					}
+				}
+			}
+			// Sort by mod time, newest first
+			sort.Slice(fileInfos, func(i, j int) bool { return fileInfos[i].mod > fileInfos[j].mod })
+			for _, f := range fileInfos[keep:] {
+				os.Remove(filepath.Join(wallpaperPath, f.name))
+			}
+		}
+	}
+	// If keep == 0, never delete
+
 	// Select random topic
 	topic := topics[r.Intn(len(topics))]
 	var query string

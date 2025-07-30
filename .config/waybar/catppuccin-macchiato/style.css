@@ -213,6 +213,7 @@ label:focus {
   /* background-color: @overlay0; */
   background-color: @surface0;
   color: @mantle;
+  margin: 5px 3px 5px 1px;
 }
 
 #tray > .passive {
@@ -273,7 +274,7 @@ label:focus {
   color: @mantle;
   background-color: @peach;
   padding: 0 10px;
-  margin: 5px 1px;
+  margin: 5px 5px 5px 1px;
 }
 
 #cava {
@@ -310,7 +311,7 @@ label:focus {
   background-color: @flamingo;
   color: @base;
   padding: 0 10px;
-  margin: 5px 1px;
+  margin: 5px 5px 5px 1px;
 }
 
 #custom-notification {

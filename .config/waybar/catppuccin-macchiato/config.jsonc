@@ -157,13 +157,13 @@
     "format-disconnected": "Disconnected ⚠",
     "on-click": "$HOME/.config/rofi/scripts/rofi-wifi-menu.sh",
   },
-  "custom/weather": {
-    "interval": 600,
-    "exec": "~/.config/waybar/scripts/wttr.sh Los_Angeles",
-    "return-type": "json",
-    "format": "{}",
-    "tooltip": true,
-  },
+  // "custom/weather": {
+  //   "interval": 600,
+  //   "exec": "~/.config/waybar/scripts/wttr.sh Los_Angeles",
+  //   "return-type": "json",
+  //   "format": "{}",
+  //   "tooltip": true,
+  // },
   "custom/kernel": {
     "exec": "uname -r | sed -E 's/^([0-9]+\\.[0-9]+\\.[0-9]+)-.*-([a-zA-Z0-9]+)/\\1-\\2/'",
     "format": "{} ",

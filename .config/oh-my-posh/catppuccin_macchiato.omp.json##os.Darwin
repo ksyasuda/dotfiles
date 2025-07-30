@@ -1,0 +1,111 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "palette": {
+    "os": "#ACB0BE",
+    "closer": "p:os",
+    "pink": "#F5BDE6",
+    "lavender": "#B7BDF8",
+    "blue": "#8AADF4"
+  },
+  "blocks": [
+    {
+      "type": "rprompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "command",
+          "style": "plain",
+          "foreground": "p:os",
+          "properties": {
+            "shell": "bash",
+            "command": "ip -4 -o addr show dev tailscale0 up 2>/dev/null | awk '{print $4}' | cut -d/ -f1"
+          }
+        }
+      ]
+    },
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "p:os",
+          "style": "plain",
+          "type": "os"
+        },
+        {
+          "foreground": "p:blue",
+          "style": "plain",
+          "template": "{{ .UserName }}@{{ .HostName }} ",
+          "type": "session"
+        },
+        {
+          "foreground": "p:pink",
+          "properties": {
+            "folder_icon": "..\ue5fe..",
+            "home_icon": "~",
+            "style": "agnoster_full"
+          },
+          "style": "plain",
+          "template": "{{ .Path }}",
+          "type": "path"
+        },
+        {
+          "properties": {
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          },
+          "foreground_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#EED49F{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#EE99A0{{ end }}",
+            "{{ if gt .Ahead 0 }}#C6A0F6{{ end }}",
+            "{{ if gt .Behind 0 }}#C6A0F6{{ end }}"
+          ],
+          "style": "powerline",
+          "type": "git"
+        },
+        {
+          "type": "python",
+          "style": "powerline",
+          "foreground": "#a6da95",
+          "display_default": false,
+          "display_mode": "environment",
+          "fetch_version": false,
+          "fetch_virtual_env": true,
+          "default_venv_names": ["venv", "env"],
+          "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}"
+        },
+        {
+          "type": "status",
+          "style": "powerline",
+          "foreground": "p:pink",
+          "properties": {
+            "always_enabled": false
+          }
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "tooltips": [
+    {
+      "type": "git",
+      "tips": ["git", "g"],
+      "style": "diamond",
+      "foreground": "#a6da95",
+      "background": "#363a4f",
+      "leading_diamond": "",
+      "trailing_diamond": "",
+      "template": "{{ .HEAD }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}",
+      "properties": {
+        "fetch_status": true,
+        "fetch_upstream_icon": true
+      }
+    }
+  ],
+  "final_space": true,
+  "version": 3,
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "#ACB0BE",
+    "template": "{{ .Shell }}> "
+  }
+}
