@@ -2,7 +2,7 @@
 
 ![rice](https://github.com/user-attachments/assets/34c9afb4-63a5-453f-86a4-ebd7c30f74ca)
 
-%23%23 Current Setup
+## Current Setup
 
 - Window Manger/Compositor: [Hyprland](https://hyprland.org/)
   - [hyprland.conf](.config/hypr/hyprland.conf)
