@@ -160,7 +160,7 @@ local lsp_mappings = {
 	{ mode = "n", key = "<leader>ch", cmd = ":lua vim.lsp.buf.signature_help()<CR>", group = "Signature Help" },
 	{ mode = "n", key = "<leader>cR", cmd = ":lua vim.lsp.buf.rename()<CR>", group = "Rename" },
 	{ mode = "n", key = "<leader>cr", cmd = ":Telescope lsp_references<CR>", group = "LSP References" },
-	{ mode = "n", key = "<leader>cs", cmd = ":Telescope lsp_document_symbols<CR>", group = "LsP Document Symbols" },
+	{ mode = "n", key = "<leader>cs", cmd = ":Telescope lsp_document_symbols<CR>", group = "LSP Document Symbols" },
 	{ mode = "n", key = "<leader>ct", cmd = ":Telescope lsp_type_definitions<CR>", group = "LSP Definitions" },
 	{
 		mode = "n",
@@ -465,32 +465,28 @@ local diffview_mappings = {
 
 --{{{ Custom Terminals
 local programs_map = {
-	gg = { cmd = "lazygit", display_name = "lazygit", direction = "tab", hidden = true, group = "Lazygit" },
-	op = { cmd = "ipython", display_name = "ipython", direction = "vertical", hidden = true, group = "Ipython" },
+	gg = { cmd = "lazygit", display_name = "lazygit", direction = "tab", hidden = true },
+	op = { cmd = "ipython", display_name = "ipython", direction = "vertical", hidden = true },
 	oP = {
 		cmd = "ipython",
 		display_name = "ipython-full",
 		direction = "tab",
 		hidden = true,
-		group = "Ipython Fullscreen",
 	},
-	oi = { cmd = "sudo iotop", display_name = "ncmpcpp", direction = "tab", hidden = true, group = "Ncmpcpp" },
-	on = { cmd = "ncmpcpp", display_name = "ncmpcpp", direction = "tab", hidden = true, group = "Ncmpcpp" },
-	oN = { cmd = "nvtop", display_name = "nvtop", direction = "tab", hidden = true, group = "Nvtop" },
-	ob = { cmd = "/usr/bin/btop", display_name = "btop", direction = "tab", hidden = true, group = "Btop" },
-	od = { cmd = "lazydocker", display_name = "lazydocker", direction = "tab", hidden = true, group = "Lazydocker" },
+	oi = { cmd = "sudo iotop", display_name = "iotop", direction = "tab", hidden = true },
+	on = { cmd = "rmpc", display_name = "rmpc", direction = "tab", hidden = true },
+	oN = { cmd = "nvtop", display_name = "nvtop", direction = "tab", hidden = true },
+	ob = { cmd = "/usr/bin/btop", display_name = "btop", direction = "tab", hidden = true },
+	od = { cmd = "lazydocker", display_name = "lazydocker", direction = "tab", hidden = true },
 }
 
-for key, value in pairs(programs_map) do
-	map("n", "<leader>" .. key, function()
-		term_toggle(term_factory(value))
-	end, opts)
-end
-
+local temp
 local tbl = {}
 for key, value in pairs(programs_map) do
-	local temp = {
-		cmd = value.cmd,
+	temp = {
+		cmd = function()
+			term_toggle(term_factory(value))
+		end,
 		key = "<leader>" .. key,
 		group = value.group,
 		mode = "n",
@@ -509,6 +505,25 @@ end
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 --}}}
 
+-- {{{ NVIM-IMAGE
+local image_mappings = {
+	{
+
+		mode = "n",
+		key = "<leader>id",
+		cmd = ":lua require('image').disable()<CR>",
+		desc = "Disable image rendering",
+	},
+	{
+
+		mode = "n",
+		key = "<leader>ie",
+		cmd = ":lua require('image').enable()<CR>",
+		desc = "Enable image rendering",
+	},
+}
+-- }}}
+
 --{{{ Groups
 add_to_whichkey(nil, { key = "<leader>a", group = "AnyJump" })
 add_to_whichkey(nil, { key = "<leader>b", group = "Buffers" })
@@ -519,16 +534,11 @@ add_to_whichkey(nil, { key = "<leader>d", group = "ODIS" })
 add_to_whichkey(nil, { key = "<leader>f", group = "Find" })
 add_to_whichkey(nil, { key = "<leader>g", group = "Git" })
 add_to_whichkey(nil, { key = "<leader>gd", group = "DiffView" })
-add_to_whichkey(nil, { key = "<leader>gg", group = "Lazygit" })
 add_to_whichkey(nil, { key = "<leader>h", group = "Help" })
+add_to_whichkey(nil, { key = "<leader>i", group = "Image" })
 add_to_whichkey(nil, { key = "<leader>j", group = "AnyJump" })
 add_to_whichkey(nil, { key = "<leader>N", group = "Noice" })
 -- add_to_whichkey(nil, { key = "<leader>o", group = "Open" })
-add_to_whichkey(nil, { key = "<leader>ob", group = "Btop" })
-add_to_whichkey(nil, { key = "<leader>on", group = "Ncmpcpp" })
-add_to_whichkey(nil, { key = "<leader>od", group = "Lazydocker" })
-add_to_whichkey(nil, { key = "<leader>op", group = "Ipython" })
-add_to_whichkey(nil, { key = "<leader>oP", group = "Ipython Full" })
 add_to_whichkey(nil, { key = "<leader>p", group = "Paste in Place" })
 add_to_whichkey(nil, { key = "<leader>s", group = "Search" })
 add_to_whichkey(nil, { key = "<leader>t", group = "Terminal" })
@@ -540,18 +550,25 @@ add_to_whichkey(nil, { key = "<leader>0", group = "Horizontal Terminal" })
 --}}}
 
 --{{{ Whichkey Mappings
-add_to_whichkey(map_from_table(basic_mappings))
-add_to_whichkey(map_from_table(buffer_navigation_mappings))
-add_to_whichkey(map_from_table(terminal_mappings))
-add_to_whichkey(map_from_table(lsp_mappings))
-add_to_whichkey(map_from_table(code_companion_mappings))
-add_to_whichkey(map_from_table(telescope_mappings))
-add_to_whichkey(map_from_table(file_explorer_mappings))
-add_to_whichkey(map_from_table(misc_utilities_mappings))
-add_to_whichkey(map_from_table(goto_preview_mappings))
-add_to_whichkey(map_from_table(workspace_management_mappings))
-add_to_whichkey(map_from_table(noice_mappings))
-add_to_whichkey(map_from_table(odis_mappings))
-add_to_whichkey(map_from_table(diffview_mappings))
+local mappings_tables = {
+	basic_mappings,
+	buffer_navigation_mappings,
+	terminal_mappings,
+	lsp_mappings,
+	code_companion_mappings,
+	telescope_mappings,
+	file_explorer_mappings,
+	misc_utilities_mappings,
+	goto_preview_mappings,
+	workspace_management_mappings,
+	noice_mappings,
+	odis_mappings,
+	diffview_mappings,
+	image_mappings,
+}
+
+for _, mapping in ipairs(mappings_tables) do
+	add_to_whichkey(map_from_table(mapping))
+end
 add_to_whichkey(nil, { key = "<leader>dc", group = "Close" })
 --}}}
