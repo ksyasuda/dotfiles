@@ -2,13 +2,13 @@
 
 ![rice](https://github.com/user-attachments/assets/34c9afb4-63a5-453f-86a4-ebd7c30f74ca)
 
-## Current Setup
+%23%23 Current Setup
 
 - Window Manger/Compositor: [Hyprland](https://hyprland.org/)
   - [hyprland.conf](.config/hypr/hyprland.conf)
   - [keybindings.conf](.config/hypr/keybindings.conf)
 - Shell: [zsh (oh-my-posh)](https://ohmyposh.dev/)
-  - [.zshrc](.zsh/.zshrc##default)
+  - [.zshrc](.zsh/.zshrc%23%23default)
 - Notification Server: [SwayNotificationCenter](https://github.com/ErikReider/SwayNotificationCenter)
   - [config.json](.config/swaync/config.json)
   - [style.css](.config/swaync/style.css)
@@ -22,7 +22,7 @@
 - Text Editor: [neovim](https://neovim.io/)
   - [config](.config/nvim)
 - Audio Player: [mpd](https://www.musicpd.org/) with [ncmpcpp](https://github.com/ncmpcpp/ncmpcpp)
-  - [mpd config](.config/mpd/mpd.conf##default)
-  - [ncmpcpp config](.config/ncmpcpp/config##Default)
+  - [mpd config](.config/mpd/mpd.conf%23%23default)
+  - [ncmpcpp config](.config/ncmpcpp/config%23%23Default)
 - Audio Visualizer: [cava](https://github.com/karlstav/cava)
-  - [cava config](.config/cava/config##default)
+  - [cava config](.config/cava/config%23%23default)
