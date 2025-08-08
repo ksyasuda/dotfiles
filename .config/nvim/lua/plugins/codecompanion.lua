@@ -14,6 +14,12 @@ return {
 						name = "copilot",
 						opts = {
 							stream = true,
+							tools = true,
+							vision = true,
+						},
+						features = {
+							text = true,
+							tokens = true,
 						},
 						model = {
 							-- default = "claude-3.7-sonnet-thought",

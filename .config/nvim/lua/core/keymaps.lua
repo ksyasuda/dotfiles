@@ -12,8 +12,8 @@ local nosilent = { noremap = true }
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+-- Create a custom command with the given trigger, command, and description
 function create_custom_command(trigger, command, description)
-	-- Create a custom command with the given trigger, command, and description
 	vim.api.nvim_create_user_command(trigger, command, { desc = description })
 end
 -- Custom commands

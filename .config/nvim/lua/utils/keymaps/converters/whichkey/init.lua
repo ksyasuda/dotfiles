@@ -19,8 +19,9 @@ function M.addToWhichKey(mappings, group)
 	elseif not mappings and group then
 		return
 	end
+	local wk_mappings = {}
 	for _, mapping in ipairs(mappings) do
-		local wk_mappings = {}
+		wk_mappings = {}
 		if not mapping.key or mapping.key == "" then
 			vim.notify("Error: Key is empty or nil", "error")
 			return

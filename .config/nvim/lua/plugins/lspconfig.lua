@@ -38,7 +38,6 @@ return {
 
 		for _, lsp in ipairs(servers) do
 			if lsp == "lua_ls" then
-				vim.lsp.enable(lsp)
 				vim.lsp.config("lua_ls", {
 					on_init = function(client)
 						if client.workspace_folders then
@@ -76,8 +75,8 @@ return {
 					},
 					handlers = {},
 				})
-			elseif lsp == "basedpyright" then
 				vim.lsp.enable(lsp)
+			elseif lsp == "basedpyright" then
 				vim.lsp.config(lsp, {
 					analysis = {
 						autoSearchPaths = true,
@@ -89,6 +88,7 @@ return {
 						callArgumentNames = true,
 					},
 				})
+				vim.lsp.enable(lsp)
 			else
 				vim.lsp.enable(lsp)
 				-- vim.lsp.config(lsp, {
