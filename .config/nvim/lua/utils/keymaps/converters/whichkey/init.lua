@@ -4,8 +4,8 @@ local whichkey = require("which-key")
 vim.notify = require("notify")
 
 ---Helper function to add mappings to which-key
----@parm mappings table : List of mappings to add to which-key
----@parm group table : Group to add mappings to (optional)
+---@param mappings table List of mappings to add
+---@param group table Group to add mappings to (optional)
 ---@return nil
 ---@usage addToWhichKey(mappings, group)
 ---@example addToWhichKey({{key = "n", cmd = "next", mode = "n", desc = "Next Line", group = "Navigation"}, {key = "t", group = "example"})

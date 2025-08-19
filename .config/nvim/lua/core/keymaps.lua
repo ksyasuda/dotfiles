@@ -13,6 +13,10 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- Create a custom command with the given trigger, command, and description
+--- @param trigger string The command trigger
+--- @param command string The command to execute
+--- @param description string Description of the command
+--- @return nil
 function create_custom_command(trigger, command, description)
 	vim.api.nvim_create_user_command(trigger, command, { desc = description })
 end
