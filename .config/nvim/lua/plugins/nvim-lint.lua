@@ -12,8 +12,7 @@ return {
 			vim = { "vint" },
 			go = { "golangcilint" },
 		}
-		local shellcheck = require("lint").linters.shellcheck
-		shellcheck.args = {
+		lint.linters.shellcheck.args = {
 			"-s",
 			"bash",
 			"-o",
@@ -21,10 +20,8 @@ return {
 			"-e",
 			"2250",
 		}
-		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-			group = lint_augroup,
 			callback = function()
 				lint.try_lint()
 			end,

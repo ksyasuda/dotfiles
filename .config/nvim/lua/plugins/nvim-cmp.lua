@@ -91,7 +91,7 @@ return {
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = false,
 				}),
-				["<Tab>"] = cmp.mapping(function(fallback)
+				["<Tab>"] = vim.schedule_wrap(function(fallback)
 					if cmp.visible() and has_words_before() then
 						cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 					elseif luasnip.locally_jumpable(1) then
@@ -99,7 +99,16 @@ return {
 					else
 						fallback()
 					end
-				end, { "i", "s" }),
+				end),
+				-- ["<Tab>"] = cmp.mapping(function(fallback)
+				-- 	if cmp.visible() and has_words_before() then
+				-- 		cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+				-- 	elseif luasnip.locally_jumpable(1) then
+				-- 		luasnip.jump(1)
+				-- 	else
+				-- 		fallback()
+				-- 	end
+				-- end, { "i", "s" }),
 				["<S-Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_prev_item()
@@ -244,18 +253,6 @@ return {
 					require("copilot_cmp.comparators").sort_text,
 					require("copilot_cmp.comparators").length,
 					require("copilot_cmp.comparators").order,
-
-					-- Below is the default comparitor list and order for nvim-cmp
-					cmp.config.compare.offset,
-					-- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-					cmp.config.compare.exact,
-					cmp.config.compare.score,
-					cmp.config.compare.recently_used,
-					cmp.config.compare.locality,
-					cmp.config.compare.kind,
-					cmp.config.compare.sort_text,
-					cmp.config.compare.length,
-					cmp.config.compare.order,
 				},
 			},
 		})

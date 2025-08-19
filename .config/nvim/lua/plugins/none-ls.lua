@@ -6,21 +6,52 @@ return {
 		-- syncronous formatting
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-		-- null_ls.setup({
-		-- on_attach = function(client)
-		--     if client.supports_method "textDocument/formatting" then
-		--         vim.cmd([[
-		--         augroup LspFormatting
-		--             autocmd! * <buffer>
-		--             autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-		--         augroup END
-		--         ]])
-		--     end
-		-- end,
-		-- })
-		-- you can reuse a shared lspconfig on_attach callback here
+		local sources = {
+			null_ls.builtins.completion.luasnip,
+			-- null_ls.builtins.diagnostics.mypy,
+			null_ls.builtins.diagnostics.pydoclint,
+			null_ls.builtins.diagnostics.markdownlint,
+			null_ls.builtins.formatting.black,
+			null_ls.builtins.formatting.isort,
+			null_ls.builtins.formatting.stylua,
+			null_ls.builtins.formatting.markdownlint,
+			null_ls.builtins.formatting.prettier, -- handled by lsp server
+			null_ls.builtins.formatting.shfmt.with({
+				filetypes = { "sh", "bash" },
+				extra_args = { "-i", "0", "-ci", "-sr" },
+			}),
+			null_ls.builtins.formatting.gofmt,
+			null_ls.builtins.formatting.goimports,
+			null_ls.builtins.formatting.goimports_reviser,
+			null_ls.builtins.hover.printenv,
+		}
 
 		require("null-ls").setup({
+			border = "rounded",
+			cmd = { "nvim" },
+			debounce = 250,
+			debug = false,
+			default_timeout = 5000,
+			diagnostic_config = {
+				virtual_text = false,
+				signs = true,
+				underline = true,
+				float = { border = "rounded", source = true },
+				severity_sort = true,
+			},
+			-- diagnostics_format = "#{m}",
+			diagnostics_format = "[#{c}] #{m} (#{s})",
+			fallback_severity = vim.diagnostic.severity.ERROR,
+			log_level = "warn",
+			notify_format = "[null-ls] %s",
+			on_init = nil,
+			on_exit = nil,
+			root_dir = require("null-ls.utils").root_pattern(".null-ls-root", "Makefile", ".git"),
+			root_dir_async = nil,
+			should_attach = nil,
+			sources = sources,
+			temp_dir = nil,
+			update_in_insert = false,
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
@@ -28,9 +59,6 @@ return {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
-							-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-							-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
-							-- vim.lsp.buf.formatting_sync()
 							vim.lsp.buf.format({
 								async = false,
 								bufnr = bufnr,
@@ -42,32 +70,6 @@ return {
 					})
 				end
 			end,
-			sources = {
-				null_ls.builtins.completion.luasnip,
-				null_ls.builtins.formatting.black,
-				null_ls.builtins.formatting.isort,
-				null_ls.builtins.diagnostics.mypy,
-				null_ls.builtins.diagnostics.markdownlint,
-				null_ls.builtins.diagnostics.pylint,
-				-- null_ls.builtins.diagnostics.pydocstyle.with({
-				-- 	extra_arags = { "--config=$ROOT/setup.cfg" },
-				-- }),
-				-- null_ls.builtins.diagnostics.pydoclint,
-				null_ls.builtins.formatting.stylua,
-				-- null_ls.builtins.formatting.stylua.with({
-				-- 	extra_args = { '--config-path', vim.fn.expand('~/.config/stylua.toml') },
-				-- }),
-				null_ls.builtins.formatting.markdownlint,
-				null_ls.builtins.formatting.prettier, -- handled by lsp server
-				null_ls.builtins.formatting.shfmt.with({
-					filetypes = { "sh", "bash" },
-					extra_args = { "-i", "0", "-ci", "-sr" },
-				}),
-				null_ls.builtins.formatting.gofmt,
-				null_ls.builtins.formatting.goimports,
-				null_ls.builtins.formatting.goimports_reviser,
-				-- null_ls.builtins.diagnostics.actionlint,
-			},
 		})
 	end,
 }
