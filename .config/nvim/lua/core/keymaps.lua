@@ -21,6 +21,10 @@ create_custom_command("Config", "edit ~/.config/nvim", "Edit nvim configuration"
 create_custom_command("Keymaps", "edit ~/.config/nvim/lua/core/keymaps.lua", "Edit Hyprland keybindings")
 create_custom_command("Hypr", "edit ~/.config/hypr/hyprland.conf", "Edit Hyprland configuration")
 
+vim.keymap.set("", "<Leader>tl", function()
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, { desc = "Toggle diagnostics virtual text" })
+
 -- {{{ Basic Mappings
 local basic_mappings = {
 	{ key = "<C-u>", cmd = "<C-u>zz", desc = "Scroll up and center", mode = "n" },

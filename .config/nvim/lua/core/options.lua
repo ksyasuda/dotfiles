@@ -73,13 +73,9 @@ local border = {
 o.winborder = "rounded"
 
 vim.diagnostic.config({
-	virtual_text = true,
+	virtual_text = false,
 	signs = true,
 	underline = true,
 	float = { border = "rounded", source = true },
 	severity_sort = true,
 })
-vim.keymap.set("", "<Leader>tl", function()
-	local current = vim.diagnostic.config().virtual_text
-	vim.diagnostic.config({ virtual_text = not current })
-end, { desc = "Toggle diagnostics virtual text" })
