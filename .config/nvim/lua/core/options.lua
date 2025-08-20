@@ -73,12 +73,7 @@ local border = {
 o.winborder = "rounded"
 
 vim.diagnostic.config({
-	virtual_text = {
-		format = function(diagnostic)
-			-- You can customize the display text per diagnostic
-			return string.format("[%s]: %s", diagnostic.code, diagnostic.message)
-		end,
-	},
+	virtual_text = false,
 	signs = true,
 	underline = true,
 	severity_sort = true,
