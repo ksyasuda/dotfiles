@@ -5,7 +5,7 @@ return {
 		lint.linters_by_ft = {
 			markdown = { "markdownlint" },
 			lua = { "luacheck" },
-			py = { "flake8", "pylint", "pydocstyle", "pycodestyle", "mypy" },
+			python = { "ruff" },
 			sh = { "shellcheck" },
 			json = { "jsonlint" },
 			yaml = { "yamllint" },

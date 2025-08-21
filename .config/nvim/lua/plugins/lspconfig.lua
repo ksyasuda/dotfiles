@@ -1,19 +1,3 @@
-local function set_python_path(path)
-	local clients = vim.lsp.get_clients({
-		bufnr = vim.api.nvim_get_current_buf(),
-		name = "basedpyright",
-	})
-	for _, client in ipairs(clients) do
-		if client.settings then
-			client.settings.python = vim.tbl_deep_extend("force", client.settings.python or {}, { pythonPath = path })
-		else
-			client.config.settings =
-				vim.tbl_deep_extend("force", client.config.settings, { python = { pythonPath = path } })
-		end
-		client:notify("workspace/didChangeConfiguration", { settings = nil })
-	end
-end
-
 return {
 	"neovim/nvim-lspconfig",
 	config = function()
@@ -37,6 +21,7 @@ return {
 			"docker_compose_language_service",
 			"golangci_lint_ls",
 			"gopls",
+			"ruff",
 		}
 		-- Define the highlight color for float border
 		vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#89b4fa", bold = true })
@@ -93,40 +78,55 @@ return {
 				vim.lsp.enable(lsp)
 			elseif lsp == "basedpyright" then
 				vim.lsp.config(lsp, {
-					on_init = function(client)
-						client.config.settings.basedpyright =
-							vim.tbl_deep_extend("force", client.config.settings.basedpyright, {
-								analysis = {
-									autoSearchPaths = true,
-									diagnosticMode = "openFilesOnly",
-									useLibraryCodeForTypes = true,
-									autoFormatStrings = true,
-								},
+					settings = {
+						basedpyright = {
+							analysis = {
+								autoSearchPaths = true,
 								diagnosticMode = "openFilesOnly",
-								inlayHints = {
-									callArgumentNames = true,
-								},
-								allowedUntypedLibraries = true,
-								reportMissingTypeStubs = true,
-								reportImportCycles = true,
-								reportUnusedImport = true,
-							})
-					end,
+								useLibraryCodeForTypes = true,
+								autoFormatStrings = true,
+							},
+							diagnosticMode = "openFilesOnly",
+							inlayHints = {
+								callArgumentNames = true,
+							},
+							allowedUntypedLibraries = true,
+							reportMissingTypeStubs = true,
+							reportImportCycles = true,
+							reportUnusedImport = true,
+						},
+						python = {
+							analysis = {
+								ignore = { "*" },
+							},
+						},
+					},
 				})
 				vim.lsp.enable(lsp)
-			else
-				vim.lsp.enable(lsp)
-				-- vim.lsp.config(lsp, {
-				-- handlers = {
-				-- UNNSUUPPORTED
-				-- ["textDocument/signatureHelp"] = vim.lsp.with(
-				-- 	vim.lsp.handlers.signature_help,
-				-- 	{ border = border }
-				-- ),
-				-- ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-				-- },
-				-- })
+			elseif lsp == "ruff" then
+				vim.api.nvim_create_autocmd("LspAttach", {
+					group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
+					callback = function(args)
+						local client = vim.lsp.get_client_by_id(args.data.client_id)
+						if client == nil then
+							return
+						end
+						if client.name == "ruff" then
+							-- Disable hover in favor of Pyright
+							client.server_capabilities.hoverProvider = false
+						end
+					end,
+					desc = "LSP: Disable hover capability from Ruff",
+				})
+				vim.lsp.config(lsp, {
+					init_options = {
+						settings = {
+							configuration = vim.fn.stdpath("config") .. "lua/utils/ruff.toml",
+						},
+					},
+				})
 			end
+			vim.lsp.enable(lsp)
 		end
 	end,
 }
