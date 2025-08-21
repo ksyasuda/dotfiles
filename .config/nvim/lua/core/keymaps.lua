@@ -6,7 +6,7 @@ local term_factory = term.term_factory
 local term_toggle = term.term_toggle
 
 local opts = { silent = true, noremap = true }
-local nosilent = { noremap = true }
+local nosilent = { silent = false, noremap = true }
 
 -- Leader key
 vim.g.mapleader = " "
@@ -199,23 +199,37 @@ local lsp_mappings = {
 		group = "Goto Previous Preview",
 	},
 	{ mode = "n", key = "<leader>cl", cmd = ":lua vim.diagnostic.setloclist()<CR>", group = "Set Loclist" },
+	{
+		mode = "n",
+		key = "<leader>cPs",
+		cmd = function()
+			vim.cmd("!pyright --createstub " .. vim.fn.expand("<cword>"))
+		end,
+		group = "Generate Stub File",
+	},
 }
 -- }}}
 
 -- {{{ Code Companion Mappings
 local code_companion_mappings = {
-	{ mode = "n", key = "<leader>cp", cmd = ":vert Copilot panel<CR>", group = "Code" },
-	{ mode = "n", key = "<leader>oc", cmd = ":CodeCompanionChat Toggle<CR>", group = "Open" },
-	{ mode = "n", key = "<leader>Cc", cmd = ":CodeCompanionChat Toggle<CR>", group = "CodeCompanionChat" },
-	{ mode = "n", key = "<leader>Ci", cmd = ":CodeCompanion ", group = "Inline CodeCompanion", opts = nosilent },
+	{ mode = "n", key = "<leader>cp", cmd = ":vert Copilot panel<CR>", group = "Copilot Panel" },
+	{ mode = "n", key = "<leader>oc", cmd = ":CodeCompanionChat Toggle<CR>", group = "Toggle Codecompanion" },
+	{ mode = "n", key = "<leader>Cc", cmd = ":CodeCompanionChat Toggle<CR>", group = "Toggle Codecompanion" },
+	{
+		mode = "n",
+		key = "<leader>Ci",
+		cmd = ":CodeCompanion #{buffer} ",
+		group = "Inline CodeCompanion",
+		opts = nosilent,
+	},
 	{ mode = "n", key = "<leader>CT", cmd = ":CodeCompanionChat Toggle<CR>", group = "CodeCompanion Toggle" },
 	{ mode = "n", key = "<leader>Ca", cmd = ":CodeCompanionActions<CR>", group = "CodeCompanion Actions" },
 	{ mode = "v", key = "<leader>Cc", cmd = ":CodeCompanionChat Add<CR>", group = "CodeCompanion Add" },
 	{
 		mode = "v",
 		key = "<leader>Ci",
-		cmd = ":CodeCompanion #buffer ",
-		group = "CodeCompanion #buffer",
+		cmd = ":CodeCompanion #{buffer} ",
+		group = "CodeCompanion #{buffer}",
 		opts = nosilent,
 	},
 	{ mode = "v", key = "<leader>Ce", cmd = ":CodeCompanion /explain<CR>", group = "CodeCompanion /explain" },
@@ -537,6 +551,7 @@ add_to_whichkey(nil, { key = "<leader>a", group = "AnyJump" })
 add_to_whichkey(nil, { key = "<leader>b", group = "Buffers" })
 add_to_whichkey(nil, { key = "<leader>c", group = "Code" })
 add_to_whichkey(nil, { key = "<leader>ca", group = "Code Actions" })
+add_to_whichkey(nil, { key = "<leader>cc", group = "Calls" })
 add_to_whichkey(nil, { key = "<leader>C", group = "CodeCompanion" })
 add_to_whichkey(nil, { key = "<leader>d", group = "ODIS" })
 add_to_whichkey(nil, { key = "<leader>f", group = "Find" })
@@ -555,6 +570,7 @@ add_to_whichkey(nil, { key = "<leader>w", group = "Workspace" })
 add_to_whichkey(nil, { key = "<leader>x", group = "Make Executable" })
 add_to_whichkey(nil, { key = "<leader>y", group = "System Yank" })
 add_to_whichkey(nil, { key = "<leader>0", group = "Horizontal Terminal" })
+add_to_whichkey(nil, { key = "<leader>cP", group = "Python" })
 --}}}
 
 --{{{ Whichkey Mappings

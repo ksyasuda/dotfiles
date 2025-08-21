@@ -93,35 +93,24 @@ return {
 				vim.lsp.enable(lsp)
 			elseif lsp == "basedpyright" then
 				vim.lsp.config(lsp, {
-					analysis = {
-						autoSearchPaths = true,
-						diagnosticMode = "openFilesOnly",
-						useLibraryCodeForTypes = true,
-						autoFormatStrings = true,
-					},
-					diagnosticMode = "openFilesOnly",
-					inlayHints = {
-						callArgumentNames = true,
-					},
-					allowedUntypedLibraries = true,
-					reportMissingTypeStubs = false,
-					reportImportCycles = true,
-					reportUnusedImport = true,
-					on_attach = function(client, bufnr)
-						vim.api.nvim_buf_create_user_command(bufnr, "LspPyrightOrganizeImports", function()
-							client:exec_cmd({
-								command = "basedpyright.organizeimports",
-								arguments = { vim.uri_from_bufnr(bufnr) },
+					on_init = function(client)
+						client.config.settings.basedpyright =
+							vim.tbl_deep_extend("force", client.config.settings.basedpyright, {
+								analysis = {
+									autoSearchPaths = true,
+									diagnosticMode = "openFilesOnly",
+									useLibraryCodeForTypes = true,
+									autoFormatStrings = true,
+								},
+								diagnosticMode = "openFilesOnly",
+								inlayHints = {
+									callArgumentNames = true,
+								},
+								allowedUntypedLibraries = true,
+								reportMissingTypeStubs = true,
+								reportImportCycles = true,
+								reportUnusedImport = true,
 							})
-						end, {
-							desc = "Organize Imports",
-						})
-
-						vim.api.nvim_buf_create_user_command(bufnr, "LspPyrightSetPythonPath", set_python_path, {
-							desc = "Reconfigure basedpyright with the provided python path",
-							nargs = 1,
-							complete = "file",
-						})
 					end,
 				})
 				vim.lsp.enable(lsp)
