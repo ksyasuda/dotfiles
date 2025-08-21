@@ -75,7 +75,6 @@ alias mysan='feh --bg-scale ~/.wallpapers/MYSanGun-Inverted.png ~/.wallpapers/MY
 alias scripts='cd /home/sudacode/scripts'
 alias freud='cd /home/sudacode/'
 alias c=clear
-alias open='xdg-open'
 alias glow='glow -p'
 alias jn='jupyter-notebook'
 alias blog='cd ~/projects/React/github/Sudacode-Blog-V3'
