@@ -64,6 +64,7 @@ return {
 									-- Depending on the usage, you might want to add additional paths here.
 									-- "${3rd}/luv/library",
 									-- "${3rd}/busted/library",
+									"/usr/lib/lua-language-server/meta/3rd/busted/library",
 								},
 								-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
 								-- library = vim.api.nvim_get_runtime_file("", true)
@@ -74,6 +75,11 @@ return {
 						Lua = {},
 					},
 					handlers = {},
+					root_dir = function(bufnr, on_dir)
+						if not vim.fn.bufname(bufnr):match("%.txt$") then
+							on_dir(vim.fn.getcwd())
+						end
+					end,
 				})
 				vim.lsp.enable(lsp)
 			elseif lsp == "basedpyright" then

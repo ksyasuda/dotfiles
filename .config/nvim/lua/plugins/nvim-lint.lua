@@ -20,6 +20,20 @@ return {
 			"-e",
 			"2250",
 		}
+		-- Save original function
+		local orig_try_lint = lint.try_lint
+
+		lint.try_lint = function(...)
+			local bufnr = vim.api.nvim_get_current_buf()
+			local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+
+			-- Skip linting for non-file buffers (like hover docs)
+			if buftype ~= "" then
+				return
+			end
+
+			return orig_try_lint(...)
+		end
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 			callback = function()
