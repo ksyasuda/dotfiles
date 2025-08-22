@@ -52,20 +52,6 @@ g.db_ui_use_nerd_fonts = 1
 -- vim.cmd.colorscheme = 'catppuccin-macchiato'
 vim.cmd.colorscheme = "catppuccin"
 
--- Define the highlight color for float border
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#89b4fa", bold = true })
-
-local border = {
-	{ "╭", "FloatBorder" },
-	{ "─", "FloatBorder" },
-	{ "╮", "FloatBorder" },
-	{ "│", "FloatBorder" },
-	{ "╯", "FloatBorder" },
-	{ "─", "FloatBorder" },
-	{ "╰", "FloatBorder" },
-	{ "│", "FloatBorder" },
-}
-
 -- set border for floating windows and signature help
 -- UNSUPPPORTED: https://github.com/neovim/neovim/issues/32242#issuecomment-2777120640
 -- l.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })

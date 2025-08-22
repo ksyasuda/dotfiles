@@ -1,6 +1,8 @@
 require("core.lazy")
 vim.cmd("colorscheme catppuccin")
 require("core.keymaps")
+require("core.autocmds")
+require("core.highlights")
 -- require("core.lsp-notifications")
 require("utils.extensions")
 require("utils.telescope_extra").setup()

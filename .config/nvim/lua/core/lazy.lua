@@ -16,8 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("core.options")
-require("core.autocmds")
-require("core.highlights")
 
 -- Setup lazy.nvim
 require("lazy").setup({

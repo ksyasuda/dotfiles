@@ -121,10 +121,11 @@ return {
 			},
 			window = {
 				completion = {
-					-- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-					col_offset = 0,
+					col_offset = -3,
 					side_padding = 0,
 					border = "rounded",
+					-- winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+					winhighlight = "Normal:CmpDoc,FloatBorder:CmpDocBorder,Search:None",
 					borderchars = {
 						"─",
 						"│",
@@ -138,6 +139,8 @@ return {
 				},
 				documentation = {
 					border = "rounded",
+					-- winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+					winhighlight = "Normal:CmpDoc,FloatBorder:CmpDocBorder,Search:None",
 					borderchars = {
 						"─",
 						"│",
@@ -153,46 +156,14 @@ return {
 			},
 			formatting = {
 				-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-				-- mode = 'symbol_text',
+				mode = "symbol_text",
 				fields = { "kind", "abbr", "menu" },
 				expandable_indicator = true,
 				format = function(entry, vim_item)
-					local kind = require("lspkind").cmp_format({
-						mode = "symbol_text",
-						-- mode = "symbol",
-						maxwidth = 75,
-						symbol_map = {
-							Copilot = "  ",
-							Text = "  ",
-							Method = "  ",
-							Function = "  ",
-							Constructor = "  ",
-							Field = "  ",
-							Variable = "  ",
-							Class = "  ",
-							Interface = "  ",
-							Module = "  ",
-							Property = "  ",
-							Unit = "  ",
-							Value = "  ",
-							Enum = "  ",
-							Keyword = "  ",
-							Snippet = "  ",
-							Color = "  ",
-							File = "  ",
-							Reference = "  ",
-							Folder = "  ",
-							EnumMember = "  ",
-							Constant = "  ",
-							Struct = "  ",
-							Event = "  ",
-							Operator = "  ",
-							TypeParameter = "  ",
-						},
-					})(entry, vim_item)
+					local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
 					local strings = vim.split(kind.kind, "%s", { trimempty = true })
-					kind.kind = " " .. strings[1] .. " "
-					kind.menu = "    (" .. strings[2] .. ")"
+					kind.kind = " " .. (strings[1] or "") .. " "
+					kind.menu = "    (" .. (strings[2] or "") .. ")"
 
 					return kind
 				end,
