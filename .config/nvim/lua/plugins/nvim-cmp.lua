@@ -6,7 +6,7 @@ return {
 		"hrsh7th/cmp-cmdline",
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 		"hrsh7th/cmp-nvim-lsp-document-symbol",
-		-- "hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-nvim-lsp",
 		-- "hrsh7th/cmp-path",
 		"rafamadriz/friendly-snippets",
 		"Jezda1337/nvim-html-css",
@@ -175,8 +175,6 @@ return {
 				{ name = "copilot", group_index = 1 },
 				{ name = "codecompanion", group_index = 2 },
 				{ name = "async_path", group_index = 2 },
-				-- { name = "path", group_index = 2 },
-				-- { name = "cmdline", option = { ignore_cmds = { "Man", "!" } } },
 				{ name = "nvim_lsp_document_symbol", group_index = 2 },
 				{ name = "luasnip", group_index = 2 }, -- For luasnip users.
 				{ name = "render-markdown", group_index = 2 },

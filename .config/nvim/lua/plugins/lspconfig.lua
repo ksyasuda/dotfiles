@@ -4,7 +4,6 @@ return {
 		vim.notify = require("notify")
 		local servers = {
 			"bashls",
-			-- "jedi_language_server",
 			"basedpyright",
 			"jsonls",
 			-- "yamlls",
@@ -23,22 +22,11 @@ return {
 			"gopls",
 			"ruff",
 		}
-		-- Define the highlight color for float border
-		vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#89b4fa", bold = true })
-		local border = {
-			{ "╭", "FloatBorder" },
-			{ "─", "FloatBorder" },
-			{ "╮", "FloatBorder" },
-			{ "│", "FloatBorder" },
-			{ "╯", "FloatBorder" },
-			{ "─", "FloatBorder" },
-			{ "╰", "FloatBorder" },
-			{ "│", "FloatBorder" },
-		}
-
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		for _, lsp in ipairs(servers) do
 			if lsp == "lua_ls" then
 				vim.lsp.config("lua_ls", {
+					capabilities = capabilities,
 					on_init = function(client)
 						if client.workspace_folders then
 							local path = client.workspace_folders[1].name
@@ -84,6 +72,7 @@ return {
 				vim.lsp.enable(lsp)
 			elseif lsp == "basedpyright" then
 				vim.lsp.config(lsp, {
+					capabilities = capabilities,
 					settings = {
 						basedpyright = {
 							analysis = {
@@ -125,6 +114,7 @@ return {
 					desc = "LSP: Disable hover capability from Ruff",
 				})
 				vim.lsp.config(lsp, {
+					capabilities = capabilities,
 					init_options = {
 						settings = {
 							configuration = vim.fn.stdpath("config") .. "lua/utils/ruff.toml",
@@ -132,6 +122,7 @@ return {
 					},
 				})
 			end
+			vim.lsp.config(lsp, { capabilities = capabilities })
 			vim.lsp.enable(lsp)
 		end
 	end,
