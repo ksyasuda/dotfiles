@@ -12,7 +12,8 @@ return {
 				--- @type NoiceFormat|string
 				format_done = "lsp_progress_done",
 				throttle = 1000 / 30, -- frequency to update lsp progress message
-				view = "mini",
+				-- view = "mini",
+				view = "notify",
 			},
 			-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 			override = {
