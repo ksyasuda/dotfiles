@@ -2,6 +2,7 @@ local map = vim.keymap.set
 local term = require("utils.terminal")
 local map_from_table = require("utils.keymaps.converters.from_table").set_keybindings
 local add_to_whichkey = require("utils.keymaps.converters.whichkey").addToWhichKey
+local telescope_paste_img = require("utils.telescope_extra").find_and_paste_image
 local term_factory = term.term_factory
 local term_toggle = term.term_toggle
 
@@ -34,7 +35,7 @@ local basic_mappings = {
 	{ key = "<C-u>", cmd = "<C-u>zz", desc = "Scroll up and center", mode = "n" },
 	{ key = "n", cmd = "nzzzv", desc = "Next search result and center", mode = "n" },
 	{ key = "N", cmd = "Nzzzv", desc = "Previous search result and center", mode = "n" },
-	{ key = "<leader>p", cmd = '"_dP', desc = "Paste without yanking", mode = "x", group = "Paste in place" },
+	{ key = "<leader>pp", cmd = '"_dP', desc = "Paste without yanking", mode = "x" },
 	{ key = "<", cmd = "<gv", desc = "Reselect after indent", mode = "v" },
 	{ key = ">", cmd = ">gv", desc = "Reselect after indent", mode = "v" },
 	{ key = "J", cmd = ":m '>+1<CR>gv=gv", desc = "Move line down", mode = "v" },
@@ -200,6 +201,7 @@ local lsp_mappings = {
 		group = "Goto Previous Preview",
 	},
 	{ mode = "n", key = "<leader>cl", cmd = ":lua vim.diagnostic.setloclist()<CR>", group = "Set Loclist" },
+	{ mode = "n", key = "<leader>Clr", cmd = ":LspRestart<CR>", group = "Restart LSP" },
 	{
 		mode = "n",
 		key = "<leader>cPs",
@@ -230,7 +232,7 @@ local code_companion_mappings = {
 		mode = "v",
 		key = "<leader>Ci",
 		cmd = ":CodeCompanion #{buffer} ",
-		group = "CodeCompanion #{buffer}",
+		group = "CodeCompanion Inline",
 		opts = nosilent,
 	},
 	{ mode = "v", key = "<leader>Ce", cmd = ":CodeCompanion /explain<CR>", group = "CodeCompanion /explain" },
@@ -283,6 +285,14 @@ local telescope_mappings = {
 		key = "<leader>TN",
 		cmd = ":Telescope noice theme=dropdown layout_config={width=0.75}<CR>",
 		group = "Telescope Noice",
+	},
+	{
+		mode = "n",
+		key = "<leader>Ti",
+		cmd = function()
+			telescope_paste_img()
+		end,
+		desc = "Find and Paste Image",
 	},
 	{
 		mode = "n",
@@ -528,7 +538,7 @@ end
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 --}}}
 
--- {{{ NVIM-IMAGE
+-- {{{ IMAGE
 local image_mappings = {
 	{
 
@@ -544,6 +554,14 @@ local image_mappings = {
 		cmd = ":lua require('image').enable()<CR>",
 		desc = "Enable image rendering",
 	},
+	{
+		mode = "n",
+		key = "<leader>pi",
+		cmd = function()
+			telescope_paste_img()
+		end,
+		desc = "Find and Paste Image",
+	},
 }
 -- }}}
 
@@ -554,6 +572,7 @@ add_to_whichkey(nil, { key = "<leader>c", group = "Code" })
 add_to_whichkey(nil, { key = "<leader>ca", group = "Code Actions" })
 add_to_whichkey(nil, { key = "<leader>cc", group = "Calls" })
 add_to_whichkey(nil, { key = "<leader>C", group = "CodeCompanion" })
+add_to_whichkey(nil, { key = "<leader>cL", group = "LSP" })
 add_to_whichkey(nil, { key = "<leader>d", group = "ODIS" })
 add_to_whichkey(nil, { key = "<leader>f", group = "Find" })
 add_to_whichkey(nil, { key = "<leader>g", group = "Git" })
@@ -563,7 +582,8 @@ add_to_whichkey(nil, { key = "<leader>i", group = "Image" })
 add_to_whichkey(nil, { key = "<leader>j", group = "AnyJump" })
 add_to_whichkey(nil, { key = "<leader>N", group = "Noice" })
 -- add_to_whichkey(nil, { key = "<leader>o", group = "Open" })
-add_to_whichkey(nil, { key = "<leader>p", group = "Paste in Place" })
+add_to_whichkey(nil, { key = "<leader>p", group = "Paste" })
+add_to_whichkey(nil, { key = "<leader>pg", group = "Paste Git Raw" })
 add_to_whichkey(nil, { key = "<leader>s", group = "Search" })
 add_to_whichkey(nil, { key = "<leader>t", group = "Terminal" })
 add_to_whichkey(nil, { key = "<leader>T", group = "Telescope" })
