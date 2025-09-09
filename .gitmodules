@@ -1,36 +1,36 @@
-[submodule "/Users/sudacode/.config/mpv/submodules/mpv-youtube-upnext"]
-	path = /Users/sudacode/.config/mpv/submodules/mpv-youtube-upnext
+[submodule "$HOME/.config/mpv/submodules/mpv-youtube-upnext"]
+	path = $HOME/.config/mpv/submodules/mpv-youtube-upnext
 	url = https://github.com/ksyasuda/mpv-youtube-upnext
-[submodule "/Users/sudacode/.config/mpv/submodules/mpv-youtube-queue"]
-	path = /Users/sudacode/.config/mpv/submodules/mpv-youtube-queue
+[submodule "$HOME/.config/mpv/submodules/mpv-youtube-queue"]
+	path = $HOME/.config/mpv/submodules/mpv-youtube-queue
 	url = https://github.com/ksyasuda/mpv-youtube-queue
-[submodule "/Users/sudacode/.config/mpv/submodules/ModernZ"]
-	path = /Users/sudacode/.config/mpv/submodules/ModernZ
+[submodule "$HOME/.config/mpv/submodules/ModernZ"]
+	path = $HOME/.config/mpv/submodules/ModernZ
 	url = git@github.com:Samillion/ModernZ.git
-[submodule "/Users/sudacode/.config/mpv/submodules/mpv-anilist-updater"]
-	path = /Users/sudacode/.config/mpv/submodules/mpv-anilist-updater
+[submodule "$HOME/.config/mpv/submodules/mpv-anilist-updater"]
+	path = $HOME/.config/mpv/submodules/mpv-anilist-updater
 	url = git@github.com:AzuredBlue/mpv-anilist-updater.git
-[submodule "/Users/sudacode/.config/mpv/submodules/thumbfast"]
-	path = /Users/sudacode/.config/mpv/submodules/thumbfast
+[submodule "$HOME/.config/mpv/submodules/thumbfast"]
+	path = $HOME/.config/mpv/submodules/thumbfast
 	url = git@github.com:po5/thumbfast.git
-[submodule "/Users/sudacode/.config/mpv/autosubsync-mpv"]
-	path = /Users/sudacode/.config/mpv/autosubsync-mpv
+[submodule "$HOME/.config/mpv/autosubsync-mpv"]
+	path = $HOME/.config/mpv/autosubsync-mpv
 	url = git@github.com:joaquintorres/autosubsync-mpv.git
-[submodule "/Users/sudacode/.config/mpv/submodules/ytdl-preload"]
-	path = /Users/sudacode/.config/mpv/submodules/ytdl-preload
+[submodule "$HOME/.config/mpv/submodules/ytdl-preload"]
+	path = $HOME/.config/mpv/submodules/ytdl-preload
 	url = git@gist.github.com:17d90e3deeb35b5f75e55adb19098f58.git
-[submodule "/Users/sudacode/.config/mpv/submodules/immersion-tracker"]
-	path = /Users/sudacode/.config/mpv/submodules/immersion-tracker
+[submodule "$HOME/.config/mpv/submodules/immersion-tracker"]
+	path = $HOME/.config/mpv/submodules/immersion-tracker
 	url = git@gitea.suda.codes:sudacode/immersion-tracker.git
-[submodule "/Users/sudacode/.config/mpv/submodules/mpvacious"]
-	path = /Users/sudacode/.config/mpv/submodules/mpvacious
+[submodule "$HOME/.config/mpv/submodules/mpvacious"]
+	path = $HOME/.config/mpv/submodules/mpvacious
 	url = git@github.com:ksyasuda/mpvacious.git
-[submodule "/Users/sudacode/.config/mpv/animecards"]
-	path = /Users/sudacode/.config/mpv/animecards
+[submodule "$HOME/.config/mpv/animecards"]
+	path = $HOME/.config/mpv/animecards
 	url = git@github.com:ksyasuda/Anacreon-Script
-[submodule "/Users/sudacode/.config/mpv/submodules/animecards"]
-	path = /Users/sudacode/.config/mpv/submodules/animecards
+[submodule "$HOME/.config/mpv/submodules/animecards"]
+	path = $HOME/.config/mpv/submodules/animecards
 	url = git@github.com:ksyasuda/Anacreon-Script
-[submodule "/Users/sudacode/.config/mpv/submodules/autosubsync-mpv"]
-	path = /Users/sudacode/.config/mpv/submodules/autosubsync-mpv
+[submodule "$HOME/.config/mpv/submodules/autosubsync-mpv"]
+	path = $HOME/.config/mpv/submodules/autosubsync-mpv
 	url = git@github.com:joaquintorres/autosubsync-mpv.git
