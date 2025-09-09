@@ -1,36 +1,30 @@
-[submodule "$HOME/.config/mpv/submodules/mpv-youtube-upnext"]
-	path = $HOME/.config/mpv/submodules/mpv-youtube-upnext
+[submodule ".config/mpv-modules/mpv-youtube-upnext"]
+	path = .config/mpv-modules/mpv-youtube-upnext
 	url = https://github.com/ksyasuda/mpv-youtube-upnext
-[submodule "$HOME/.config/mpv/submodules/mpv-youtube-queue"]
-	path = $HOME/.config/mpv/submodules/mpv-youtube-queue
+[submodule ".config/mpv-modules/mpv-youtube-queue"]
+	path = .config/mpv-modules/mpv-youtube-queue
 	url = https://github.com/ksyasuda/mpv-youtube-queue
-[submodule "$HOME/.config/mpv/submodules/ModernZ"]
-	path = $HOME/.config/mpv/submodules/ModernZ
+[submodule ".config/mpv-modules/ModernZ"]
+	path = .config/mpv-modules/ModernZ
 	url = git@github.com:Samillion/ModernZ.git
-[submodule "$HOME/.config/mpv/submodules/mpv-anilist-updater"]
-	path = $HOME/.config/mpv/submodules/mpv-anilist-updater
-	url = git@github.com:AzuredBlue/mpv-anilist-updater.git
-[submodule "$HOME/.config/mpv/submodules/thumbfast"]
-	path = $HOME/.config/mpv/submodules/thumbfast
-	url = git@github.com:po5/thumbfast.git
-[submodule "$HOME/.config/mpv/autosubsync-mpv"]
-	path = $HOME/.config/mpv/autosubsync-mpv
-	url = git@github.com:joaquintorres/autosubsync-mpv.git
-[submodule "$HOME/.config/mpv/submodules/ytdl-preload"]
-	path = $HOME/.config/mpv/submodules/ytdl-preload
+[submodule ".config/mpv-modules/ytdl-preload"]
+	path = .config/mpv-modules/ytdl-preload
 	url = git@gist.github.com:17d90e3deeb35b5f75e55adb19098f58.git
-[submodule "$HOME/.config/mpv/submodules/immersion-tracker"]
-	path = $HOME/.config/mpv/submodules/immersion-tracker
-	url = git@gitea.suda.codes:sudacode/immersion-tracker.git
-[submodule "$HOME/.config/mpv/submodules/mpvacious"]
-	path = $HOME/.config/mpv/submodules/mpvacious
-	url = git@github.com:ksyasuda/mpvacious.git
-[submodule "$HOME/.config/mpv/animecards"]
-	path = $HOME/.config/mpv/animecards
-	url = git@github.com:ksyasuda/Anacreon-Script
-[submodule "$HOME/.config/mpv/submodules/animecards"]
-	path = $HOME/.config/mpv/submodules/animecards
-	url = git@github.com:ksyasuda/Anacreon-Script
-[submodule "$HOME/.config/mpv/submodules/autosubsync-mpv"]
-	path = $HOME/.config/mpv/submodules/autosubsync-mpv
+[submodule ".config/mpv-modules/mpv-anilist-updater"]
+	path = .config/mpv-modules/mpv-anilist-updater
+	url = git@github.com:AzuredBlue/mpv-anilist-updater.git
+[submodule ".config/mpv-modules/thumbfast"]
+	path = .config/mpv-modules/thumbfast
+	url = git@github.com:po5/thumbfast.git
+[submodule ".config/mpv-modules/autosubsync-mpv"]
+	path = .config/mpv-modules/autosubsync-mpv
 	url = git@github.com:joaquintorres/autosubsync-mpv.git
+[submodule ".config/mpv-modules/immersion-tracker"]
+	path = .config/mpv-modules/immersion-tracker
+	url = git@gitea.suda.codes:sudacode/immersion-tracker.git
+[submodule ".config/mpv-modules/mpvacious"]
+	path = .config/mpv-modules/mpvacious
+	url = git@github.com:ksyasuda/mpvacious.git
+[submodule ".config/mpv-modules/animecards"]
+	path = .config/mpv-modules/animecards
+	url = git@github.com:ksyasuda/Anacreon-Script
