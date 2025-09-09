@@ -12,6 +12,7 @@ return {
 			vim = { "vint" },
 			go = { "golangcilint" },
 		}
+		lint.linters.jsonlint.cmd = "vscode-json-language-server"
 		lint.linters.shellcheck.args = {
 			"-s",
 			"bash",

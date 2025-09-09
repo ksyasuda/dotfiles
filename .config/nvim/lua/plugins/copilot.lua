@@ -1,5 +1,7 @@
 return {
 	"zbirenbaum/copilot.lua",
+	cmd = "Copilot",
+	event = "InsertEnter",
 	opts = {
 		panel = {
 			enabled = true,
@@ -49,7 +51,29 @@ return {
 					listCount = 10, -- #completions for panel
 					inlineSuggestCount = 5, -- #completions for getCompletions
 				},
+				telemetry = {
+					telemetryLevel = "all",
+				},
 			},
+		},
+		copilot_node_command = "node", -- Node.js version must be > 20
+		workspace_folders = {},
+		-- copilot_model = "",
+		disable_limit_reached_message = false, -- Set to `true` to suppress completion limit reached popup
+		logger = {
+			file = vim.fn.stdpath("log") .. "/copilot-lua.log",
+			file_log_level = vim.log.levels.OFF,
+			print_log_level = vim.log.levels.WARN,
+			trace_lsp = "off", -- "off" | "messages" | "verbose"
+			trace_lsp_progress = false,
+			log_lsp_messages = false,
+		},
+		root_dir = function()
+			return vim.fs.dirname(vim.fs.find(".git", { upward = true })[1])
+		end,
+		server = {
+			type = "nodejs", -- "nodejs" | "binary"
+			custom_server_filepath = nil,
 		},
 	},
 }

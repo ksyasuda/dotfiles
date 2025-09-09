@@ -1,6 +1,6 @@
 local M = {}
 local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
+local opts = { noremap = true, silent = false }
 
 --- Set keybindings from a table of mappings.
 --- @param bindings table A list of keybinding mappings.
