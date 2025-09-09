@@ -1,0 +1,1 @@
+../../submodules/mpv-anilist-updater/anilistUpdater/main.lua

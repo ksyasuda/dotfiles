@@ -1,0 +1,139 @@
+user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+cache=yes
+demuxer-max-bytes=500M
+demuxer-max-back-bytes=100M
+cache-pause=no
+ontop=yes
+sub-font="JetBrainsMono Nerd Font"
+sub-font-size=45
+# osd-font="Fluent System Icons"
+border=no
+# geometry=50%
+autofit=50%
+volume=75
+audio-spdif=ac3,dts-hd,truehd
+# glsl-shaders="~~/shaders/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K_Restore_CNN_VL.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_VL.glsl:~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl"
+# glsl-shaders="~~/shaders/FSRCNNX.glsl:~~/shaders/FSR.glsl:~~/shaders/NVScaler.glsl:~~/shaders/CAS-scaled.glsl"
+# glsl-shaders="~~/shaders/ArtCNN_C4F32_DS.glsl"
+glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+
+# Can fix stuttering in some cases, in other cases probably causes it. Try it if you experience stuttering.
+opengl-early-flush=no
+
+video-sync=display-resample
+osc=no
+no-border
+
+ytdl-raw-options=sub-langs=en.*,write-auto-subs=
+ytdl-format=bestvideo+bestaudio/best
+
+# get subtitles for videos automatically
+sub-auto=fuzzy
+slang=en,eng
+
+# profile=svp
+profile=high-quality
+blend-subtitles=video
+# GPU OPTIONS
+vo=gpu-next
+hwdec=nvdec
+gpu-api=vulkan
+scale=ewa_lanczossharp
+dscale=catmull_rom
+cscale=bicubic
+tscale=oversample
+interpolation=yes
+interpolation-preserve=no
+
+# fruit: 8-Bit/8-Bit+FRC display
+# ordered: true 10-Bit/12-Bit display
+# error-diffusion: high-end GPUs
+dither=error-diffusion
+dither-depth=auto
+error-diffusion=sierra-lite # uncomment if not 'error-diffusion'
+
+###### Antiring
+scale-antiring=0.5
+dscale-antiring=0.5
+cscale-antiring=0.5
+
+# laptop
+# vo=gpu
+# gpu-api=opengl
+# gpu-context=wayland
+# profile=opengl-hq
+
+gpu-context=waylandvk
+gpu-api=vulkan
+vulkan-swap-mode=mailbox
+swapchain-depth=2
+vulkan-async-compute=no
+vd-lavc-threads=0
+opengl-pbo=yes
+vd-lavc-film-grain=gpu
+
+input-ipc-server=/tmp/mpvsocket
+# ao=pule,pipewire
+ao=pipewire,pulse
+
+deband=yes
+deband-iterations=4
+deband-threshold=35
+deband-range=16
+deband-grain=4
+
+subs-with-matching-audio=no
+sub-fix-timing=yes
+sub-ass-override=scale
+#Some settings fixing VOB/PGS subtitles (creating blur & changing yellow subs to gray)
+sub-gauss=1.0
+sub-gray=yes
+
+###### High-quality screenshots
+screenshot-format=webp
+screenshot-webp-lossless=yes
+screenshot-high-bit-depth=yes
+screenshot-sw=no
+screenshot-directory="/truenas/sudacode/pictures/mpv"
+screenshot-template="%f-%wH.%wM.%wS.%wT-#%#00n"
+
+save-position-on-quit
+watch-later-dir="~~/.watch-later"
+resume-playback=yes
+save-watch-history
+watch-history-path="~~/state/watch_history.jsonl"
+target-colorspace-hint=yes
+
+[hdr]
+target-colorspace-hint=yes
+gpu-api=vulkan
+gpu-context=waylandvk
+
+[svp]
+input-ipc-server=/tmp/mpvsocket     # Receives input from SVP
+hr-seek-framedrop=no                # Fixes audio desync
+resume-playback=no                  # Not compatible with SVP
+
+[Idle]
+profile-cond=p["idle-active"]
+profile-restore=copy-equal
+title=' '
+keepaspect=no
+
+[immersion]
+cookies=yes
+cookies-file=/truenas/sudacode/japanese/cookies.Japanese.txt
+ytdl-raw-options=mark-watched=,write-auto-subs=,sub-langs=ja.*
+ytdl-raw-options-append=cookies=/truenas/sudacode/japanese/cookies.Japanese.txt
+ytdl-raw-options-append=sponsorblock-mark=all
+ytdl-raw-options-append=sponsorblock-remove=sponsor
+ytdl-format=bestvideo+bestaudio/best
+# get subtitles for videos automatically
+sub-auto=fuzzy
+slang=ja,jpn,JA,JPN,ja.hi,ja.*
+alang=ja,jpn
+vlang=ja,jpn
+sub-font="Noto Sans CJK JP"
+sub-border-size=1
+sub-shadow-color=0.0/0.0/0.0/0.50
+sub-shadow-offset=2
