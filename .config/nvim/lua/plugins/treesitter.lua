@@ -26,6 +26,8 @@ return {
 				"typescript",
 				"rust",
 				"go",
+				"gowork",
+				"gotmpl",
 				"json",
 				"regex",
 				"latex",
