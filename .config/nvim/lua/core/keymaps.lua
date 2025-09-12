@@ -3,6 +3,7 @@ local term = require("utils.terminal")
 local map_from_table = require("utils.keymaps.converters.from_table").set_keybindings
 local add_to_whichkey = require("utils.keymaps.converters.whichkey").addToWhichKey
 local telescope_paste_img = require("utils.telescope_extra").find_and_paste_image
+local mkdir_under_cursor = require("utils.functions.mkdir_under_cursor").setup()
 local term_factory = term.term_factory
 local term_toggle = term.term_toggle
 
@@ -365,6 +366,25 @@ local telescope_mappings = {
 	{ mode = "n", key = "<leader>sF", cmd = ":Telescope fidget<CR>", group = "Fidget" },
 	{ mode = "n", key = "<leader>sg", cmd = ":Telescope live_grep<CR>", group = "Live grep" },
 	{ mode = "n", key = "<leader>sh", cmd = ":Telescope command_history<CR>", group = "Command history" },
+	{
+		mode = "n",
+		key = "<leader>sn",
+		cmd = function()
+			Snacks.win({
+				file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
+				width = 0.6,
+				height = 0.6,
+				wo = {
+					spell = false,
+					wrap = false,
+					signcolumn = "yes",
+					statuscolumn = " ",
+					conceallevel = 3,
+				},
+			})
+		end,
+		group = "News",
+	},
 	{ mode = "n", key = "<leader>sm", cmd = ":Telescope man_pages<CR>", group = "Man pages" },
 	{ mode = "n", key = "<leader>s/", cmd = ":Telescope search_history<CR>", group = "Search history" },
 	{ mode = "n", key = "<leader>gc", cmd = ":Telescope git_commits<CR>", group = "Git commits" },
@@ -387,6 +407,14 @@ local misc_utilities_mappings = {
 	{ mode = "n", key = "<leader>y", cmd = '"+', group = "System Yank" },
 	{ mode = "v", key = "<leader>y", cmd = '"+', group = "System Yank" },
 	{ mode = "n", key = "<leader>sc", cmd = ":nohls<CR>", group = "Search" },
+	{
+		mode = "n",
+		key = "<leader>m",
+		cmd = function()
+			mkdir_under_cursor()
+		end,
+		group = "mkdir under cursor",
+	},
 }
 -- }}}
 

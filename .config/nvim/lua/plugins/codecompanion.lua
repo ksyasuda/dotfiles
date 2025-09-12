@@ -164,6 +164,17 @@ return {
 						},
 					},
 				},
+				opts = {
+					---Decorate the user message before it's sent to the LLM
+					---@param message string
+					---@param adapter CodeCompanion.Adapter
+					---@param context table
+					---@return string
+					prompt_decorator = function(message, adapter, context)
+						return string.format([[<prompt>%s</prompt>]], message)
+					end,
+					completion_provider = "cmp",
+				},
 			},
 			inline = {
 				adapter = "copilot",
