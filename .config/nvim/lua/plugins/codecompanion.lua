@@ -244,6 +244,13 @@ return {
 				},
 			},
 		},
+		memory = {
+			opts = {
+				chat = {
+					enabled = true,
+				},
+			},
+		},
 	},
 	init = function()
 		require("utils.codecompanion.fidget-spinner"):init()
