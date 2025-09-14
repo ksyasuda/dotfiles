@@ -11,22 +11,24 @@ return {
 		dashboard = { enabled = true },
 		explorer = { enabled = true },
 		indent = {
-			priority = 1,
-			enabled = true, -- enable indent guides
-			char = "│",
-			only_scope = false, -- only show indent guides of the scope
-			only_current = false, -- only show indent guides in the current window
-			-- hl = "SnacksIndent", ---@type string|string[] hl groups for indent guides
-			-- can be a list of hl groups to cycle through
-			hl = {
-				"SnacksIndent1",
-				"SnacksIndent2",
-				"SnacksIndent3",
-				"SnacksIndent4",
-				"SnacksIndent5",
-				"SnacksIndent6",
-				"SnacksIndent7",
-				"SnacksIndent8",
+			indent = {
+				priority = 1,
+				enabled = true, -- enable indent guides
+				char = "│",
+				only_scope = true, -- only show indent guides of the scope
+				only_current = false, -- only show indent guides in the current window
+				-- hl = "SnacksIndent", ---@type string|string[] hl groups for indent guides
+				-- can be a list of hl groups to cycle through
+				hl = {
+					"SnacksIndent1",
+					"SnacksIndent2",
+					"SnacksIndent3",
+					"SnacksIndent4",
+					"SnacksIndent5",
+					"SnacksIndent6",
+					"SnacksIndent7",
+					"SnacksIndent8",
+				},
 			},
 			animate = {
 				-- enabled = vim.fn.has("nvim-0.10") == 1,
@@ -49,41 +51,6 @@ return {
 			icon_pos = "left",
 			prompt_pos = "title",
 			win = { style = "input" },
-			expand = true,
-			backdrop = true,
-			position = "float",
-			border = "rounded",
-			title_pos = "center",
-			height = 1,
-			width = 60,
-			relative = "editor",
-			noautocmd = true,
-			row = 2,
-			-- relative = "cursor",
-			-- row = -3,
-			-- col = 0,
-			wo = {
-				winhighlight = "NormalFloat:SnacksInputNormal,FloatBorder:SnacksInputBorder,FloatTitle:SnacksInputTitle",
-				cursorline = false,
-			},
-			bo = {
-				filetype = "snacks_input",
-				buftype = "prompt",
-			},
-			--- buffer local variables
-			b = {
-				completion = false, -- disable blink completions in input
-			},
-			keys = {
-				n_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "n", expr = true },
-				i_esc = { "<esc>", { "cmp_close", "stopinsert" }, mode = "i", expr = true },
-				i_cr = { "<cr>", { "cmp_accept", "confirm" }, mode = { "i", "n" }, expr = true },
-				i_tab = { "<tab>", { "cmp_select_next", "cmp" }, mode = "i", expr = true },
-				i_ctrl_w = { "<c-w>", "<c-s-w>", mode = "i", expr = true },
-				i_up = { "<up>", { "hist_up" }, mode = { "i", "n" } },
-				i_down = { "<down>", { "hist_down" }, mode = { "i", "n" } },
-				q = "cancel",
-			},
 		},
 		lazygit = { enabled = true },
 		picker = { enabled = true },
@@ -163,5 +130,43 @@ return {
 			},
 		},
 		win = { enabled = true },
+		styles = {
+			input = {
+				backdrop = false,
+				position = "float",
+				border = "rounded",
+				title_pos = "center",
+				height = 1,
+				width = 60,
+				relative = "editor",
+				noautocmd = true,
+				row = 2,
+				-- relative = "cursor",
+				-- row = -3,
+				-- col = 0,
+				wo = {
+					winhighlight = "NormalFloat:SnacksInputNormal,FloatBorder:SnacksInputBorder,FloatTitle:SnacksInputTitle",
+					cursorline = false,
+				},
+				bo = {
+					filetype = "snacks_input",
+					buftype = "prompt",
+				},
+				--- buffer local variables
+				b = {
+					completion = false, -- disable blink completions in input
+				},
+				keys = {
+					n_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "n", expr = true },
+					i_esc = { "<esc>", { "cmp_close", "stopinsert" }, mode = "i", expr = true },
+					i_cr = { "<cr>", { "cmp_accept", "confirm" }, mode = { "i", "n" }, expr = true },
+					i_tab = { "<tab>", { "cmp_select_next", "cmp" }, mode = "i", expr = true },
+					i_ctrl_w = { "<c-w>", "<c-s-w>", mode = "i", expr = true },
+					i_up = { "<up>", { "hist_up" }, mode = { "i", "n" } },
+					i_down = { "<down>", { "hist_down" }, mode = { "i", "n" } },
+					q = "cancel",
+				},
+			},
+		},
 	},
 }
