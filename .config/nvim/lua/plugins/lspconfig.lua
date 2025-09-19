@@ -69,7 +69,6 @@ return {
 						end
 					end,
 				})
-				vim.lsp.enable(lsp)
 			elseif lsp == "basedpyright" then
 				vim.lsp.config(lsp, {
 					capabilities = capabilities,
@@ -97,7 +96,6 @@ return {
 						},
 					},
 				})
-				vim.lsp.enable(lsp)
 			elseif lsp == "ruff" then
 				vim.api.nvim_create_autocmd("LspAttach", {
 					group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
@@ -114,15 +112,12 @@ return {
 					desc = "LSP: Disable hover capability from Ruff",
 				})
 				vim.lsp.config(lsp, {
-					capabilities = capabilities,
-					init_options = {
-						settings = {
-							configuration = vim.fn.stdpath("config") .. "lua/utils/ruff.toml",
-						},
+					settings = {
+						configuration = vim.fn.stdpath("config") .. "/lua/utils/ruff.toml",
+						logLevel = "info",
 					},
 				})
 			end
-			vim.lsp.config(lsp, { capabilities = capabilities })
 			vim.lsp.enable(lsp)
 		end
 	end,

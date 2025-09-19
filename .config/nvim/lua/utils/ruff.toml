@@ -35,6 +35,8 @@ indent-width = 4
 # Assume Python 3.9
 target-version = "py39"
 
+respect-gitignore = true
+
 [lint]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`) codes by default.
 # Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
@@ -57,7 +59,7 @@ convention = "numpy"  # Accepts: "google", "numpy", or "pep257".
 quote-style = "double"
 
 # Like Black, indent with spaces, rather than tabs.
-indent-style = "spaces"
+indent-style = "space"
 
 # Like Black, respect magic trailing commas.
 skip-magic-trailing-comma = false
@@ -78,5 +80,3 @@ docstring-code-format = true
 # This only has an effect when the `docstring-code-format` setting is
 # enabled.
 docstring-code-line-length = "dynamic"
-
-respect-gitignore = true

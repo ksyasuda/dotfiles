@@ -1,6 +1,6 @@
 return {
 	"sontungexpt/better-diagnostic-virtual-text",
-	event = "LspAttach",
+	-- event = "LspAttach",
 	enabled = true,
 	config = function()
 		local diagnostic = require("better-diagnostic-virtual-text")
@@ -130,7 +130,7 @@ return {
 				down_arrow = "  ",
 				above = false, -- the virtual text will be displayed above the line
 			},
-			priority = 2003, -- the priority of virtual text
+			priority = 10000, -- the priority of virtual text
 			inline = true,
 		})
 	end,

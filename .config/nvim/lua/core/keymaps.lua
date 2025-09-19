@@ -396,8 +396,8 @@ local telescope_mappings = {
 -- {{{ File Explorer Mappings (i guess)
 local file_explorer_mappings = {
 	{ mode = "n", key = "<leader>nt", cmd = ":NvimTreeToggle<CR>" },
-	{ mode = "n", key = "<leader>nc", cmd = ":lua require('notify').dismiss()<CR>" },
-	{ mode = "n", key = "<leader>D", cmd = ":Dotenv .env<CR>", group = "Dotenv" },
+	{ mode = "n", key = "<leader>nc", cmd = ":lua Snacks.notifier.hide()<CR>" },
+	{ mode = "n", key = "<leader>nh", cmd = ":lua Snacks.notifier.show_history()<CR>" },
 }
 -- }}}
 
