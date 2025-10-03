@@ -6,6 +6,7 @@ local telescope_paste_img = require("utils.telescope_extra").find_and_paste_imag
 local mkdir_under_cursor = require("utils.functions.mkdir_under_cursor").setup()
 local term_factory = term.term_factory
 local term_toggle = term.term_toggle
+local cc = require("codecompanion")
 
 local opts = { silent = true, noremap = true }
 local nosilent = { silent = false, noremap = true }
@@ -217,8 +218,24 @@ local lsp_mappings = {
 -- {{{ Code Companion Mappings
 local code_companion_mappings = {
 	{ mode = "n", key = "<leader>cp", cmd = ":vert Copilot panel<CR>", group = "Copilot Panel" },
-	{ mode = "n", key = "<leader>oc", cmd = ":CodeCompanionChat Toggle<CR>", group = "Toggle Codecompanion" },
+	{
+		mode = "n",
+		key = "<leader>Cf",
+		cmd = function()
+			cc.chat({ window_opts = { height = 1.0, layout = "buffer" } })
+		end,
+		group = "Codecompanion Fullscreen",
+	},
+	{
+		mode = "n",
+		key = "<leader>Ch",
+		cmd = function()
+			cc.chat({ window_opts = { height = 0.24, layout = "horizontal", position = "bottom" } })
+		end,
+		group = "Codecompanion Horizontal Split",
+	},
 	{ mode = "n", key = "<leader>Cc", cmd = ":CodeCompanionChat Toggle<CR>", group = "Toggle Codecompanion" },
+	{ mode = "n", key = "<leader>oc", cmd = ":CodeCompanionChat Toggle<CR>", group = "Toggle Codecompanion" },
 	{
 		mode = "n",
 		key = "<leader>Ci",
@@ -226,9 +243,9 @@ local code_companion_mappings = {
 		group = "Inline CodeCompanion",
 		opts = nosilent,
 	},
-	{ mode = "n", key = "<leader>CT", cmd = ":CodeCompanionChat Toggle<CR>", group = "CodeCompanion Toggle" },
-	{ mode = "n", key = "<leader>Ca", cmd = ":CodeCompanionActions<CR>", group = "CodeCompanion Actions" },
-	{ mode = "v", key = "<leader>Cc", cmd = ":CodeCompanionChat Add<CR>", group = "CodeCompanion Add" },
+	{ mode = "n", key = "<leader>Ct", cmd = ":CodeCompanionChat Toggle<CR>", group = "CodeCompanion Toggle" },
+	{ mode = "n", key = "<leader>CA", cmd = ":CodeCompanionActions<CR>", group = "CodeCompanion Actions" },
+	{ mode = "v", key = "<leader>Ca", cmd = ":CodeCompanionChat Add<CR>", group = "CodeCompanion Add" },
 	{
 		mode = "v",
 		key = "<leader>Ci",
