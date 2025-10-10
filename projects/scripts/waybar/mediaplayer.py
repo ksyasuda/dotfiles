@@ -8,13 +8,13 @@ import logging
 import os
 import signal
 import sys
-from typing import List
 
 import gi
 from gi.repository import GLib, Playerctl
 from gi.repository.Playerctl import Player
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 is_plain = False
 
 
@@ -66,7 +66,7 @@ class PlayerManager:
         self.manager.manage_player(player)
         self.on_metadata_changed(player, player.props.metadata)
 
-    def get_players(self) -> List[Player]:
+    def get_players(self) -> list[Player]:
         return self.manager.props.players
 
     def write_output(self, text, player):
@@ -234,5 +234,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()

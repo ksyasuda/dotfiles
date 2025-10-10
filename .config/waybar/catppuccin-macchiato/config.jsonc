@@ -20,7 +20,7 @@
   // "modules-center": ["hyprland/window"],
   "modules-center": ["custom/notification"],
   "modules-right": [
-    "hyprland/scratchpad",
+    // "hyprland/scratchpad",
     // "idle_inhibitor",
     // "custom/notification",
     "custom/updates",
@@ -157,13 +157,13 @@
     "format-disconnected": "Disconnected ⚠",
     "on-click": "$HOME/.config/rofi/scripts/rofi-wifi-menu.sh",
   },
-  // "custom/weather": {
-  //   "interval": 600,
-  //   "exec": "~/.config/waybar/scripts/wttr.sh Los_Angeles",
-  //   "return-type": "json",
-  //   "format": "{}",
-  //   "tooltip": true,
-  // },
+  "custom/weather": {
+    "interval": 600,
+    "exec": "~/.config/waybar/scripts/wttr.sh Los_Angeles",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+  },
   "custom/kernel": {
     "exec": "uname -r | sed -E 's/^([0-9]+\\.[0-9]+\\.[0-9]+)-.*-([a-zA-Z0-9]+)/\\1-\\2/'",
     "format": "{} ",
@@ -305,7 +305,7 @@
     "exec": "$HOME/.config/waybar/scripts/scroll-mpv.sh",
     "format": "<span color='#450241'> </span> {}",
     "max-length": 35,
-    "on-click": "playerctl -p firefox play-pause",
+    "on-click": "playerctl -p mpv play-pause",
     "hide-empty-text": true,
   },
   "custom/notification": {

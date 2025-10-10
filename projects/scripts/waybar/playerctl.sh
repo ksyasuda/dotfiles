@@ -3,21 +3,22 @@
 PLAYER="$1"
 
 if [ -z "$PLAYER" ]; then
-	echo "Usage: $0 <player>"
-	exit 1
+    echo "Usage: $0 <player>"
+    exit 1
 fi
 
-STATUS="$(playerctl -p "$PLAYER" status)"
+STATUS="$(playerctl -p "$PLAYER" status 2>/dev/null)"
 
-if [ -z "$STATUS" ] || [ "$STATUS" = "Stopped" ]; then
-	exit 0
-elif [ "$STATUS" = "Paused" ]; then
-	STATUS=" "
-elif [ "$STATUS" = "Playing" ]; then
-	STATUS=" "
-else
-	exit 0
-fi
+case "$STATUS" in "" | "Stopped")
+    exit 0
+    ;;
+"Paused")
+    STATUS=" "
+    ;;
+"Playing")
+    STATUS=" "
+    ;;
+esac
 
 TITLE="$(playerctl -p "$PLAYER" metadata title)"
 ARTIST="$(playerctl -p "$PLAYER" metadata artist)"
