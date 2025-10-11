@@ -7,7 +7,7 @@ if [ -z "$PLAYER" ]; then
     exit 1
 fi
 
-STATUS="$(playerctl -p "$PLAYER" status 2>/dev/null)"
+STATUS="$(playerctl -sp "$PLAYER" status)"
 
 case "$STATUS" in "" | "Stopped")
     exit 0

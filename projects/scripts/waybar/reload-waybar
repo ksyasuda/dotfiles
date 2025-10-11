@@ -2,6 +2,7 @@
 
 if pgrep -af "waybar -c /home/sudacode/.config/waybar/catppuccin-macchiato/config-battery.jsonc -s /home/sudacode/.config/waybar/catppuccin-macchiato/style.css" ||
     pgrep -af "waybar -c /home/sudacode/.config/waybar/catppuccin-macchiato/config.jsonc -s /home/sudacode/.config/waybar/catppuccin-macchiato/style.css"; then
+    killall zscroll
     killall waybar
 fi
 
