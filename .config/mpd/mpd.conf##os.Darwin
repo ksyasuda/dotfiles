@@ -7,7 +7,7 @@ pid_file "~/.config/mpd/pid"
 state_file "~/.config/mpd/mpdstate"
 playlist_directory "~/.config/mpd/playlists"
 # music_directory "~/Music"
-music_directory "/jellyfin/music"
+music_directory "/truenas/jellyfin/music"
 # music_directory "nfs://102.168.5.77:/nandury/jellyfin/music"
 database {
     plugin "simple"
