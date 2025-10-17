@@ -14,8 +14,7 @@
     "hyprland/submap",
     "custom/mpd-scroll",
     "custom/mpv-scroll",
-    "custom/firefox-scroll",
-    "cava",
+    "custom/firefox-scroll"
   ],
   // "modules-center": ["hyprland/window"],
   "modules-center": ["custom/notification"],
