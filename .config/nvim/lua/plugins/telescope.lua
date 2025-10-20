@@ -36,15 +36,14 @@ return {
 				dynamic_preview_title = true,
 				treesitter = true,
 			},
-			mappings = {
-				i = {
-					-- map actions.which_key to <C-h> (default: <C-/>)
-					-- actions.which_key shows the mappings for your picker,
-					-- e.g. git_{create, delete, ...}_branch for the git_branches picker
-					["<C-h>"] = "which_key",
-					["<C-u"] = false,
-				},
-			},
+			-- mappings = {
+			-- 	i = {
+			-- 		-- map actions.which_key to <C-h> (default: <C-/>)
+			-- 		-- actions.which_key shows the mappings for your picker,
+			-- 		-- e.g. git_{create, delete, ...}_branch for the git_branches picker
+			-- 		["<C-/>"] = "which_key",
+			-- 	},
+			-- },
 			file_ignore_patterns = { "^node_modules/", "^env/", "^__pycache__/" },
 		},
 		pickers = {
