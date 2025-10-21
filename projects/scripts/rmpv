@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+THEME="${THEME:-$HOME/.config/rofi/launchers/type-2/style-2.rasi}"
+THUMBNAIL_PATH="/tmp/rmpv-thumbnail.jpg"
+FONTCONFIG_FILE=$HOME/.config/mpv/mpv-fonts.conf
+COMMAND=mpv
+
+# Parse command-line options first
+while getopts ":it:" opt; do
+    case $opt in
+    i)
+        COMMAND="$COMMAND --profile=immersion"
+        ;;
+    t)
+        THEME="$OPTARG"
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" >&2
+        exit 1
+        ;;
+    :)
+        echo "Option -$OPTARG requires an argument." >&2
+        exit 1
+        ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+generate_thumbnail() {
+    local video_file="$1"
+    local temp_thumb="/tmp/rmpv-thumbnail-$$.jpg"
+    local thumbnail_file="${video_file%.*}.jpg"
+
+    # Validate input
+    if [[ -z "$video_file" ]]; then
+        echo "Error: No video file specified" >&2
+        return 1
+    fi
+
+    if [[ ! -f "$video_file" ]]; then
+        echo "Error: Video file '$video_file' not found" >&2
+        return 1
+    fi
+
+    # Check if it's a video file
+    if ! file "$video_file" | grep -qE "(video|Video)"; then
+        echo "Error: '$video_file' doesn't appear to be a video file" >&2
+        return 1
+    fi
+
+    # Generate thumbnail if it doesn't exist
+    if [[ ! -f "$thumbnail_file" ]]; then
+        echo "Generating thumbnail for $(basename "$video_file")..."
+        if ! ffmpeg -i "$video_file" \
+            -vf "select='gt(scene,0.4)',scale=320:240:force_original_aspect_ratio=decrease,pad=320:240:(ow-iw)/2:(oh-ih)/2" \
+            -frames:v 1 \
+            -q:v 4 \
+            "$thumbnail_file" \
+            -loglevel error -y 2>/dev/null; then
+            echo "Error: Failed to generate thumbnail" >&2
+            return 1
+        fi
+    fi
+
+    # Copy to temporary location with error handling
+    if ! cp "$thumbnail_file" "$temp_thumb" 2>/dev/null; then
+        echo "Error: Failed to copy thumbnail to temporary location" >&2
+        return 1
+    fi
+
+    # Create symlink for consistent access
+    ln -sf "$temp_thumb" /tmp/rmpv-thumbnail.jpg 2>/dev/null
+    sleep 0.1
+
+    echo "Thumbnail ready: $temp_thumb"
+}
+
+choice="$(find . -iname "*[.mkv|.mp4]" | sort -h | rofi -dmenu -i -theme "$THEME" -theme-str 'listview {columns: 1; lines: 15;} window {width: 88%;}' -p "Choose Video")"
+if [[ -z "$choice" ]]; then
+    echo "No video selected."
+    exit 1
+fi
+
+generate_thumbnail "$choice"
+if [[ ! -f "$THUMBNAIL_PATH" ]]; then
+    echo "Warning: Thumbnail not created, notification will have no icon" >&2
+fi
+notify-send -i "$THUMBNAIL_PATH" "Playing Video" "$(basename "$choice")"
+$COMMAND "$choice" &
+
+# vim: ft=sh
