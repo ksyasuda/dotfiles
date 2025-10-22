@@ -124,8 +124,11 @@ button:hover {
   margin-left: 0;
 }
 
+.modules-right {
+    padding-left: 1px;
+}
 .modules-left {
-    padding-right: 5px;
+    padding-right: 4px;
 }
 .modules-right > widget:last-child > #workspaces {
   margin-right: 0;
@@ -216,7 +219,7 @@ label:focus {
   /* background-color: @overlay0; */
   background-color: @surface0;
   color: @mantle;
-  margin: 5px 3px 5px 1px;
+  margin: 5px 1px 5px 1px;
 }
 
 #tray > .passive {
@@ -258,7 +261,7 @@ label:focus {
   color: @mantle;
   background-color: @mauve;
   padding: 0 10px;
-  margin: 5px 1px;
+  margin: 5px 1px 5px 2px;
 }
 #custom-updates {
   background-color: @yellow;
@@ -277,7 +280,7 @@ label:focus {
   color: @mantle;
   background-color: @peach;
   padding: 0 10px;
-  margin: 5px 5px 5px 1px;
+  margin: 5px 1px 5px 2px;
 }
 
 #cava {
@@ -314,7 +317,7 @@ label:focus {
   background-color: @flamingo;
   color: @base;
   padding: 0 10px;
-  margin: 5px 5px 5px 1px;
+  margin: 5px 1px 5px 2px;
 }
 
 #custom-notification {
