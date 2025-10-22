@@ -124,6 +124,9 @@ button:hover {
   margin-left: 0;
 }
 
+.modules-left {
+    padding-right: 5px;
+}
 .modules-right > widget:last-child > #workspaces {
   margin-right: 0;
 }
