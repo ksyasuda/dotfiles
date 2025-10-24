@@ -1,14 +1,12 @@
 local map = vim.keymap.set
-local term = require("utils.terminal")
 local map_from_table = require("utils.keymaps.converters.from_table").set_keybindings
 local add_to_whichkey = require("utils.keymaps.converters.whichkey").addToWhichKey
 local telescope_paste_img = require("utils.telescope_extra").find_and_paste_image
 local mkdir_under_cursor = require("utils.functions.mkdir_under_cursor").setup()
+local term = require("utils.terminal")
 local term_factory = term.term_factory
 local term_toggle = term.term_toggle
-local cc = require("codecompanion")
 
-local opts = { silent = true, noremap = true }
 local nosilent = { silent = false, noremap = true }
 
 -- Leader key
@@ -20,7 +18,7 @@ vim.g.maplocalleader = ","
 --- @param command string The command to execute
 --- @param description string Description of the command
 --- @return nil
-function create_custom_command(trigger, command, description)
+local create_custom_command = function(trigger, command, description)
 	vim.api.nvim_create_user_command(trigger, command, { desc = description })
 end
 -- Custom commands
@@ -165,7 +163,7 @@ local lsp_mappings = {
 	{ mode = "n", key = "<leader>gb", cmd = ":Gitsigns blame<CR>", group = "Git Blame" },
 	{ mode = "n", key = "gi", cmd = ":Telescope lsp_implementations<CR>", group = "Telescope Implementations" },
 	{ mode = "n", key = "gj", cmd = ":Telescope jumplist<CR>", group = "Telescope Jumplist" },
-	{ mode = "n", key = "gr", cmd = ":Telescope lsp_references<CR>", goup = "LSP References" },
+	{ mode = "n", key = "gr", cmd = ":Telescope lsp_references<CR>", group = "LSP References" },
 	{ mode = "n", key = "gs", cmd = vim.lsp.buf.signature_help },
 	-- { mode = "n", key = "K", cmd = vim.lsp.buf.hover },
 	{ mode = "n", key = "<leader>ca", cmd = vim.lsp.buf.code_action, group = "Code" },
@@ -199,7 +197,7 @@ local lsp_mappings = {
 	{
 		mode = "n",
 		key = "<leader>cDp",
-		cmd = ":lua vim.diagnostic.goto_prev()<CR<CR>",
+		cmd = ":lua vim.diagnostic.goto_prev()<CR>",
 		group = "Goto Previous Preview",
 	},
 	{ mode = "n", key = "<leader>cl", cmd = ":lua vim.diagnostic.setloclist()<CR>", group = "Set Loclist" },
@@ -222,7 +220,8 @@ local code_companion_mappings = {
 		mode = "n",
 		key = "<leader>Cf",
 		cmd = function()
-			cc.chat({ window_opts = { height = 1.0, layout = "buffer" } })
+			local chat = require("codecompanion").chat
+			chat({ window_opts = { height = 1.0, layout = "buffer" } })
 		end,
 		group = "Codecompanion Fullscreen",
 	},
@@ -230,7 +229,8 @@ local code_companion_mappings = {
 		mode = "n",
 		key = "<leader>Ch",
 		cmd = function()
-			cc.chat({ window_opts = { height = 0.24, layout = "horizontal", position = "bottom" } })
+			local chat = require("codecompanion").chat
+			chat({ window_opts = { height = 0.24, layout = "horizontal", position = "bottom" } })
 		end,
 		group = "Codecompanion Horizontal Split",
 	},
@@ -266,7 +266,7 @@ local telescope_mappings = {
 		mode = "n",
 		key = "//",
 		cmd = ":Telescope current_buffer_fuzzy_find previewer=false<CR>",
-		"Current buffer fuzzy find",
+		desc = "Current buffer fuzzy find",
 	},
 	{
 		mode = "n",
@@ -421,8 +421,8 @@ local file_explorer_mappings = {
 -- {{{ Misc Utilities Mappings
 local misc_utilities_mappings = {
 	{ mode = "n", key = "<leader>x", cmd = "<cmd>!chmod +x %<CR>", group = "Make Executable" },
-	{ mode = "n", key = "<leader>y", cmd = '"+', group = "System Yank" },
-	{ mode = "v", key = "<leader>y", cmd = '"+', group = "System Yank" },
+	{ mode = "n", key = "<leader>y", cmd = '"+y', group = "System Yank" },
+	{ mode = "v", key = "<leader>y", cmd = '"+y', group = "System Yank" },
 	{ mode = "n", key = "<leader>sc", cmd = ":nohls<CR>", group = "Search" },
 	{
 		mode = "n",
@@ -538,12 +538,17 @@ local diffview_mappings = {
 		desc = "Refresh diffview",
 		group = "Git",
 	},
+	{
+		mode = "n",
+		key = "<leader>gg",
+		cmd = ":lua Snacks.lazygit()<CR>",
+		desc = "Open Lazygit",
+	},
 }
 -- }}}
 
 --{{{ Custom Terminals
 local programs_map = {
-	gg = { cmd = "lazygit", display_name = "lazygit", direction = "tab", hidden = true },
 	op = { cmd = "ipython", display_name = "ipython", direction = "vertical", hidden = true },
 	oP = {
 		cmd = "ipython",
