@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"image"
 	"io"
 	"math/rand"
 	"net/http"
@@ -14,6 +15,12 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	_ "image/gif"
+	"image/jpeg"
+	"image/png"
+
+	"golang.org/x/image/draw"
 )
 
 const (
@@ -64,6 +71,12 @@ type WallhavenResponse struct {
 	Data []struct {
 		Path string `json:"path"`
 	} `json:"data"`
+}
+
+type monitor struct {
+	Name   string `json:"name"`
+	Width  int    `json:"width"`
+	Height int    `json:"height"`
 }
 
 func main() {
@@ -213,27 +226,150 @@ func downloadRandomWallpaper(wallpaperPath string, r *rand.Rand, topics []string
 	return filepath, displayName
 }
 
+func activeMonitors() ([]monitor, error) {
+	out, err := exec.Command("hyprctl", "-j", "monitors").Output()
+	if err != nil {
+		return nil, err
+	}
+	var monitors []monitor
+	if err := json.Unmarshal(out, &monitors); err != nil {
+		return nil, err
+	}
+	return monitors, nil
+}
+
+func ensureSized(wallpaperPath string) (string, error) {
+	monitors, err := activeMonitors()
+	if err != nil {
+		return "", err
+	}
+	if len(monitors) == 0 {
+		return wallpaperPath, nil
+	}
+
+	targetWidth := 0
+	targetHeight := 0
+	for _, m := range monitors {
+		if m.Width > targetWidth {
+			targetWidth = m.Width
+		}
+		if m.Height > targetHeight {
+			targetHeight = m.Height
+		}
+	}
+	if targetWidth == 0 || targetHeight == 0 {
+		return wallpaperPath, nil
+	}
+
+	file, err := os.Open(wallpaperPath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	src, format, err := image.Decode(file)
+	if err != nil {
+		return "", err
+	}
+
+	if src.Bounds().Dx() == targetWidth && src.Bounds().Dy() == targetHeight {
+		return wallpaperPath, nil
+	}
+
+	dst := image.NewRGBA(image.Rect(0, 0, targetWidth, targetHeight))
+	draw.CatmullRom.Scale(dst, dst.Bounds(), src, src.Bounds(), draw.Over, nil)
+
+	var ext string
+	switch format {
+	case "jpeg":
+		ext = ".jpg"
+	case "png":
+		ext = ".png"
+	case "gif":
+		ext = ".png"
+	default:
+		ext = filepath.Ext(wallpaperPath)
+		if ext == "" {
+			ext = ".jpg"
+		}
+	}
+
+	base := strings.TrimSuffix(filepath.Base(wallpaperPath), filepath.Ext(wallpaperPath))
+	resizedPath := filepath.Join(filepath.Dir(wallpaperPath), fmt.Sprintf("%s-%dx%d%s", base, targetWidth, targetHeight, ext))
+
+	outFile, err := os.Create(resizedPath)
+	if err != nil {
+		return "", err
+	}
+	defer outFile.Close()
+
+	switch format {
+	case "png", "gif":
+		if err := png.Encode(outFile, dst); err != nil {
+			return "", err
+		}
+	default:
+		if err := jpeg.Encode(outFile, dst, &jpeg.Options{Quality: 90}); err != nil {
+			return "", err
+		}
+	}
+
+	return resizedPath, nil
+}
+
 func changeWallpaper(wallpaperPath, topic string) {
+	resizedPath, err := ensureSized(wallpaperPath)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error resizing wallpaper: %v\n", err)
+		resizedPath = wallpaperPath
+	}
+	if resizedPath == "" {
+		resizedPath = wallpaperPath
+	}
+
 	// Save current wallpaper path
 	homeDir, _ := os.UserHomeDir()
 	wallpaperFile := filepath.Join(homeDir, ".wallpaper")
-	if err := os.WriteFile(wallpaperFile, []byte(wallpaperPath), 0644); err != nil {
+	if err := os.WriteFile(wallpaperFile, []byte(resizedPath), 0644); err != nil {
 		fmt.Fprintf(os.Stderr, "Error saving wallpaper path: %v\n", err)
 	}
 
-	// Change wallpaper using hyprctl
-	cmd := exec.Command("hyprctl", "hyprpaper", "reload", ","+wallpaperPath)
+	monitors, monitorErr := activeMonitors()
+	if monitorErr != nil {
+		fmt.Fprintf(os.Stderr, "Error getting monitors: %v\n", monitorErr)
+	}
+
+	cmd := exec.Command("hyprctl", "hyprpaper", "preload", resizedPath)
 	if err := cmd.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "Error changing wallpaper: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error preloading wallpaper: %v\n", err)
+	}
+
+	if monitorErr != nil || len(monitors) == 0 {
+		cmd = exec.Command("hyprctl", "hyprpaper", "wallpaper", ","+resizedPath)
+		if err := cmd.Run(); err != nil {
+			fmt.Fprintf(os.Stderr, "Error applying wallpaper: %v\n", err)
+		}
+	} else {
+		for _, m := range monitors {
+			cmd = exec.Command("hyprctl", "hyprpaper", "wallpaper", fmt.Sprintf("%s,%s", m.Name, resizedPath))
+			if err := cmd.Run(); err != nil {
+				fmt.Fprintf(os.Stderr, "Error applying wallpaper for monitor %s: %v\n", m.Name, err)
+			}
+		}
+	}
+
+	cmd = exec.Command("hyprctl", "hyprpaper", "reload")
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "Error reloading hyprpaper: %v\n", err)
 	}
 
 	// Send notification with wallpaper as icon
-	filename := filepath.Base(wallpaperPath)
+	filename := filepath.Base(resizedPath)
 	message := fmt.Sprintf("Wallpaper changed to %s", filename)
 	if topic != "" {
 		message += fmt.Sprintf(" (%s)", topic)
 	}
-	notifyWithIcon(message, "normal", wallpaperPath)
+	notifyWithIcon(message, "normal", resizedPath)
 }
 
 func notify(message, urgency string) {
