@@ -11,10 +11,10 @@
     "custom/launcher",
     "hyprland/workspaces",
     "tray",
-    "hyprland/submap",
     "custom/mpd-scroll",
     "custom/mpv-scroll",
-    "custom/firefox-scroll"
+    "custom/firefox-scroll",
+    "hyprland/submap"
   ],
   // "modules-center": ["hyprland/window"],
   "modules-center": ["custom/notification"],

@@ -92,6 +92,8 @@ button:hover {
 #submap {
   background-color: @base;
   box-shadow: inset 0 -2px @text;
+  padding: 0 10px;
+  margin: 5px 1px 5px 2px;
 }
 
 #custom-weather,
@@ -107,7 +109,6 @@ button:hover {
 #custom-kernel,
 #idle_inhibitor,
 #scratchpad,
-#submap,
 #tray {
   padding: 0 10px;
   margin: 5px 1px;
