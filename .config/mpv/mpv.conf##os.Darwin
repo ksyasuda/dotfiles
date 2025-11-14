@@ -1,233 +1,181 @@
-#
-# Example mpv configuration file
-#
-# Warning:
-#
-# The commented example options usually do _not_ set the default values. Call
-# mpv with --list-options to see the default values for most options. There is
-# no builtin or example mpv.conf with all the defaults.
-#
-#
-# Configuration files are read system-wide from /usr/local/etc/mpv.conf
-# and per-user from ~~/mpv.conf, where per-user settings override
-# system-wide settings, all of which are overridden by the command line.
-#
-# Configuration file settings and the command line options use the same
-# underlying mechanisms. Most options can be put into the configuration file
-# by dropping the preceding '--'. See the man page for a complete list of
-# options.
-#
-# Lines starting with '#' are comments and are ignored.
-#
-# See the CONFIGURATION FILES section in the man page
-# for a detailed description of the syntax.
-#
-# Profiles should be placed at the bottom of the configuration file to ensure
-# that settings wanted as defaults are not restricted to specific profiles.
+user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
 
-##################
-# video settings #
-##################
+glsl-shaders=""
+scale=spline36                  # Fast, high-quality fallback
+dither=fruit                    # Lightweight dithering
 
-# Start in fullscreen mode by default.
-#fs=yes
+# Window & interface
+ontop=yes
+border=no
+no-border
+autofit=50%                     # Reasonable default size
 
-# force starting with centered window
-# geometry=50%:50%
+# Audio (macOS-specific)
+volume=75
+ao=coreaudio                    # Native macOS audio
+audio-stream-silence=no         # FIXED: Prevents player behavior issues
+audio-wait-open=0.1             # Faster audio startup
 
-# don't allow a new window to have a size larger than 90% of the screen size
-#autofit-larger=90%x90%
-
-# Do not close the window on exit.
-#keep-open=yes
-
-# Do not wait with showing the video window until it has loaded. (This will
-# resize the window once video is loaded. Also always shows a window with
-# audio.)
-#force-window=immediate
-
-# Disable the On Screen Controller (OSC).
-# osc=no
-
-# Keep the player window on top of all other windows.
-# window=scale=1.0
-
-# Specify high quality video rendering preset (for --vo=gpu only)
-# Can cause performance problems with some drivers and GPUs.
-# profile=gpu-hq
-
-# Force video to lock on the display's refresh rate, and change video and audio
-# speed to some degree to ensure synchronous playback - can cause problems
-# with some drivers and desktop environments.
-#video-sync=display-resample
-
-# Enable hardware decoding if available. Often, this does not work with all
-# video outputs, but should work well with default settings on most systems.
-# If performance or energy usage is an issue, forcing the vdpau or vaapi VOs
-# may or may not help.
-# discourged by mpv devs and not likely to make significant difference
-# hwdec=auto-copy
-# hwdec-codecs=all
-
-##################
-# audio settings #
-##################
-
-# Specify default audio device. You can list devices with: --audio-device=help
-# The option takes the device string (the stuff between the '...').
-#audio-device=alsa/default
-
-# Do not filter audio to keep pitch when changing playback speed.
-#audio-pitch-correction=no
-
-# Output 5.1 audio natively, and upmix/downmix audio with a different format.
-#audio-channels=5.1
-# Disable any automatic remix, _if_ the audio output accepts the audio format.
-# of the currently played file. See caveats mentioned in the manpage.
-# (The default is "auto-safe", see manpage.)
-#audio-channels=auto
-
-##################
-# other settings #
-##################
-
-# Pretend to be a web browser. Might fix playback with some streaming sites,
-# but also will break with shoutcast streams.
-# user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
-# user-agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36"
-# user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.94 Chrome/37.0.2062.94 Safari/537.36"
-# user-agent="Chromium/37.0.2062.94 Chrome/37.0.2062.94 Safari/537.36"
-
-# cache settings
-#
-# Use a large seekable RAM cache even for local input.
-cache=yes
-#
-# Use extra large RAM cache (needs cache=yes to make it useful).
-demuxer-max-bytes=500M
-demuxer-max-back-bytes=100M
-#
-# Disable the behavior that the player will pause if the cache goes below a
-# certain fill size.
-cache-pause=no
-#
-# Store cache payload on the hard disk instead of in RAM. (This may negatively
-# impact performance unless used for slow input such as network.)
-#cache-dir=~/.cache/
-#cache-on-disk=yes
-
-# Display English subtitles if available.
-#slang=en
-
-# Play Finnish audio if available, fall back to English otherwise.
-#alang=fi,en
-
-# Change subtitle encoding. For Arabic subtitles use 'cp1256'.
-# If the file seems to be valid UTF-8, prefer UTF-8.
-# (You can add '+' in front of the codepage to force it.)
-#sub-codepage=cp1256
-
-# You can also include other configuration files.
-#include=/path/to/the/file/you/want/to/include
-
-############
-# Profiles #
-############
-
-# The options declared as part of profiles override global default settings,
-# but only take effect when the profile is active.
-
-# The following profile can be enabled on the command line with: --profile=eye-cancer
-
-#[eye-cancer]
-#sharpen=5
-
+# Subtitle defaults
 sub-font="JetBrainsMono Nerd Font"
 sub-font-size=45
-# osd-font="Fluent System Icons"
-border=no
-
-geometry=50%
-
-volume=50
-# speed-step=0.05
-# audio-spdif=ac3,eac3,dts-hd,truehd
-# glsl-shaders="~~/shaders/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K_Restore_CNN_VL.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_VL.glsl:~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl"
-glsl-shaders="~~/shaders/ArtCNN_C4F16.glsl"
-# glsl-shaders="~~/shaders/FSR.glsl"
-
-# Can fix stuttering in some cases, in other cases probably causes it. Try it if you experience stuttering.
-opengl-early-flush=no
-
-video-sync=display-resample
-osc=no
-no-border
-
-ytdl-raw-options=sub-langs=en.*,write-auto-subs=
-ytdl-format=bestvideo+bestaudio/best
-
-# get subtitles for videos automatically
 sub-auto=fuzzy
 slang=en,eng
+subs-with-matching-audio=no
+sub-fix-timing=yes
+sub-ass-override=scale
+sub-gauss=1.0
+sub-gray=yes
 
-# CATPPUCCIN MACHIATTO
-# Main mpv options
+# Networking & streaming
+ytdl-format=bestvideo+bestaudio/best
+ytdl-raw-options=sub-langs=en.*,write-auto-subs=
+ytdl-raw-options-append=sponsorblock-mark=all
+ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
+
+# Stats & UI colors (Catppuccin Macchiato)
 background-color='#24273a'
 osd-back-color='#181926'
 osd-border-color='#181926'
 osd-color='#cad3f5'
 osd-shadow-color='#24273a'
-
-# Stats script options
-# Options are on separate lines for clarity
-# Colors are in #BBGGRR format
 script-opts-append=stats-border_color=30201e
 script-opts-append=stats-font_color=f5d3ca
 script-opts-append=stats-plot_bg_border_color=f8bdb7
 script-opts-append=stats-plot_bg_color=30201e
 script-opts-append=stats-plot_color=f8bdb7
 
-# profile=svp
-profile=gpu-hq
-# GPU OPTIONS
+##################
+# Video/Graphics #
+##################
+
 vo=gpu-next
-# hwdec=nvdec-copy
-hwdec=videotoolbox
-scale=bicubic
-dscale=bicubic
-cscale=bicubic
+hwdec=videotoolbox              # macOS hardware decoding
+hwdec-codecs=all
+gpu-api=vulkan
+gpu-context=macvk               # macOS-specific Vulkan context
+
+# Vulkan optimizations (prevents crashes and memory leaks)
+vulkan-queue-count=1            # FIXED: Prevents buffer overflow
+vulkan-async-compute=no         # FIXED: Improves stability
+vulkan-async-transfer=no        # FIXED: Reduces memory pressure
+vulkan-swap-mode=fifo           # Most compatible presentation mode
+fbo-format=rgba8                # FIXED: Memory-safe format
+
+# Video filtering & quality
+vd-lavc-film-grain=cpu          # FIXED: GPU grain not supported on macOS
+vd-lavc-threads=0
+vd-lavc-dr=yes                  # Keep frames on GPU
+video-sync=display-resample     # Smooth playback
+
+# Scaling & interpolation
+scale=ewa_lanczossharp
+dscale=catmull_rom
+cscale=ewa_lanczos
 tscale=oversample
 interpolation=yes
-interpolation-preserve=no
+interpolation-threshold=0.5
+sigmoid-upscaling=yes
+temporal-dither=yes
 
-input-ipc-server=/tmp/mpvsocket
-# ao=pule,pipewire
-# ao=pipewire,pulse
-ontop=yes
+# High-quality dithering
+dither=error-diffusion
+dither-depth=auto
+error-diffusion=sierra-lite
 
-ao=coreaudio
+# Antiring
+scale-antiring=0.5
+dscale-antiring=0.5
+cscale-antiring=0.5
+
+# Post-processing
+deband=yes
+deband-iterations=2
+deband-threshold=24
+deband-range=16
+deband-grain=4
+
+##################
+# Screenshot     #
+##################
+
+screenshot-format=webp
+screenshot-webp-lossless=yes
+screenshot-high-bit-depth=yes
+screenshot-sw=no
+screenshot-directory="/Volumes/sudacode/pictures/mpv"
+screenshot-template="%f-%wH.%wM.%wS.%wT-#%#00n"
+
+##################
+# Session        #
+##################
+
 save-position-on-quit
-watch-later-dir="~~.watch-later"
+watch-later-dir="~~/.watch-later"
 resume-playback=yes
 save-watch-history
-watch-history-path="~~state/watch_history.jsonl"
-vd-lavc-threads=0
-gpu-api=vulkan
-gpu-context=macvk
-opengl-pbo=yes
+watch-history-path="~~/state/watch_history.jsonl"
+input-ipc-server=/tmp/mpvsocket
 
+##################
+# Caching        #
+##################
+
+cache=yes
+demuxer-max-bytes=1GiB
+demuxer-max-back-bytes=200MiB
+cache-pause=no
+cache-secs=30
+demuxer-readahead-secs=30
+
+############
+# Profiles #
+############
+
+# Base high-quality preset (inherits above settings)
+[base]
+profile=gpu-hq
+
+# Anime profile (ArtCNN is memory-heavy, use cautiously)
+[anime]
+profile-desc="Anime upscaling with ArtCNN"
+profile-cond=filename:match("mkv$") and height <= 1080
+glsl-shaders="~~/shaders/ArtCNN_C4F16.glsl"  # Use F16 variant (lighter)
+scale=ewa_lanczossharp
+deband=yes
+
+# Movies profile (no shaders, HDR support)
+[movies]
+profile-desc="Movies and TV shows"
+profile-cond=width >= 1920 and filename:match("mkv$|mp4$")
+glsl-shaders=""
+scale=ewa_lanczos
+target-peak=800
+hdr-tone-mapping=bt.2390
+
+# HDR profile
+[hdr]
+target-colorspace-hint=yes
+tone-mapping-param=0.5
+tone-mapping-max-boost=2.0
+allow-delayed-peak-detect=yes
+icc-profile-auto=yes
+
+# SVP compatibility profile
 [svp]
-input-ipc-server=/tmp/mpvsocket     # Receives input from SVP
-hr-seek-framedrop=no                # Fixes audio desync
-resume-playback=no                  # Not compatible with SVP
+interpolation=no
+input-ipc-server=/tmp/mpvsocket
+hr-seek-framedrop=no
+resume-playback=no
 
+# Idle profile
 [Idle]
 profile-cond=p["idle-active"]
 profile-restore=copy-equal
 title=' '
 keepaspect=no
 
+# Japanese immersion profile
 [immersion]
 cookies=yes
 cookies-file=/Volumes/sudacode/japanese/cookies.Japanese.txt
@@ -236,8 +184,21 @@ ytdl-raw-options-append=cookies=/Volumes/sudacode/japanese/cookies.Japanese.txt
 ytdl-raw-options-append=sponsorblock-mark=all
 ytdl-raw-options-append=sponsorblock-remove=sponsor
 ytdl-format=bestvideo+bestaudio/best
-# get subtitles for videos automatically
 sub-auto=fuzzy
-slang=ja,jpn
+slang=ja,jpn,ja.hi,ja.*
 alang=ja,jpn
 vlang=ja,jpn
+sub-font="Noto Sans CJK JP"
+sub-font-size=42
+sub-border-size=1.2
+sub-shadow-color=0.0/0.0/0.0/0.6
+sub-shadow-offset=3
+
+# Anime subtitles profile
+[anime-subs]
+profile-cond=p["slang"] == "ja" or p["slang"] == "ja.hi"
+sub-font="Noto Sans CJK JP"
+sub-font-size=42
+sub-border-size=1.2
+sub-shadow-color=0.0/0.0/0.0/0.6
+sub-shadow-offset=3

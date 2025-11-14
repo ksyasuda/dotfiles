@@ -1,124 +1,142 @@
+profile=high-quality
 user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
-cache=yes
-demuxer-max-bytes=500M
-demuxer-max-back-bytes=100M
-cache-pause=no
+glsl-shaders="" # Disable heavy shaders for regular content
+# glsl-shaders="~~/shaders/ArtCNN_C4F32_DS.glsl"
+# glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+scale=spline36 # Faster than ewa_lanczos for high-res video when shaders are off
+dither=fruit # Lighter dithering aimed at 8-bit or FRC panels
+
+# --- Window & interface ---
 ontop=yes
+border=no
+no-border
+autofit=50% # Start at half of the screen to avoid oversized windows on UHD displays
+osc=no
+blend-subtitles=video # Keeps subtitles composited into the video plane
+opengl-early-flush=no # Delay buffer flushes to reduce micro-stutter on some GPUs
+
+# --- Subtitle defaults ---
 sub-font="JetBrainsMono Nerd Font"
 sub-font-size=45
-# osd-font="Fluent System Icons"
-border=no
-# geometry=50%
-autofit=50%
+sub-auto=fuzzy
+slang=en,eng
+subs-with-matching-audio=no
+sub-fix-timing=yes
+sub-ass-override=scale
+sub-gauss=1.0
+sub-gray=yes
+
+# --- Audio chain ---
 volume=75
+ao=pipewire,pulse
 audio-spdif=ac3,dts-hd,truehd
-# glsl-shaders="~~/shaders/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K_Restore_CNN_VL.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_VL.glsl:~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl"
-# glsl-shaders="~~/shaders/FSRCNNX.glsl:~~/shaders/FSR.glsl:~~/shaders/NVScaler.glsl:~~/shaders/CAS-scaled.glsl"
-# glsl-shaders="~~/shaders/ArtCNN_C4F32_DS.glsl"
-glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+audio-stream-silence=yes # Keep the device primed to avoid startup pops
+audio-wait-open=0.1 # Shorten audio device warm-up for snappier playback
 
-# Can fix stuttering in some cases, in other cases probably causes it. Try it if you experience stuttering.
-opengl-early-flush=no
-
-video-sync=display-resample
-osc=no
-no-border
-
+# --- Networking & remote sources ---
 ytdl-format=bestvideo+bestaudio/best
 ytdl-raw-options=sub-langs=en.*,write-auto-subs=
 ytdl-raw-options-append=sponsorblock-mark=all
 ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
 
-# get subtitles for videos automatically
-sub-auto=fuzzy
-slang=en,eng
-
-# profile=svp
-profile=high-quality
-blend-subtitles=video
-# GPU OPTIONS
+# --- Video output & decoding ---
 vo=gpu-next
 hwdec=nvdec
+hwdec-codecs=all
 gpu-api=vulkan
+gpu-context=waylandvk
+vulkan-queue-count=2
+vulkan-async-compute=yes # Use independent compute queues for tone mapping/shaders
+vulkan-async-transfer=yes # Parallelize frame uploads to free the graphics queue
+vd-lavc-dr=yes # Direct rendering keeps frames resident on the GPU longer
+vd-lavc-threads=0 # Let ffmpeg auto-pick the optimal thread count
+video-sync=display-resample # Smoothly match video speed to the display refresh
+
+# --- Scaling, interpolation, and dithering ---
 scale=ewa_lanczossharp
 dscale=catmull_rom
 cscale=ewa_lanczos
 tscale=oversample
 interpolation=yes
 interpolation-preserve=no
-interpolation-threshold=0.5
-sigmoid-upscaling=yes
-temporal-dither=yes
-
-# fruit: 8-Bit/8-Bit+FRC display
-# ordered: true 10-Bit/12-Bit display
-# error-diffusion: high-end GPUs
+interpolation-threshold=0.5 # Only blend nearby frames to reduce SOE artifacts
+sigmoid-upscaling=yes # Protect highlights when upscaling SDR video
+temporal-dither=yes # Prefer temporal noise over spatial patterns on SDR panels
+# Dithering presets reference:
+#   fruit   -> 8-bit / 8-bit + FRC displays
+#   ordered -> True 10-bit / 12-bit displays
+#   error-diffusion -> High-end GPUs
 dither=error-diffusion
 dither-depth=auto
-error-diffusion=sierra-lite # uncomment if not 'error-diffusion'
+error-diffusion=sierra-lite # Balanced diffusion kernel for 8-bit panels
 
-###### Antiring
+# --- Antiring controls ---
 scale-antiring=0.5
 dscale-antiring=0.5
 cscale-antiring=0.5
 
-# laptop
-# vo=gpu
-# gpu-api=opengl
-# gpu-context=wayland
-# profile=opengl-hq
-
-gpu-context=waylandvk
-gpu-api=vulkan
-vulkan-swap-mode=mailbox
-swapchain-depth=2
-vulkan-async-compute=no
-vd-lavc-threads=0
-opengl-pbo=yes
-vd-lavc-film-grain=gpu
-
-input-ipc-server=/tmp/mpvsocket
-# ao=pule,pipewire
-ao=pipewire,pulse
-
+# --- Post-processing ---
 deband=yes
 deband-iterations=2
 deband-threshold=24
 deband-range=16
 deband-grain=4
 
-subs-with-matching-audio=no
-sub-fix-timing=yes
-sub-ass-override=scale
-#Some settings fixing VOB/PGS subtitles (creating blur & changing yellow subs to gray)
-sub-gauss=1.0
-sub-gray=yes
+# --- IPC & automation ---
+input-ipc-server=/tmp/mpvsocket # Allows external tools (e.g., SVP) to control mpv
 
-###### High-quality screenshots
+# --- Screenshot workflow ---
 screenshot-format=webp
 screenshot-webp-lossless=yes
 screenshot-high-bit-depth=yes
-screenshot-sw=no
+screenshot-sw=no # Force GPU path so tone mapping stays consistent
 screenshot-directory="/truenas/sudacode/pictures/mpv"
 screenshot-template="%f-%wH.%wM.%wS.%wT-#%#00n"
 
+# --- Session persistence ---
 save-position-on-quit
 watch-later-dir="~~/.watch-later"
 resume-playback=yes
 save-watch-history
 watch-history-path="~~/state/watch_history.jsonl"
+
+# --- HDR/SDR hints ---
 target-colorspace-hint=yes
+
+# --- Caching & buffers ---
+cache=yes
+demuxer-max-bytes=1GiB # Buffer up to 1 GiB for high-bitrate remuxes
+demuxer-max-back-bytes=200MiB # Keep recent data handy for quick reverse seeks
+cache-secs=30
+demuxer-readahead-secs=30
+
+[anime]
+profile-desc="Anime upscaling with ArtCNN"
+glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+scale=ewa_lanczossharp
+dither=error-diffusion
+deband=yes # Crucial for anime gradients
+
+[movies]
+profile-desc="Movies and TV shows"
+profile-cond=width >= 1920 and filename:match("mkv$|mp4$")
+glsl-shaders=""
+scale=ewa_lanczos
+target-peak=800
 
 [hdr]
 target-colorspace-hint=yes
-gpu-api=vulkan
-gpu-context=waylandvk
+tone-mapping-param=0.5
+tone-mapping-max-boost=2.0
+allow-delayed-peak-detect=yes
+# For SDR content on HDR display (or vice versa)
+icc-profile-auto=yes
 
 [svp]
 interpolation=no
-input-ipc-server=/tmp/mpvsocket     # Receives input from SVP
-hr-seek-framedrop=no                # Fixes audio desync
-resume-playback=no                  # Not compatible with SVP
+input-ipc-server=/tmp/mpvsocket
+hr-seek-framedrop=no
+resume-playback=no
 
 [Idle]
 profile-cond=p["idle-active"]
@@ -139,7 +157,16 @@ sub-auto=fuzzy
 slang=ja,jpn,ja.hi,ja.*
 alang=ja,jpn
 vlang=ja,jpn
+glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+scale=ewa_lanczossharp
+dither=error-diffusion
+deband=yes # Crucial for anime gradients
+
+[anime-subs]
+profile-cond=p["slang"] == "ja" or p["slang"] == "ja.hi"
 sub-font="Noto Sans CJK JP"
-sub-border-size=1
-sub-shadow-color=0.0/0.0/0.0/0.50
-sub-shadow-offset=2
+sub-font-size=42
+sub-border-size=1.2
+sub-shadow-color=0.0/0.0/0.0/0.6
+sub-shadow-offset=3
+sub-hinting=light
