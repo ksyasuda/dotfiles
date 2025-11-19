@@ -26,6 +26,7 @@ sub-fix-timing=yes
 sub-ass-override=scale
 sub-gauss=1.0
 sub-gray=yes
+sub-pos=90
 
 # Networking & streaming
 ytdl-format=bestvideo+bestaudio/best

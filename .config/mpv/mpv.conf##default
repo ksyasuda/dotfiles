@@ -25,6 +25,7 @@ sub-fix-timing=yes
 sub-ass-override=scale
 sub-gauss=1.0
 sub-gray=yes
+sub-pos=90
 
 # --- Audio chain ---
 volume=75
@@ -152,9 +153,8 @@ ytdl-raw-options-append=cookies=/truenas/sudacode/japanese/cookies.Japanese.txt
 ytdl-raw-options-append=sponsorblock-mark=all
 ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
 ytdl-format=bestvideo+bestaudio/best
-# get subtitles for videos automatically
 sub-auto=fuzzy
-slang=ja,jpn,ja.hi,ja.*
+slang=ja,jpn
 alang=ja,jpn
 vlang=ja,jpn
 glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
