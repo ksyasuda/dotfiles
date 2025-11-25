@@ -239,7 +239,9 @@ local code_companion_mappings = {
 	{
 		mode = "n",
 		key = "<leader>Ci",
-		cmd = ":CodeCompanion #{buffer} ",
+		cmd = function()
+			vim.api.nvim_feedkeys(":CodeCompanion #{buffer} ", "n", false)
+		end,
 		group = "Inline CodeCompanion",
 		opts = nosilent,
 	},
@@ -249,7 +251,9 @@ local code_companion_mappings = {
 	{
 		mode = "v",
 		key = "<leader>Ci",
-		cmd = ":CodeCompanion #{buffer} ",
+		cmd = function()
+			vim.api.nvim_feedkeys(":CodeCompanion #{buffer} ", "n", false)
+		end,
 		group = "CodeCompanion Inline",
 		opts = nosilent,
 	},
