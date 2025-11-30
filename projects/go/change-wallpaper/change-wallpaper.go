@@ -272,11 +272,26 @@ func ensureSized(wallpaperPath string) (string, error) {
 		return "", err
 	}
 
-	if src.Bounds().Dx() == targetWidth && src.Bounds().Dy() == targetHeight {
+	srcWidth := float64(src.Bounds().Dx())
+	srcHeight := float64(src.Bounds().Dy())
+	targetW := float64(targetWidth)
+	targetH := float64(targetHeight)
+
+	// Calculate scale factor to fit image within target while maintaining aspect ratio
+	scaleW := targetW / srcWidth
+	scaleH := targetH / srcHeight
+	scale := min(scaleW, scaleH)
+
+	// If image already fits within target dimensions, no resize needed
+	if scale >= 1.0 {
 		return wallpaperPath, nil
 	}
 
-	dst := image.NewRGBA(image.Rect(0, 0, targetWidth, targetHeight))
+	// Calculate new dimensions maintaining aspect ratio (best fit)
+	newWidth := int(srcWidth * scale)
+	newHeight := int(srcHeight * scale)
+
+	dst := image.NewRGBA(image.Rect(0, 0, newWidth, newHeight))
 	draw.CatmullRom.Scale(dst, dst.Bounds(), src, src.Bounds(), draw.Over, nil)
 
 	var ext string
@@ -295,7 +310,7 @@ func ensureSized(wallpaperPath string) (string, error) {
 	}
 
 	base := strings.TrimSuffix(filepath.Base(wallpaperPath), filepath.Ext(wallpaperPath))
-	resizedPath := filepath.Join(filepath.Dir(wallpaperPath), fmt.Sprintf("%s-%dx%d%s", base, targetWidth, targetHeight, ext))
+	resizedPath := filepath.Join(filepath.Dir(wallpaperPath), fmt.Sprintf("%s-%dx%d%s", base, newWidth, newHeight, ext))
 
 	outFile, err := os.Create(resizedPath)
 	if err != nil {
