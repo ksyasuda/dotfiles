@@ -175,7 +175,7 @@ func downloadRandomWallpaper(wallpaperPath string, r *rand.Rand, topics []string
 	fmt.Fprintf(os.Stderr, "Searching for wallpapers related to: %s\n", displayName)
 
 	// Get wallpapers from Wallhaven API
-	resp, err := http.Get(fmt.Sprintf("%s/search?q=%s&purity=100&categories=110&sorting=random", wallhavenAPI, query))
+	resp, err := http.Get(fmt.Sprintf("%s/search?q=%s&purity=100&categories=110&sorting=random&atleast=3440x1440", wallhavenAPI, query))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error fetching from Wallhaven: %v\n", err)
 		return "", ""
