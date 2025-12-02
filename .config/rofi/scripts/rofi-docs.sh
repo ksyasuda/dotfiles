@@ -53,7 +53,7 @@ get_docs_list() {
 }
 
 main() {
-    urls=("$(get_docs_list)")
+    mapfile -t urls < <(get_docs_list)
     url="$(get_url "${urls[@]}")"
     if [ -z "$url" ]; then
         printf "No URL selected.\n"
