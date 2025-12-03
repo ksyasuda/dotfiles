@@ -2,8 +2,20 @@ local M = {}
 vim.notify = require("notify")
 
 function M.mkdir_under_cursor()
-	-- Get the word under the cursor
-	local word = vim.fn.expand("<cWORD>")
+	local word
+
+	-- Check if in visual mode
+	if vim.fn.mode():match("[vV]") then
+		-- Get visual selection
+		local start_pos = vim.fn.getpos("'<")
+		local end_pos = vim.fn.getpos("'>")
+		local line = vim.fn.getline(start_pos[2])
+		word = line:sub(start_pos[3], end_pos[3])
+	else
+		-- Get word under cursor
+		word = vim.fn.expand("<cWORD>")
+	end
+
 	-- Remove quotes if present
 	word = word:gsub("^[\"']", ""):gsub("[\"']$", "")
 	-- Check if directory exists

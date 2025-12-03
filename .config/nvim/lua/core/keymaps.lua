@@ -436,6 +436,14 @@ local misc_utilities_mappings = {
 		end,
 		group = "mkdir under cursor",
 	},
+	{
+		mode = "v",
+		key = "<leader>m",
+		cmd = function()
+			mkdir_under_cursor()
+		end,
+		group = "mkdir selection",
+	},
 }
 -- }}}
 
