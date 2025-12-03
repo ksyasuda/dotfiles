@@ -186,14 +186,15 @@ ytdl-raw-options-append=sponsorblock-mark=all
 ytdl-raw-options-append=sponsorblock-remove=sponsor
 ytdl-format=bestvideo+bestaudio/best
 sub-auto=fuzzy
-slang=ja,jpn,ja.hi,ja.*
-alang=ja,jpn
+alang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
+slang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
 vlang=ja,jpn
-sub-font="Noto Sans CJK JP"
-sub-font-size=42
-sub-border-size=1.2
-sub-shadow-color=0.0/0.0/0.0/0.6
-sub-shadow-offset=3
+subs-with-matching-audio=yes
+sub-font="Noto Sans CJK JP Regular"
+glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+scale=ewa_lanczossharp
+dither=error-diffusion
+deband=yes # Crucial for anime gradients
 
 # Anime subtitles profile
 [anime-subs]

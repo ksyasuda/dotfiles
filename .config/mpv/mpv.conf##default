@@ -25,7 +25,7 @@ sub-fix-timing=yes
 sub-ass-override=scale
 sub-gauss=1.0
 sub-gray=yes
-sub-pos=90
+sub-pos=100
 
 # --- Audio chain ---
 volume=75
@@ -154,9 +154,11 @@ ytdl-raw-options-append=sponsorblock-mark=all
 ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
 ytdl-format=bestvideo+bestaudio/best
 sub-auto=fuzzy
-slang=ja,jpn
-alang=ja,jpn
+alang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
+slang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
 vlang=ja,jpn
+subs-with-matching-audio=yes
+sub-font="Noto Sans CJK JP Regular"
 glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
 scale=ewa_lanczossharp
 dither=error-diffusion
@@ -164,7 +166,7 @@ deband=yes # Crucial for anime gradients
 
 [anime-subs]
 profile-cond=p["slang"] == "ja" or p["slang"] == "ja.hi"
-sub-font="Noto Sans CJK JP"
+sub-font="Noto Sans CJK JP Regular"
 sub-font-size=42
 sub-border-size=1.2
 sub-shadow-color=0.0/0.0/0.0/0.6
