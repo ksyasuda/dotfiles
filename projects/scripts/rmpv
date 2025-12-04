@@ -31,6 +31,9 @@ generate_thumbnail() {
     local temp_thumb="/tmp/rmpv-thumbnail-$$.jpg"
     local thumbnail_file="${video_file%.*}.jpg"
 
+    # Clean up previous thumbnail
+    rm -f "$THUMBNAIL_PATH"
+
     # Validate input
     if [[ -z "$video_file" ]]; then
         echo "Error: No video file specified" >&2
@@ -51,28 +54,39 @@ generate_thumbnail() {
     # Generate thumbnail if it doesn't exist
     if [[ ! -f "$thumbnail_file" ]]; then
         echo "Generating thumbnail for $(basename "$video_file")..."
-        if ! ffmpeg -i "$video_file" \
-            -vf "select='gt(scene,0.4)',scale=320:240:force_original_aspect_ratio=decrease,pad=320:240:(ow-iw)/2:(oh-ih)/2" \
+        # Try generating thumbnail side-by-side
+        if ! ffmpeg -ss 00:00:01 -i "$video_file" \
+            -vf "scale=320:240:force_original_aspect_ratio=decrease,pad=320:240:(ow-iw)/2:(oh-ih)/2" \
             -frames:v 1 \
             -q:v 4 \
             "$thumbnail_file" \
             -loglevel error -y 2>/dev/null; then
-            echo "Error: Failed to generate thumbnail" >&2
-            return 1
+            
+            # Fallback to temp file if side-by-side fails (e.g. read-only fs)
+            echo "Warning: Failed to write to $thumbnail_file, trying temp location" >&2
+            thumbnail_file="$temp_thumb"
+            
+            if ! ffmpeg -ss 00:00:01 -i "$video_file" \
+                -vf "scale=320:240:force_original_aspect_ratio=decrease,pad=320:240:(ow-iw)/2:(oh-ih)/2" \
+                -frames:v 1 \
+                -q:v 4 \
+                "$thumbnail_file" \
+                -loglevel error -y 2>/dev/null; then
+                echo "Error: Failed to generate thumbnail" >&2
+                return 1
+            fi
         fi
     fi
 
-    # Copy to temporary location with error handling
-    if ! cp "$thumbnail_file" "$temp_thumb" 2>/dev/null; then
-        echo "Error: Failed to copy thumbnail to temporary location" >&2
-        return 1
+    # Copy to consistent location for notify-send
+    # We use a fixed path so notify-send always finds it
+    if cp "$thumbnail_file" "$THUMBNAIL_PATH" 2>/dev/null; then
+        echo "Thumbnail ready at: $THUMBNAIL_PATH"
+        ls -l "$THUMBNAIL_PATH"
+        file "$THUMBNAIL_PATH"
+    else
+        echo "Error: Failed to copy thumbnail to $THUMBNAIL_PATH" >&2
     fi
-
-    # Create symlink for consistent access
-    ln -sf "$temp_thumb" /tmp/rmpv-thumbnail.jpg 2>/dev/null
-    sleep 0.1
-
-    echo "Thumbnail ready: $temp_thumb"
 }
 
 choice="$(find . -iname "*[.mkv|.mp4]" | sort -h | rofi -dmenu -i -theme "$THEME" -theme-str 'listview {columns: 1; lines: 15;} window {width: 88%;}' -p "Choose Video")"
@@ -89,3 +103,4 @@ notify-send -i "$THUMBNAIL_PATH" "Playing Video" "$(basename "$choice")"
 $COMMAND "$choice" &
 
 # vim: ft=sh
+
