@@ -10,7 +10,12 @@ PICTURE_FIELD="${PICTURE_FIELD:-Picture}"
 QUALITY="${QUALITY:-90}"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/screenshot-anki"
 ANKI_URL="http://localhost:${ANKI_CONNECT_PORT}"
-REQUIREMENTS=(slurp grim wl-copy xdotool curl jq)
+HOSTNAME_SHORT="$(hostname -s 2>/dev/null || hostname)"
+HYPRLAND_GEOMETRY_FILTER='"\\(.at[0]),\\(.at[1]) \\(.size[0])x\\(.size[1])"'
+REQUIREMENTS=(slurp grim wl-copy xdotool curl jq rofi)
+ROFI_THEME_STR='listview {columns: 2; lines: 3;} window {width: 45%;}'
+ROFI_THEME="$HOME/.config/rofi/launchers/type-2/style-2.rasi"
+CAPTURE_MODE=""
 
 notify() {
     if command -v notify-send >/dev/null 2>&1; then
@@ -31,6 +36,13 @@ wiggle_mouse() {
     xdotool mousemove_relative -- -1 -1
 }
 
+drain_enter_key() {
+    # Release lingering Enter press from launching via rofi so it
+    # doesn't reach the next focused window (e.g., a game).
+    xdotool keyup Return 2>/dev/null || true
+    xdotool keyup KP_Enter 2>/dev/null || true
+}
+
 capture_region() {
     local fmt="$1" quality="$2" output="$3"
     local geometry
@@ -43,6 +55,59 @@ capture_region() {
         grim -g "$geometry" -t jpeg -q "$quality" "$output"
     else
         grim -g "$geometry" -t png "$output"
+    fi
+}
+
+capture_current_window() {
+    local fmt="$1" quality="$2" output="$3" geometry
+
+    if [[ "$HOSTNAME_SHORT" != "luna" && "$HOSTNAME_SHORT" != "lapis" ]]; then
+        notify "Window capture unavailable" "Falling back to region selection"
+        capture_region "$fmt" "$quality" "$output"
+        return
+    fi
+
+    geometry=$(hyprctl -j activewindow 2>/dev/null | jq -r "$HYPRLAND_GEOMETRY_FILTER" 2>/dev/null || true)
+    if [[ -z "$geometry" || "$geometry" == "null" ]]; then
+        notify "Window capture failed" "Falling back to region selection"
+        capture_region "$fmt" "$quality" "$output"
+        return
+    fi
+
+    if [[ "$fmt" == "jpeg" ]]; then
+        grim -g "$geometry" -t jpeg -q "$quality" "$output"
+    else
+        grim -g "$geometry" -t png "$output"
+    fi
+}
+
+choose_capture_mode() {
+    local selection
+    selection=$(printf "%s\n%s\n" "Region (slurp)" "Current window (Hyprland)" |
+        rofi -dmenu -i \
+             -p "Capture mode" \
+             -mesg "Select capture target" \
+             -no-custom \
+             -no-lazy-grab \
+             -location 0 -yoffset 30 -xoffset 30 \
+			 -theme "$ROFI_THEME" \
+             -theme-str "$ROFI_THEME_STR" \
+             -window-title "screenshot-anki")
+
+    if [[ -z "$selection" ]]; then
+        notify "Screenshot cancelled" "No capture mode selected"
+        exit 0
+    fi
+
+    if [[ "$selection" == "Current window (Hyprland)" ]]; then
+        if [[ "$HOSTNAME_SHORT" != "luna" && "$HOSTNAME_SHORT" != "lapis" ]]; then
+            notify "Window capture unavailable" "Using region instead (host: $HOSTNAME_SHORT)"
+            CAPTURE_MODE="region"
+        else
+            CAPTURE_MODE="window"
+        fi
+    else
+        CAPTURE_MODE="region"
     fi
 }
 
@@ -81,7 +146,8 @@ open_note_in_browser() {
 }
 
 main() {
-    for cmd in "${REQUIREMENTS[@]}"; do
+    local requirements=("${REQUIREMENTS[@]}")
+    for cmd in "${requirements[@]}"; do
         require_cmd "$cmd"
     done
 
@@ -90,19 +156,31 @@ main() {
     timestamp=$(date +%s)
     base="$CACHE_DIR/$timestamp"
 
+    drain_enter_key
+    choose_capture_mode
+
+    if [[ "$CAPTURE_MODE" == "window" ]]; then
+        require_cmd hyprctl
+    fi
+
     wiggle_mouse
     newest_note=$(get_newest_note_id)
 
+    local capture_fn="capture_region"
+    if [[ "$CAPTURE_MODE" == "window" ]]; then
+        capture_fn="capture_current_window"
+    fi
+
     if [[ -n "$newest_note" ]]; then
         image_path="$base.jpg"
-        capture_region "jpeg" "$QUALITY" "$image_path"
+        "$capture_fn" "jpeg" "$QUALITY" "$image_path"
         update_note_with_image "$newest_note" "$image_path" "paste-$timestamp.jpg"
         open_note_in_browser "$newest_note"
         notify -i "$image_path" "Screenshot Taken" "Added to Anki note"
         rm -f "$image_path"
     else
         image_path="$base.png"
-        capture_region "png" "" "$image_path"
+        "$capture_fn" "png" "" "$image_path"
         copy_to_clipboard "$image_path"
         notify -i "$image_path" "Screenshot Taken" "Copied to clipboard"
         rm -f "$image_path"
