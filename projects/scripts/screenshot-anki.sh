@@ -11,11 +11,32 @@ QUALITY="${QUALITY:-90}"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/screenshot-anki"
 ANKI_URL="http://localhost:${ANKI_CONNECT_PORT}"
 HOSTNAME_SHORT="$(hostname -s 2>/dev/null || hostname)"
-HYPRLAND_GEOMETRY_FILTER='"\\(.at[0]),\\(.at[1]) \\(.size[0])x\\(.size[1])"'
 REQUIREMENTS=(slurp grim wl-copy xdotool curl jq rofi)
 ROFI_THEME_STR='listview {columns: 2; lines: 3;} window {width: 45%;}'
 ROFI_THEME="$HOME/.config/rofi/launchers/type-2/style-2.rasi"
 CAPTURE_MODE=""
+DECK_NAME=""
+AUTO_MODE=false
+
+parse_opts() {
+    while getopts "cd:" opt; do
+        case "$opt" in
+        c)
+            CAPTURE_MODE="window"
+            AUTO_MODE=true
+            ;;
+        d)
+            DECK_NAME="$OPTARG"
+            ;;
+        *)
+            echo "Usage: $0 [-c] [-n DECK_NAME]" >&2
+            echo "  -c: Capture current window" >&2
+            echo "  -n: Specify note name (e.g., Lapis)" >&2
+            exit 1
+            ;;
+        esac
+    done
+}
 
 notify() {
     if command -v notify-send >/dev/null 2>&1; then
@@ -61,23 +82,10 @@ capture_region() {
 capture_current_window() {
     local fmt="$1" quality="$2" output="$3" geometry
 
-    if [[ "$HOSTNAME_SHORT" != "luna" && "$HOSTNAME_SHORT" != "lapis" ]]; then
-        notify "Window capture unavailable" "Falling back to region selection"
-        capture_region "$fmt" "$quality" "$output"
-        return
-    fi
-
-    geometry=$(hyprctl -j activewindow 2>/dev/null | jq -r "$HYPRLAND_GEOMETRY_FILTER" 2>/dev/null || true)
-    if [[ -z "$geometry" || "$geometry" == "null" ]]; then
-        notify "Window capture failed" "Falling back to region selection"
-        capture_region "$fmt" "$quality" "$output"
-        return
-    fi
-
     if [[ "$fmt" == "jpeg" ]]; then
-        grim -g "$geometry" -t jpeg -q "$quality" "$output"
+        grim -w "$(hyprctl activewindow -j | jq -r '.address')" -t jpeg -q "$quality" "$output"
     else
-        grim -g "$geometry" -t png "$output"
+        grim -w "$(hyprctl activewindow -j | jq -r '.address')" -t png "$output"
     fi
 }
 
@@ -85,14 +93,14 @@ choose_capture_mode() {
     local selection
     selection=$(printf "%s\n%s\n" "Region (slurp)" "Current window (Hyprland)" |
         rofi -dmenu -i \
-             -p "Capture mode" \
-             -mesg "Select capture target" \
-             -no-custom \
-             -no-lazy-grab \
-             -location 0 -yoffset 30 -xoffset 30 \
-			 -theme "$ROFI_THEME" \
-             -theme-str "$ROFI_THEME_STR" \
-             -window-title "screenshot-anki")
+            -p "Capture mode" \
+            -mesg "Select capture target" \
+            -no-custom \
+            -no-lazy-grab \
+            -location 0 -yoffset 30 -xoffset 30 \
+            -theme "$ROFI_THEME" \
+            -theme-str "$ROFI_THEME_STR" \
+            -window-title "screenshot-anki")
 
     if [[ -z "$selection" ]]; then
         notify "Screenshot cancelled" "No capture mode selected"
@@ -100,12 +108,7 @@ choose_capture_mode() {
     fi
 
     if [[ "$selection" == "Current window (Hyprland)" ]]; then
-        if [[ "$HOSTNAME_SHORT" != "luna" && "$HOSTNAME_SHORT" != "lapis" ]]; then
-            notify "Window capture unavailable" "Using region instead (host: $HOSTNAME_SHORT)"
-            CAPTURE_MODE="region"
-        else
-            CAPTURE_MODE="window"
-        fi
+        CAPTURE_MODE="window"
     else
         CAPTURE_MODE="region"
     fi
@@ -120,9 +123,12 @@ copy_to_clipboard() {
 }
 
 get_newest_note_id() {
-    local response
+    local response query="is:new"
+    if [[ -n "$DECK_NAME" ]]; then
+        query="is:new deck:$DECK_NAME"
+    fi
     response=$(curl -sS "$ANKI_URL" -X POST -H 'Content-Type: application/json' \
-        -d '{"action":"findNotes","version":6,"params":{"query":"is:new"}}')
+        -d "{\"action\":\"findNotes\",\"version\":6,\"params\":{\"query\":\"$query\"}}")
     jq -r '.result[-1] // empty' <<<"$response"
 }
 
@@ -146,6 +152,8 @@ open_note_in_browser() {
 }
 
 main() {
+    parse_opts "$@"
+
     local requirements=("${REQUIREMENTS[@]}")
     for cmd in "${requirements[@]}"; do
         require_cmd "$cmd"
@@ -157,7 +165,11 @@ main() {
     base="$CACHE_DIR/$timestamp"
 
     drain_enter_key
-    choose_capture_mode
+
+    # Only show interactive menu if not in auto mode
+    if [[ "$AUTO_MODE" == false ]]; then
+        choose_capture_mode
+    fi
 
     if [[ "$CAPTURE_MODE" == "window" ]]; then
         require_cmd hyprctl
