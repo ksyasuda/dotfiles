@@ -15,6 +15,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export GTK_THEME=Dracula
 export XDG_CONFIG_HOME=$HOME/.config
 export COMPOSE_BAKE=true
+export ANKI_WAYLAND=1
 
 # nvidia
 export NVD_BACKEND=direct
