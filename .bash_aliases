@@ -14,8 +14,8 @@ alias aniwrapper='aniwrapper -D 144'
 
 ## Colorls
 alias ls='eza -M --group-directories-first --icons --color=always --group --git'
-alias ll='ls -l'
-alias la='ls -la'
+alias ll='ls -lh'
+alias la='ls -lah'
 
 alias vimf='vim $(fzf --height=45% --layout=reverse --preview="bat --style=numbers --color=always --line-range :500 {}")'
 

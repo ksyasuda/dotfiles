@@ -35,7 +35,7 @@
     "Pihole2 - https://pihole2.suda.codes/admin",
     "Proxmox - https://thebox.unicorn-ilish.ts.net",
     "qBittorrent - https://qbittorrent.suda.codes",
-    "qui - https://qui.suda.codes",
+    "qui - http://pve-main:7476",
     "Plausible - https://plausible.sudacode.com",
     "Paperless - https://paperless.suda.codes",
     "Prometheus - http://prometheus:9090",

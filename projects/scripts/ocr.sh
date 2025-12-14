@@ -10,6 +10,8 @@ set -Eeuo pipefail
 # notify-send "GAZOU" "Text: $DISPLAY_RES"
 # echo "$RES" | wl-copy
 
-slurp | grim -g - /tmp/ocr.png || exit 1
-transformers_ocr recognize --image-path /tmp/ocr.png || exit 1
-notify-send "tramsformers_ocr" "Text: $DISPLAY_RES"
+# grim -g "$(slurp)" /tmp/ocr.png || exit 1
+# slurp | grim -g - /tmp/ocr/ocr.png || exit 1
+owocr -r clipboard -w clipboard -of text -n || exit 1
+slurp | grim -g - | wl-copy
+notify-send "ocr.sh" "Text: $DISPLAY_RES"
