@@ -43,10 +43,10 @@ end
 
 function M:create_progress_handle(request)
 	return progress.handle.create({
-		title = " Requesting assistance (" .. request.data.strategy .. ")",
+		title = " Requesting assistance (" .. request.data.adapter.model .. ")",
 		message = "In progress...",
 		lsp_client = {
-			name = M:llm_role_title(request.data.adapter),
+			name = M:llm_role_title(request.data.adapter.name),
 		},
 	})
 end

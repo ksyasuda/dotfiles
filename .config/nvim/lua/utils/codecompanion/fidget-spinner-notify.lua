@@ -50,7 +50,7 @@ end
 function M:create_progress_handle(request)
 	local title = " Requesting assistance"
 		.. " ("
-		.. request.data.strategy
+		.. request.data.interaction
 		.. ") from "
 		.. request.data.adapter.formatted_name
 		.. " using "

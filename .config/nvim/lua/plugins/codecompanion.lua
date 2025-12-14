@@ -131,7 +131,7 @@ return {
 			},
 			-- }}}
 		},
-		strategies = {
+		interactions = {
 			chat = {
 				adapter = "copilot",
 				-- adapter = "openrouter",
@@ -182,10 +182,20 @@ return {
 					end,
 					completion_provider = "cmp",
 				},
+				fold_reasoning = true,
+				show_reasoning = true,
 			},
 			inline = {
 				adapter = "copilot",
 				-- adapter = "openrouter",
+			},
+			cmd = {
+				adapter = "copilot",
+			},
+			background = {
+				adapter = {
+					name = "copilot",
+				},
 			},
 		},
 		display = {
@@ -232,7 +242,6 @@ return {
 					-- Options for inline diff provider
 					inline = {
 						layout = "buffer", -- float|buffer - Where to display the diff
-
 						diff_signs = {
 							signs = {
 								text = "▌", -- Sign text for normal changes
@@ -304,6 +313,31 @@ return {
 			opts = {
 				chat = {
 					enabled = true,
+				},
+			},
+		},
+		rules = {
+			default = {
+				description = "Collection of common files for all projects",
+				files = {
+					".clinerules",
+					".cursorrules",
+					".goosehints",
+					".rules",
+					".windsurfrules",
+					".github/copilot-instructions.md",
+					"AGENT.md",
+					"AGENTS.md",
+					{ path = "CLAUDE.md", parser = "claude" },
+					{ path = "CLAUDE.local.md", parser = "claude" },
+					{ path = "~/.claude/CLAUDE.md", parser = "claude" },
+				},
+				is_preset = true,
+			},
+			opts = {
+				chat = {
+					enabled = true,
+					default_rules = "default", -- The rule groups to load
 				},
 			},
 		},
