@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 CHOICES=(
-    "1. Screenshot (Lapis)"
+    "1. Screenshot (Kiku)"
     "2. Screenshot (Luna)"
     "3. Record Audio"
 )
 CHOICE=$(printf "%s\n" "${CHOICES[@]}" | rofi -dmenu -i -theme "$HOME/.config/rofi/launchers/type-2/style-2.rasi" -theme-str 'window {width: 25%;} listview {columns: 1; lines: 5;}' -p "Select an option")
 
 case "$CHOICE" in
-"1. Screenshot (Lapis)")
+"1. Screenshot (Kiku)")
     PICTURE_FIELD=Picture "$HOME/projects/scripts/screenshot-anki.sh"
     ;;
 "2. Screenshot (Luna)")
@@ -21,4 +21,3 @@ case "$CHOICE" in
     exit 1
     ;;
 esac
-

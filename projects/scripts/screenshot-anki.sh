@@ -31,7 +31,7 @@ parse_opts() {
         *)
             echo "Usage: $0 [-c] [-n DECK_NAME]" >&2
             echo "  -c: Capture current window" >&2
-            echo "  -n: Specify note name (e.g., Lapis)" >&2
+            echo "  -n: Specify note name (e.g., Kiku)" >&2
             exit 1
             ;;
         esac

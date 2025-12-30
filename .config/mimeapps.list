@@ -151,4 +151,5 @@ application/xml=zen.desktop
 application/pdf=zen.desktop
 text/html=zen.desktop
 text/vnd.trolltech.linguist=zen.desktop
-x-scheme-handler/nxm=com.nexusmods.app.desktop
+x-scheme-handler/nxm=modorganizer2-nxm-handler.desktop
+x-scheme-handler/discord-1361252452329848892=discord-1361252452329848892.desktop
