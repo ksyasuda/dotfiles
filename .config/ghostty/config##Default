@@ -22,3 +22,4 @@ keybind = all:ctrl+enter=unbind
 keybind = all:ctrl+shift+j=next_tab
 keybind = all:ctrl+shift+k=last_tab
 keybind = all:ctrl+grave_accent=toggle_quick_terminal
+keybind = shift+enter=text:\x1b\r

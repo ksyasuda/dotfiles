@@ -22,7 +22,7 @@ if not OPENROUTER_API_KEY:
         with open(key_file, "r") as f:
             OPENROUTER_API_KEY = f.read().strip()
 
-SYSTEM_PROMPT = """You are my Japanese-learning assistant. Help me acquire Japanese through deep, AJATT-aligned analysis.
+TRANSLATION_PROMPT = """You are my Japanese-learning assistant. Help me acquire Japanese through deep, AJATT-aligned analysis.
 
 For every input, output exactly using clean plain text formatting:
 
@@ -68,6 +68,24 @@ Optional Additions (only when valuable):
   • Synonyms, formality/register notes, cultural insights, common mistakes, extra native examples
 
 Goal: Deep comprehension, natural grammar internalization, nuanced vocabulary, progress toward Japanese-only understanding."""
+
+GRAMMAR_PROMPT = """
+    You are a Japanese grammar analysis assistant.
+
+    The user will provide Japanese sentences. Your task is to explain the **grammar and structure in English**, prioritizing how the sentence is constructed rather than translating word-for-word.
+
+    Rules:
+
+    * Always show the original Japanese first.
+    * Provide a short, natural English gloss only if helpful.
+    * Explain grammar patterns, verb forms, particles, and omissions.
+    * Emphasize nuance, implication, and speaker intent.
+    * Avoid unnecessary vocabulary definitions unless they affect the grammar.
+    * Assume the user is actively studying Japanese and wants deep understanding.
+
+    Your explanations should help the user internalize patterns, not memorize translations.
+
+"""
 
 
 def show_error(message: str) -> None:
@@ -132,6 +150,29 @@ def get_input() -> str | None:
     return result.stdout.strip()
 
 
+def get_mode() -> str | None:
+    """Ask user to choose between translation and grammar assistant."""
+    result = subprocess.run(
+        [
+            "zenity",
+            "--list",
+            "--title",
+            "Japanese Assistant",
+            "--text",
+            "Choose analysis mode:",
+            "--column=Mode",
+            "Translation (full analysis)",
+            "Grammar (structure focus)",
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    return result.stdout.strip()
+
+
 def show_notification(message: str, body: str) -> subprocess.Popen:
     """Show a notification using notify-send."""
     return subprocess.Popen(
@@ -169,7 +210,7 @@ def display_result(content: str) -> None:
     )
 
 
-def make_api_request(user_input: str) -> dict:
+def make_api_request(user_input: str, system_prompt: str) -> dict:
     """Make the API request to OpenRouter."""
     headers = {
         "Content-Type": "application/json",
@@ -181,7 +222,7 @@ def make_api_request(user_input: str) -> dict:
     payload = {
         "model": MODEL,
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_input},
         ],
         "temperature": 0.7,
@@ -197,6 +238,17 @@ def main() -> int:
         show_error("OPENROUTER_API_KEY environment variable is not set.")
         return 1
 
+    # Ask user for mode
+    mode = get_mode()
+    if not mode:
+        return 0
+
+    # Select appropriate prompt
+    if "Grammar" in mode:
+        system_prompt = GRAMMAR_PROMPT
+    else:
+        system_prompt = TRANSLATION_PROMPT
+
     # Get input from user
     user_input = get_input()
     if not user_input:
@@ -207,7 +259,7 @@ def main() -> int:
 
     try:
         # Make API request
-        response = make_api_request(user_input)
+        response = make_api_request(user_input, system_prompt)
 
         # Close loading notification
         close_notification()
