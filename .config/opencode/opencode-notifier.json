@@ -1,0 +1,24 @@
+{
+  "sound": false,
+  "notification": true,
+  "timeout": 5,
+  "showProjectName": true,
+  "events": {
+    "permission": { "sound": false, "notification": true },
+    "complete": { "sound": false, "notification": true },
+    "error": { "sound": false, "notification": true },
+    "question": { "sound": false, "notification": true }
+  },
+  "messages": {
+    "permission": "Session needs permission",
+    "complete": "Session has finished",
+    "error": "Session encountered an error",
+    "question": "Session has a question"
+  },
+  "sounds": {
+    "permission": "/path/to/custom/sound.wav",
+    "complete": "/path/to/custom/sound.wav",
+    "error": "/path/to/custom/sound.wav",
+    "question": "/path/to/custom/sound.wav"
+  }
+}
