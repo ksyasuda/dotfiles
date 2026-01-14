@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "google_auth": true,
+  "agents": {
+    "Sisyphus": {
+      "model": "opencode/glm-4.7-free"
+    },
+    "librarian": {
+      "model": "opencode/glm-4.7-free"
+    },
+    "explore": {
+      "model": "google/antigravity-gemini-3-flash"
+    },
+    "frontend-ui-ux-engineer": {
+      "model": "google/antigravity-gemini-3-pro-high"
+    },
+    "document-writer": {
+      "model": "google/antigravity-gemini-3-flash"
+    },
+    "multimodal-looker": {
+      "model": "google/antigravity-gemini-3-flash"
+    }
+  },
+  "lsp": {
+    "typescript-language-server": {
+      "command": ["typescript-language-server", "--stdio"],
+      "extensions": [".ts", ".tsx"],
+      "priority": 10
+    },
+    "pylsp": {
+      "disabled": true
+    },
+    "pyright": {
+        "command": ["basedpyright-languageserver", "--stdio"],
+      "extensions": [".py"],
+      "priority": 10
+    },
+    "bash-language-server": {
+      "command": ["bash-language-server", "start"],
+      "extensions": [".sh", ".bash"],
+      "priority": 10
+    }
+  }
+}
