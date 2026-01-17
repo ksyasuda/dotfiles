@@ -1,75 +1,202 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# Version 1.2
-# click and drag to screenshot dragged portion
-# click on specific window to screenshot window area
-# dependencies: imagemagick, xclip,curl maybe xdotool (see comment below)
-# shoutout to https://gist.github.com/Cephian/f849e326e3522be9a4386b60b85f2f23 for the original script,
-# https://github.com/xythh/ added the ankiConnect functionality
-# if anki is running the image is added to your latest note as a jpg, if anki is not running it's added to your clipboard as a png
-time=$(date +%s)
-tmp_file="$HOME/.cache/$time"
-ankiConnectPort="8765"
-pictureField="Picture"
-quality="90"
+# Capture a region with slurp+grim. If AnkiConnect is available, attach the
+# JPEG to the newest note; otherwise copy a PNG to the clipboard.
 
-# This gets your notes marked as new and returns the newest one.
-newestNoteId=$(curl -s localhost:$ankiConnectPort -X POST -d '{"action": "findNotes", "version": 6, "params": { "query": "is:new"}}' | jq '.result[-1]')
+set -euo pipefail
 
-# you can remove these two lines if you don't have software which
-# makes your mouse disappear when you use the keyboard (e.g. xbanish, unclutter)
-# https://github.com/ImageMagick/ImageMagick/issues/1745#issuecomment-777747494
-xdotool mousemove_relative 1 1
-xdotool mousemove_relative -- -1 -1
+ANKI_CONNECT_PORT="${ANKI_CONNECT_PORT:-8765}"
+PICTURE_FIELD="${PICTURE_FIELD:-Picture}"
+QUALITY="${QUALITY:-90}"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/screenshot-anki"
+ANKI_URL="http://localhost:${ANKI_CONNECT_PORT}"
+HOSTNAME_SHORT="$(hostname -s 2>/dev/null || hostname)"
+REQUIREMENTS=(slurp grim wl-copy xdotool curl jq rofi)
+ROFI_THEME_STR='listview {columns: 2; lines: 3;} window {width: 45%;}'
+ROFI_THEME="$HOME/.config/rofi/launchers/type-2/style-2.rasi"
+CAPTURE_MODE=""
+DECK_NAME=""
+AUTO_MODE=false
 
-# if anki connect is running it will return your latest note id, and the following code will run, if anki connect is not running nothing is return.
-if [ "$newestNoteId" != "" ]; then
-	if ! import -quality $quality "$tmp_file.jpg"; then
-		# most likley reason this returns a error, is for fullscreen applications that take full control which does not allowing imagemagick to select the area, use windowed fullscreen or if running wine use a virtual desktop to avoid this.
-		notify-send "Error screenshoting " "most likely unable to find selection"
-		exit 1
-	fi
+parse_opts() {
+    while getopts "cd:" opt; do
+        case "$opt" in
+        c)
+            CAPTURE_MODE="window"
+            AUTO_MODE=true
+            ;;
+        d)
+            DECK_NAME="$OPTARG"
+            ;;
+        *)
+            echo "Usage: $0 [-c] [-n DECK_NAME]" >&2
+            echo "  -c: Capture current window" >&2
+            echo "  -n: Specify note name (e.g., Kiku)" >&2
+            exit 1
+            ;;
+        esac
+    done
+}
 
-	curl -s localhost:$ankiConnectPort -X POST -d '{
-    "action": "updateNoteFields",
-    "version": 6,
-    "params": {
-        "note": {
-            "id": '"$newestNoteId"',
-	    "fields": {
-                "'$pictureField'": ""
-            },
-            "picture": [{
-                "path": "'"$tmp_file"'.jpg",
-                "filename": "paste-'"$time"'.jpg",
-                "fields": [
-                    "'$pictureField'"
-                ]
-            }]
-        }
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send "$@"
+    fi
+}
+
+require_cmd() {
+    command -v "$1" >/dev/null 2>&1 || {
+        notify "Missing dependency" "$1 is required"
+        exit 1
     }
-}'
+}
 
-	#remove if you don't want anki to show you the card you just edited
-	curl -s localhost:$ankiConnectPort -X POST -d '{
-    "action": "guiBrowse",
-    "version": 6,
-    "params": {
-        "query": "nid:'"$newestNoteId"'"
-    }
-}'
+wiggle_mouse() {
+    # Avoid disappearing cursor on some compositors
+    xdotool mousemove_relative 1 1
+    xdotool mousemove_relative -- -1 -1
+}
 
-	#you can comment this if you do not use notifcations.
-	notify-send "Screenshot Taken" "Added to note"
-	rm "$tmp_file.jpg"
-else
-	if ! import -quality $quality "$tmp_file.png"; then
-		notify-send "Error screenshoting " "most likely unable to find selection"
-		exit 1
-	fi
-	# we use pngs when copying to clipboard because they have greater support when pasting.
-	xclip -selection clipboard -target image/png -i "$tmp_file.png"
-	rm "$tmp_file.png"
-	#you can comment this if you do not use notifcations.
-	notify-send "Screenshot Taken" "Copied to clipboard"
-fi
+drain_enter_key() {
+    # Release lingering Enter press from launching via rofi so it
+    # doesn't reach the next focused window (e.g., a game).
+    xdotool keyup Return 2>/dev/null || true
+    xdotool keyup KP_Enter 2>/dev/null || true
+}
+
+capture_region() {
+    local fmt="$1" quality="$2" output="$3"
+    local geometry
+    geometry=$(slurp)
+    if [[ -z "$geometry" ]]; then
+        notify "Screenshot cancelled" "No region selected"
+        exit 1
+    fi
+    if [[ "$fmt" == "jpeg" ]]; then
+        grim -g "$geometry" -t jpeg -q "$quality" "$output"
+    else
+        grim -g "$geometry" -t png "$output"
+    fi
+}
+
+capture_current_window() {
+    local fmt="$1" quality="$2" output="$3" geometry
+
+    if [[ "$fmt" == "jpeg" ]]; then
+        grim -w "$(hyprctl activewindow -j | jq -r '.address')" -t jpeg -q "$quality" "$output"
+    else
+        grim -w "$(hyprctl activewindow -j | jq -r '.address')" -t png "$output"
+    fi
+}
+
+choose_capture_mode() {
+    local selection
+    selection=$(printf "%s\n%s\n" "Region (slurp)" "Current window (Hyprland)" |
+        rofi -dmenu -i \
+            -p "Capture mode" \
+            -mesg "Select capture target" \
+            -no-custom \
+            -no-lazy-grab \
+            -location 0 -yoffset 30 -xoffset 30 \
+            -theme "$ROFI_THEME" \
+            -theme-str "$ROFI_THEME_STR" \
+            -window-title "screenshot-anki")
+
+    if [[ -z "$selection" ]]; then
+        notify "Screenshot cancelled" "No capture mode selected"
+        exit 0
+    fi
+
+    if [[ "$selection" == "Current window (Hyprland)" ]]; then
+        CAPTURE_MODE="window"
+    else
+        CAPTURE_MODE="region"
+    fi
+}
+
+copy_to_clipboard() {
+    local file="$1"
+    if ! wl-copy <"$file"; then
+        notify "Error copying screenshot" "wl-copy failed"
+        exit 1
+    fi
+}
+
+get_newest_note_id() {
+    local response query="is:new"
+    if [[ -n "$DECK_NAME" ]]; then
+        query="is:new deck:$DECK_NAME"
+    fi
+    response=$(curl -sS "$ANKI_URL" -X POST -H 'Content-Type: application/json' \
+        -d "{\"action\":\"findNotes\",\"version\":6,\"params\":{\"query\":\"$query\"}}")
+    jq -r '.result[-1] // empty' <<<"$response"
+}
+
+update_note_with_image() {
+    local note_id="$1" image_path="$2" filename="$3"
+    local payload
+    payload=$(jq -n --argjson noteId "$note_id" --arg field "$PICTURE_FIELD" \
+        --arg path "$image_path" --arg filename "$filename" '
+        {action:"updateNoteFields",version:6,
+         params:{note:{id:$noteId,fields:{($field):""},
+                       picture:[{path:$path,filename:$filename,fields:[$field]}]}}}')
+    curl -sS "$ANKI_URL" -X POST -H 'Content-Type: application/json' -d "$payload" >/dev/null
+}
+
+open_note_in_browser() {
+    local note_id="$1"
+    local payload
+    payload=$(jq -n --argjson noteId "$note_id" '
+        {action:"guiBrowse",version:6,params:{query:("nid:" + ($noteId|tostring))}}')
+    curl -sS "$ANKI_URL" -X POST -H 'Content-Type: application/json' -d "$payload" >/dev/null
+}
+
+main() {
+    parse_opts "$@"
+
+    local requirements=("${REQUIREMENTS[@]}")
+    for cmd in "${requirements[@]}"; do
+        require_cmd "$cmd"
+    done
+
+    mkdir -p "$CACHE_DIR"
+    local timestamp base newest_note image_path
+    timestamp=$(date +%s)
+    base="$CACHE_DIR/$timestamp"
+
+    drain_enter_key
+
+    # Only show interactive menu if not in auto mode
+    if [[ "$AUTO_MODE" == false ]]; then
+        choose_capture_mode
+    fi
+
+    if [[ "$CAPTURE_MODE" == "window" ]]; then
+        require_cmd hyprctl
+    fi
+
+    wiggle_mouse
+    newest_note=$(get_newest_note_id)
+
+    local capture_fn="capture_region"
+    if [[ "$CAPTURE_MODE" == "window" ]]; then
+        capture_fn="capture_current_window"
+    fi
+
+    if [[ -n "$newest_note" ]]; then
+        image_path="$base.jpg"
+        "$capture_fn" "jpeg" "$QUALITY" "$image_path"
+        update_note_with_image "$newest_note" "$image_path" "paste-$timestamp.jpg"
+        open_note_in_browser "$newest_note"
+        notify -i "$image_path" "Screenshot Taken" "Added to Anki note"
+        rm -f "$image_path"
+    else
+        image_path="$base.png"
+        "$capture_fn" "png" "" "$image_path"
+        copy_to_clipboard "$image_path"
+        notify -i "$image_path" "Screenshot Taken" "Copied to clipboard"
+        rm -f "$image_path"
+    fi
+}
+
+main "$@"
