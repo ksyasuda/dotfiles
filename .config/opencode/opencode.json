@@ -215,6 +215,7 @@
   "instructions": [
     "AGENTS.md",
     "CONTRIBUTING.md",
+    "CLAUDE.md",
     "docs/guidelines.md",
     ".cursor/rules/*.md"
   ],
