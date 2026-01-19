@@ -15,7 +15,7 @@ confirm-close-surface = false
 copy-on-select = clipboard
 app-notifications = no-clipboard-copy
 shell-integration = zsh
-shell-integration-features = title,sudo,ssh-env,ssh-terminfo
+shell-integration-features = title,sudo
 desktop-notifications = true
 term=ghostty
 keybind = all:ctrl+enter=unbind
