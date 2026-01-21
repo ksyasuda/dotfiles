@@ -40,5 +40,20 @@
       "extensions": [".sh", ".bash"],
       "priority": 10
     }
+  },
+  "background_task": {
+    "defaultConcurrency": 5,
+    "providerConcurrency": {
+      "anthropic": 2,
+      "openai": 4,
+      "google": 4,
+      "zen": 2
+    },
+    "modelConcurrency": {
+      "anthropic/claude-opus-4-5": 2,
+      "google/antigravity-gemini-3-flash": 3,
+      "google/antigravity-gemini-3-pro-high": 2,
+      "opencode/glm-4.7-free": 3
+    }
   }
 }
