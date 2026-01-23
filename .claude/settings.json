@@ -3,6 +3,12 @@
     "commit": "",
     "pr": ""
   },
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Read(~/.aws/**)"
+    ]
+  },
   "hooks": {
     "Notification": [
       {
@@ -21,22 +27,17 @@
     "typescript-lsp@claude-plugins-official": true,
     "clangd-lsp@claude-plugins-official": true
   },
-  "model": "haiku",
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
-    "excludedCommands": ["docker"],
     "network": {
       "allowUnixSockets": [
         "/var/run/docker.sock"
       ],
       "allowLocalBinding": true
-    }
-  },
-  "permissions": {
-    "deny": [
-      "Read(.env)",
-      "Read(~/.aws/**)"
+    },
+    "excludedCommands": [
+      "docker"
     ]
   }
 }
