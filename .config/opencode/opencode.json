@@ -100,8 +100,8 @@
             }
           }
         },
-        "gpt-5.1-codex-max": {
-          "name": "GPT 5.1 Codex Max (OAuth)",
+        "gpt-5.2-codex-max": {
+          "name": "GPT 5.2 Codex Max (OAuth)",
           "limit": {
             "context": 272000,
             "output": 128000

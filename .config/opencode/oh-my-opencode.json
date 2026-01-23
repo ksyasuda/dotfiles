@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
-  "google_auth": true,
+  "google_auth": false,
   "agents": {
     "Sisyphus": {
       "model": "opencode/glm-4.7-free"
@@ -12,7 +12,7 @@
       "model": "google/antigravity-gemini-3-flash"
     },
     "frontend-ui-ux-engineer": {
-      "model": "google/antigravity-gemini-3-pro-high"
+      "model": "google/antigravity-gemini-3-pro"
     },
     "document-writer": {
       "model": "google/antigravity-gemini-3-flash"
