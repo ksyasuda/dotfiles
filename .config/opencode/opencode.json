@@ -4,7 +4,6 @@
     "opencode-openai-codex-auth",
     "opencode-antigravity-auth@beta",
     "@mohak34/opencode-notifier@latest",
-    "oh-my-opencode"
   ],
   "provider": {
     "openai": {
