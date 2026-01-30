@@ -1,0 +1,176 @@
+profile=high-quality
+user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+
+# --- Shaders ---
+glsl-shaders=""
+# glsl-shaders="~~/shaders/ArtCNN_C4F32_DS.glsl"
+# glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+
+# --- Scaling & dithering ---
+scale=spline36
+dither=fruit
+
+# --- Window & interface ---
+ontop=yes
+border=no
+no-border
+autofit=50%
+osc=no
+blend-subtitles=video
+opengl-early-flush=no
+
+# --- Subtitle defaults ---
+sub-font="JetBrainsMono Nerd Font"
+sub-font-size=45
+sub-auto=fuzzy
+slang=en,eng
+subs-with-matching-audio=no
+sub-fix-timing=yes
+sub-ass-override=scale
+sub-gauss=1.0
+sub-gray=yes
+sub-pos=100
+
+# --- Audio (Windows) ---
+volume=75
+ao=wasapi
+audio-spdif=ac3,dts-hd,truehd
+audio-stream-silence=yes
+audio-wait-open=0.1
+
+# --- Networking ---
+ytdl-format=bestvideo+bestaudio/best
+ytdl-raw-options=sub-langs=en.*,write-auto-subs=
+ytdl-raw-options-append=sponsorblock-mark=all
+ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
+
+# --- Video output & decoding ---
+vo=gpu-next
+hwdec=nvdec
+hwdec-codecs=all
+gpu-api=vulkan
+gpu-context=winvk
+vulkan-queue-count=2
+vulkan-async-compute=yes
+vulkan-async-transfer=yes
+vd-lavc-dr=yes
+vd-lavc-threads=0
+video-sync=display-resample
+
+# --- Scaling, interpolation, dithering ---
+scale=ewa_lanczossharp
+dscale=catmull_rom
+cscale=ewa_lanczos
+tscale=oversample
+interpolation=yes
+interpolation-preserve=no
+interpolation-threshold=0.5
+sigmoid-upscaling=yes
+temporal-dither=yes
+dither=error-diffusion
+dither-depth=auto
+error-diffusion=sierra-lite
+
+# --- Antiring ---
+scale-antiring=0.5
+dscale-antiring=0.5
+cscale-antiring=0.5
+
+# --- Debanding ---
+deband=yes
+deband-iterations=2
+deband-threshold=24
+deband-range=16
+deband-grain=4
+
+# --- IPC (Windows named pipe) ---
+input-ipc-server=\\.\pipe\mpv-socket
+
+# --- Screenshots ---
+screenshot-format=webp
+screenshot-webp-lossless=yes
+screenshot-high-bit-depth=yes
+screenshot-sw=no
+screenshot-directory="Z:/sudacode/pictures/mpv"
+screenshot-template="%f-%wH.%wM.%wS.%wT-#%#00n"
+
+# --- Session persistence ---
+save-position-on-quit
+watch-later-dir="~~/.watch-later"
+resume-playback=yes
+save-watch-history
+watch-history-path="~~/state/watch_history.jsonl"
+
+# --- HDR hints ---
+target-colorspace-hint=yes
+
+# --- Cache ---
+cache=yes
+demuxer-max-bytes=1GiB
+demuxer-max-back-bytes=200MiB
+cache-secs=30
+demuxer-readahead-secs=30
+
+# =========================
+# Profiles
+# =========================
+
+[anime]
+profile-desc="Anime upscaling with ArtCNN"
+glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+scale=ewa_lanczossharp
+dither=error-diffusion
+deband=yes
+
+[movies]
+profile-desc="Movies and TV shows"
+profile-cond=width >= 1920 and filename:match("mkv$|mp4$")
+glsl-shaders=""
+scale=ewa_lanczos
+target-peak=800
+
+[hdr]
+tone-mapping-param=0.5
+tone-mapping-max-boost=2.0
+allow-delayed-peak-detect=yes
+icc-profile-auto=yes
+
+[svp]
+interpolation=no
+input-ipc-server=\\.\pipe\mpv-socket
+hr-seek-framedrop=no
+resume-playback=no
+
+[Idle]
+profile-cond=p["idle-active"]
+profile-restore=copy-equal
+title=' '
+keepaspect=no
+
+[immersion]
+cookies=yes
+cookies-file="Z:/sudacode/japanese/cookies.Japanese.txt"
+ytdl-raw-options=mark-watched=,write-auto-subs=,sub-langs=ja.*
+ytdl-raw-options-append=cookies=Z:/sudacode/japanese/cookies.Japanese.txt
+ytdl-raw-options-append=sponsorblock-mark=all
+ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
+sub-auto=fuzzy
+alang=ja,jp,jpn,japanese,en,eng,english
+slang=ja,jp,jpn,japanese,en,eng,english
+vlang=ja,jpn
+subs-with-matching-audio=yes
+sub-font="Noto Sans CJK JP Regular"
+glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+scale=ewa_lanczossharp
+dither=error-diffusion
+deband=yes
+
+[anime-subs]
+profile-cond=p["slang"] == "ja" or p["slang"] == "ja.hi"
+sub-font="Noto Sans CJK JP Regular"
+sub-font-size=42
+sub-border-size=1.2
+sub-shadow-color=0.0/0.0/0.0/0.6
+sub-shadow-offset=3
+sub-hinting=light
+
