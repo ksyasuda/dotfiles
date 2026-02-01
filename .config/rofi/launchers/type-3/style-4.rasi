@@ -2,7 +2,7 @@
  *
  * Author : Aditya Shakya (adi1090x)
  * Github : @adi1090x
- * 
+ *
  * Rofi Theme File
  * Rofi Version: 1.7.3
  **/
@@ -49,7 +49,7 @@ mainbox {
     border-radius:               0px 0px 0px 0px;
     border-color:                @selected;
     background-color:            transparent;
-    children:                    [ "inputbar", "listview" ];
+    children:                    [ "inputbar", "listview-split" ];
 }
 
 /*****----- Inputbar -----*****/
@@ -99,7 +99,7 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    
+
     spacing:                     0px;
     margin:                      0px;
     padding:                     0px;
@@ -109,6 +109,18 @@ listview {
     background-color:            transparent;
     text-color:                  @foreground;
     cursor:                      "default";
+}
+listview-split {
+    orientation: horizontal;
+    children: [listview, icon-current-entry];
+    spacing: 1em;
+    background-color:            @background;
+}
+icon-current-entry {
+    expand: true;
+    size: 40%;
+    background-color: transparent;
+    border-radius: 8px;
 }
 scrollbar {
     handle-width:                5px ;
@@ -173,3 +185,10 @@ textbox {
     horizontal-align:            0.0;
     highlight:                   none;
 }
+scrollbar {
+    width: 4px;
+    handle-color: @surface2;
+    handle-width: 4px;
+    background-color: @surface0;
+}
+

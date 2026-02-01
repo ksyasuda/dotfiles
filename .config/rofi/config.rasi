@@ -30,6 +30,7 @@ configuration {
     show-icons: true;
     icon-theme: "Dracula";
     dpi: 144;
+    modes: "window,run,ssh,drun,filebrowser";
 }
 
 #window {
