@@ -25,7 +25,7 @@ sub-fix-timing=yes
 sub-ass-override=scale
 sub-gauss=1.0
 sub-gray=yes
-sub-pos=100
+sub-pos=95
 
 # --- Audio chain ---
 volume=75
@@ -110,6 +110,8 @@ demuxer-max-bytes=1GiB # Buffer up to 1 GiB for high-bitrate remuxes
 demuxer-max-back-bytes=200MiB # Keep recent data handy for quick reverse seeks
 cache-secs=30
 demuxer-readahead-secs=30
+
+msg-level=subs2srs=warn
 
 [anime]
 profile-desc="Anime upscaling with ArtCNN"

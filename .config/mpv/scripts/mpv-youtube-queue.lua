@@ -1,1 +1,1 @@
-../submodules/mpv-youtube-queue/mpv-youtube-queue.lua
+../../../projects/lua/mpv-youtube-queue/mpv-youtube-queue.lua
