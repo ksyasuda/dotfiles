@@ -1,0 +1,45 @@
+ [includeIf "gitdir:~/.local/share/yadm/repo.git"]
+     path = .gitconfig.submodules
+[gpg]
+	format = ssh
+[user]
+	signingkey = /home/sudacode/.ssh/yuh.pub
+	name = sudacode
+	email = suda@sudacode.com
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[push]
+	default = simple
+	autoSetupRemote = true
+[diff]
+	algorithm = histogram
+[merge]
+	conflictstyle = zdiff3
+[pull]
+	rebase = true
+[rebase]
+	autostash = true
+	autosquash = true
+[fetch]
+	prune = true
+[branch]
+	autosetuprebase = always
+[core]
+	fsmonitor = true
+	untrackedCache = true
+	editor = nvim
+	pager = delta
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	lg = log --oneline --graph --decorate --all
+	fixup = commit --fixup
+	undo = reset --soft HEAD~1
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
