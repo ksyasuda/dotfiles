@@ -19,9 +19,6 @@
 [submodule ".config/mpv-modules/autosubsync-mpv"]
 	path = .config/mpv-modules/autosubsync-mpv
 	url = git@github.com:joaquintorres/autosubsync-mpv.git
-[submodule ".config/mpv-modules/immersion-tracker"]
-	path = .config/mpv-modules/immersion-tracker
-	url = git@gitea.suda.codes:sudacode/immersion-tracker.git
 [submodule ".config/mpv-modules/mpvacious"]
 	path = .config/mpv-modules/mpvacious
 	url = git@github.com:ksyasuda/mpvacious.git
