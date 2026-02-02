@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell.exe -WindowStyle Hidden -Command \"& { Add-Type -AssemblyName System.Windows.Forms; $balloon = New-Object System.Windows.Forms.NotifyIcon; $balloon.Icon = [System.Drawing.SystemIcons]::Information; $balloon.BalloonTipIcon = 'Info'; $balloon.BalloonTipTitle = 'Claude Code'; $balloon.BalloonTipText = 'Awaiting your input'; $balloon.Visible = $true; $balloon.ShowBalloonTip(5000); Start-Sleep -Seconds 5; $balloon.Dispose() }\""
+            "command": "notify-send 'Claude Code' 'Claude Code needs your attention'"
           }
         ]
       }
@@ -28,7 +28,7 @@
     "clangd-lsp@claude-plugins-official": true
   },
   "sandbox": {
-    "enabled": true,
+    "enabled": false,
     "autoAllowBashIfSandboxed": true,
     "network": {
       "allowUnixSockets": [
@@ -39,5 +39,6 @@
     "excludedCommands": [
       "docker"
     ]
-  }
+  },
+  "model": "haiku"
 }

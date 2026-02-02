@@ -111,7 +111,7 @@ demuxer-max-back-bytes=200MiB # Keep recent data handy for quick reverse seeks
 cache-secs=30
 demuxer-readahead-secs=30
 
-msg-level=subs2srs=warn
+msg-level=subs2srs,animecards=warn
 
 [anime]
 profile-desc="Anime upscaling with ArtCNN"
@@ -165,6 +165,7 @@ glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
 scale=ewa_lanczossharp
 dither=error-diffusion
 deband=yes # Crucial for anime gradients
+input-ipc-server=/tmp/mpv-yomitan-socket
 
 [anime-subs]
 profile-cond=p["slang"] == "ja" or p["slang"] == "ja.hi"
