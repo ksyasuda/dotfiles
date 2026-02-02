@@ -129,6 +129,9 @@ cache-pause=no
 cache-secs=30
 demuxer-readahead-secs=30
 
+msg-level=subs2srs,animecards,mpvacious=error
+
+
 ############
 # Profiles #
 ############
@@ -195,6 +198,7 @@ glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
 scale=ewa_lanczossharp
 dither=error-diffusion
 deband=yes # Crucial for anime gradients
+input-ipc-server=/tmp/mpv-yomitan-socket
 
 # Anime subtitles profile
 [anime-subs]

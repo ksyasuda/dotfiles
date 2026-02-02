@@ -111,7 +111,7 @@ demuxer-max-back-bytes=200MiB # Keep recent data handy for quick reverse seeks
 cache-secs=30
 demuxer-readahead-secs=30
 
-msg-level=subs2srs,animecards=warn
+msg-level=subs2srs,animecards,mpvacious=error
 
 [anime]
 profile-desc="Anime upscaling with ArtCNN"
