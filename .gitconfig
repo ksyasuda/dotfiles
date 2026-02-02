@@ -1,13 +1,5 @@
- [includeIf "gitdir:~/.local/share/yadm/repo.git"]
-     path = .gitconfig.submodules
-[gpg]
-	format = ssh
-[user]
-	signingkey = /home/sudacode/.ssh/yuh.pub
-	name = sudacode
-	email = suda@sudacode.com
-[commit]
-	gpgsign = true
+ ; [includeIf "gitdir:~/.local/share/yadm/repo.git"]
+ ;     path = .gitconfig.submodules
 [init]
 	defaultBranch = main
 [push]
@@ -43,3 +35,5 @@
 [delta]
     navigate = true  # use n and N to move between diff sections
     dark = true      # or light = true, or omit for auto-detection
+[user]
+	name = suda@sudacode.com
