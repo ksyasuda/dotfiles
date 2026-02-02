@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-THEME="${THEME:-$HOME/.config/rofi/launchers/type-2/style-2.rasi}"
-THUMBNAIL_PATH="/tmp/rmpv-thumbnail.jpg"
+THEME="${THEME:-/opt/mpv-yomitan/catppuccin-macchiato.rasi}"
 FONTCONFIG_FILE=$HOME/.config/mpv/mpv-fonts.conf
 COMMAND=mpv
+VIDEO_EXTENSIONS="mkv|mp4|avi|webm|mov|flv|wmv|m4v|ts|m2ts"
 
 # Parse command-line options first
 while getopts ":it:" opt; do
@@ -26,81 +26,56 @@ while getopts ":it:" opt; do
 done
 shift $((OPTIND - 1))
 
-generate_thumbnail() {
-    local video_file="$1"
-    local temp_thumb="/tmp/rmpv-thumbnail-$$.jpg"
-    local thumbnail_file="${video_file%.*}.jpg"
+find_videos() {
+    find "$PWD" -maxdepth 1 -type f -regextype posix-extended \
+        -iregex ".*\.($VIDEO_EXTENSIONS)$" 2>/dev/null | sort -V
+}
 
-    # Clean up previous thumbnail
-    rm -f "$THUMBNAIL_PATH"
+build_rofi_menu() {
+    while IFS= read -r video; do
+        [ -z "$video" ] && continue
+        local display_name
+        display_name=$(basename "$video")
+        printf '%s\0icon\x1fthumbnail://%s\n' "$display_name" "$video"
+    done < <(find_videos)
+}
 
-    # Validate input
-    if [[ -z "$video_file" ]]; then
-        echo "Error: No video file specified" >&2
-        return 1
+get_video_thumbnail() {
+    local video="$1"
+    local thumb_dir="$HOME/.cache/thumbnails/large"
+    local video_uri="file://$(realpath "$video")"
+    local thumb_hash=$(echo -n "$video_uri" | md5sum | cut -d' ' -f1)
+    local thumb_path="$thumb_dir/$thumb_hash.png"
+
+    if [[ -f "$thumb_path" ]]; then
+        echo "$thumb_path"
+        return 0
     fi
 
-    if [[ ! -f "$video_file" ]]; then
-        echo "Error: Video file '$video_file' not found" >&2
-        return 1
-    fi
-
-    # Check if it's a video file
-    if ! file "$video_file" | grep -qE "(video|Video)"; then
-        echo "Error: '$video_file' doesn't appear to be a video file" >&2
-        return 1
-    fi
-
-    # Generate thumbnail if it doesn't exist
-    if [[ ! -f "$thumbnail_file" ]]; then
-        echo "Generating thumbnail for $(basename "$video_file")..."
-        # Try generating thumbnail side-by-side
-        if ! ffmpeg -ss 00:00:01 -i "$video_file" \
-            -vf "scale=320:240:force_original_aspect_ratio=decrease,pad=320:240:(ow-iw)/2:(oh-ih)/2" \
-            -frames:v 1 \
-            -q:v 4 \
-            "$thumbnail_file" \
-            -loglevel error -y 2>/dev/null; then
-            
-            # Fallback to temp file if side-by-side fails (e.g. read-only fs)
-            echo "Warning: Failed to write to $thumbnail_file, trying temp location" >&2
-            thumbnail_file="$temp_thumb"
-            
-            if ! ffmpeg -ss 00:00:01 -i "$video_file" \
-                -vf "scale=320:240:force_original_aspect_ratio=decrease,pad=320:240:(ow-iw)/2:(oh-ih)/2" \
-                -frames:v 1 \
-                -q:v 4 \
-                "$thumbnail_file" \
-                -loglevel error -y 2>/dev/null; then
-                echo "Error: Failed to generate thumbnail" >&2
-                return 1
-            fi
-        fi
-    fi
-
-    # Copy to consistent location for notify-send
-    # We use a fixed path so notify-send always finds it
-    if cp "$thumbnail_file" "$THUMBNAIL_PATH" 2>/dev/null; then
-        echo "Thumbnail ready at: $THUMBNAIL_PATH"
-        ls -l "$THUMBNAIL_PATH"
-        file "$THUMBNAIL_PATH"
-    else
-        echo "Error: Failed to copy thumbnail to $THUMBNAIL_PATH" >&2
+    local tmp_thumb="/tmp/rmpv-thumb-$$.jpg"
+    if command -v ffmpegthumbnailer &>/dev/null; then
+        ffmpegthumbnailer -i "$video" -o "$tmp_thumb" -s 512 -q 5 2>/dev/null && echo "$tmp_thumb"
+    elif command -v ffmpeg &>/dev/null; then
+        ffmpeg -i "$video" -ss 00:00:30 -vframes 1 -vf "scale=512:-1" "$tmp_thumb" 2>/dev/null && echo "$tmp_thumb"
     fi
 }
 
-choice="$(find . -iname "*[.mkv|.mp4]" | sort -h | rofi -dmenu -i -theme "$THEME" -theme-str 'listview {columns: 1; lines: 15;} window {width: 88%;}' -p "Choose Video")"
-if [[ -z "$choice" ]]; then
+selection=$(build_rofi_menu | rofi -dmenu -i -show-icons -theme "$THEME" \
+    -theme-str 'listview {columns: 1; lines: 15;} window {width: 88%;}' -p "Choose Video ")
+
+if [[ -z "$selection" ]]; then
     echo "No video selected."
     exit 1
 fi
 
-generate_thumbnail "$choice"
-if [[ ! -f "$THUMBNAIL_PATH" ]]; then
-    echo "Warning: Thumbnail not created, notification will have no icon" >&2
+choice="./$selection"
+
+THUMBNAIL_PATH=$(get_video_thumbnail "$choice")
+if [[ -n "$THUMBNAIL_PATH" && -f "$THUMBNAIL_PATH" ]]; then
+    notify-send -i "$THUMBNAIL_PATH" "Playing Video" "$(basename "$choice")"
+else
+    notify-send "Playing Video" "$(basename "$choice")"
 fi
-notify-send -i "$THUMBNAIL_PATH" "Playing Video" "$(basename "$choice")"
 $COMMAND "$choice" &
 
 # vim: ft=sh
-
