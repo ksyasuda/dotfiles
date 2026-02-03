@@ -17,7 +17,10 @@ app-notifications = no-clipboard-copy
 shell-integration = zsh
 shell-integration-features = title,sudo
 desktop-notifications = true
-term=ghostty
+term=xterm-ghostty
+link-url = true
+link-previews = true
+bell-features=system,attention,no-audio
 keybind = all:ctrl+enter=unbind
 keybind = all:ctrl+shift+j=next_tab
 keybind = all:ctrl+shift+k=last_tab
