@@ -1,0 +1,22 @@
+[user]
+	name = sudacode
+	email = suda@sudacode.com
+[init]
+	defaultBranch = main
+[push]
+	default = simple
+	autoSetupRemote = true
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[fetch]
+	prune = true
+[diff]
+	algorithm = histogram
+[merge]
+	conflictstyle = zdiff3
+[color]
+	ui = auto
+[core]
+	pager = less -FRX
