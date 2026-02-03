@@ -1,0 +1,91 @@
+{
+  "subtitlePosition": {
+    "yPercent": 15.376111685625649,
+  },
+  "keybindings": [
+    {
+      "key": "Space",
+      "command": ["cycle", "pause"],
+    },
+    {
+      "key": "ArrowRight",
+      "command": ["seek", 5],
+    },
+    {
+      "key": "ArrowLeft",
+      "command": ["seek", -5],
+    },
+    {
+      "key": "Ctrl+Shift+KeyN",
+      "command": ["script-binding", "mpvacious-export-note"],
+    },
+    // {
+    //   "key": "Ctrl+KeyC",
+    //   "command": ["script-binding", "mpvacious-copy-primary-sub-to-clipboard"]
+    // },
+    {
+      "key": "Ctrl+Shift+KeyV",
+      "command": ["script-binding", "mpvacious-secondary-sid-toggle"],
+    },
+    {
+      "key": "Shift+KeyL",
+      "command": ["script-binding", "mpvacious-sub-seek-forward"],
+    },
+    {
+      "key": "Shift+KeyH",
+      "command": ["script-binding", "mpvacious-sub-seek-back"],
+    },
+    {
+      "key": "Ctrl+Shift+KeyH",
+      "command": ["script-binding", "mpvacious-sub-replay"],
+    },
+    {
+      "key": "Ctrl+Shift+KeyL",
+      "command": ["script-binding", "mpvacious-sub-play-up-to-next"],
+    },
+    // {
+    //   "key": "Ctrl+KeyV",
+    //   "command": ["script-binding", "animecards/update-anki-card"]
+    // },
+    {
+      "key": "KeyQ",
+      "command": ["quit"],
+    },
+    {
+      "key": "Ctrl+KeyW",
+      "command": ["quit"],
+    },
+  ],
+  "texthooker": {
+    "openBrowser": false,
+  },
+  "websocket": {
+    "enabled": "auto",
+    "port": 6677,
+  },
+  "ankiConnect": {
+    "enabled": true,
+    "url": "http://127.0.0.1:8765",
+    "deck": "Minecraft",
+    "pollingRate": 200,
+    "audioField": "ExpressionAudio",
+    "imageField": "Picture",
+    "sentenceField": "Sentence",
+    "generateAudio": true,
+    "generateImage": true,
+    "imageType": "avif",
+    "imageFormat": "webp",
+    "miscInfoPattern": "[mpv-yomitan] %f (%t)",
+    "overwriteAudio": true,
+    "overwriteImage": true,
+    "highlightWord": true,
+    "showNotificationOnUpdate": true,
+    "audioPadding": 0.5,
+    "fallbackDuration": 3,
+    "animatedFps": 10,
+    "animatedMaxWidth": 640,
+    "animatedMaxHeight": null,
+    "animatedCrf": 35,
+    "autoUpdateNewCards": true,
+  },
+}
