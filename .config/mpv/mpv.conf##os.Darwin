@@ -155,7 +155,7 @@ profile-cond=width >= 1920 and filename:match("mkv$|mp4$")
 glsl-shaders=""
 scale=ewa_lanczos
 target-peak=800
-hdr-tone-mapping=bt.2390
+# hdr-tone-mapping=bt.2390
 
 # HDR profile
 [hdr]

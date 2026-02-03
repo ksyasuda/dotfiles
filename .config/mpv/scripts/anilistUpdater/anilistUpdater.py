@@ -1,1 +1,0 @@
-../../submodules/mpv-anilist-updater/anilistUpdater/anilistUpdater.py
