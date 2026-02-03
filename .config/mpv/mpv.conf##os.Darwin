@@ -8,7 +8,7 @@ dither=fruit                    # Lightweight dithering
 ontop=yes
 border=no
 no-border
-autofit=50%                     # Reasonable default size
+autofit=69%                     # Reasonable default size
 
 # Audio (macOS-specific)
 volume=75
