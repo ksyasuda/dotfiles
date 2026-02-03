@@ -1,6 +1,6 @@
 {
   "subtitlePosition": {
-    "yPercent": 15.376111685625649,
+    "yPercent": 16.541882109617372,
   },
   "keybindings": [
     {
@@ -19,10 +19,6 @@
       "key": "Ctrl+Shift+KeyN",
       "command": ["script-binding", "mpvacious-export-note"],
     },
-    // {
-    //   "key": "Ctrl+KeyC",
-    //   "command": ["script-binding", "mpvacious-copy-primary-sub-to-clipboard"]
-    // },
     {
       "key": "Ctrl+Shift+KeyV",
       "command": ["script-binding", "mpvacious-secondary-sid-toggle"],
@@ -43,10 +39,6 @@
       "key": "Ctrl+Shift+KeyL",
       "command": ["script-binding", "mpvacious-sub-play-up-to-next"],
     },
-    // {
-    //   "key": "Ctrl+KeyV",
-    //   "command": ["script-binding", "animecards/update-anki-card"]
-    // },
     {
       "key": "KeyQ",
       "command": ["quit"],
@@ -76,16 +68,29 @@
     "imageType": "avif",
     "imageFormat": "webp",
     "miscInfoPattern": "[mpv-yomitan] %f (%t)",
-    "overwriteAudio": true,
+    "overwriteAudio": false,
     "overwriteImage": true,
     "highlightWord": true,
     "showNotificationOnUpdate": true,
+    "notificationType": "system",
     "audioPadding": 0.5,
     "fallbackDuration": 3,
-    "animatedFps": 10,
+    "animatedFps": 24,
     "animatedMaxWidth": 640,
     "animatedMaxHeight": null,
     "animatedCrf": 35,
-    "autoUpdateNewCards": true,
+    "autoUpdateNewCards": false,
+    "sentenceCardModel": "Lapis Morph",
+    "sentenceCardSentenceField": "Sentence",
+    "sentenceCardAudioField": "SentenceAudio",
+    "isLapis": true,
+  },
+  "shortcuts": {
+    "copySubtitle": "CommandOrControl+C",
+    "copySubtitleMultiple": "CommandOrControl+Shift+C",
+    "updateLastCardFromClipboard": "CommandOrControl+V",
+    "mineSentence": "CommandOrControl+S",
+    "mineSentenceMultiple": "CommandOrControl+Shift+S",
+    "multiCopyTimeoutMs": 3000,
   },
 }
