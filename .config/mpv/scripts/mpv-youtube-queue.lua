@@ -1,1 +1,1 @@
-/Users/sudacode/.config/mpv-modules/mpv-youtube-queue/mpv-youtube-queue.lua
+../../mpv-modules/mpv-youtube-queue/mpv-youtube-queue.lua
