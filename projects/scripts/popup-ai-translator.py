@@ -10,9 +10,9 @@ import sys
 
 import requests
 
-# Configuration
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
-MODEL = os.environ.get("OPENROUTER_MODEL", "google/gemini-2.0-flash-001")
+# MODEL = os.environ.get("OPENROUTER_MODEL", "google/gemini-2.0-flash-001")
+MODEL = os.environ.get("OPENROUTER_MODEL", "openai/gpt-oss-120b:free")
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 # Try to load API key from file if not in environment

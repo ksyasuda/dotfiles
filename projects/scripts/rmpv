@@ -7,74 +7,74 @@ VIDEO_EXTENSIONS="mkv|mp4|avi|webm|mov|flv|wmv|m4v|ts|m2ts"
 
 # Parse command-line options first
 while getopts ":it:" opt; do
-    case $opt in
-    i)
-        COMMAND="$COMMAND --profile=immersion"
-        ;;
-    t)
-        THEME="$OPTARG"
-        ;;
-    \?)
-        echo "Invalid option: -$OPTARG" >&2
-        exit 1
-        ;;
-    :)
-        echo "Option -$OPTARG requires an argument." >&2
-        exit 1
-        ;;
-    esac
+	case $opt in
+		i)
+			COMMAND="$COMMAND --profile=immersion"
+			;;
+		t)
+			THEME="$OPTARG"
+			;;
+		\?)
+			echo "Invalid option: -$OPTARG" >&2
+			exit 1
+			;;
+		:)
+			echo "Option -$OPTARG requires an argument." >&2
+			exit 1
+			;;
+	esac
 done
 shift $((OPTIND - 1))
 
 find_videos() {
-    find "$PWD" -maxdepth 1 -type f -regextype posix-extended \
-        -iregex ".*\.($VIDEO_EXTENSIONS)$" 2>/dev/null | sort -V
+	find "$PWD" -maxdepth 1 -type f -regextype posix-extended \
+		-iregex ".*\.($VIDEO_EXTENSIONS)$" 2> /dev/null | sort -V
 }
 
 build_rofi_menu() {
-    while IFS= read -r video; do
-        [ -z "$video" ] && continue
-        local display_name
-        display_name=$(basename "$video")
-        printf '%s\0icon\x1fthumbnail://%s\n' "$display_name" "$video"
-    done < <(find_videos)
+	while IFS= read -r video; do
+		[ -z "$video" ] && continue
+		local display_name
+		display_name=$(basename "$video")
+		printf '%s\0icon\x1fthumbnail://%s\n' "$display_name" "$video"
+	done < <(find_videos)
 }
 
 get_video_thumbnail() {
-    local video="$1"
-    local thumb_dir="$HOME/.cache/thumbnails/large"
-    local video_uri="file://$(realpath "$video")"
-    local thumb_hash=$(echo -n "$video_uri" | md5sum | cut -d' ' -f1)
-    local thumb_path="$thumb_dir/$thumb_hash.png"
+	local video="$1"
+	local thumb_dir="$HOME/.cache/thumbnails/large"
+	local video_uri="file://$(realpath "$video")"
+	local thumb_hash=$(echo -n "$video_uri" | md5sum | cut -d' ' -f1)
+	local thumb_path="$thumb_dir/$thumb_hash.png"
 
-    if [[ -f "$thumb_path" ]]; then
-        echo "$thumb_path"
-        return 0
-    fi
+	if [[ -f "$thumb_path" ]]; then
+		echo "$thumb_path"
+		return 0
+	fi
 
-    local tmp_thumb="/tmp/rmpv-thumb-$$.jpg"
-    if command -v ffmpegthumbnailer &>/dev/null; then
-        ffmpegthumbnailer -i "$video" -o "$tmp_thumb" -s 512 -q 5 2>/dev/null && echo "$tmp_thumb"
-    elif command -v ffmpeg &>/dev/null; then
-        ffmpeg -i "$video" -ss 00:00:30 -vframes 1 -vf "scale=512:-1" "$tmp_thumb" 2>/dev/null && echo "$tmp_thumb"
-    fi
+	local tmp_thumb="/tmp/rmpv-thumb-$$.jpg"
+	if command -v ffmpegthumbnailer &> /dev/null; then
+		ffmpegthumbnailer -i "$video" -o "$tmp_thumb" -s 512 -q 5 2> /dev/null && echo "$tmp_thumb"
+	elif command -v ffmpeg &> /dev/null; then
+		ffmpeg -i "$video" -ss 00:00:30 -vframes 1 -vf "scale=512:-1" "$tmp_thumb" 2> /dev/null && echo "$tmp_thumb"
+	fi
 }
 
 selection=$(build_rofi_menu | rofi -dmenu -i -show-icons -theme "$THEME" \
-    -theme-str 'listview {columns: 1; lines: 15;} window {width: 88%;}' -p "Choose Video ")
+	-theme-str 'configuration {font: "JetBrainsMono Nerd Font 10";} listview {columns: 1; lines: 15;} window {width: 88%;}' -p "Choose Video ")
 
 if [[ -z "$selection" ]]; then
-    echo "No video selected."
-    exit 1
+	echo "No video selected."
+	exit 1
 fi
 
 choice="./$selection"
 
 THUMBNAIL_PATH=$(get_video_thumbnail "$choice")
 if [[ -n "$THUMBNAIL_PATH" && -f "$THUMBNAIL_PATH" ]]; then
-    notify-send -i "$THUMBNAIL_PATH" "Playing Video" "$(basename "$choice")"
+	notify-send -i "$THUMBNAIL_PATH" "Playing Video" "$(basename "$choice")"
 else
-    notify-send "Playing Video" "$(basename "$choice")"
+	notify-send "Playing Video" "$(basename "$choice")"
 fi
 $COMMAND "$choice" &
 
