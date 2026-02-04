@@ -1,59 +1,69 @@
 {
   "subtitlePosition": {
-    "yPercent": 16.541882109617372,
+    "yPercent": 17.38459152016546
   },
   "keybindings": [
     {
       "key": "Space",
-      "command": ["cycle", "pause"],
+      "command": [
+        "cycle",
+        "pause"
+      ]
     },
     {
       "key": "ArrowRight",
-      "command": ["seek", 5],
+      "command": [
+        "seek",
+        5
+      ]
     },
     {
       "key": "ArrowLeft",
-      "command": ["seek", -5],
+      "command": [
+        "seek",
+        -5
+      ]
     },
     {
-      "key": "Ctrl+Shift+KeyN",
-      "command": ["script-binding", "mpvacious-export-note"],
+      "key": "ArrowRight",
+      "command": [
+        "seek",
+        5
+      ]
     },
     {
-      "key": "Ctrl+Shift+KeyV",
-      "command": ["script-binding", "mpvacious-secondary-sid-toggle"],
+      "key": "ArrowUp",
+      "command": [
+        "seek",
+        60
+      ]
     },
     {
-      "key": "Shift+KeyL",
-      "command": ["script-binding", "mpvacious-sub-seek-forward"],
-    },
-    {
-      "key": "Shift+KeyH",
-      "command": ["script-binding", "mpvacious-sub-seek-back"],
-    },
-    {
-      "key": "Ctrl+Shift+KeyH",
-      "command": ["script-binding", "mpvacious-sub-replay"],
-    },
-    {
-      "key": "Ctrl+Shift+KeyL",
-      "command": ["script-binding", "mpvacious-sub-play-up-to-next"],
+      "key": "ArrowDown",
+      "command": [
+        "seek",
+        -60
+      ]
     },
     {
       "key": "KeyQ",
-      "command": ["quit"],
+      "command": [
+        "quit"
+      ]
     },
     {
       "key": "Ctrl+KeyW",
-      "command": ["quit"],
-    },
+      "command": [
+        "quit"
+      ]
+    }
   ],
   "texthooker": {
-    "openBrowser": false,
+    "openBrowser": false
   },
   "websocket": {
     "enabled": "auto",
-    "port": 6677,
+    "port": 6677
   },
   "ankiConnect": {
     "enabled": true,
@@ -84,6 +94,28 @@
     "sentenceCardSentenceField": "Sentence",
     "sentenceCardAudioField": "SentenceAudio",
     "isLapis": true,
+    "mediaInsertMode": "append",
+    "auto_start_overlay": false,
+    "secondarySub": {
+      "autoLoadSecondarySub": true,
+      "secondarySubLanguages": [
+        "en",
+        "eng"
+      ]
+    }
+  },
+  "subtitleStyle": {
+    "ontFamily": "Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
+    "fontSize": 35,
+    "fontColor": "#cad3f5",
+    "fontWeight": "normal",
+    "fontStyle": "normal",
+    "backgroundColor": "rgb(30, 32, 48, 0.88)",
+    "secondary": {
+      "fontSize": 24,
+      "fontColor": "#cad3f5",
+      "backgroundColor": "transparent"
+    }
   },
   "shortcuts": {
     "copySubtitle": "CommandOrControl+C",
@@ -91,6 +123,7 @@
     "updateLastCardFromClipboard": "CommandOrControl+V",
     "mineSentence": "CommandOrControl+S",
     "mineSentenceMultiple": "CommandOrControl+Shift+S",
-    "multiCopyTimeoutMs": 3000,
-  },
+    "toggleSecondarySub": "CommandOrControl+Shift+V",
+    "multiCopyTimeoutMs": 3000
+  }
 }
