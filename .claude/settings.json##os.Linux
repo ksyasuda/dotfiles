@@ -39,6 +39,5 @@
     "excludedCommands": [
       "docker"
     ]
-  },
-  "model": "haiku"
+  }
 }
