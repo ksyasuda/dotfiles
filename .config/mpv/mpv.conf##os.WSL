@@ -41,9 +41,6 @@ audio-wait-open=0.1
 # --- Networking ---
 ytdl-format=bestvideo+bestaudio/best
 ytdl-raw-options=sub-langs=en.*,write-auto-subs=
-ytdl-raw-options-append=sponsorblock-mark=all
-ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
-
 # --- Video output & decoding ---
 vo=gpu-next
 hwdec=nvdec
@@ -152,8 +149,6 @@ cookies=yes
 cookies-file="Z:/sudacode/japanese/cookies.Japanese.txt"
 ytdl-raw-options=mark-watched=,write-auto-subs=,sub-langs=ja.*
 ytdl-raw-options-append=cookies=Z:/sudacode/japanese/cookies.Japanese.txt
-ytdl-raw-options-append=sponsorblock-mark=all
-ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
 sub-auto=fuzzy
 alang=ja,jp,jpn,japanese,en,eng,english
 slang=ja,jp,jpn,japanese,en,eng,english
