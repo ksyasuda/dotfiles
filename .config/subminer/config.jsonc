@@ -1,78 +1,32 @@
 {
-  "keybindings": [
-    {
-      "key": "Space",
-      "command": [
-        "cycle",
-        "pause"
-      ]
-    },
-    {
-      "key": "ArrowRight",
-      "command": [
-        "seek",
-        5
-      ]
-    },
-    {
-      "key": "ArrowLeft",
-      "command": [
-        "seek",
-        -5
-      ]
-    },
-    {
-      "key": "ArrowRight",
-      "command": [
-        "seek",
-        5
-      ]
-    },
-    {
-      "key": "ArrowUp",
-      "command": [
-        "seek",
-        60
-      ]
-    },
-    {
-      "key": "ArrowDown",
-      "command": [
-        "seek",
-        -60
-      ]
-    },
-    {
-      "key": "KeyQ",
-      "command": [
-        "quit"
-      ]
-    },
-    {
-      "key": "Ctrl+KeyW",
-      "command": [
-        "quit"
-      ]
-    }
-  ],
+  "keybindings": [],
   "auto_start_overlay": false,
   "texthooker": {
-    "openBrowser": true
+    "openBrowser": false,
   },
   "websocket": {
     "enabled": "auto",
-    "port": 6677
+    "port": 6677,
   },
   "ankiConnect": {
     "enabled": true,
     "url": "http://127.0.0.1:8765",
-    "deck": "Minecraft",
-    "pollingRate": 200,
+    "pollingRate": 500,
     "fields": {
       "audio": "ExpressionAudio",
       "image": "Picture",
       "sentence": "Sentence",
-      "miscInfo": "MiscInfo"
+      "miscInfo": "MiscInfo",
+      "translation": "SelectionText",
+    },
+    "openRouter": {
+      "enabled": true,
+      "alwaysUseAiTranslation": true,
+      "apiKey": "",
+      "model": "openai/gpt-oss-120b:free",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "sourceLanguage": "Japanese",
+      "systemPrompt": "You are a translation engine for translating Japanese into natural-sounding, context-aware English. Return only the translated text with no extra explanations or commentary. The translation must preserve the original tone and intent of the source. If the input is not in the target language, translate it to the target language. If the input is already in the target language, return it as is.",
     },
     "media": {
       "generateAudio": true,
@@ -85,7 +39,6 @@
       "animatedCrf": 35,
       "audioPadding": 0.5,
       "fallbackDuration": 3,
-      "maxMediaDuration": 30
     },
     "behavior": {
       "overwriteAudio": false,
@@ -93,40 +46,37 @@
       "mediaInsertMode": "append",
       "highlightWord": true,
       "notificationType": "system",
-      "autoUpdateNewCards": false
+      "showNotificationOnUpdate": true,
+      "autoUpdateNewCards": false,
     },
     "metadata": {
-      "pattern": "[SubMiner] %f (%t)"
+      "pattern": "[SubMiner] %f (%t)",
     },
     "isLapis": {
       "enabled": true,
       "sentenceCardModel": "Lapis Morph",
       "sentenceCardSentenceField": "Sentence",
-      "sentenceCardAudioField": "SentenceAudio"
+      "sentenceCardAudioField": "SentenceAudio",
     },
     "isKiku": {
       "enabled": true,
-      "fieldGrouping": "manual"
+      "fieldGrouping": "manual",
+      "deleteDuplicateInAuto": true,
     },
     "secondarySub": {
       "autoLoadSecondarySub": true,
-      "secondarySubLanguages": [
-        "en",
-        "eng"
-      ]
-    }
+      "secondarySubLanguages": ["en", "eng"],
+    },
   },
-
   "subsync": {
-     "shortcut": "Alt+KeyS",
     "defaultMode": "manual",
-    "alass_path": "/Users/sudacode/.local/bin/alass-cli",
-    "ffsubsync_path": "/Users/sudacode/.local/bin/ffsubsync",
-    "ffmpeg_path": "/opt/homebrew/bin/ffmpeg"
+    "alass_path": null,
+    "ffsubsync_path": null,
+    "ffmpeg_path": null,
   },
   "subtitleStyle": {
-    "fontFamily": "Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
-    "fontSize": 35,
+    "fontFamily": "Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
+    "fontSize": 24,
     "fontColor": "#cad3f5",
     "fontWeight": "normal",
     "fontStyle": "normal",
@@ -134,25 +84,28 @@
     "secondary": {
       "fontSize": 24,
       "fontColor": "#cad3f5",
-      "backgroundColor": "transparent"
-    }
+      "backgroundColor": "transparent",
+    },
   },
   "jimaku": {
     // "apiKey": "YOUR_API_KEY",
-    "apiKeyCommand": "cat ~/.jimaku-api-key"
     // or use a command that outputs the key:
-    // "apiKeyCommand": "cat ~/.jimaku_key",
+    "apiKeyCommand": "cat ~/.jimaku-api-key",
     "apiBaseUrl": "https://jimaku.cc",
     "languagePreference": "ja",
-    "maxEntryResults": 10
+    "maxEntryResults": 10,
   },
   "shortcuts": {
     "copySubtitle": "CommandOrControl+C",
     "copySubtitleMultiple": "CommandOrControl+Shift+C",
     "updateLastCardFromClipboard": "CommandOrControl+V",
+    "triggerFieldGrouping": "CommandOrControl+G",
+    "triggerSubsync": "CommandOrControl+Alt+S",
     "mineSentence": "CommandOrControl+S",
     "mineSentenceMultiple": "CommandOrControl+Shift+S",
+    "multiCopyTimeoutMs": 3000,
     "toggleSecondarySub": "CommandOrControl+Shift+V",
-    "multiCopyTimeoutMs": 3000
-  }
+    "markAudioCard": "CommandOrControl+Shift+A",
+    "openRuntimeOptions": "CommandOrControl+Shift+O",
+  },
 }

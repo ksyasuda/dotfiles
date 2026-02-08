@@ -37,7 +37,8 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       37%;
+    width:                       46.65%;
+    height:                      44%;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -58,9 +59,9 @@ mainbox {
 }
 
 imagebox {
-    padding:                     20px;
+    padding:                     24px;
     background-color:            transparent;
-    background-image:            url("~/.config/rofi/images/oshinoko.png", height);
+    background-image:            url("~/.config/rofi/images/oshinoko.png", both);
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
 }

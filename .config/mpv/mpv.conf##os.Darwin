@@ -31,9 +31,6 @@ sub-pos=90
 # Networking & streaming
 ytdl-format=bestvideo+bestaudio/best
 ytdl-raw-options=sub-langs=en.*,write-auto-subs=
-ytdl-raw-options-append=sponsorblock-mark=all
-ytdl-raw-options-append=sponsorblock-remove=sponsor,selfpromo,interaction
-
 # Stats & UI colors (Catppuccin Macchiato)
 background-color='#24273a'
 osd-back-color='#181926'
@@ -185,8 +182,6 @@ cookies=yes
 cookies-file=/Volumes/sudacode/japanese/cookies.Japanese.txt
 ytdl-raw-options=mark-watched=,write-auto-subs=,sub-langs=ja.*
 ytdl-raw-options-append=cookies=/Volumes/sudacode/japanese/cookies.Japanese.txt
-ytdl-raw-options-append=sponsorblock-mark=all
-ytdl-raw-options-append=sponsorblock-remove=sponsor
 ytdl-format=bestvideo+bestaudio/best
 sub-auto=fuzzy
 alang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US

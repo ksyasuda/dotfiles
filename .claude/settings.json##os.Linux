@@ -4,9 +4,22 @@
     "pr": ""
   },
   "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm run test *)",
+      "Read(~/.zshrc)",
+      "Bash(git * main)",
+      "Bash(ls *)",
+      "Bash(pnpm build *)"
+    ],
     "deny": [
-      "Read(.env)",
-      "Read(~/.aws/**)"
+      "Bash(curl *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(~/.aws/**)",
+      "Bash(git push *)",
+      "Bash(yadm push *)"
     ]
   },
   "hooks": {
@@ -25,19 +38,20 @@
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "clangd-lsp@claude-plugins-official": true
+    "clangd-lsp@claude-plugins-official": true,
+    "claude-mem@thedotmack": true,
+    "frontend-design@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true
   },
   "sandbox": {
     "enabled": false,
     "autoAllowBashIfSandboxed": true,
     "network": {
-      "allowUnixSockets": [
-        "/var/run/docker.sock"
-      ],
+      "allowUnixSockets": ["/var/run/docker.sock"],
       "allowLocalBinding": true
     },
-    "excludedCommands": [
-      "docker"
-    ]
+    "excludedCommands": ["docker"]
   }
 }
