@@ -3,7 +3,6 @@
 --embed-thumbnail
 --embed-subs
 
-
 # Always extract audio
 # -x
 
@@ -23,3 +22,5 @@
 --sponsorblock-chapter-title "[SponsorBlock] %(category_names)l"
 --sponsorblock-api https://sponsor.ajay.app
 --sponsorblock-chapter-title all
+
+--extractor-args "youtubepot-bgutilhttp:base_url=http://tubearchivist:4416"

@@ -37,6 +37,8 @@ audio-wait-open=0.1 # Shorten audio device warm-up for snappier playback
 # --- Networking & remote sources ---
 ytdl-format=bestvideo+bestaudio/best
 ytdl-raw-options=sub-langs=en.*,write-auto-subs=
+ytdl-raw-options-append=extractor-args="youtubepot-bgutilhttp:base_url=http://tubearchivist:4416"
+
 # --- Video output & decoding ---
 vo=gpu-next
 hwdec=nvdec
