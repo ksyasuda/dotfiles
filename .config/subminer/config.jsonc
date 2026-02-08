@@ -1,7 +1,4 @@
 {
-  "subtitlePosition": {
-    "yPercent": 17.38459152016546
-  },
   "keybindings": [
     {
       "key": "Space",
@@ -58,8 +55,9 @@
       ]
     }
   ],
+  "auto_start_overlay": false,
   "texthooker": {
-    "openBrowser": false
+    "openBrowser": true
   },
   "websocket": {
     "enabled": "auto",
@@ -70,32 +68,46 @@
     "url": "http://127.0.0.1:8765",
     "deck": "Minecraft",
     "pollingRate": 200,
-    "audioField": "ExpressionAudio",
-    "imageField": "Picture",
-    "sentenceField": "Sentence",
-    "generateAudio": true,
-    "generateImage": true,
-    "imageType": "avif",
-    "imageFormat": "webp",
-    "miscInfoPattern": "[mpv-yomitan] %f (%t)",
-    "overwriteAudio": false,
-    "overwriteImage": true,
-    "highlightWord": true,
-    "showNotificationOnUpdate": true,
-    "notificationType": "system",
-    "audioPadding": 0.5,
-    "fallbackDuration": 3,
-    "animatedFps": 24,
-    "animatedMaxWidth": 640,
-    "animatedMaxHeight": null,
-    "animatedCrf": 35,
-    "autoUpdateNewCards": false,
-    "sentenceCardModel": "Lapis Morph",
-    "sentenceCardSentenceField": "Sentence",
-    "sentenceCardAudioField": "SentenceAudio",
-    "isLapis": true,
-    "mediaInsertMode": "append",
-    "auto_start_overlay": false,
+    "fields": {
+      "audio": "ExpressionAudio",
+      "image": "Picture",
+      "sentence": "Sentence",
+      "miscInfo": "MiscInfo"
+    },
+    "media": {
+      "generateAudio": true,
+      "generateImage": true,
+      "imageType": "avif",
+      "imageFormat": "webp",
+      "animatedFps": 24,
+      "animatedMaxWidth": 640,
+      "animatedMaxHeight": null,
+      "animatedCrf": 35,
+      "audioPadding": 0.5,
+      "fallbackDuration": 3,
+      "maxMediaDuration": 30
+    },
+    "behavior": {
+      "overwriteAudio": false,
+      "overwriteImage": true,
+      "mediaInsertMode": "append",
+      "highlightWord": true,
+      "notificationType": "system",
+      "autoUpdateNewCards": false
+    },
+    "metadata": {
+      "pattern": "[SubMiner] %f (%t)"
+    },
+    "isLapis": {
+      "enabled": true,
+      "sentenceCardModel": "Lapis Morph",
+      "sentenceCardSentenceField": "Sentence",
+      "sentenceCardAudioField": "SentenceAudio"
+    },
+    "isKiku": {
+      "enabled": true,
+      "fieldGrouping": "manual"
+    },
     "secondarySub": {
       "autoLoadSecondarySub": true,
       "secondarySubLanguages": [
@@ -104,8 +116,16 @@
       ]
     }
   },
+
+  "subsync": {
+     "shortcut": "Alt+KeyS",
+    "defaultMode": "manual",
+    "alass_path": "/Users/sudacode/.local/bin/alass-cli",
+    "ffsubsync_path": "/Users/sudacode/.local/bin/ffsubsync",
+    "ffmpeg_path": "/opt/homebrew/bin/ffmpeg"
+  },
   "subtitleStyle": {
-    "ontFamily": "Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
+    "fontFamily": "Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
     "fontSize": 35,
     "fontColor": "#cad3f5",
     "fontWeight": "normal",
@@ -116,6 +136,15 @@
       "fontColor": "#cad3f5",
       "backgroundColor": "transparent"
     }
+  },
+  "jimaku": {
+    // "apiKey": "YOUR_API_KEY",
+    "apiKeyCommand": "cat ~/.jimaku-api-key"
+    // or use a command that outputs the key:
+    // "apiKeyCommand": "cat ~/.jimaku_key",
+    "apiBaseUrl": "https://jimaku.cc",
+    "languagePreference": "ja",
+    "maxEntryResults": 10
   },
   "shortcuts": {
     "copySubtitle": "CommandOrControl+C",

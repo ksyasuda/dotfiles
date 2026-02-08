@@ -165,7 +165,7 @@ glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
 scale=ewa_lanczossharp
 dither=error-diffusion
 deband=yes # Crucial for anime gradients
-input-ipc-server=/tmp/mpv-yomitan-socket
+input-ipc-server=/tmp/subminer-socket
 
 [anime-subs]
 profile-cond=p["slang"] == "ja" or p["slang"] == "ja.hi"

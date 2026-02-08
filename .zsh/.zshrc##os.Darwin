@@ -62,3 +62,12 @@ zstyle ':url-quote-magic:*' url-quotes ''
 # bind it to both typing and pasting
 zle   -N self-insert       url-quote-magic
 zle   -N bracketed-paste   bracketed-paste-magic
+
+# bun completions
+[ -s "/Users/sudacode/.bun/_bun" ] && source "/Users/sudacode/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+alias claude-mem='/Users/sudacode/.bun/bin/bun "/Users/sudacode/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'

@@ -1,6 +1,7 @@
 [user]
 	name = sudacode
 	email = suda@sudacode.com
+	signingkey = /Users/sudacode/.ssh/yuh.pub
 [init]
 	defaultBranch = main
 [push]
@@ -19,4 +20,8 @@
 [color]
 	ui = auto
 [core]
-	pager = less -FRX
+	pager = delta
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
