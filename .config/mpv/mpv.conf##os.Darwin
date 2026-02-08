@@ -31,6 +31,7 @@ sub-pos=90
 # Networking & streaming
 ytdl-format=bestvideo+bestaudio/best
 ytdl-raw-options=sub-langs=en.*,write-auto-subs=
+ytdl-raw-options-append=extractor-args="youtubepot-bgutilhttp:base_url=http://tubearchivist:4416"
 # Stats & UI colors (Catppuccin Macchiato)
 background-color='#24273a'
 osd-back-color='#181926'
