@@ -28,7 +28,7 @@ return {
 								-- default = "claude-3.7-sonnet-thought",
 								-- default = "o3-mini",
 								-- default = "gemini-2.0-flash-001",
-								default = "claude-haiku-4.5",
+								default = "claude-opus-4.6",
 								-- default = "gpt-4o",
 								-- default = "o3-mini-2025-01-31",
 								-- choices = {
