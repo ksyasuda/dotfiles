@@ -63,16 +63,31 @@
       "fieldGrouping": "manual",
       "deleteDuplicateInAuto": true,
     },
-    "secondarySub": {
-      "autoLoadSecondarySub": true,
-      "secondarySubLanguages": ["en", "eng"],
+  },
+  "subtitles": {
+    "primarySubLanguages": ["ja", "jpn"],
+    "secondarySubLanguages": ["en", "eng"],
+    "autoLoadSecondarySub": true,
+    "defaultMode": "hover",
+    "style": {
+      "fontFamily": "Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
+      "fontSize": 35,
+      "fontColor": "#cad3f5",
+      "fontWeight": "normal",
+      "fontStyle": "normal",
+      "backgroundColor": "rgba(54, 58, 79, 0.69)",
+      "secondary": {
+        "fontSize": 24,
+        "fontColor": "#ffffff",
+        "backgroundColor": "transparent",
+      },
     },
   },
   "subsync": {
     "defaultMode": "manual",
-    "alass_path": null,
-    "ffsubsync_path": null,
-    "ffmpeg_path": null,
+    "alass_path": "/Users/sudacode/.local/bin/alass-cli",
+    "ffsubsync_path": "/Users/sudacode/.local/bin/ffsubsync",
+    "ffmpeg_path": "/opt/homebrew/bin/ffmpeg",
   },
   "subtitleStyle": {
     "fontFamily": "Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
