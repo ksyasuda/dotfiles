@@ -181,12 +181,15 @@ keepaspect=no
 [immersion]
 cookies=yes
 cookies-file=/Volumes/sudacode/japanese/youtube-cookies.txt
-ytdl-raw-options=mark-watched=,write-auto-subs=,sub-langs=ja.*
+ytdl-raw-options=mark-watched=
+ytdl-raw-options-append=write-auto-subs=
+ytdl-raw-options-append=sub-langs=ja.*|en|ja-en
 ytdl-raw-options-append=cookies=/Volumes/sudacode/japanese/youtube-cookies.txt
 ytdl-format=bestvideo+bestaudio/best
 sub-auto=fuzzy
 alang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
 slang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
+tlang=en,eng,english,English,enUS,en-US
 vlang=ja,jpn
 subs-with-matching-audio=yes
 sub-font="Noto Sans CJK JP Regular"

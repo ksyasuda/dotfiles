@@ -151,8 +151,11 @@ keepaspect=no
 [immersion]
 cookies=yes
 cookies-file=/truenas/sudacode/japanese/youtube-cookies.txt
-ytdl-raw-options=mark-watched=,write-auto-subs=,sub-langs=ja.*
 ytdl-format=bestvideo+bestaudio/best
+ytdl-raw-options=mark-watched=
+ytdl-raw-options-append=write-auto-subs=
+ytdl-raw-options-append=sub-langs=ja.*|en|ja-en
+ytdl-raw-options-append=cookies=/truenas/sudacode/japanese/youtube-cookies.txt
 sub-auto=fuzzy
 alang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
 slang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
