@@ -37,7 +37,7 @@ audio-wait-open=0.1 # Shorten audio device warm-up for snappier playback
 # --- Networking & remote sources ---
 ytdl-format=bestvideo+bestaudio/best
 ytdl-raw-options=sub-langs=en.*,write-auto-subs=
-ytdl-raw-options-append=extractor-args="youtubepot-bgutilhttp:base_url=http://tubearchivist:4416"
+ytdl-raw-options-append=extractor-args=youtubepot-bgutilhttp:base_url=http://tubearchivist:4416
 
 # --- Video output & decoding ---
 vo=gpu-next
@@ -152,7 +152,6 @@ keepaspect=no
 cookies=yes
 cookies-file=/truenas/sudacode/japanese/youtube-cookies.txt
 ytdl-raw-options=mark-watched=,write-auto-subs=,sub-langs=ja.*
-ytdl-raw-options-append=cookies=/truenas/sudacode/japanese/youtube-cookies.txt
 ytdl-format=bestvideo+bestaudio/best
 sub-auto=fuzzy
 alang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
