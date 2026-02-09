@@ -17,7 +17,7 @@ local utils = require 'mp.utils'
 
 local options = require 'mp.options'
 local opts = {
-    temp = "R:\\ytdl",
+    temp = "/tmp/ytdl-preload",
     ytdl_opt1 = "",
     ytdl_opt2 = "",
     ytdl_opt3 = "",

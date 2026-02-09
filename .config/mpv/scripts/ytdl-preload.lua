@@ -1,1 +1,1 @@
-../submodules/ytdl-preload/ytdl-preload.lua
+ytdl-preload.lua##os.Linux
