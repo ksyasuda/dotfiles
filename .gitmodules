@@ -9,7 +9,7 @@
 	url = git@github.com:Samillion/ModernZ.git
 [submodule ".config/mpv-modules/ytdl-preload"]
 	path = .config/mpv-modules/ytdl-preload
-	url = git@gist.github.com:17d90e3deeb35b5f75e55adb19098f58.git
+	url = git@gist.github.com:484107d131ba0abd878c5a9489d9b664.git
 [submodule ".config/mpv-modules/mpv-anilist-updater"]
 	path = .config/mpv-modules/mpv-anilist-updater
 	url = git@github.com:AzuredBlue/mpv-anilist-updater.git
