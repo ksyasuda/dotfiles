@@ -17,6 +17,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export COMPOSE_BAKE=true
 export ANKI_WAYLAND=1
 export SUDO_PROMPT=$'\a[sudo] password for %u: '
+export ELECTRON_OZONE_PLATFORM_HINT=x11
 
 # nvidia
 export NVD_BACKEND=direct

@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-THEME="${THEME:-/opt/mpv-yomitan/catppuccin-macchiato.rasi}"
+THEME="${THEME:-$HOME/.local/share/SubMiner/themes/subminer.rasi}"
 FONTCONFIG_FILE=$HOME/.config/mpv/mpv-fonts.conf
 COMMAND=mpv
 VIDEO_EXTENSIONS="mkv|mp4|avi|webm|mov|flv|wmv|m4v|ts|m2ts"
 
 # Parse command-line options first
-while getopts ":it:" opt; do
+while getopts ":st:" opt; do
 	case $opt in
-		i)
-			COMMAND="$COMMAND --profile=immersion"
+		s)
+			COMMAND="$COMMAND --profile=subminer"
 			;;
 		t)
 			THEME="$OPTARG"

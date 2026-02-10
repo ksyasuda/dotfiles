@@ -10,6 +10,31 @@ source ~/.environment
 
 source <(fzf --zsh)
 
+fzf-file-widget-smart-root() {
+    setopt localoptions pipefail no_aliases 2>/dev/null
+
+    local -a words
+    local last raw root sel
+    words=(${(z)LBUFFER})
+    last=${words[-1]}
+    raw=${(Q)last}             # unquote shell word
+    root=${~raw}               # expand ~
+
+    if [[ -n "$raw" && "$raw" == */ && -d "$root" ]]; then
+      sel="$(cd -- "$root" && __fzf_select)" || return
+      LBUFFER+="$sel"
+    else
+      LBUFFER+="$(__fzf_select)"
+    fi
+
+    zle reset-prompt
+}
+
+zle -N fzf-file-widget-smart-root
+bindkey -M emacs '^T' fzf-file-widget-smart-root
+bindkey -M vicmd '^T' fzf-file-widget-smart-root
+bindkey -M viins '^T' fzf-file-widget-smart-root
+
 eval $(thefuck --alias)
 
 HISTFILE=~/.zsh_history

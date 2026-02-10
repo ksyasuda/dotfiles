@@ -14,7 +14,7 @@
     "custom/mpd-scroll",
     "custom/mpv-scroll",
     "custom/firefox-scroll",
-    "hyprland/submap"
+    "hyprland/submap",
   ],
   // "modules-center": ["hyprland/window"],
   "modules-center": ["custom/notification"],
@@ -32,7 +32,7 @@
     "network",
     "pulseaudio",
     "clock",
-    "custom/weather",
+    "custom/weather"
   ],
 
   "hyprland/workspaces": {
