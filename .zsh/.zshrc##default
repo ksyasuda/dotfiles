@@ -100,3 +100,5 @@ zle   -N self-insert       url-quote-magic
 zle   -N bracketed-paste   bracketed-paste-magic
 
 alias claude-mem='bun "/home/sudacode/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+fpath=(/home/sudacode/.zsh/completions $fpath)
+autoload -Uz compinit && compinit

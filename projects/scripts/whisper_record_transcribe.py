@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Record microphone audio and transcribe it with whisper.cpp or faster-whisper."""
+"""Record microphone audio and transcribe it with whisper.cpp, faster-whisper, or WhisperX."""
 
 from __future__ import annotations
 
@@ -145,6 +145,13 @@ def transcribe(
     device: str,
     compute_type: str,
     beam_size: int,
+    task: str,
+    language: str | None,
+    whisperx_mode: str,
+    whisperx_vad_method: str,
+    whisperx_hf_token: str | None,
+    whisperx_min_speakers: int | None,
+    whisperx_max_speakers: int | None,
 ) -> str:
     if backend == "whispercpp":
         return transcribe_whispercpp(
@@ -153,6 +160,8 @@ def transcribe(
             notifier=notifier,
             device=device,
             beam_size=beam_size,
+            task=task,
+            language=language,
         )
     if backend == "ctranslate2":
         return transcribe_ctranslate2(
@@ -162,6 +171,24 @@ def transcribe(
             device=device,
             compute_type=compute_type,
             beam_size=beam_size,
+            task=task,
+            language=language,
+        )
+    if backend == "whisperx":
+        return transcribe_whisperx(
+            model_name_or_path=model_name_or_path,
+            wav_path=wav_path,
+            notifier=notifier,
+            device=device,
+            compute_type=compute_type,
+            beam_size=beam_size,
+            task=task,
+            language=language,
+            whisperx_mode=whisperx_mode,
+            whisperx_vad_method=whisperx_vad_method,
+            whisperx_hf_token=whisperx_hf_token,
+            whisperx_min_speakers=whisperx_min_speakers,
+            whisperx_max_speakers=whisperx_max_speakers,
         )
     raise RuntimeError(f"Unsupported backend: {backend}")
 
@@ -193,6 +220,8 @@ def transcribe_whispercpp(
     notifier: Notifier,
     device: str,
     beam_size: int,
+    task: str,
+    language: str | None,
 ) -> str:
     whisper_cli = shutil.which("whisper-cli")
     if not whisper_cli:
@@ -220,6 +249,10 @@ def transcribe_whispercpp(
     ]
     if device == "cpu":
         cmd.append("-ng")
+    if language:
+        cmd.extend(["-l", language])
+    if task == "translate":
+        cmd.append("-tr")
 
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
@@ -241,6 +274,8 @@ def transcribe_ctranslate2(
     device: str,
     compute_type: str,
     beam_size: int,
+    task: str,
+    language: str | None,
 ) -> str:
     whisper_cli = shutil.which("whisper-ctranslate2")
     if not whisper_cli:
@@ -273,9 +308,13 @@ def transcribe_ctranslate2(
         compute_type,
         "--beam_size",
         str(beam_size),
+        "--task",
+        task,
         "--verbose",
         "False",
     ]
+    if language:
+        cmd.extend(["--language", language])
     model_dir_candidate = Path(model_name_or_path).expanduser()
     if model_dir_candidate.exists() and model_dir_candidate.is_dir():
         cmd.extend(["--model_directory", str(model_dir_candidate)])
@@ -292,6 +331,101 @@ def transcribe_ctranslate2(
         details = (result.stderr or result.stdout or "").strip()
         raise RuntimeError(
             "whisper-ctranslate2 completed but no transcript file was produced. "
+            f"Expected: {output_txt}. {details}"
+        )
+    return output_txt.read_text(encoding="utf-8").strip()
+
+
+def transcribe_whisperx(
+    model_name_or_path: str,
+    wav_path: Path,
+    notifier: Notifier,
+    device: str,
+    compute_type: str,
+    beam_size: int,
+    task: str,
+    language: str | None,
+    whisperx_mode: str,
+    whisperx_vad_method: str,
+    whisperx_hf_token: str | None,
+    whisperx_min_speakers: int | None,
+    whisperx_max_speakers: int | None,
+) -> str:
+    whisperx_cli = shutil.which("whisperx")
+    if not whisperx_cli:
+        raise RuntimeError("whisperx not found in PATH. Install with: pip install whisperx")
+
+    output_txt = wav_path.parent / f"{wav_path.stem}.txt"
+    if output_txt.exists():
+        output_txt.unlink()
+
+    if task == "translate" and not language:
+        raise RuntimeError("Translation requires --language so WhisperX can translate from the source language.")
+
+    def _run_whisperx(out_dir: Path, job_task: str, full_mode: bool) -> tuple[int, str]:
+        cmd = [
+            whisperx_cli,
+            str(wav_path),
+            "--output_dir",
+            str(out_dir),
+            "--output_format",
+            "txt",
+            "--device",
+            device,
+            "--compute_type",
+            compute_type,
+            "--beam_size",
+            str(beam_size),
+            "--task",
+            job_task,
+            "--vad_method",
+            whisperx_vad_method,
+            "--print_progress",
+            "False",
+            "--verbose",
+            "False",
+        ]
+        if language:
+            cmd.extend(["--language", language])
+
+        model_dir_candidate = Path(model_name_or_path).expanduser()
+        if model_dir_candidate.exists() and model_dir_candidate.is_dir():
+            cmd.extend(["--model_dir", str(model_dir_candidate)])
+        else:
+            cmd.extend(["--model", model_name_or_path])
+
+        if whisperx_mode == "basic":
+            cmd.append("--no_align")
+
+        if full_mode:
+            cmd.append("--diarize")
+            if whisperx_hf_token:
+                cmd.extend(["--hf_token", whisperx_hf_token])
+            if whisperx_min_speakers is not None:
+                cmd.extend(["--min_speakers", str(whisperx_min_speakers)])
+            if whisperx_max_speakers is not None:
+                cmd.extend(["--max_speakers", str(whisperx_max_speakers)])
+
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        details = (result.stderr or result.stdout or "").strip()
+        return result.returncode, details
+
+    notifier.send("Transcribing", "Running WhisperX...", timeout_ms=1500)
+
+    if whisperx_mode == "full":
+        native_dir = wav_path.parent / "whisperx-native"
+        native_dir.mkdir(parents=True, exist_ok=True)
+        notifier.send("Transcribing", "WhisperX full mode: extracting native subtitles", timeout_ms=1500)
+        rc, details = _run_whisperx(native_dir, "transcribe", full_mode=False)
+        if rc != 0:
+            raise RuntimeError(details or "WhisperX native transcription stage failed.")
+
+    rc, details = _run_whisperx(wav_path.parent, task, full_mode=(whisperx_mode == "full"))
+    if rc != 0:
+        raise RuntimeError(details or "whisperx failed.")
+    if not output_txt.exists():
+        raise RuntimeError(
+            "whisperx completed but no transcript file was produced. "
             f"Expected: {output_txt}. {details}"
         )
     return output_txt.read_text(encoding="utf-8").strip()
@@ -402,6 +536,13 @@ def _run_transcription_job(args: argparse.Namespace, duration: float | None) -> 
             device=args.device,
             compute_type=args.compute_type,
             beam_size=args.beam_size,
+            task=args.task,
+            language=args.language,
+            whisperx_mode=args.whisperx_mode,
+            whisperx_vad_method=args.whisperx_vad_method,
+            whisperx_hf_token=args.whisperx_hf_token,
+            whisperx_min_speakers=args.whisperx_min_speakers,
+            whisperx_max_speakers=args.whisperx_max_speakers,
         )
 
     return text.strip()
@@ -493,7 +634,21 @@ def start_background(args: argparse.Namespace) -> int:
         args.compute_type,
         "--beam-size",
         str(args.beam_size),
+        "--task",
+        args.task,
+        "--whisperx-mode",
+        args.whisperx_mode,
+        "--whisperx-vad-method",
+        args.whisperx_vad_method,
     ]
+    if args.language:
+        cmd.extend(["--language", args.language])
+    if args.whisperx_hf_token:
+        cmd.extend(["--whisperx-hf-token", args.whisperx_hf_token])
+    if args.whisperx_min_speakers is not None:
+        cmd.extend(["--whisperx-min-speakers", str(args.whisperx_min_speakers)])
+    if args.whisperx_max_speakers is not None:
+        cmd.extend(["--whisperx-max-speakers", str(args.whisperx_max_speakers)])
 
     log_path = state_dir / "worker.log"
     with log_path.open("a", encoding="utf-8") as log_fh:
@@ -572,7 +727,7 @@ def stop_background(args: argparse.Namespace) -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Record from microphone and transcribe with whisper.cpp or faster-whisper"
+        description="Record from microphone and transcribe with whisper.cpp, faster-whisper, or WhisperX"
     )
     parser.add_argument(
         "--mode",
@@ -590,14 +745,25 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--backend",
-        choices=("whispercpp", "ctranslate2"),
+        choices=("whispercpp", "ctranslate2", "whisperx"),
         default="whispercpp",
         help="Transcription backend (default: whispercpp)",
     )
     parser.add_argument(
         "--model",
         default=DEFAULT_MODEL,
-        help="Model name or path. For whispercpp: ggml .bin path/name. For ctranslate2: model name or model directory.",
+        help="Model name or path. For whispercpp: ggml .bin path/name. For ctranslate2/whisperx: model name or model directory.",
+    )
+    parser.add_argument(
+        "--task",
+        choices=("transcribe", "translate"),
+        default="transcribe",
+        help="Task to run (default: transcribe).",
+    )
+    parser.add_argument(
+        "--language",
+        default=None,
+        help="Source language code/name (for example: en, es, Japanese). Strongly recommended, and required for --task translate.",
     )
     parser.add_argument(
         "--duration",
@@ -643,6 +809,35 @@ def parse_args() -> argparse.Namespace:
         help="Beam size for decoding (default: 5)",
     )
     parser.add_argument(
+        "--whisperx-mode",
+        choices=("basic", "align", "full"),
+        default="align",
+        help="WhisperX pipeline mode: basic (no align), align (aligned transcript), full (native transcript + translate/transcribe + align + VAD + diarization).",
+    )
+    parser.add_argument(
+        "--whisperx-vad-method",
+        choices=("silero", "pyannote"),
+        default="silero",
+        help="WhisperX VAD method (default: silero).",
+    )
+    parser.add_argument(
+        "--whisperx-hf-token",
+        default=None,
+        help="Optional HuggingFace token for WhisperX diarization models.",
+    )
+    parser.add_argument(
+        "--whisperx-min-speakers",
+        type=int,
+        default=None,
+        help="Optional minimum speaker count for WhisperX diarization.",
+    )
+    parser.add_argument(
+        "--whisperx-max-speakers",
+        type=int,
+        default=None,
+        help="Optional maximum speaker count for WhisperX diarization.",
+    )
+    parser.add_argument(
         "--state-dir",
         default=str(DEFAULT_STATE_DIR),
         help="Directory to store toggle state files",
@@ -673,6 +868,8 @@ def parse_args() -> argparse.Namespace:
         parser.error("Use only one of --start, --stop, or --toggle.")
     if legacy_modes:
         args.mode = legacy_modes[0]
+    if args.task == "translate" and not args.language:
+        parser.error("--task translate requires --language so the source language is explicit.")
     return args
 
 
