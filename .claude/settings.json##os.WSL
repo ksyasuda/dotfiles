@@ -10,22 +10,23 @@
     ]
   },
   "hooks": {
-      "Notification": [
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
           {
-            "matcher": "",
-            "hooks": [
-              {
-                "type": "command",
-                "command": "powershell.exe -Command \"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); [System.Windows.Forms.MessageBox]::Show('Claude Code needs your attention', 'Claude Code')\""
-              }
-            ]
+            "type": "command",
+            "command": "powershell.exe -Command \"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); [System.Windows.Forms.MessageBox]::Show('Claude Code needs your attention', 'Claude Code')\""
           }
-      ]
+        ]
+      }
+    ]
   },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "clangd-lsp@claude-plugins-official": true
+    "clangd-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
   },
   "sandbox": {
     "enabled": false,
@@ -39,6 +40,5 @@
     "excludedCommands": [
       "docker"
     ]
-  },
-  "model": "haiku"
+  }
 }

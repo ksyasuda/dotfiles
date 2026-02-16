@@ -46,7 +46,7 @@ vo=gpu-next
 hwdec=nvdec
 hwdec-codecs=all
 gpu-api=vulkan
-gpu-context=winvk
+gpu-context=auto
 vulkan-queue-count=2
 vulkan-async-compute=yes
 vulkan-async-transfer=yes
@@ -168,4 +168,3 @@ sub-border-size=1.2
 sub-shadow-color=0.0/0.0/0.0/0.6
 sub-shadow-offset=3
 sub-hinting=light
-
