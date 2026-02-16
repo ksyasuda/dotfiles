@@ -25,3 +25,6 @@
 [submodule ".config/mpv-modules/animecards"]
 	path = .config/mpv-modules/animecards
 	url = git@github.com:ksyasuda/Anacreon-Script
+[submodule ".config/mpv-modules/ani-skip"]
+	path = .config/mpv-modules/ani-skip
+	url = https://github.com/synacktraa/ani-skip.git

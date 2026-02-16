@@ -1,0 +1,131 @@
+{
+  "keybindings": [],
+  "shortcuts": {
+    "copySubtitle": "CommandOrControl+C",
+    "copySubtitleMultiple": "CommandOrControl+Shift+C",
+    "updateLastCardFromClipboard": "CommandOrControl+V",
+    "triggerFieldGrouping": "CommandOrControl+G",
+    "triggerSubsync": "CommandOrControl+Alt+S",
+    "mineSentence": "CommandOrControl+S",
+    "mineSentenceMultiple": "CommandOrControl+Shift+S",
+    "multiCopyTimeoutMs": 3000,
+    "toggleSecondarySub": "CommandOrControl+Shift+V",
+    "markAudioCard": "CommandOrControl+Shift+A",
+    "openRuntimeOptions": "CommandOrControl+Shift+O",
+    "toggleVisibleOverlayGlobal": "Alt+Shift+O",
+    "toggleInvisibleOverlayGlobal": "Alt+Shift+I",
+  },
+  "auto_start_overlay": false,
+  "bind_visible_overlay_to_mpv_sub_visibility": false,
+  "texthooker": {
+    "openBrowser": false,
+  },
+  "websocket": {
+    "enabled": "auto",
+    "port": 6677,
+  },
+  "ankiConnect": {
+    "enabled": true,
+    "url": "http://127.0.0.1:8765",
+    "deck": "Minecraft",
+    "pollingRate": 500,
+    "fields": {
+      "audio": "ExpressionAudio",
+      "image": "Picture",
+      "sentence": "Sentence",
+      "miscInfo": "MiscInfo",
+      "translation": "SelectionText",
+    },
+    "openRouter": {
+      "enabled": true,
+      "alwaysUseAiTranslation": true,
+      "apiKey": "",
+      "model": "openai/gpt-oss-120b:free",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "sourceLanguage": "Japanese",
+      "systemPrompt": "You are a translation engine for translating Japanese into natural-sounding, context-aware English. Return only the translated text with no extra explanations or commentary. The translation must preserve the original tone and intent of the source. If the input is not in the target language, translate it to the target language. If the input is already in the target language, return it as is.",
+    },
+    "media": {
+      "generateAudio": true,
+      "generateImage": true,
+      "imageType": "avif",
+      "imageFormat": "webp",
+      "animatedFps": 24,
+      "animatedMaxWidth": 640,
+      "animatedMaxHeight": null,
+      "animatedCrf": 35,
+      "audioPadding": 0.5,
+      "fallbackDuration": 3,
+    },
+    "behavior": {
+      "overwriteAudio": false,
+      "overwriteImage": true,
+      "mediaInsertMode": "append",
+      "highlightWord": true,
+      "notificationType": "system",
+      "showNotificationOnUpdate": true,
+      "autoUpdateNewCards": false,
+    },
+    "nPlusOne": {
+      "decks": ["Minecraft", "Kaishi 1.5k"],
+      "highlightEnabled": true,
+      "refreshMinutes": 60,
+      "matchMode": "headword",
+    },
+    "metadata": {
+      "pattern": "[SubMiner] %f (%t)",
+    },
+    "isLapis": {
+      "enabled": true,
+      "sentenceCardModel": "Lapis Morph",
+      "sentenceCardSentenceField": "Sentence",
+      "sentenceCardAudioField": "SentenceAudio",
+    },
+    "isKiku": {
+      "enabled": true,
+      "fieldGrouping": "manual",
+      "deleteDuplicateInAuto": true,
+    },
+  },
+  "secondarySub": {
+    "autoLoadSecondarySub": true,
+    "secondarySubLanguages": ["en", "eng"],
+  },
+  "subsync": {
+    "defaultMode": "manual",
+    "alass_path": "~/.local/bin/alass-cli",
+    "ffsubsync_path": "~/.local/bin/ffsubsync",
+    "ffmpeg_path": "/opt/homebrew/ffmpeg/bin/ffmpeg",
+  },
+  "subtitleStyle": {
+    "fontFamily": "Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
+    "fontSize": 35,
+    "fontColor": "#cad3f5",
+    "fontWeight": "normal",
+    "fontStyle": "normal",
+    "backgroundColor": "rgb(30, 32, 48, 0.88)",
+    "secondary": {
+      "fontSize": 24,
+      "fontColor": "#cad3f5",
+      "backgroundColor": "transparent",
+    },
+  },
+  "jimaku": {
+    // "apiKey": "YOUR_API_KEY",
+    // or use a command that outputs the key:
+    "apiKeyCommand": "cat ~/.jimaku-api-key",
+    "apiBaseUrl": "https://jimaku.cc",
+    "languagePreference": "ja",
+    "maxEntryResults": 10,
+  },
+  "invisibleOverlay": {
+    // "platform-default" => hidden on Wayland, visible elsewhere
+    // other values: "visible", "hidden"
+    "startupVisibility": "platform-default",
+  },
+  "youtubeSubgen": {
+    "mode": "automatic", // automatic | preprocess | off
+    "whisperBin": "/usr/bin/whisper-cli",
+    "whisperModel": "~/models/whisper.cpp/ggml-small.bin",
+  },
+}

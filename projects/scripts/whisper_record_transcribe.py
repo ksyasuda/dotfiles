@@ -444,6 +444,11 @@ def _type_with_tool(text: str) -> None:
     raise RuntimeError("No typing tool found. Install one of: wtype, ydotool, xdotool.")
 
 
+def _normalize_text_for_typing(text: str) -> str:
+    # Prevent simulated Enter key presses from transcript line breaks.
+    return " ".join(text.split())
+
+
 def _emit_text(text: str, args: argparse.Namespace, notifier: Notifier) -> int:
     if args.output == "print":
         print(text)
@@ -451,7 +456,7 @@ def _emit_text(text: str, args: argparse.Namespace, notifier: Notifier) -> int:
         return 0
 
     try:
-        _type_with_tool(text)
+        _type_with_tool(_normalize_text_for_typing(text))
     except Exception as exc:
         print(f"Failed to simulate typing: {exc}", file=sys.stderr)
         notifier.send("Typing error", str(exc), timeout_ms=2500)
