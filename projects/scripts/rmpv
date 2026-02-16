@@ -4,6 +4,7 @@ THEME="${THEME:-$HOME/.local/share/SubMiner/themes/subminer.rasi}"
 FONTCONFIG_FILE=$HOME/.config/mpv/mpv-fonts.conf
 COMMAND=mpv
 VIDEO_EXTENSIONS="mkv|mp4|avi|webm|mov|flv|wmv|m4v|ts|m2ts"
+TARGET_DIRECTORY=""
 
 # Parse command-line options first
 while getopts ":st:" opt; do
@@ -26,6 +27,19 @@ while getopts ":st:" opt; do
 done
 shift $((OPTIND - 1))
 
+if [[ $# -gt 1 ]]; then
+	echo "Usage: $0 [-s] [-t theme] [directory]" >&2
+	exit 1
+fi
+
+if [[ $# -eq 1 ]]; then
+	if [[ ! -d "$1" ]]; then
+		echo "Invalid directory: $1" >&2
+		exit 1
+	fi
+	TARGET_DIRECTORY="$(realpath "$1")"
+fi
+
 find_videos() {
 	find "$PWD" -maxdepth 1 -type f -regextype posix-extended \
 		-iregex ".*\.($VIDEO_EXTENSIONS)$" 2> /dev/null | sort -V
@@ -39,6 +53,60 @@ build_rofi_menu() {
 		printf '%s\0icon\x1fthumbnail://%s\n' "$display_name" "$video"
 	done < <(find_videos)
 }
+
+is_video_file() {
+	local file="$1"
+	local regex="\\.($VIDEO_EXTENSIONS)$"
+
+	if [[ ! "${file,,}" =~ $regex ]]; then
+		return 1
+	fi
+
+	if command -v file > /dev/null 2>&1; then
+		local mime
+		mime=$(file -b --mime-type "$file" 2>/dev/null || true)
+		[[ "$mime" == video/* ]] && return 0
+	fi
+
+	return 0
+}
+
+select_video_via_rofi() {
+	if [[ -n "$TARGET_DIRECTORY" ]]; then
+		local selection=""
+		local prompt="Choose Video "
+		while true; do
+			selection=$(rofi -show filebrowser -show-icons -theme "$THEME" \
+				-theme-str 'configuration {font: "JetBrainsMono Nerd Font 10";} listview {columns: 1; lines: 15;} window {width: 88%;}' \
+				-p "$prompt" \
+				-filebrowser-directory "$TARGET_DIRECTORY" \
+				-filebrowser-cancel-returns-1 true)
+
+			[[ -z "$selection" ]] && return 1
+
+			if [[ "$selection" != /* ]]; then
+				selection="$TARGET_DIRECTORY/$selection"
+			fi
+
+			if [[ -d "$selection" ]]; then
+				prompt="Choose Video (folders are not selectable)"
+				continue
+			fi
+
+			if is_video_file "$selection"; then
+				echo "$selection"
+				return 0
+			fi
+
+			prompt="Choose Video (select a video file)"
+		done
+	fi
+
+	build_rofi_menu | rofi -dmenu -i -show-icons -theme "$THEME" \
+		-theme-str 'configuration {font: "JetBrainsMono Nerd Font 10";} listview {columns: 1; lines: 15;} window {width: 88%;}' -p "Choose Video "
+}
+
+selection=$(select_video_via_rofi)
 
 get_video_thumbnail() {
 	local video="$1"
@@ -60,15 +128,24 @@ get_video_thumbnail() {
 	fi
 }
 
-selection=$(build_rofi_menu | rofi -dmenu -i -show-icons -theme "$THEME" \
-	-theme-str 'configuration {font: "JetBrainsMono Nerd Font 10";} listview {columns: 1; lines: 15;} window {width: 88%;}' -p "Choose Video ")
-
 if [[ -z "$selection" ]]; then
 	echo "No video selected."
 	exit 1
 fi
 
-choice="./$selection"
+if [[ -n "$TARGET_DIRECTORY" ]]; then
+	choice="$selection"
+	if [[ "$choice" != /* ]]; then
+		choice="$TARGET_DIRECTORY/$choice"
+	fi
+else
+	choice="./$selection"
+fi
+
+if [[ ! -f "$choice" ]]; then
+	echo "Selected item is not a valid file: $choice" >&2
+	exit 1
+fi
 
 THUMBNAIL_PATH=$(get_video_thumbnail "$choice")
 if [[ -n "$THUMBNAIL_PATH" && -f "$THUMBNAIL_PATH" ]]; then
