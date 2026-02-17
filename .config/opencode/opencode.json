@@ -76,7 +76,6 @@
   ],
   "permission": {
     "edit": {
-      "*": "ask",
       "*.md": "allow",
       "~/projects/japanese/SubMiner/*": "allow"
     },
@@ -99,7 +98,8 @@
       "git *": "allow",
       "pnpm *": "allow",
       "rm *": "deny",
-      "grep *": "allow"
+      "grep *": "allow",
+      "wc *": "allow"
     },
     "external_directory": {
       "*": "ask",

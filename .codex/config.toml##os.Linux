@@ -1,4 +1,4 @@
-model = "gpt-5.3-codex-spark"
+model = "gpt-5.3-codex"
 model_reasoning_effort = "medium"
 personality = "pragmatic"
 tool_output_token_limit = 25000
@@ -15,4 +15,10 @@ skills = true
 shell_snapshot = true
 
 [projects."/home/sudacode/projects"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/mpv"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/SubMiner"]
 trust_level = "trusted"

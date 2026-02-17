@@ -98,7 +98,7 @@
     "ffmpeg_path": null,
   },
   "subtitleStyle": {
-    "fontFamily": "Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
+    "fontFamily": "M PLUS 1 Medium", "Noto Sans CJK JP Medium, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
     "fontSize": 35,
     "fontColor": "#cad3f5",
     "fontWeight": "normal",
@@ -119,20 +119,16 @@
     },
   },
   "jimaku": {
-    // "apiKey": "YOUR_API_KEY",
-    // or use a command that outputs the key:
     "apiKeyCommand": "cat ~/.jimaku-api-key",
     "apiBaseUrl": "https://jimaku.cc",
     "languagePreference": "ja",
     "maxEntryResults": 10,
   },
   "invisibleOverlay": {
-    // "platform-default" => hidden on Wayland, visible elsewhere
-    // other values: "visible", "hidden"
     "startupVisibility": "platform-default",
   },
   "youtubeSubgen": {
-    "mode": "automatic", // automatic | preprocess | off
+    "mode": "automatic",
     "whisperBin": "/usr/bin/whisper-cli",
     "whisperModel": "~/models/whisper.cpp/ggml-small.bin",
   },
@@ -142,5 +138,21 @@
   "immersionTracking": {
     "enabled": true,
     "dbPath": "",
+  },
+  "jellyfin": {
+    "enabled": true,
+    "serverUrl": "http://pve-main:8096",
+    "username": "sudacode",
+    "accessToken": "9b5959bccec64164981c3cc2c970fd07",
+    "userId": "c5cf3703726c472ab5fff7d8480aa679",
+    "deviceId": "subminer",
+    "clientName": "SubMiner",
+    "clientVersion": "0.1.0",
+    "defaultLibraryId": "",
+    "directPlayPreferred": true,
+    "directPlayContainers": ["mkv", "mp4", "webm", "mov", "flac", "mp3", "aac"],
+    "transcodeVideoCodec": "h265",
+    "pullPictures": true,
+    "iconCacheDir": "~/S/japanese/subminer-jellyfin-icons",
   },
 }

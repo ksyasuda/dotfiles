@@ -203,7 +203,16 @@ input-ipc-server=/tmp/subminer-socket
 [anime-subs]
 profile-cond=p["slang"] == "ja" or p["slang"] == "ja.hi"
 sub-font="Noto Sans CJK JP"
-sub-font-size=42
-sub-border-size=1.2
-sub-shadow-color=0.0/0.0/0.0/0.6
-sub-shadow-offset=3
+sub-font-size=44
+sub-color=1.0/1.0/1.0/0.98
+sub-border-color=0.0/0.0/0.0/0.80
+sub-border-size=1.3
+sub-shadow-color=0.0/0.0/0.0/0.35
+sub-shadow-offset=2
+sub-back-color=0.0/0.0/0.0/0.12
+sub-margin-x=24
+sub-margin-y=18
+sub-bold=no
+sub-italic=no
+sub-ass-override=strip
+sub-hinting=light
