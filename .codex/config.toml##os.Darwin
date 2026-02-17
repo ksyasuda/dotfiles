@@ -1,0 +1,49 @@
+model = "gpt-5.3-codex-spark"
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+tool_output_token_limit = 25000
+# Leave room for native compaction near the 272–273k context window.
+# Formula: 273000 - (tool_output_token_limit + 15000)
+# With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
+model_auto_compact_token_limit = 233000
+[features]
+ghost_commit = false
+unified_exec = true
+apply_patch_freeform = true
+web_search_request = true
+skills = true
+shell_snapshot = true
+
+[projects."/home/kyasuda/gitlab/python_package_registry"]
+trust_level = "trusted"
+
+[projects."/home/kyasuda/gitlab/treasury-me"]
+trust_level = "trusted"
+
+[projects."/home/kyasuda/projects/tmp"]
+trust_level = "trusted"
+
+[projects."/home/kyasuda/github/SubMiner"]
+trust_level = "trusted"
+
+[projects."/home/kyasuda/.zsh"]
+trust_level = "untrusted"
+
+[projects."/home/kyasuda/.config/mpv"]
+trust_level = "untrusted"
+
+[projects."/home/kyasuda/packages/whisperx"]
+trust_level = "trusted"
+
+[projects."/home/kyasuda/tmp"]
+trust_level = "untrusted"
+
+[projects."/home/kyasuda/github/Manatan"]
+trust_level = "trusted"
+
+[projects."/home/kyasuda/gitlab/accts-loader"]
+trust_level = "trusted"
+
+[mcp_servers.backlog]
+command = "backlog"
+args = ["mcp", "start"]
