@@ -109,6 +109,14 @@
       "fontColor": "#cad3f5",
       "backgroundColor": "transparent",
     },
+    "frequencyDictionary": {
+      "enabled": true,
+      "sourcePath": "",
+      "topX": 10000,
+      "mode": "single",
+      "singleColor": "#f5a97f",
+      "bandedColors": ["#ed8796", "#f5a97f", "#f9e2af", "#a6e3a1", "#8aadf4"],
+    },
   },
   "jimaku": {
     // "apiKey": "YOUR_API_KEY",
@@ -127,5 +135,12 @@
     "mode": "automatic", // automatic | preprocess | off
     "whisperBin": "/usr/bin/whisper-cli",
     "whisperModel": "~/models/whisper.cpp/ggml-small.bin",
+  },
+  "anilist": {
+    "accessToken": "cat ~/.anilist-token.txt",
+  },
+  "immersionTracking": {
+    "enabled": true,
+    "dbPath": "",
   },
 }

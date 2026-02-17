@@ -75,7 +75,35 @@
     ".cursor/rules/*.md"
   ],
   "permission": {
-    "edit": "ask",
-    "bash": "ask"
+    "edit": {
+      "*": "ask",
+      "*.md": "allow",
+      "~/projects/japanese/SubMiner/*": "allow"
+    },
+    "grep": "allow",
+    "glob": "allow",
+    "list": "allow",
+    "task": "allow",
+    "skill": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "codesearch": "allow",
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
+    },
+    "bash": {
+      "*": "ask",
+      "git *": "allow",
+      "pnpm *": "allow",
+      "rm *": "deny",
+      "grep *": "allow"
+    },
+    "external_directory": {
+      "*": "ask",
+      "~/projects/*": "allow"
+    }
   }
 }
