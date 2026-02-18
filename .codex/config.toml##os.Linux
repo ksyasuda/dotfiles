@@ -6,6 +6,7 @@ tool_output_token_limit = 25000
 # Formula: 273000 - (tool_output_token_limit + 15000)
 # With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
 model_auto_compact_token_limit = 233000
+suppress_unstable_features_warning = true
 [features]
 ghost_commit = false
 unified_exec = true
@@ -21,4 +22,10 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/sudacode/projects/japanese/SubMiner"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.codex/skills"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/GameSentenceMiner"]
 trust_level = "trusted"
