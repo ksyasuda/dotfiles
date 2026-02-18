@@ -11,6 +11,8 @@ return {
 			yaml = { "yamllint" },
 			vim = { "vint" },
 			go = { "golangcilint" },
+			typescript = { "eslint" },
+			typescriptreact = { "eslint" },
 		}
 		lint.linters.jsonlint.cmd = "vscode-json-language-server"
 		lint.linters.shellcheck.args = {
