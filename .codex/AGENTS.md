@@ -14,7 +14,8 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Bugs: add regression test when it fits.
 - Keep files <~500 LOC; split/refactor as needed.
 - Commits: Conventional Commits (`feat|fix|refactor|build|ci|chore|docs|style|perf|test`).
-- Subagents: read `docs/subagent.md`.
+- Subagents: read [Subagent Coordination Protocol](#subagent-coordination-protocol).
+- If `Backlog.md` is set up for the project, each task must be associated with a ticket on the backlog. Create a new ticket on the board if it does not already exist
 - Editor: `code <path>`.
 - CI: `gh run list/view` (rerun/fix til green).
 - Prefer end-to-end verify; if blocked, say what’s missing.
@@ -27,6 +28,56 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 
 - Blog repo: `~/projects/sudacode-blog`
 - Obsidian Vault: `~/S/obsidian/Vault` (e.g. `mac-studio.md`, `mac-vm.md`)
+
+## Subagent Coordination Protocol (`docs/subagents/`)
+
+Purpose: multi-agent coordination across runs; single-agent continuity during long runs.
+
+Layout:
+
+- `docs/subagents/INDEX.md` (active agents table)
+- `docs/subagents/collaboration.md` (shared notes)
+- `docs/subagents/agents/<agent_id>.md` (one file per agent)
+- `docs/subagents/archive/<yyyy-mm>/` (archived histories)
+
+Required behavior (all agents):
+
+1. At run start, read in order:
+   - `docs/subagents/INDEX.md`
+   - `docs/subagents/collaboration.md`
+   - your own file: `docs/subagents/agents/<agent_id>.md`
+2. Identify self by stable `agent_id` (runner/env-provided). If missing, create own file from template.
+3. Maintain `alias` (short human-readable label) + `mission` (one-line focus).
+4. Before coding:
+   - record intent, planned files, assumptions in your own file.
+5. During run:
+   - update on phase changes (plan -> edit -> test -> handoff),
+   - heartbeat at least every `HEARTBEAT_MINUTES` (default 20),
+   - update your own row in `INDEX.md` (`status`, `last_update_utc`),
+   - append cross-agent notes in `collaboration.md` when needed.
+6. Write limits:
+   - MAY edit own file.
+   - MAY append to `collaboration.md`.
+   - MAY edit only own row in `INDEX.md`.
+   - MUST NOT edit other agent files.
+7. At run end:
+   - record files touched, key decisions, assumptions, blockers, next step for handoff.
+8. Conflict handling:
+   - if another agent touched your target files, add conflict note in `collaboration.md` before continuing.
+9. Brevity:
+   - terse bullets; factual; no long prose.
+
+Suggested env vars:
+
+- `AGENT_ID` (required)
+- `AGENT_ALIAS` (required)
+- `HEARTBEAT_MINUTES` (optional, default 20)
+
+Suggested env vars:
+
+- `AGENT_ID` (required)
+- `AGENT_ALIAS` (required)
+- `HEARTBEAT_MINUTES` (optional, default 20)
 
 ## Docs
 
@@ -91,6 +142,8 @@ Read `~/projects/agent-scripts/tools.md` for the full tool catalog if it exists.
 
 - Use only when you need persistence/interaction (debugger/server).
 - Quick refs: `tmux new -d -s codex-shell`, `tmux attach -t codex-shell`, `tmux list-sessions`, `tmux kill-session -t codex-shell`.
+
+## Frontend Aesthetics
 
 <frontend_aesthetics>
 Avoid “AI slop” UI. Be opinionated + distinctive.

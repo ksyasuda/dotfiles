@@ -32,3 +32,9 @@ trust_level = "trusted"
 
 [projects."/home/sudacode/.config/mpv/script-opts"]
 trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/SubMiner/texthooker-ui"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/opencode/commands"]
+trust_level = "trusted"

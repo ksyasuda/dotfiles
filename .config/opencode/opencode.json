@@ -99,7 +99,8 @@
       "pnpm *": "allow",
       "rm *": "deny",
       "grep *": "allow",
-      "wc *": "allow"
+      "wc *": "allow",
+      "date *": "allow"
     },
     "external_directory": {
       "*": "ask",
