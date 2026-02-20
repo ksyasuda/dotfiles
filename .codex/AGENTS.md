@@ -29,6 +29,8 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Blog repo: `~/projects/sudacode-blog`
 - Obsidian Vault: `~/S/obsidian/Vault` (e.g. `mac-studio.md`, `mac-vm.md`)
 
+<CRITICAL_INSTRUCTION>
+
 ## Subagent Coordination Protocol (`docs/subagents/`)
 
 Purpose: multi-agent coordination across runs; single-agent continuity during long runs.
@@ -37,7 +39,7 @@ Layout:
 
 - `docs/subagents/INDEX.md` (active agents table)
 - `docs/subagents/collaboration.md` (shared notes)
-- `docs/subagents/agents/<agent_id>.md` (one file per agent)
+- `docs/subagents/agents/<agent_id>.md` (one file per session/instance)
 - `docs/subagents/archive/<yyyy-mm>/` (archived histories)
 
 Required behavior (all agents):
@@ -46,38 +48,68 @@ Required behavior (all agents):
    - `docs/subagents/INDEX.md`
    - `docs/subagents/collaboration.md`
    - your own file: `docs/subagents/agents/<agent_id>.md`
-2. Identify self by stable `agent_id` (runner/env-provided). If missing, create own file from template.
-3. Maintain `alias` (short human-readable label) + `mission` (one-line focus).
-4. Before coding:
+   - optional/contextual: other agent files relevant to your task/handoff.
+2. Session identity:
+   - one runtime instance = one agent file (Codex/OpenCode/Claude Code session each gets separate file).
+   - never reuse another active session file.
+   - if multiple terminals/sessions open at once, expect multiple files.
+3. Agent ID rules:
+   - if `AGENT_ID` present: use it.
+   - default (no env): `agent_id = <runtime>-<task_slug>-<utc_compact>-<rand4>`.
+   - `<runtime>`: `codex|opencode|claude-code`.
+   - `<task_slug>`: short slug from current task/user ask.
+   - `<utc_compact>` example: `20260219T154455Z`.
+   - `<rand4>`: 4-char base36 suffix.
+   - collision rule: if file exists, regenerate suffix until unique.
+4. Alias + mission:
+   - if `AGENT_ALIAS` present: use it; else default `<runtime>-<task_slug>`.
+   - mission: one line; specific task focus.
+5. Before coding:
    - record intent, planned files, assumptions in your own file.
-5. During run:
+6. During run:
    - update on phase changes (plan -> edit -> test -> handoff),
-   - heartbeat at least every `HEARTBEAT_MINUTES` (default 20),
+   - heartbeat at least every `HEARTBEAT_MINUTES` (default 5),
    - update your own row in `INDEX.md` (`status`, `last_update_utc`),
    - append cross-agent notes in `collaboration.md` when needed.
-6. Write limits:
+7. Access limits:
+   - MAY read other agent files for context/handoff.
    - MAY edit own file.
    - MAY append to `collaboration.md`.
    - MAY edit only own row in `INDEX.md`.
    - MUST NOT edit other agent files.
-7. At run end:
+8. Self-cleanup loop (required):
+   - at each heartbeat, verify own file accuracy:
+     - status current,
+     - planned/touched files current,
+     - assumptions still valid,
+     - stale notes collapsed into short summary.
+   - remove/trim outdated items in own file; keep handoff-ready.
+   - evict completed task details older than `72h` from own file.
+   - archive evicted content to `docs/subagents/archive/<yyyy-mm>/agents-<agent_id>-<yyyy-mm-dd>.md` (append + timestamped bullets).
+9. Collaboration hygiene (required):
+   - keep `collaboration.md` structured by dated sections (`## YYYY-MM-DD`).
+   - append-only for normal work.
+   - periodic cleanup pass (at least daily by any active agent):
+     - dedupe repeated notes,
+     - mark resolved items,
+     - move resolved items older than `7d` and stale bulk context to `docs/subagents/archive/<yyyy-mm>/collaboration-<yyyy-mm-dd>.md`,
+     - leave short index/summary in `collaboration.md`.
+10. At run end:
    - record files touched, key decisions, assumptions, blockers, next step for handoff.
-8. Conflict handling:
+11. Conflict handling:
    - if another agent touched your target files, add conflict note in `collaboration.md` before continuing.
-9. Brevity:
+12. Parallel bookkeeping:
+   - do `subagents/*` coordination + backlog ticket association in parallel when independent.
+   - do not block one on the other unless dependency exists.
+   - before coding: both present (active agent record + linked backlog ticket when `Backlog.md` is configured).
+13. Brevity:
    - terse bullets; factual; no long prose.
 
-Suggested env vars:
+Suggested env vars (optional):
 
-- `AGENT_ID` (required)
-- `AGENT_ALIAS` (required)
-- `HEARTBEAT_MINUTES` (optional, default 20)
-
-Suggested env vars:
-
-- `AGENT_ID` (required)
-- `AGENT_ALIAS` (required)
-- `HEARTBEAT_MINUTES` (optional, default 20)
+- `AGENT_ID` (optional override)
+- `AGENT_ALIAS` (optional override)
+- `HEARTBEAT_MINUTES` (optional, default 5)
 
 ## Docs
 

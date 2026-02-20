@@ -1,4 +1,4 @@
-model = "gpt-5.3-codex-spark"
+model = "gpt-5.3-codex"
 model_reasoning_effort = "medium"
 personality = "pragmatic"
 tool_output_token_limit = 25000
@@ -10,7 +10,7 @@ model_auto_compact_token_limit = 233000
 ghost_commit = false
 unified_exec = true
 apply_patch_freeform = true
-web_search_request = true
+web_request = true
 skills = true
 shell_snapshot = true
 
@@ -44,6 +44,19 @@ trust_level = "trusted"
 [projects."/home/kyasuda/gitlab/accts-loader"]
 trust_level = "trusted"
 
+[projects."/Users/sudacode/github/SubMiner"]
+trust_level = "trusted"
+
+[projects."/Users/sudacode/projects/japanese/SubMiner"]
+trust_level = "trusted"
+
+[projects."/Users/sudacode/.codex"]
+trust_level = "trusted"
+
 [mcp_servers.backlog]
 command = "backlog"
 args = ["mcp", "start"]
+
+[mcp_servers.playwright]
+args = ["@playwright/mcp@latest"]
+command = "npx"
