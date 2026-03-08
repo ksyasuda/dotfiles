@@ -16,6 +16,19 @@
     "google": {
       "name": "Google",
       "models": {
+        "antigravity-gemini-3.1-pro-high": {
+          "name": "Gemini 3.1 Pro Preview (Antigravity)",
+          "thinking": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"]
+          }
+        },
         "antigravity-gemini-3-pro-high": {
           "name": "Gemini 3 Pro High (Antigravity)",
           "thinking": true,
@@ -57,13 +70,15 @@
       }
     }
   },
-  "theme": "catppuccin-macchiato",
   "share": "manual",
   "formatter": {
     "prettier": {
       "disabled": false
     },
     "ruff": {
+      "disabled": false
+    },
+    "uv": {
       "disabled": false
     }
   },
@@ -98,9 +113,10 @@
       "git *": "allow",
       "pnpm *": "allow",
       "rm *": "deny",
-      "grep *": "allow",
+      "grep*": "allow",
       "wc *": "allow",
-      "date *": "allow"
+      "date *": "allow",
+      "printenv AGENT_ID AGENT_ALIAS HEARTBEAT_MINUTES": "allow"
     },
     "external_directory": {
       "*": "ask",

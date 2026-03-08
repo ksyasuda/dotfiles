@@ -6,7 +6,7 @@ return {
 		processor = "magick_cli", -- or "magick_cli"
 		integrations = {
 			markdown = {
-				enabled = true,
+				enabled = false,
 				clear_in_insert_mode = true,
 				download_remote_images = true,
 				only_render_image_at_cursor = false,
@@ -22,16 +22,16 @@ return {
 				filetypes = { "typst" },
 			},
 			html = {
-				enabled = false,
+				enabled = true,
 			},
 			css = {
-				enabled = false,
+				enabled = true,
 			},
 		},
-		max_width = nil,
-		max_height = nil,
+		max_width = 960,
+		max_height = 540,
 		max_width_window_percentage = nil,
-		max_height_window_percentage = 50,
+		max_height_window_percentage = nil,
 		window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
 		window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "snacks_notif", "scrollview", "scrollview_sign" },
 		editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus

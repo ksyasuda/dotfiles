@@ -1,5 +1,5 @@
-model = "gpt-5.3-codex"
-model_reasoning_effort = "medium"
+model = "gpt-5.4"
+model_reasoning_effort = "high"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
@@ -14,6 +14,7 @@ apply_patch_freeform = true
 web_request = true
 skills = true
 shell_snapshot = true
+multi_agent = true
 
 [projects."/home/sudacode/projects"]
 trust_level = "trusted"
@@ -38,3 +39,44 @@ trust_level = "trusted"
 
 [projects."/home/sudacode/.config/opencode/commands"]
 trust_level = "trusted"
+
+[projects."/home/sudacode/packages"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/S/anime"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/videos/obs"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/ghostty"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/apps/codex-port"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/GameSentenceMiner"]
+trust_level = "trusted"
+
+[projects."/truenas/jellyfin/anime/My-Teen-Romantic-Comedy-SNAFU/Season-1"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/lua/mpv-youtube-queue"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/subminer-docs"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/manabitan"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/subminer-yomitan"]
+trust_level = "trusted"
+
+[mcp_servers.backlog]
+command = "backlog"
+args = ["mcp", "start"]
+
+[mcp_servers.playwright]
+args = ["@playwright/mcp@latest"]
+command = "npx"

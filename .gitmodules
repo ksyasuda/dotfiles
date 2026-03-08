@@ -28,3 +28,6 @@
 [submodule ".config/mpv-modules/ani-skip"]
 	path = .config/mpv-modules/ani-skip
 	url = https://github.com/synacktraa/ani-skip.git
+[submodule ".config/yt-dlp/plugins/yt-dlp-hianime"]
+	path = .config/yt-dlp/plugins/yt-dlp-hianime
+	url = git@github.com:pratikpatel8982/yt-dlp-hianime.git

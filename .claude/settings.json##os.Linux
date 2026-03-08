@@ -57,5 +57,6 @@
     "excludedCommands": [
       "docker"
     ]
-  }
+  },
+  "skipDangerousModePermissionPrompt": true
 }

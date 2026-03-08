@@ -10,7 +10,8 @@ dither=fruit # Lighter dithering aimed at 8-bit or FRC panels
 ontop=yes
 border=no
 no-border
-autofit=50% # Start at half of the screen to avoid oversized windows on UHD displays
+# autofit=50% # Start at half of the screen to avoid oversized windows on UHD displays
+geometry=1920x1080
 osc=no
 blend-subtitles=video # Keeps subtitles composited into the video plane
 opengl-early-flush=no # Delay buffer flushes to reduce micro-stutter on some GPUs
@@ -29,8 +30,8 @@ sub-pos=95
 
 # --- Audio chain ---
 volume=75
-ao=pipewire,pulse
-audio-spdif=ac3,dts-hd,truehd
+ao=pipewire
+# audio-spdif=ac3,dts-hd,truehd
 audio-stream-silence=yes # Keep the device primed to avoid startup pops
 audio-wait-open=0.1 # Shorten audio device warm-up for snappier playback
 
@@ -112,11 +113,11 @@ demuxer-readahead-secs=30
 
 # no, fatal, warn, info, v, debug, trace
 msg-level=subs2srs,animecards,mpvacious=error
-msg-level=mpv-yomitan=warn
+msg-level=subminer=warn
 
 [anime]
 profile-desc="Anime upscaling with ArtCNN"
-glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+glsl-shaders="~~/shaders/ArtCNN_C4F32_DS.glsl"
 scale=ewa_lanczossharp
 dither=error-diffusion
 deband=yes # Crucial for anime gradients
@@ -189,3 +190,4 @@ sub-italic=no
 sub-ass-override=strip
 sub-line-spacing=0.3
 sub-hinting=light
+demuxer-mkv-subtitle-preroll=yes

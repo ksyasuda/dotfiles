@@ -1,5 +1,21 @@
 {
-  "keybindings": [],
+  "keybindings": [
+    {
+      "key": "KeyR",
+      "command": ["add", "sub-pos", -5],
+    },
+    {
+      "key": "Shift+KeyR",
+      "command": ["add", "sub-pos", 5],
+    },
+    {
+      "key": "KeyJ",
+      "command": ["cycle", "sub"],
+    },
+    { "key": "BracketRight", "command": ["add", "sub-delay", 0.1] },
+    { "key": "BracketLeft", "command": ["add", "sub-delay", -0.1] },
+    { "key": "Backslash", "command": ["set_property", "sub-delay", 0] },
+  ],
   "shortcuts": {
     "copySubtitle": "CommandOrControl+C",
     "copySubtitleMultiple": "CommandOrControl+Shift+C",
@@ -16,8 +32,8 @@
     "toggleInvisibleOverlayGlobal": "Alt+Shift+I",
   },
   "auto_start_overlay": false,
-  "bind_visible_overlay_to_mpv_sub_visibility": false,
   "texthooker": {
+    "launchAtStartup": true,
     "openBrowser": false,
   },
   "websocket": {
@@ -29,6 +45,12 @@
     "url": "http://127.0.0.1:8765",
     "deck": "Minecraft",
     "pollingRate": 500,
+    "proxy": {
+      "enabled": true,
+      "host": "127.0.0.1",
+      "port": 8766,
+      "upstreamUrl": "http://127.0.0.1:8765",
+    },
     "fields": {
       "audio": "ExpressionAudio",
       "image": "Picture",
@@ -36,7 +58,7 @@
       "miscInfo": "MiscInfo",
       "translation": "SelectionText",
     },
-    "openRouter": {
+    "ai": {
       "enabled": true,
       "alwaysUseAiTranslation": true,
       "apiKey": "",
@@ -64,13 +86,14 @@
       "highlightWord": true,
       "notificationType": "system",
       "showNotificationOnUpdate": true,
-      "autoUpdateNewCards": false,
+      "autoUpdateNewCards": true,
     },
     "nPlusOne": {
       "decks": ["Minecraft", "Kaishi 1.5k"],
       "highlightEnabled": true,
       "refreshMinutes": 60,
       "matchMode": "headword",
+      "minSentenceWords": 3,
     },
     "metadata": {
       "pattern": "[SubMiner] %f (%t)",
@@ -78,14 +101,13 @@
     "isLapis": {
       "enabled": true,
       "sentenceCardModel": "Lapis Morph",
-      "sentenceCardSentenceField": "Sentence",
-      "sentenceCardAudioField": "SentenceAudio",
     },
     "isKiku": {
       "enabled": true,
       "fieldGrouping": "manual",
-      "deleteDuplicateInAuto": true,
+      "deleteDuplicateInAuto": false,
     },
+    "tags": ["SubMiner"],
   },
   "secondarySub": {
     "autoLoadSecondarySub": true,
@@ -96,15 +118,28 @@
     "alass_path": null,
     "ffsubsync_path": null,
     "ffmpeg_path": null,
+    "replace": true,
   },
   "subtitleStyle": {
-    "fontFamily": "M PLUS 1 Medium",
+    "fontFamily": "M PLUS 1 Medium, Source Han Sans JP, Noto Sans CJK JP",
     "fontSize": 35,
     "fontColor": "#cad3f5",
-    "fontWeight": "normal",
+    "fontWeight": 600,
+    "lineHeight": 1.35,
+    "letterSpacing": "-0.01em",
+    "wordSpacing": 0,
+    "fontKerning": "normal",
+    "textRendering": "geometricPrecision",
+    "textShadow": "0 3px 10px rgba(0,0,0,0.69)",
     "fontStyle": "normal",
     "backgroundColor": "rgb(30, 32, 48, 0.88)",
+    "backdropFilter": "blur(6px)",
+    "hoverTokenColor": "#f4dbd6",
+    "hoverBackground": "rgba(54, 58, 79, 0.84)",
+    "preserveLineBreaks": false,
+    "autoPauseVideoOnHover": true,
     "secondary": {
+      "fontFamily": "Manrope, Inter",
       "fontSize": 24,
       "fontColor": "#cad3f5",
       "backgroundColor": "transparent",
@@ -114,9 +149,20 @@
       "sourcePath": "",
       "topX": 10000,
       "mode": "single",
+      "matchMode": "headword",
       "singleColor": "#f5a97f",
       "bandedColors": ["#ed8796", "#f5a97f", "#f9e2af", "#a6e3a1", "#8aadf4"],
     },
+    "enableJlpt": true,
+    "jlptColors": {
+      "N1": "#ed8796",
+      "N2": "#f5a97f",
+      "N3": "#f9e2af",
+      "N4": "#a6e3a1",
+      "N5": "#8aadf4",
+    },
+    "nPlusOneColor": "#c6a0f6",
+    "knownWordColor": "#a6da95",
   },
   "jimaku": {
     "apiKeyCommand": "cat ~/.jimaku-api-key",
@@ -124,16 +170,20 @@
     "languagePreference": "ja",
     "maxEntryResults": 10,
   },
-  "invisibleOverlay": {
-    "startupVisibility": "platform-default",
-  },
   "youtubeSubgen": {
     "mode": "automatic",
     "whisperBin": "/usr/bin/whisper-cli",
     "whisperModel": "~/models/whisper.cpp/ggml-small.bin",
   },
   "anilist": {
-    "accessToken": "cat ~/.anilist-token.txt",
+    "characterDictionary": {
+      "enabled": true,
+      "collapsibleSections": {
+        "description": false,
+        "characterInformation": false,
+        "voicedBy": false,
+      },
+    },
   },
   "immersionTracking": {
     "enabled": true,
@@ -143,8 +193,6 @@
     "enabled": true,
     "serverUrl": "http://pve-main:8096",
     "username": "sudacode",
-    "accessToken": "",
-    "userId": "",
     "deviceId": "subminer",
     "clientName": "SubMiner",
     "clientVersion": "0.1.0",
@@ -158,5 +206,28 @@
     "transcodeVideoCodec": "h265",
     "pullPictures": true,
     "iconCacheDir": "~/S/japanese/subminer-jellyfin-icons",
+  },
+  "logging": {
+    "level": "debug",
+  },
+  "discordPresence": {
+    "enabled": true,
+    "detailsTemplate": "Mining and crafting (Anki cards)",
+    "stateTemplate": "Idle",
+    "largeImageKey": "subminer-logo",
+    "largeImageText": "SubMiner",
+    "smallImageKey": "study",
+    "smallImageText": "Sentence Mining",
+    "buttonLabel": "",
+    "buttonUrl": "",
+    "updateIntervalMs": 15000,
+    "debounceMs": 750,
+  },
+  "startupWarmups": {
+    "lowPowerMode": false,
+    "mecab": true,
+    "yomitanExtension": true,
+    "subtitleDictionaries": true,
+    "jellyfinRemoteSession": false,
   },
 }

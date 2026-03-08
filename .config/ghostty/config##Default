@@ -5,6 +5,9 @@ font-feature = +calt
 font-feature = +liga
 font-feature = +dlig
 theme = Catppuccin Macchiato
+# Catppuccin Macchiato uses muted ANSI white by default; bump for clearer TUIs.
+palette = 7=#cad3f5
+palette = 15=#f4dbd6
 cursor-style = block
 background-opacity = 1.0
 window-colorspace = srgb
