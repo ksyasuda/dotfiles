@@ -1,6 +1,10 @@
 {
   "keybindings": [
     {
+      "key": "KeyF",
+      "command": ["cycle", "fullscreen"],
+    },
+    {
       "key": "KeyR",
       "command": ["add", "sub-pos", -5],
     },
@@ -60,11 +64,7 @@
     },
     "ai": {
       "enabled": true,
-      "alwaysUseAiTranslation": true,
-      "apiKey": "",
       "model": "openai/gpt-oss-120b:free",
-      "baseUrl": "https://openrouter.ai/api/v1",
-      "sourceLanguage": "Japanese",
       "systemPrompt": "You are a translation engine for translating Japanese into natural-sounding, context-aware English. Return only the translated text with no extra explanations or commentary. The translation must preserve the original tone and intent of the source. If the input is not in the target language, translate it to the target language. If the input is already in the target language, return it as is.",
     },
     "media": {
@@ -108,6 +108,13 @@
       "deleteDuplicateInAuto": false,
     },
     "tags": ["SubMiner"],
+  },
+  "ai": {
+    "enabled": true,
+    "alwaysUseAiTranslation": false,
+    "apiKeyCommand": "cat ~/.openrouterapikey",
+    "baseUrl": "https://openrouter.ai/api/v1",
+    "sourceLanguage": "Japanese",
   },
   "secondarySub": {
     "autoLoadSecondarySub": true,
@@ -171,9 +178,17 @@
     "maxEntryResults": 10,
   },
   "youtubeSubgen": {
-    "mode": "automatic",
-    "whisperBin": "/usr/bin/whisper-cli",
-    "whisperModel": "~/models/whisper.cpp/ggml-small.bin",
+    "mode": "automatic", // automatic | preprocess | off
+    "whisperBin": "whisper-cli",
+    "whisperModel": "~/models/whisper.cpp/ggml-large-v3.bin",
+    "whisperVadModel": "~/models/ggml-silero-v6.2.0.bin",
+    "whisperThreads": 8,
+    "fixWithAi": true,
+    "ai": {
+      "model": "google/gemini-2.5-flash-lite",
+      "systemPrompt": "Fix transcription mistakes only. Preserve the original language exactly. Do not translate, paraphrase, summarize, merge, split, reorder, or omit cues. Preserve cue numbering, cue count, timestamps, line breaks within each cue, and valid SRT formatting exactly. Return only corrected SRT.",
+    },
+    "primarySubLanguages": ["ja", "jpn"],
   },
   "anilist": {
     "characterDictionary": {

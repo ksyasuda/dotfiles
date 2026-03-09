@@ -73,6 +73,9 @@ trust_level = "trusted"
 [projects."/home/sudacode/projects/japanese/subminer-yomitan"]
 trust_level = "trusted"
 
+[projects."/home/sudacode/github/t3code"]
+trust_level = "trusted"
+
 [mcp_servers.backlog]
 command = "backlog"
 args = ["mcp", "start"]
