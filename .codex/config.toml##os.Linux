@@ -16,6 +16,10 @@ skills = true
 shell_snapshot = true
 multi_agent = true
 
+[mcp_servers.deepwiki]
+url = "https://mcp.deepwiki.com/mcp"
+enabled = true
+
 [projects."/home/sudacode/projects"]
 trust_level = "trusted"
 
@@ -74,6 +78,21 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/sudacode/github/t3code"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.codex"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.cache/hyprland"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/packages/maintaining/subminer-bin"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/tmp"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/hypr"]
 trust_level = "trusted"
 
 [mcp_servers.backlog]
