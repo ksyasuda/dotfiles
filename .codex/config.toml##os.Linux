@@ -7,6 +7,10 @@ tool_output_token_limit = 25000
 # With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
 model_auto_compact_token_limit = 233000
 suppress_unstable_features_warning = true
+
+[sandbox_workspace_write]
+network_access = true
+
 [features]
 ghost_commit = false
 unified_exec = true
@@ -94,6 +98,33 @@ trust_level = "trusted"
 
 [projects."/home/sudacode/.config/hypr"]
 trust_level = "trusted"
+
+[projects."/home/sudacode/.cache/paru/clone/python-fugashi"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.local/share/Anki2/addons21/200813220"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/packages/maintaining/python-manga-ocr"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/S/downloads"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/waybar"]
+trust_level = "trusted"
+
+[projects."/home/sudacode"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/pipewire"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/git"]
+trust_level = "trusted"
+
+[notice.model_migrations]
+"gpt-5.3-codex" = "gpt-5.4"
 
 [mcp_servers.backlog]
 command = "backlog"

@@ -148,7 +148,7 @@
     "textRendering": "geometricPrecision",
     "textShadow": "0 3px 10px rgba(0,0,0,0.69)",
     "fontStyle": "normal",
-    "backgroundColor": "transparent",
+    // "backgroundColor": "transparent",
     "hoverTokenColor": "#f4dbd6",
     "hoverBackground": "rgba(54, 58, 79, 0.84)",
     "preserveLineBreaks": false,
@@ -253,11 +253,17 @@
     "subtitleDictionaries": true,
     "jellyfinRemoteSession": false,
   },
-  // "controller": {
-  //   "preferredGamepadId": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
-  //   "preferredGamepadLabel": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
-  // },
-  "yomitan": {
-    "externalProfilePath": "~/.config/gsm_overlay",
+  "controller": {
+    "preferredGamepadId": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
+    "preferredGamepadLabel": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
   },
+  "yomitan": {
+    "externalProfilePath": "",
+  },
+  "stats": {
+    "toggleKey": "Backquote", // Key code to toggle the stats overlay.
+    "serverPort": 6969, // Port for the stats HTTP server.
+    "autoStartServer": true, // Automatically start the stats server on launch. Values: true | false
+    "autoOpenBrowser": false,
+  }, // Local immersion stats dashboard served on localhost and available as an in-app overlay.
 }
