@@ -108,15 +108,15 @@ return {
 					},
 				},
 			},
-			["ui-select"] = {
-				require("telescope.themes").get_dropdown({
-					winblend = 10,
-					width = 0.5,
-					prompt = " ",
-					results_height = 15,
-					previewer = true,
-				}),
-			},
+			-- ["ui-select"] = {
+			-- 	require("telescope.themes").get_dropdown({
+			-- 		winblend = 10,
+			-- 		width = 0.5,
+			-- 		prompt = " ",
+			-- 		results_height = 15,
+			-- 		previewer = true,
+			-- 	}),
+			-- },
 		},
 	},
 }

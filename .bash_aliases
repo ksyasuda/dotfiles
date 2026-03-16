@@ -129,3 +129,5 @@ alias wlp='wl-paste'
 alias vn32='WINEPREFIX=/home/sudacode/S/lutris/wineprefix32 WINEARCH=win32'
 alias impv='mpv --profile=subminer'
 alias smpv='mpv --profile=subminer'
+
+alias code='code --password-store=gnome-libsecret'

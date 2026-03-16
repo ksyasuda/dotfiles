@@ -6,7 +6,7 @@ return {
 			"bashls",
 			"basedpyright",
 			"jsonls",
-			-- "yamlls",
+			"yamlls",
 			"vimls",
 			"dotls",
 			"dockerls",
