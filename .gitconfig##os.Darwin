@@ -25,3 +25,7 @@
 	format = ssh
 [commit]
 	gpgsign = true
+[alias]
+	wt = worktree
+[coderabbit]
+	machineId = cli/76d876f0fcb64a638bed698738e18b54

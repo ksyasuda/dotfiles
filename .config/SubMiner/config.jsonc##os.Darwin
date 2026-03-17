@@ -56,11 +56,17 @@
       "showNotificationOnUpdate": true,
       "autoUpdateNewCards": true,
     },
-    "nPlusOne": {
-      "decks": ["Minecraft", "Kaishi 1.5k"],
+    "knownWords": {
+      "decks": {
+        "Minecraft": ["Expression", "Reading"],
+        "Kaishi 1.5k": ["Word", "Word Reading"],
+      },
       "highlightEnabled": true,
       "refreshMinutes": 60,
       "matchMode": "headword",
+    },
+    "nPlusOne": {
+      "minSentenceWords": "3",
     },
     "metadata": {
       "pattern": "[SubMiner] %f (%t)",
@@ -119,7 +125,6 @@
     "fontStyle": "normal",
     "backgroundColor": "rgb(30, 32, 48, 0.88)",
     "backdropFilter": "blur(6px)",
-    // "backgroundColor": "transparent",
     "preserveLineBreaks": false,
     "hoverTokenColor": "#f4dbd6",
     "hoverBackground": "rgba(54, 58, 79, 0.84)",
@@ -145,27 +150,25 @@
       "singleColor": "#f5a97f",
       "bandedColors": ["#ed8796", "#f5a97f", "#f9e2af", "#8bd5ca", "#8aadf4"],
     },
-    "enableJlpt": true, // Enable JLPT vocabulary level underlines. When disabled, JLPT tagging lookup and underlines are skipped. Values: true | false
+    "enableJlpt": true,
     "jlptColors": {
       "N1": "#ed8796",
-      "N2": "#f5a97f", // N2 setting.
-      "N3": "#f9e2af", // N3 setting.
-      "N4": "#a6e3a1", // N4 setting.
-      "N5": "#8aadf4", // N5 setting.
-    }, // Jlpt colors setting.
-    "nPlusOneColor": "#c6a0f6", // N plus one color setting.
-    "knownWordColor": "#a6da95", // Known word color setting.
+      "N2": "#f5a97f",
+      "N3": "#f9e2af",
+      "N4": "#a6e3a1",
+      "N5": "#8aadf4",
+    },
+    "nPlusOneColor": "#c6a0f6",
+    "knownWordColor": "#a6da95",
   },
   "jimaku": {
-    // "apiKey": "YOUR_API_KEY",
-    // or use a command that outputs the key:
     "apiKeyCommand": "cat ~/.jimaku-api-key",
     "apiBaseUrl": "https://jimaku.cc",
     "languagePreference": "ja",
     "maxEntryResults": 10,
   },
   "youtubeSubgen": {
-    "mode": "automatic", // automatic | preprocess | off
+    "mode": "automatic",
     "whisperBin": "~/.local/bin/whisper-cli",
     "whisperModel": "~/models/whisper.cpp/ggml-medium.bin",
     "whisperVadModel": "~/models/ggml-silero-v6.2.0.bin",
@@ -233,4 +236,58 @@
     "subtitleDictionaries": true,
     "jellyfinRemoteSession": true,
   },
+  // "controller": {
+  //   "preferredGamepadId": "8BitDo Ultimate wireless (Vendor: 2dc8 Product: 3012)",
+  //   "preferredGamepadLabel": "8BitDo Ultimate wireless (Vendor: 2dc8 Product: 3012)",
+  //   "bindings": {
+  //     "toggleLookup": {
+  //       "kind": "button",
+  //       "buttonIndex": 0,
+  //     },
+  //     "closeLookup": {
+  //       "kind": "button",
+  //       "buttonIndex": 1,
+  //     },
+  //     "mineCard": {
+  //       "kind": "button",
+  //       "buttonIndex": 3,
+  //     },
+  //     "toggleKeyboardOnlyMode": {
+  //       "kind": "button",
+  //       "buttonIndex": 4,
+  //     },
+  //     "toggleMpvPause": {
+  //       "kind": "button",
+  //       "buttonIndex": 13,
+  //     },
+  //     "quitMpv": {
+  //       "kind": "button",
+  //       "buttonIndex": 10,
+  //     },
+  //     "nextAudio": {
+  //       "kind": "button",
+  //       "buttonIndex": 6,
+  //     },
+  //     "playCurrentAudio": {
+  //       "kind": "button",
+  //       "buttonIndex": 7,
+  //     },
+  //     "leftStickHorizontal": {
+  //       "kind": "axis",
+  //       "axisIndex": 0,
+  //       "dpadFallback": "horizontal",
+  //     },
+  //     "leftStickVertical": {
+  //       "kind": "axis",
+  //       "axisIndex": 1,
+  //       "dpadFallback": "vertical",
+  //     },
+  //   },
+  // },
+  "stats": {
+    "toggleKey": "Backquote", // Key code to toggle the stats overlay.
+    "serverPort": 6969, // Port for the stats HTTP server.
+    "autoStartServer": true, // Automatically start the stats server on launch. Values: true | false
+    "autoOpenBrowser": false,
+  }, // Local immersion stats dashboard served on localhost and available as an in-app overlay.
 }

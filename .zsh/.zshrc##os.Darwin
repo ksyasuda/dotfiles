@@ -27,7 +27,7 @@ bindkey -v
 # zstyle ':completion:*' menu select
 
 # Substring search
-source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # Bind arrow keys for vi insert mode
 bindkey -M viins '^[[A' history-substring-search-up

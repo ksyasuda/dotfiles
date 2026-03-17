@@ -5,7 +5,7 @@ scale=spline36                  # Fast, high-quality fallback
 dither=fruit                    # Lightweight dithering
 
 # Window & interface
-ontop=yes
+ontop=no
 border=no
 no-border
 autofit=69%                     # Reasonable default size
@@ -13,7 +13,8 @@ autofit=69%                     # Reasonable default size
 # Audio (macOS-specific)
 volume=75
 ao=coreaudio                    # Native macOS audio
-audio-stream-silence=no         # FIXED: Prevents player behavior issues
+audio-buffer=0.8                # More headroom for transient underruns
+audio-stream-silence=yes        # Keep device primed between packets
 audio-wait-open=0.1             # Faster audio startup
 
 # Subtitle defaults
@@ -65,7 +66,7 @@ fbo-format=rgba8                # FIXED: Memory-safe format
 vd-lavc-film-grain=cpu          # FIXED: GPU grain not supported on macOS
 vd-lavc-threads=0
 vd-lavc-dr=yes                  # Keep frames on GPU
-video-sync=display-resample     # Smooth playback
+video-sync=audio                # Prioritize stable audio over display resample
 
 # Scaling & interpolation
 scale=ewa_lanczossharp
@@ -123,7 +124,8 @@ input-ipc-server=/tmp/mpvsocket
 cache=yes
 demuxer-max-bytes=1GiB
 demuxer-max-back-bytes=200MiB
-cache-pause=no
+cache-pause=yes
+cache-pause-wait=2
 cache-secs=30
 demuxer-readahead-secs=30
 
@@ -193,6 +195,7 @@ vlang=ja,jpn
 subs-with-matching-audio=yes
 # sub-font="Hiragino Maru Gothic ProN W4"
 sub-font="M PLUS 1 Medium"
+sub-font-size=46
 glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
 scale=ewa_lanczossharp
 dither=error-diffusion
