@@ -97,11 +97,13 @@
       "showNotificationOnUpdate": true,
       "autoUpdateNewCards": true,
     },
-    "nPlusOne": {
+    "knownWords": {
       "decks": ["Minecraft", "Kaishi 1.5k"],
       "highlightEnabled": true,
       "refreshMinutes": 60,
       "matchMode": "headword",
+    },
+    "nPlusOne": {
       "minSentenceWords": 3,
     },
     "metadata": {
