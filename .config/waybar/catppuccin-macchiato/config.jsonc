@@ -273,7 +273,7 @@
     "format": "{}",
     "max-length": 35,
     "on-click": "mpc toggle",
-    "on-click-right": "ghostty --initial-command=ncmpcpp",
+    "on-click-right": "ghostty --initial-command=rmpc",
     "on-scroll-down": "mpc volume -5",
     "on-scroll-up": "mpc volume +5",
     "hide-empty-text": true,

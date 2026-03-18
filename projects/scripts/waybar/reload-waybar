@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if pgrep -af "waybar -c /home/sudacode/.config/waybar/catppuccin-macchiato/config-battery.jsonc -s /home/sudacode/.config/waybar/catppuccin-macchiato/style.css" ||
     pgrep -af "waybar -c /home/sudacode/.config/waybar/catppuccin-macchiato/config.jsonc -s /home/sudacode/.config/waybar/catppuccin-macchiato/style.css"; then
@@ -9,7 +9,7 @@ fi
 BASE_DIR="$HOME/.config/waybar/catppuccin-macchiato"
 NODE_NAME="$(hyprctl systeminfo | grep -i "node name" | sed 's/Node name: //')"
 
-if [[ "$NODE_NAME" = "sc-arch" ]]; then
+if [[ "$NODE_NAME" = "sc-arch" || "$NODE_NAME" = "cachypc" ]]; then
     CONFIG="$BASE_DIR/config.jsonc"
 else
     CONFIG="$BASE_DIR/config-laptop.jsonc"

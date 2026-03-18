@@ -123,6 +123,15 @@ trust_level = "trusted"
 [projects."/home/sudacode/.config/git"]
 trust_level = "trusted"
 
+[projects."/home/sudacode/.config/rofi"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/swaync"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/ranger"]
+trust_level = "trusted"
+
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
 

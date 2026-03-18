@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-music_dir="/jellyfin/music"
-previewdir="$XDG_CONFIG_HOME/ncmpcpp/previews"
+music_dir="/truenas/jellyfin/music"
+previewdir="${XDG_CONFIG_HOME:-$HOME/.config}/ncmpcpp/previews"
 filename="$(mpc --format "$music_dir"/%file% current)"
 previewname="$previewdir/$(mpc --format %album% current | base64).png"
 

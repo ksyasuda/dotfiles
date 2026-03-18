@@ -93,12 +93,15 @@
       "overwriteImage": true,
       "mediaInsertMode": "append",
       "highlightWord": true,
-      "notificationType": "system",
+      "notificationType": "both",
       "showNotificationOnUpdate": true,
       "autoUpdateNewCards": true,
     },
     "knownWords": {
-      "decks": ["Minecraft", "Kaishi 1.5k"],
+      "decks": {
+          "Minecraft": ["Expression", "Reading"],
+          "Kaishi 1.5k": ["Word", "Word Reading"]
+      },
       "highlightEnabled": true,
       "refreshMinutes": 60,
       "matchMode": "headword",

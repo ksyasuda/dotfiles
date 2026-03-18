@@ -10,7 +10,14 @@
       "Read(~/.zshrc)",
       "Bash(git * main)",
       "Bash(ls *)",
-      "Bash(pnpm build *)"
+      "Bash(pnpm build *)",
+      "Bash(subminer stats:*)",
+      "Bash(identify /home/sudacode/projects/japanese/SubMiner/docs-site/public/screenshots/stats-trends.png)",
+      "mcp__plugin_playwright_playwright__browser_resize",
+      "mcp__plugin_playwright_playwright__browser_click",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_close",
+      "Bash(bun run:*)"
     ],
     "deny": [
       "Bash(curl *)",

@@ -157,13 +157,24 @@ scale=ewa_lanczos
 target-peak=800
 # hdr-tone-mapping=bt.2390
 
-# HDR profile
 [hdr]
-target-colorspace-hint=yes
+profile-desc=HDR content
+profile-cond=get("video-params/gamma", "") == "pq" or get("video-params/gamma", "") == "hlg"
+profile-restore=copy
 tone-mapping-param=0.5
 tone-mapping-max-boost=2.0
 allow-delayed-peak-detect=yes
+# For SDR content on HDR display (or vice versa)
 icc-profile-auto=yes
+
+[sdr]
+profile-desc=SDR content
+profile-cond=get("video-params/gamma", "") ~= "pq" and get("video-params/gamma", "") ~= "hlg"
+profile-restore=copy
+# put SDR-only tweaks here
+deband=yes
+target-colorspace-hint=auto
+
 
 # SVP compatibility profile
 [svp]
