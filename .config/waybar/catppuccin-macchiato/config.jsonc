@@ -16,12 +16,12 @@
     "custom/firefox-scroll",
     "hyprland/submap",
   ],
-  // "modules-center": ["hyprland/window"],
-  "modules-center": ["custom/notification"],
+  "modules-center": ["hyprland/window"],
+  // "modules-center": ["custom/notification"],
   "modules-right": [
     // "hyprland/scratchpad",
     // "idle_inhibitor",
-    // "custom/notification",
+    "custom/notification",
     "custom/updates",
     "custom/kernel",
     // "disk#ssd",
@@ -170,8 +170,8 @@
   "pulseaudio": {
     "scroll-step": 2,
     "format": "{volume}% {icon} {format_source}",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-bluetooth-muted": "󰝟 {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon}  {format_source}",
+    "format-bluetooth-muted": "󰝟 {icon}  {format_source}",
     "format-muted": "󰝟 {format_source}",
     "format-source": "{volume}% ",
     "format-source-muted": "",
@@ -192,8 +192,8 @@
     "on-click-right": "qpwgraph",
     "scroll-step": 2,
     "format": "{volume}% {icon} {format_source}",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-bluetooth-muted": "󰝟 {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon}  {format_source}",
+    "format-bluetooth-muted": "󰝟 {icon}  {format_source}",
     "format-muted": "󰝟 {format_source}",
     "format-source": "{volume}% ",
     "format-source-muted": "",
@@ -241,8 +241,8 @@
   "hyprland/window": {
     "max-length": 88,
     "rewrite": {
-      "(.*) - YouTube(.*)": "",
-      "(.*) - mpv(.*)": "",
+      // "(.*) - YouTube(.*)": "$1",
+      // "(.*) - mpv(.*)": "$1",
     },
   },
   "custom/updates": {
