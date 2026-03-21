@@ -202,6 +202,8 @@ ctrl+K cycle-values keep-open "yes" "no"
 ctrl+r script-binding reload-scripts
 ctrl+s script_binding autosubsync-menu
 
+# MBTN_RIGHT  script-binding select/context-menu
+
 # {{{ sponsorblock
 ctrl+g script-binding sponsorblock/set_segment
 ctrl+G script-binding sponsorblock/submit_segment

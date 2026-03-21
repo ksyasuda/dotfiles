@@ -27,6 +27,10 @@ term=xterm-ghostty
 link-url = true
 link-previews = true
 bell-features=system,attention,no-audio
+
+quit-after-last-window-closed = true
+quit-after-last-window-closed-delay = 5m
+
 keybind = all:ctrl+enter=unbind
 keybind = all:ctrl+shift+j=next_tab
 keybind = all:ctrl+shift+k=last_tab

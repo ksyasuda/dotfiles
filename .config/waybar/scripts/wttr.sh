@@ -116,7 +116,7 @@ fetch_weather() {
     --show-error \
     --fail \
     --max-time 10 \
-    "https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&timezone=$(url_encode "$timezone")" 2>/dev/null || true
+    "https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=$(url_encode "$timezone")" 2>/dev/null || true
 }
 
 format_weather() {
@@ -140,8 +140,8 @@ format_weather() {
   humidity="$(jq -r '.current.relative_humidity_2m | round | "\(.)"' <<<"$weather_json")"
   wind="$(jq -r '.current.wind_speed_10m | round | "\(.)"' <<<"$weather_json")"
 
-  text="${icon} ${temperature}°C"
-  tooltip="${place}: ${description}. Feels like ${feels_like}°C, humidity ${humidity}%, wind ${wind} km/h"
+  text="${icon} ${temperature}°F"
+  tooltip="${place}: ${description}. Feels like ${feels_like}°F, humidity ${humidity}%, wind ${wind} mph"
 
   emit_json "$text" "$tooltip"
 }

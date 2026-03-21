@@ -87,6 +87,7 @@
       "animatedCrf": 35,
       "audioPadding": 0.5,
       "fallbackDuration": 3,
+      "syncAnimatedImageToWordAudio": true,
     },
     "behavior": {
       "overwriteAudio": false,
@@ -99,12 +100,13 @@
     },
     "knownWords": {
       "decks": {
-          "Minecraft": ["Expression", "Reading"],
-          "Kaishi 1.5k": ["Word", "Word Reading"]
+        "Minecraft": ["Expression", "Reading"],
+        "Kaishi 1.5k": ["Word", "Word Reading"],
       },
       "highlightEnabled": true,
       "refreshMinutes": 60,
       "matchMode": "headword",
+      "addMinedWordsImmediately": true,
     },
     "nPlusOne": {
       "minSentenceWords": 3,
@@ -154,6 +156,7 @@
     "textShadow": "0 3px 10px rgba(0,0,0,0.69)",
     "fontStyle": "normal",
     // "backgroundColor": "transparent",
+    "backgroundColor": "#232634",
     "hoverTokenColor": "#f4dbd6",
     "hoverBackground": "rgba(54, 58, 79, 0.84)",
     "preserveLineBreaks": false,
@@ -258,10 +261,6 @@
     "subtitleDictionaries": true,
     "jellyfinRemoteSession": false,
   },
-  "controller": {
-    "preferredGamepadId": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
-    "preferredGamepadLabel": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
-  },
   "yomitan": {
     "externalProfilePath": "",
   },
@@ -271,4 +270,21 @@
     "autoStartServer": true, // Automatically start the stats server on launch. Values: true | false
     "autoOpenBrowser": false,
   }, // Local immersion stats dashboard served on localhost and available as an in-app overlay.
+  "subtitleSidebar": {
+    "enabled": true,
+    "layout": "embedded",
+    "toggleKey": "Backslash",
+    "pauseVideoOnHover": true,
+    "autoScroll": true,
+    "maxWidth": 420,
+    "opacity": 0.69,
+    "backgroundColor": "rgba(36, 39, 58, 0.78)",
+    "textColor": "#cad3f5",
+    "fontFamily": "\"M PLUS 1\", \"Noto Sans CJK JP\", sans-serif",
+    "fontSize": 16,
+    "timestampColor": "#a5adcb",
+    "activeLineColor": "#f5bde6",
+    "activeLineBackgroundColor": "rgba(138, 173, 244, 0.22)",
+    "hoverLineBackgroundColor": "rgba(54, 58, 79, 0.84)",
+  },
 }

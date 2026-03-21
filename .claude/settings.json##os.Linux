@@ -17,7 +17,17 @@
       "mcp__plugin_playwright_playwright__browser_click",
       "mcp__plugin_playwright_playwright__browser_take_screenshot",
       "mcp__plugin_playwright_playwright__browser_close",
-      "Bash(bun run:*)"
+      "Bash(bun run:*)",
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "Read(//home/sudacode/.config/**)",
+      "Bash(find ~/.config -path */SubMiner/* -type f)",
+      "Bash(sqlite3 /home/sudacode/.config/SubMiner/immersion.sqlite \"SELECT name FROM sqlite_master WHERE type=''table'' LIMIT 5;\")",
+      "Bash(sqlite3 /home/sudacode/.config/SubMiner/immersion.sqlite \".tables\")",
+      "Bash(sqlite3 /home/sudacode/.config/SubMiner/immersion.sqlite \"SELECT text FROM imm_subtitle_lines ORDER BY RANDOM\\(\\) LIMIT 25\")",
+      "Bash(pkill -f \"python3 -m http.server 9876\")",
+      "Read(//home/sudacode/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.5/skills/brainstorming/**)",
+      "Bash(/home/sudacode/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.5/skills/brainstorming/scripts/start-server.sh --project-dir /home/sudacode/projects/japanese/SubMiner)",
+      "Read(//home/sudacode/**)"
     ],
     "deny": [
       "Bash(curl *)",
@@ -51,7 +61,8 @@
     "code-simplifier@claude-plugins-official": true,
     "playwright@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "coderabbit@claude-plugins-official": true
+    "coderabbit@claude-plugins-official": true,
+    "discord@claude-plugins-official": true
   },
   "sandbox": {
     "enabled": false,

@@ -185,6 +185,7 @@ label:focus {
 #network {
   background-color: @peach;
   color: @mantle;
+  padding: 0 18px 0 10px;
 }
 
 #network.disconnected {
@@ -273,7 +274,7 @@ label:focus {
   background-color: @yellow;
   color: @mantle;
   padding: 0 10px;
-  margin: 5px 1px 5px 5px;
+  margin: 5px 1px 5px 1px;
 }
 
 #custom-launcher {
@@ -330,7 +331,6 @@ label:focus {
   font-family: inherit;
   padding: 0 10px;
   margin: 5px 1px;
-  min-width: 1em;
   background-color: @maroon;
   color: @mantle;
 }

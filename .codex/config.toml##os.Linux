@@ -1,4 +1,4 @@
-model = "gpt-5.4"
+model = "gpt-5.4-mini"
 model_reasoning_effort = "high"
 personality = "pragmatic"
 tool_output_token_limit = 25000
@@ -130,6 +130,24 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/sudacode/.config/ranger"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/texthooker-ui"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/uwsm"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.cache/paru/clone/t3code-bin"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/yt-dlp/plugins/yt-dlp-hianime/yt_dlp_plugins/extractor"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.config/mpv-modules/ModernZ"]
 trust_level = "trusted"
 
 [notice.model_migrations]
