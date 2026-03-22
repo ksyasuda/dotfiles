@@ -150,6 +150,9 @@ trust_level = "trusted"
 [projects."/home/sudacode/.config/mpv-modules/ModernZ"]
 trust_level = "trusted"
 
+[projects."/home/sudacode/.local/share/Anki2/addons21"]
+trust_level = "trusted"
+
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
 
