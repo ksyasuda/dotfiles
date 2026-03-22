@@ -239,7 +239,7 @@
     "iconCacheDir": "~/S/japanese/subminer-jellyfin-icons",
   },
   "logging": {
-    "level": "debug",
+    "level": "info",
   },
   "discordPresence": {
     "enabled": true,
@@ -272,7 +272,7 @@
   }, // Local immersion stats dashboard served on localhost and available as an in-app overlay.
   "subtitleSidebar": {
     "enabled": true,
-    "layout": "embedded",
+    // "layout": "embedded",
     "toggleKey": "Backslash",
     "pauseVideoOnHover": true,
     "autoScroll": true,
