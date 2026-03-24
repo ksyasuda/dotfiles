@@ -2,32 +2,58 @@
   "keybindings": [
     {
       "key": "KeyF",
-      "command": ["cycle", "fullscreen"],
+      "command": [
+        "cycle",
+        "fullscreen"
+      ]
     },
     {
       "key": "KeyR",
-      "command": ["add", "sub-pos", -5],
+      "command": [
+        "add",
+        "sub-pos",
+        -5
+      ]
     },
     {
       "key": "Shift+KeyR",
-      "command": ["add", "sub-pos", 5],
+      "command": [
+        "add",
+        "sub-pos",
+        5
+      ]
     },
     {
       "key": "KeyJ",
-      "command": ["cycle", "sub"],
+      "command": [
+        "cycle",
+        "sub"
+      ]
     },
     {
       "key": "BracketRight",
-      "command": ["add", "sub-delay", 0.1],
+      "command": [
+        "add",
+        "sub-delay",
+        0.1
+      ]
     },
     {
       "key": "BracketLeft",
-      "command": ["add", "sub-delay", -0.1],
+      "command": [
+        "add",
+        "sub-delay",
+        -0.1
+      ]
     },
     {
       "key": "Backslash",
-      "command": ["set_property", "sub-delay", 0],
-    },
+      "command": [
+        "set_property",
+        "sub-delay",
+        0
+      ]
+    }
   ],
   "shortcuts": {
     "copySubtitle": "CommandOrControl+C",
@@ -42,16 +68,16 @@
     "markAudioCard": "CommandOrControl+Shift+A",
     "openRuntimeOptions": "CommandOrControl+Shift+O",
     "toggleVisibleOverlayGlobal": "Alt+Shift+O",
-    "toggleInvisibleOverlayGlobal": "Alt+Shift+I",
+    "toggleInvisibleOverlayGlobal": "Alt+Shift+I"
   },
   "auto_start_overlay": false,
   "texthooker": {
     "launchAtStartup": true,
-    "openBrowser": false,
+    "openBrowser": false
   },
   "websocket": {
     "enabled": "auto",
-    "port": 6677,
+    "port": 6677
   },
   "ankiConnect": {
     "enabled": true,
@@ -62,19 +88,19 @@
       "enabled": true,
       "host": "127.0.0.1",
       "port": 8766,
-      "upstreamUrl": "http://127.0.0.1:8765",
+      "upstreamUrl": "http://127.0.0.1:8765"
     },
     "fields": {
       "audio": "ExpressionAudio",
       "image": "Picture",
       "sentence": "Sentence",
       "miscInfo": "MiscInfo",
-      "translation": "SelectionText",
+      "translation": "SelectionText"
     },
     "ai": {
       "enabled": true,
       "model": "openai/gpt-oss-120b:free",
-      "systemPrompt": "You are a translation engine for translating Japanese into natural-sounding, context-aware English. Return only the translated text with no extra explanations or commentary. The translation must preserve the original tone and intent of the source. If the input is not in the target language, translate it to the target language. If the input is already in the target language, return it as is.",
+      "systemPrompt": "You are a translation engine for translating Japanese into natural-sounding, context-aware English. Return only the translated text with no extra explanations or commentary. The translation must preserve the original tone and intent of the source. If the input is not in the target language, translate it to the target language. If the input is already in the target language, return it as is."
     },
     "media": {
       "generateAudio": true,
@@ -87,7 +113,7 @@
       "animatedCrf": 35,
       "audioPadding": 0.5,
       "fallbackDuration": 3,
-      "syncAnimatedImageToWordAudio": true,
+      "syncAnimatedImageToWordAudio": true
     },
     "behavior": {
       "overwriteAudio": false,
@@ -96,52 +122,63 @@
       "highlightWord": true,
       "notificationType": "both",
       "showNotificationOnUpdate": true,
-      "autoUpdateNewCards": true,
+      "autoUpdateNewCards": true
     },
     "knownWords": {
       "decks": {
-        "Minecraft": ["Expression", "Reading"],
-        "Kaishi 1.5k": ["Word", "Word Reading"],
+        "Minecraft": [
+          "Expression",
+          "Reading"
+        ],
+        "Kaishi 1.5k": [
+          "Word",
+          "Word Reading"
+        ]
       },
       "highlightEnabled": true,
       "refreshMinutes": 60,
       "matchMode": "headword",
-      "addMinedWordsImmediately": true,
+      "addMinedWordsImmediately": true
     },
     "nPlusOne": {
-      "minSentenceWords": 3,
+      "minSentenceWords": 3
     },
     "metadata": {
-      "pattern": "[SubMiner] %f (%t)",
+      "pattern": "[SubMiner] %f (%t)"
     },
     "isLapis": {
       "enabled": true,
-      "sentenceCardModel": "Lapis Morph",
+      "sentenceCardModel": "Lapis Morph"
     },
     "isKiku": {
       "enabled": true,
       "fieldGrouping": "manual",
-      "deleteDuplicateInAuto": false,
+      "deleteDuplicateInAuto": false
     },
-    "tags": ["SubMiner"],
+    "tags": [
+      "SubMiner"
+    ]
   },
   "ai": {
     "enabled": true,
     "alwaysUseAiTranslation": false,
     "apiKeyCommand": "cat ~/.openrouterapikey",
     "baseUrl": "https://openrouter.ai/api/v1",
-    "sourceLanguage": "Japanese",
+    "sourceLanguage": "Japanese"
   },
   "secondarySub": {
     "autoLoadSecondarySub": true,
-    "secondarySubLanguages": ["en", "eng"],
+    "secondarySubLanguages": [
+      "en",
+      "eng"
+    ]
   },
   "subsync": {
     "defaultMode": "manual",
     "alass_path": null,
     "ffsubsync_path": null,
     "ffmpeg_path": null,
-    "replace": true,
+    "replace": true
   },
   "subtitleStyle": {
     "fontFamily": "M PLUS 1 Medium, Source Han Sans JP, Noto Sans CJK JP",
@@ -155,7 +192,6 @@
     "textRendering": "geometricPrecision",
     "textShadow": "0 3px 10px rgba(0,0,0,0.69)",
     "fontStyle": "normal",
-    // "backgroundColor": "transparent",
     "backgroundColor": "#232634",
     "hoverTokenColor": "#f4dbd6",
     "hoverBackground": "rgba(54, 58, 79, 0.84)",
@@ -165,7 +201,7 @@
     "secondary": {
       "fontFamily": "Manrope, Inter",
       "fontSize": 24,
-      "fontColor": "#cad3f5",
+      "fontColor": "#cad3f5"
     },
     "frequencyDictionary": {
       "enabled": true,
@@ -174,7 +210,13 @@
       "mode": "single",
       "matchMode": "headword",
       "singleColor": "#f5a97f",
-      "bandedColors": ["#ed8796", "#f5a97f", "#f9e2af", "#a6e3a1", "#8aadf4"],
+      "bandedColors": [
+        "#ed8796",
+        "#f5a97f",
+        "#f9e2af",
+        "#a6e3a1",
+        "#8aadf4"
+      ]
     },
     "enableJlpt": true,
     "jlptColors": {
@@ -182,16 +224,16 @@
       "N2": "#f5a97f",
       "N3": "#f9e2af",
       "N4": "#a6e3a1",
-      "N5": "#8aadf4",
+      "N5": "#8aadf4"
     },
     "nPlusOneColor": "#c6a0f6",
-    "knownWordColor": "#a6da95",
+    "knownWordColor": "#a6da95"
   },
   "jimaku": {
     "apiKeyCommand": "cat ~/.jimaku-api-key",
     "apiBaseUrl": "https://jimaku.cc",
     "languagePreference": "ja",
-    "maxEntryResults": 10,
+    "maxEntryResults": 10
   },
   "youtubeSubgen": {
     "mode": "automatic",
@@ -202,9 +244,12 @@
     "fixWithAi": true,
     "ai": {
       "model": "google/gemini-2.5-flash-lite",
-      "systemPrompt": "Fix transcription mistakes only. Preserve the original language exactly. Do not translate, paraphrase, summarize, merge, split, reorder, or omit cues. Preserve cue numbering, cue count, timestamps, line breaks within each cue, and valid SRT formatting exactly. Return only corrected SRT.",
+      "systemPrompt": "Fix transcription mistakes only. Preserve the original language exactly. Do not translate, paraphrase, summarize, merge, split, reorder, or omit cues. Preserve cue numbering, cue count, timestamps, line breaks within each cue, and valid SRT formatting exactly. Return only corrected SRT."
     },
-    "primarySubLanguages": ["ja", "jpn"],
+    "primarySubLanguages": [
+      "ja",
+      "jpn"
+    ]
   },
   "anilist": {
     "characterDictionary": {
@@ -212,13 +257,13 @@
       "collapsibleSections": {
         "description": false,
         "characterInformation": false,
-        "voicedBy": false,
-      },
-    },
+        "voicedBy": false
+      }
+    }
   },
   "immersionTracking": {
     "enabled": true,
-    "dbPath": "",
+    "dbPath": ""
   },
   "jellyfin": {
     "enabled": true,
@@ -233,13 +278,21 @@
     "remoteControlAutoConnect": true,
     "autoAnnounce": false,
     "remoteControlDeviceName": "SubMiner",
-    "directPlayContainers": ["mkv", "mp4", "webm", "mov", "flac", "mp3", "aac"],
+    "directPlayContainers": [
+      "mkv",
+      "mp4",
+      "webm",
+      "mov",
+      "flac",
+      "mp3",
+      "aac"
+    ],
     "transcodeVideoCodec": "h265",
     "pullPictures": true,
-    "iconCacheDir": "~/S/japanese/subminer-jellyfin-icons",
+    "iconCacheDir": "~/S/japanese/subminer-jellyfin-icons"
   },
   "logging": {
-    "level": "info",
+    "level": "info"
   },
   "discordPresence": {
     "enabled": true,
@@ -252,27 +305,26 @@
     "buttonLabel": "",
     "buttonUrl": "",
     "updateIntervalMs": 15000,
-    "debounceMs": 750,
+    "debounceMs": 750
   },
   "startupWarmups": {
     "lowPowerMode": false,
     "mecab": true,
     "yomitanExtension": true,
     "subtitleDictionaries": true,
-    "jellyfinRemoteSession": false,
+    "jellyfinRemoteSession": false
   },
   "yomitan": {
-    "externalProfilePath": "",
+    "externalProfilePath": ""
   },
   "stats": {
-    "toggleKey": "Backquote", // Key code to toggle the stats overlay.
-    "serverPort": 6969, // Port for the stats HTTP server.
-    "autoStartServer": true, // Automatically start the stats server on launch. Values: true | false
-    "autoOpenBrowser": false,
-  }, // Local immersion stats dashboard served on localhost and available as an in-app overlay.
+    "toggleKey": "Backquote",
+    "serverPort": 6969,
+    "autoStartServer": true,
+    "autoOpenBrowser": false
+  },
   "subtitleSidebar": {
     "enabled": true,
-    // "layout": "embedded",
     "toggleKey": "Backslash",
     "pauseVideoOnHover": true,
     "autoScroll": true,
@@ -285,6 +337,10 @@
     "timestampColor": "#a5adcb",
     "activeLineColor": "#f5bde6",
     "activeLineBackgroundColor": "rgba(138, 173, 244, 0.22)",
-    "hoverLineBackgroundColor": "rgba(54, 58, 79, 0.84)",
+    "hoverLineBackgroundColor": "rgba(54, 58, 79, 0.84)"
   },
+  "controller": {
+    "preferredGamepadId": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
+    "preferredGamepadLabel": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)"
+  }
 }
