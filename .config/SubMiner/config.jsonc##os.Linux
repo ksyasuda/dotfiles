@@ -173,6 +173,12 @@
       "eng"
     ]
   },
+  "youtube": {
+    "primarySubLanguages": [
+      "ja",
+      "jpn"
+    ]
+  },
   "subsync": {
     "defaultMode": "manual",
     "alass_path": null,
@@ -234,22 +240,6 @@
     "apiBaseUrl": "https://jimaku.cc",
     "languagePreference": "ja",
     "maxEntryResults": 10
-  },
-  "youtubeSubgen": {
-    "mode": "automatic",
-    "whisperBin": "whisper-cli",
-    "whisperModel": "~/models/whisper.cpp/ggml-medium.bin",
-    "whisperVadModel": "~/models/ggml-silero-v6.2.0.bin",
-    "whisperThreads": 8,
-    "fixWithAi": true,
-    "ai": {
-      "model": "google/gemini-2.5-flash-lite",
-      "systemPrompt": "Fix transcription mistakes only. Preserve the original language exactly. Do not translate, paraphrase, summarize, merge, split, reorder, or omit cues. Preserve cue numbering, cue count, timestamps, line breaks within each cue, and valid SRT formatting exactly. Return only corrected SRT."
-    },
-    "primarySubLanguages": [
-      "ja",
-      "jpn"
-    ]
   },
   "anilist": {
     "characterDictionary": {

@@ -27,7 +27,8 @@
       "Bash(pkill -f \"python3 -m http.server 9876\")",
       "Read(//home/sudacode/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.5/skills/brainstorming/**)",
       "Bash(/home/sudacode/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.5/skills/brainstorming/scripts/start-server.sh --project-dir /home/sudacode/projects/japanese/SubMiner)",
-      "Read(//home/sudacode/**)"
+      "Read(//home/sudacode/**)",
+      "Bash(grep -E \"^d|\\\\.md$\")"
     ],
     "deny": [
       "Bash(curl *)",
@@ -78,5 +79,6 @@
     ]
   },
   "voiceEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "model": "sonnet"
 }

@@ -1,4 +1,4 @@
-export BROWSER=zen-browser
+export BROWSER=helium-browser
 export XCURSOR_THEME=dracula
 export XCURSOR_SIZE=24
 export GDK_SCALE=1

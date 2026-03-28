@@ -19,10 +19,18 @@ web_request = true
 skills = true
 shell_snapshot = true
 multi_agent = true
+js_repl = true
 
 [mcp_servers.deepwiki]
 url = "https://mcp.deepwiki.com/mcp"
-enabled = true
+
+[mcp_servers.backlog]
+command = "backlog"
+args = ["mcp", "start"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
 
 [projects."/home/sudacode/projects"]
 trust_level = "trusted"
@@ -171,10 +179,5 @@ trust_level = "trusted"
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
 
-[mcp_servers.backlog]
-command = "backlog"
-args = ["mcp", "start"]
-
-[mcp_servers.playwright]
-args = ["@playwright/mcp@latest"]
-command = "npx"
+[plugins."github@openai-curated"]
+enabled = true
