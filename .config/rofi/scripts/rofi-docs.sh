@@ -3,7 +3,7 @@
 SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/rofi-menu-helpers.sh"
 
-BROWSER=/usr/bin/zen-browser
+BROWSER=/usr/bin/helium-browser
 DOC_GROUPS=(
 	"Arch Linux (btw)|ARCH"
 	"Hyprland|HYPRLAND"

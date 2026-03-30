@@ -1,4 +1,4 @@
-model = "gpt-5.3-codex-spark"
+model = "gpt-5.4-mini"
 model_reasoning_effort = "high"
 personality = "pragmatic"
 tool_output_token_limit = 25000
@@ -27,6 +27,15 @@ url = "https://mcp.deepwiki.com/mcp"
 [mcp_servers.backlog]
 command = "backlog"
 args = ["mcp", "start"]
+
+[mcp_servers.backlog.tools.task_search]
+approval_mode = "approve"
+
+[mcp_servers.backlog.tools.task_create]
+approval_mode = "approve"
+
+[mcp_servers.backlog.tools.task_edit]
+approval_mode = "approve"
 
 [mcp_servers.playwright]
 command = "npx"

@@ -156,3 +156,4 @@ x-scheme-handler/discord-1361252452329848892=discord-1361252452329848892.desktop
 x-scheme-handler/opencode=opencode-desktop-handler.desktop
 x-scheme-handler/subminer=subminer.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+x-scheme-handler/mux=mux.desktop
