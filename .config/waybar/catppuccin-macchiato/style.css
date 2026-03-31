@@ -30,7 +30,8 @@ window#waybar.hidden {
 
 tooltip {
   background-color: @base;
-  border: 1px solid @subtext0;
+  border: 1px solid @surface2;
+  border-radius: 0.69em;
 }
 
 tooltip label {
@@ -100,7 +101,7 @@ button:hover {
   margin: 5px 1px 5px 2px;
 }
 
-#custom-weather,
+#custom-meteobar,
 #clock,
 #language,
 #pulseaudio,
@@ -139,11 +140,16 @@ button:hover {
   margin-right: 0;
 }
 
-#custom-weather {
+#custom-meteobar {
   background-color: @teal;
   color: @mantle;
   margin-right: 5px;
 }
+
+#custom-meteobar.rainy  { background-color: @blue;    color: @mantle; }
+#custom-meteobar.snowy  { background-color: @lavender; color: @mantle; }
+#custom-meteobar.stormy { background-color: @red;      color: @mantle; }
+#custom-meteobar.error  { background-color: @overlay0; color: @text;   }
 
 #custom-kernel {
   background-color: @mauve;
@@ -334,3 +340,15 @@ label:focus {
   background-color: @maroon;
   color: @mantle;
 }
+
+#custom-codexbar {
+  padding: 0 10px;
+  margin: 5px 1px;
+  background-color: @surface0;
+  border-radius: 0.69em;
+}
+
+#custom-codexbar.low      { color: @green; }
+#custom-codexbar.mid      { color: @yellow; }
+#custom-codexbar.high     { color: @peach; }
+#custom-codexbar.critical { color: @red; }
