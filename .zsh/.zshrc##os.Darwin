@@ -29,6 +29,29 @@ bindkey -v
 # Substring search
 source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+fzf-file-widget-smart-root() {
+    setopt localoptions pipefail no_aliases 2>/dev/null
+
+    local -a words
+    local last raw root sel
+    words=(${(z)LBUFFER})
+    last=${words[-1]}
+    raw=${(Q)last}             # unquote shell word
+    root=${~raw}               # expand ~
+
+    if [[ -n "$raw" && "$raw" == */ && -d "$root" ]]; then
+      sel="$(cd -- "$root" && __fzf_select)" || return
+      LBUFFER+="$sel"
+    else
+      LBUFFER+="$(__fzf_select)"
+    fi
+
+    zle reset-prompt
+}
+
+zle -N fzf-file-widget-smart-root
+
+
 # Bind arrow keys for vi insert mode
 bindkey -M viins '^[[A' history-substring-search-up
 bindkey -M viins '^[[B' history-substring-search-down
