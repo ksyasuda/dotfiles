@@ -131,3 +131,5 @@ alias impv='mpv --profile=subminer'
 alias smpv='mpv --profile=subminer'
 
 alias code='code --password-store=gnome-libsecret'
+alias ccode='claude --dangerously-skip-permissions'
+alias ccord='claude --channels plugin:discord@claude-plugins-official'

@@ -7,7 +7,7 @@ scale=spline36 # Faster than ewa_lanczos for high-res video when shaders are off
 dither=fruit # Lighter dithering aimed at 8-bit or FRC panels
 
 # --- Window & interface ---
-ontop=yes
+ontop=no
 border=no
 no-border
 # autofit=50% # Start at half of the screen to avoid oversized windows on UHD displays
@@ -201,3 +201,12 @@ sub-ass-override=strip
 sub-line-spacing=0.3
 sub-hinting=light
 demuxer-mkv-subtitle-preroll=yes
+
+[youtube-cookies]
+profile-desc="Apply YouTube cookies automatically"
+profile-cond=path:find("youtu%.?be")
+profile-restore=copy
+cookies=yes
+cookies-file=/truenas/sudacode/japanese/youtube-cookies.txt
+ytdl-raw-options-append=cookies=/truenas/sudacode/japanese/youtube-cookies.txt
+

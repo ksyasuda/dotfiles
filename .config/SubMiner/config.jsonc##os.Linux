@@ -147,20 +147,23 @@
     "replace": true,
   },
   "subtitleStyle": {
-    "fontFamily": "M PLUS 1 Medium, Source Han Sans JP, Noto Sans CJK JP",
-    "fontSize": 35,
+    "fontFamily": "Hiragino Sans, M PLUS 1, Source Han Sans JP, Noto Sans CJK JP",
+    "fontSize": 38,
     "fontColor": "#cad3f5",
-    "fontWeight": 700,
-    "lineHeight": 1.35,
-    "letterSpacing": "-0.01em",
+    "fontWeight": 500,
+    "lineHeight": 1.4,
+    "letterSpacing": "0.02em",
     "wordSpacing": 0,
     "fontKerning": "normal",
-    "textRendering": "geometricPrecision",
-    "textShadow": "0 3px 10px rgba(0,0,0,0.69)",
+    "textRendering": "optimizeLegibility",
+    "paintOrder": "stroke fill",
+    "WebkitTextStroke": "1.5px #000",
+    "textShadow": "0 2px 6px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.55)",
     "fontStyle": "normal",
-    "backgroundColor": "#232634",
+    "backgroundColor": "transparent",
     "hoverTokenColor": "#f4dbd6",
-    "hoverBackground": "rgba(54, 58, 79, 0.84)",
+    "backdropFilter": "blur(6px)",
+    "hoverTokenBackgroundColor": "transparent",
     "preserveLineBreaks": false,
     "autoPauseVideoOnHover": true,
     "autoPauseVideoOnYomitanPopup": true,
@@ -168,6 +171,10 @@
       "fontFamily": "Manrope, Inter",
       "fontSize": 24,
       "fontColor": "#cad3f5",
+      "backgroundColor": "transparent",
+      "paintOrder": "stroke fill",
+      "WebkitTextStroke": "0.75px #000",
+      "textShadow": "0 1px 4px rgba(0,0,0,0.85), 0 0 10px rgba(0,0,0,0.5)",
     },
     "frequencyDictionary": {
       "enabled": true,
@@ -176,14 +183,14 @@
       "mode": "single",
       "matchMode": "headword",
       "singleColor": "#f5a97f",
-      "bandedColors": ["#ed8796", "#f5a97f", "#f9e2af", "#a6e3a1", "#8aadf4"],
+      "bandedColors": ["#ed8796", "#f5a97f", "#f9e2af", "#8bd5ca", "#8aadf4"],
     },
     "enableJlpt": true,
     "jlptColors": {
       "N1": "#ed8796",
       "N2": "#f5a97f",
       "N3": "#f9e2af",
-      "N4": "#a6e3a1",
+      "N4": "#8bd5ca",
       "N5": "#8aadf4",
     },
     "nPlusOneColor": "#c6a0f6",
@@ -196,6 +203,7 @@
     "maxEntryResults": 10,
   },
   "anilist": {
+    "enabled": true,
     "characterDictionary": {
       "enabled": true,
       "collapsibleSections": {
@@ -208,13 +216,6 @@
   "immersionTracking": {
     "enabled": true,
     "dbPath": "",
-    "backend": {
-      "mode": "remote",
-      "remote": {
-        "baseUrl": "http://subminer-db:5432",
-        "deviceId": "cachypc",
-      },
-    },
   },
   "jellyfin": {
     "enabled": true,
@@ -283,7 +284,31 @@
     "hoverLineBackgroundColor": "rgba(54, 58, 79, 0.84)",
   },
   "controller": {
-    "preferredGamepadId": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
-    "preferredGamepadLabel": "8BitDo 8BitDo Ultimate 2 Wireless Controller for PC (Vendor: 2dc8 Product: 310b)",
+    "enabled": true,
+    "profiles": {
+      "Sony Interactive Entertainment Wireless Controller (STANDARD GAMEPAD Vendor: 054c Product: 09cc)": {
+        "label": "Sony Interactive Entertainment Wireless Controller (STANDARD GAMEPAD Vendor: 054c Product: 09cc)",
+        "bindings": {
+          "toggleMpvPause": {
+            "kind": "button",
+            "buttonIndex": 10,
+          },
+          "quitMpv": {
+            "kind": "button",
+            "buttonIndex": 8,
+          },
+        },
+      },
+    },
+  },
+  "mpv": {
+    "executablePath": "",
+    "launchMode": "normal",
+  },
+  "updates": {
+    "enabled": true,
+    "checkIntervalHours": 24,
+    "notificationType": "system",
+    "channel": "prerelease",
   },
 }
