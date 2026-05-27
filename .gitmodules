@@ -12,4 +12,4 @@
 	url = git@github.com:po5/thumbfast.git
 [submodule ".config/mpv-modules/ModernZ"]
 	path = .config/mpv-modules/ModernZ
-	url = git@github.com:ksyasuda/ModernZ.git
+	url = https://github.com/ksyasuda/ModernZ.git
