@@ -10,7 +10,7 @@
 [pull]
 	rebase = true
 [rebase]
-	autoStash = true
+	autoStash = false
 [fetch]
 	prune = true
 [diff]
