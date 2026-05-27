@@ -18,7 +18,7 @@ audio-stream-silence=yes        # Keep device primed between packets
 audio-wait-open=0.1             # Faster audio startup
 
 # Subtitle defaults
-sub-font="JetBrainsMono Nerd Font"
+sub-font="Manrope ExtraLight"
 sub-font-size=45
 sub-auto=fuzzy
 slang=en,eng
@@ -33,7 +33,6 @@ sub-pos=90
 ytdl-format=bestvideo+bestaudio/best
 ytdl-raw-options=sub-langs=en.*,write-auto-subs=
 ytdl-raw-options-append=extractor-args=youtubepot-bgutilhttp:base_url=http://tubearchivist:4416
-
 # Stats & UI colors (Catppuccin Macchiato)
 background-color='#24273a'
 osd-back-color='#181926'
@@ -194,19 +193,18 @@ keepaspect=no
 # Japanese immersion profile
 [subminer]
 cookies=yes
-cookies-file=/Volumes/sudacode/japanese/youtube-cookies.txt
+cookies-file=~/Documents/youtube-cookies.txt
 ytdl-raw-options=mark-watched=
 ytdl-raw-options-append=write-auto-subs=
 ytdl-raw-options-append=sub-langs=ja.*|en|ja-en
-ytdl-raw-options-append=cookies=/Volumes/sudacode/japanese/youtube-cookies.txt
+ytdl-raw-options-append=cookies=~/Documents/youtube-cookies.txt
 ytdl-format=bestvideo+bestaudio/best
 sub-auto=fuzzy
 alang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
 slang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
 vlang=ja,jpn
 subs-with-matching-audio=yes
-# sub-font="Hiragino Maru Gothic ProN W4"
-sub-font="M PLUS 1 Medium"
+sub-font="Hiragino Sans, M PLUS 1 Medium, Noto Sans CJK JP"
 sub-font-size=46
 glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
 scale=ewa_lanczossharp
@@ -217,7 +215,7 @@ input-ipc-server=/tmp/subminer-socket
 # Anime subtitles profile
 [anime-subs]
 profile-cond=p["slang"] == "ja" or p["slang"] == "ja.hi"
-sub-font="M PLUS 1 Medium"
+sub-font="Hiragino Sans, M PLUS 1 Medium, Noto Sans CJK JP"
 sub-bold=no
 sub-font-size=46
 sub-color=1.0/1.0/1.0/0.98
@@ -232,12 +230,3 @@ sub-italic=no
 sub-ass-override=strip
 sub-line-spacing=0.3
 sub-hinting=light
-
-[youtube-cookies]
-profile-desc="Apply YouTube cookies automatically"
-profile-cond=path:find("youtu%.?be")
-profile-restore=copy
-cookies=yes
-cookies-file=/Volumes/sudacode/japanese/youtube-cookies.txt
-ytdl-raw-options-append=cookies=/Volumes/sudacode/japanese/youtube-cookies.txt
-

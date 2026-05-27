@@ -1,11 +1,12 @@
-model = "gpt-5.3-codex-spark"
-model_reasoning_effort = "high"
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
 # Formula: 273000 - (tool_output_token_limit + 15000)
 # With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
 model_auto_compact_token_limit = 233000
+suppress_unstable_features_warning = true
 [features]
 ghost_commit = false
 unified_exec = true
@@ -78,6 +79,15 @@ trust_level = "trusted"
 [projects."/Users/sudacode/.agents/skills"]
 trust_level = "trusted"
 
+[projects."/Users/sudacode/projects/japanese/texthooker-ui"]
+trust_level = "trusted"
+
+[projects."/Users/sudacode"]
+trust_level = "trusted"
+
+[projects."/Users/sudacode/tmp"]
+trust_level = "trusted"
+
 [mcp_servers.backlog]
 command = "backlog"
 args = ["mcp", "start"]
@@ -85,3 +95,40 @@ args = ["mcp", "start"]
 [mcp_servers.playwright]
 command = "npx"
 args = ["@playwright/mcp@latest"]
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."hugging-face@openai-curated"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[notice.model_migrations]
+"gpt-5.2-codex" = "gpt-5.4"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[marketplaces.openai-bundled]
+last_updated = "2026-05-18T07:15:16Z"
+source_type = "local"
+source = "/Users/sudacode/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-05-09T00:22:09Z"
+source_type = "local"
+source = "/Users/sudacode/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"

@@ -22,13 +22,6 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-bindkey -v
-# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-# zstyle ':completion:*' menu select
-
-# Substring search
-source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-
 fzf-file-widget-smart-root() {
     setopt localoptions pipefail no_aliases 2>/dev/null
 
@@ -50,7 +43,15 @@ fzf-file-widget-smart-root() {
 }
 
 zle -N fzf-file-widget-smart-root
+bindkey -v
+bindkey -M emacs '^T' fzf-file-widget-smart-root
+bindkey -M vicmd '^T' fzf-file-widget-smart-root
+bindkey -M viins '^T' fzf-file-widget-smart-root
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# zstyle ':completion:*' menu select
 
+# Substring search
+source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # Bind arrow keys for vi insert mode
 bindkey -M viins '^[[A' history-substring-search-up
@@ -94,3 +95,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 alias claude-mem='/Users/sudacode/.bun/bin/bun "/Users/sudacode/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

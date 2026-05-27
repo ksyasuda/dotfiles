@@ -5,7 +5,6 @@
     "copySubtitleMultiple": "CommandOrControl+Shift+C",
     "updateLastCardFromClipboard": "CommandOrControl+V",
     "triggerFieldGrouping": "CommandOrControl+G",
-    "triggerSubsync": "CommandOrControl+Alt+S",
     "mineSentence": "CommandOrControl+S",
     "mineSentenceMultiple": "CommandOrControl+Shift+S",
     "multiCopyTimeoutMs": 3000,
@@ -15,7 +14,7 @@
     "toggleVisibleOverlayGlobal": "Alt+Shift+O",
     "toggleInvisibleOverlayGlobal": "Alt+Shift+I",
   },
-  "auto_start_overlay": false,
+  "auto_start_overlay": true,
   "texthooker": {
     "openBrowser": false,
   },
@@ -58,8 +57,8 @@
     },
     "knownWords": {
       "decks": {
-        "Minecraft": ["Expression", "Reading"],
-        "Kaishi 1.5k": ["Word", "Word Reading"],
+        "minecraft": ["expression", "reading"],
+        "kaishi 1.5k": ["word", "word reading"],
       },
       "highlightEnabled": true,
       "refreshMinutes": 60,
@@ -67,6 +66,7 @@
     },
     "nPlusOne": {
       "minSentenceWords": "3",
+      "enabled": true,
     },
     "metadata": {
       "pattern": "[SubMiner] %f (%t)",
@@ -112,34 +112,22 @@
     "replace": true,
   },
   "subtitleStyle": {
-    "fontFamily": "M PLUS 1 Medium, Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
-    "fontSize": 30,
-    "fontColor": "#cad3f5",
-    "fontWeight": 600,
-    "lineHeight": 1.35,
-    "letterSpacing": "-0.01em",
-    "wordSpacing": 0,
-    "fontKerning": "normal",
-    "textRendering": "geometricPrecision",
-    "textShadow": "0 3px 10px rgba(0,0,0,0.69)",
-    "fontStyle": "normal",
-    "backgroundColor": "rgb(30, 32, 48, 0.88)",
-    "backdropFilter": "blur(6px)",
     "preserveLineBreaks": false,
-    "hoverTokenColor": "#f4dbd6",
     "hoverBackground": "rgba(54, 58, 79, 0.84)",
     "autoPauseVideoOnHover": true,
     "autoPauseVideoOnYomitanPopup": true,
     "nameMatchEnabled": true,
     "nameMatchColor": "#f5bde6",
     "secondary": {
-      "fontFamily": "Manrope, Inter",
-      "fontSize": 24,
-      "fontColor": "#cad3f5",
-      "textShadow": "0 2px 4px rgba(0,0,0,0.95), 0 0 8px rgba(0,0,0,0.8), 0 0 16px rgba(0,0,0,0.55)",
-      "backgroundColor": "rgba(20, 22, 34, 0.78)",
-      "backdropFilter": "blur(6px)",
-      "fontWeight": "600",
+      "css": {
+        "font-family": "Manrope, Inter",
+        "color": "#cad3f5",
+        "background-color": "transparent",
+        "font-size": "24px",
+        "font-weight": "600",
+        "text-shadow": "3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000",
+        "backdrop-filter": "blur(6px)",
+      },
     },
     "frequencyDictionary": {
       "enabled": true,
@@ -160,6 +148,22 @@
     },
     "nPlusOneColor": "#c6a0f6",
     "knownWordColor": "#a6da95",
+    "css": {
+      "--subtitle-hover-token-background-color": "transparent",
+      "font-family": "Hiragino Sans, M PLUS 1, Noto Sans CJK JP Regular, Noto Sans CJK JP, Arial Unicode MS, Arial, sans-serif",
+      "color": "#cad3f5",
+      "background-color": "transparent",
+      "font-size": "35px",
+      "font-weight": "600",
+      "font-style": "normal",
+      "line-height": "1.35",
+      "letter-spacing": "-0.01em",
+      "word-spacing": "0",
+      "font-kerning": "normal",
+      "text-rendering": "geometricPrecision",
+      "text-shadow": "3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000",
+      "backdrop-filter": "blur(6px)",
+    },
   },
   "jimaku": {
     "apiKeyCommand": "cat ~/.jimaku-api-key",
@@ -167,17 +171,7 @@
     "languagePreference": "ja",
     "maxEntryResults": 10,
   },
-  "youtubeSubgen": {
-    "mode": "automatic",
-    "whisperBin": "~/.local/bin/whisper-cli",
-    "whisperModel": "~/models/whisper.cpp/ggml-medium.bin",
-    "whisperVadModel": "~/models/ggml-silero-v6.2.0.bin",
-    "whisperThreads": 8,
-    "fixWithAi": true,
-    "ai": {
-      "model": "google/gemini-2.5-flash-lite",
-      "systemPrompt": "Fix transcription mistakes only. Preserve the original language exactly. Do not translate, paraphrase, summarize, merge, split, reorder, or omit cues. Preserve cue numbering, cue count, timestamps, line breaks within each cue, and valid SRT formatting exactly. Return only corrected SRT.",
-    },
+  "youtube": {
     "primarySubLanguages": ["ja", "jpn"],
   },
   "anilist": {
@@ -205,13 +199,14 @@
     "defaultLibraryId": "",
     "directPlayPreferred": true,
     "remoteControlEnabled": true,
-    "remoteControlAutoConnect": true,
+    "remoteControlAutoConnect": false,
     "autoAnnounce": false,
     "remoteControlDeviceName": "SubMiner",
     "directPlayContainers": ["mkv", "mp4", "webm", "mov", "flac", "mp3", "aac"],
     "transcodeVideoCodec": "h264",
     "pullPictures": true,
     "iconCacheDir": "/tmp/subminer-jellyfin-icons",
+    "recentServers": ["http://pve-main:8096"],
   },
   "logging": {
     "level": "debug",
@@ -236,58 +231,38 @@
     "subtitleDictionaries": true,
     "jellyfinRemoteSession": true,
   },
-  // "controller": {
-  //   "preferredGamepadId": "8BitDo Ultimate wireless (Vendor: 2dc8 Product: 3012)",
-  //   "preferredGamepadLabel": "8BitDo Ultimate wireless (Vendor: 2dc8 Product: 3012)",
-  //   "bindings": {
-  //     "toggleLookup": {
-  //       "kind": "button",
-  //       "buttonIndex": 0,
-  //     },
-  //     "closeLookup": {
-  //       "kind": "button",
-  //       "buttonIndex": 1,
-  //     },
-  //     "mineCard": {
-  //       "kind": "button",
-  //       "buttonIndex": 3,
-  //     },
-  //     "toggleKeyboardOnlyMode": {
-  //       "kind": "button",
-  //       "buttonIndex": 4,
-  //     },
-  //     "toggleMpvPause": {
-  //       "kind": "button",
-  //       "buttonIndex": 13,
-  //     },
-  //     "quitMpv": {
-  //       "kind": "button",
-  //       "buttonIndex": 10,
-  //     },
-  //     "nextAudio": {
-  //       "kind": "button",
-  //       "buttonIndex": 6,
-  //     },
-  //     "playCurrentAudio": {
-  //       "kind": "button",
-  //       "buttonIndex": 7,
-  //     },
-  //     "leftStickHorizontal": {
-  //       "kind": "axis",
-  //       "axisIndex": 0,
-  //       "dpadFallback": "horizontal",
-  //     },
-  //     "leftStickVertical": {
-  //       "kind": "axis",
-  //       "axisIndex": 1,
-  //       "dpadFallback": "vertical",
-  //     },
-  //   },
-  // },
   "stats": {
-    "toggleKey": "Backquote", // Key code to toggle the stats overlay.
-    "serverPort": 6969, // Port for the stats HTTP server.
-    "autoStartServer": true, // Automatically start the stats server on launch. Values: true | false
+    "toggleKey": "Backquote",
+    "serverPort": 6969,
+    "autoStartServer": true,
     "autoOpenBrowser": false,
-  }, // Local immersion stats dashboard served on localhost and available as an in-app overlay.
+  },
+  "subtitleSidebar": {
+    "enabled": true,
+    "layout": "embedded",
+    "toggleKey": "Backslash",
+    "pauseVideoOnHover": true,
+    "autoScroll": true,
+    "css": {
+      "font-family": "'M PLUS 1', 'Noto Sans CJK JP', 'sans-serif'",
+      "color": "#cad3f5",
+      "background-color": "rgba(73, 77, 100, 0.9)",
+      "font-size": "16px",
+      "opacity": "0.95",
+      "--subtitle-sidebar-max-width": "420px",
+      "--subtitle-sidebar-timestamp-color": "#a5adcb",
+      "--subtitle-sidebar-active-line-color": "#f5bde6",
+      "--subtitle-sidebar-active-background-color": "rgba(138, 173, 244, 0.22)",
+      "--subtitle-sidebar-hover-background-color": "rgba(54, 58, 79, 0.84)",
+    },
+  },
+  "mpv": {
+    "launchMode": "normal",
+  },
+  "updates": {
+    "enabled": true,
+    "checkIntervalHours": 24,
+    "notificationType": "system",
+    "channel": "prerelease",
+  },
 }
