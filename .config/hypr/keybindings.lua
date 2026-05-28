@@ -41,32 +41,32 @@ hl.bind("CTRL+ALT + j", hl.dsp.focus({ monitor = "r" }))
 hl.bind("CTRL+ALT + k", hl.dsp.focus({ monitor = "l" }))
 
 -- Switch workspaces with mainMod + [0-9]
-hl.bind(mainMod .. " + 1", hl.dsp.focus({ workspace = 1 }))
-hl.bind(mainMod .. " + 2", hl.dsp.focus({ workspace = 2 }))
-hl.bind(mainMod .. " + 3", hl.dsp.focus({ workspace = 3 }))
-hl.bind(mainMod .. " + 4", hl.dsp.focus({ workspace = 4 }))
-hl.bind(mainMod .. " + 5", hl.dsp.focus({ workspace = 5 }))
-hl.bind(mainMod .. " + 6", hl.dsp.focus({ workspace = 6 }))
-hl.bind(mainMod .. " + 7", hl.dsp.focus({ workspace = 7 }))
-hl.bind(mainMod .. " + 8", hl.dsp.focus({ workspace = 8 }))
-hl.bind(mainMod .. " + 9", hl.dsp.focus({ workspace = 9 }))
-hl.bind(mainMod .. " + 0", hl.dsp.focus({ workspace = 10 }))
-
+for i = 1, 10 do
+	local key = i % 10
+	hl.bind(
+		mainMod .. " + " .. key,
+		hl.dsp.focus({
+			workspace = i,
+			silent = true,
+		})
+	)
+end
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
-hl.bind(mainMod .. " + SHIFT + 1", hl.dsp.window.move({ workspace = 1, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 2", hl.dsp.window.move({ workspace = 2, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 3", hl.dsp.window.move({ workspace = 3, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 4", hl.dsp.window.move({ workspace = 4, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 5", hl.dsp.window.move({ workspace = 5, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 6", hl.dsp.window.move({ workspace = 6, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 7", hl.dsp.window.move({ workspace = 7, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 8", hl.dsp.window.move({ workspace = 8, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 9", hl.dsp.window.move({ workspace = 9, silent = true }))
-hl.bind(mainMod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = 10, silent = true }))
+for i = 1, 10 do
+	local key = i % 10 -- workspace 10 maps to key 0
+	hl.bind(
+		mainMod .. " + SHIFT + " .. key,
+		hl.dsp.window.move({
+			workspace = i,
+			follow = false,
+			silent = true,
+		})
+	)
+end
 
 -- Example special workspace (scratchpad)
-hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind("CTRL + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+-- hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("magic"))
+-- hl.bind("CTRL + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -128,7 +128,8 @@ hl.bind(mainMod .. " + SHIFT + n", hl.dsp.exec_cmd("swaync-client -t"))
 -- mpv add
 hl.bind("SUPER + m", hl.dsp.exec_cmd("~/.local/bin/mpv-add.sh"))
 
-hl.bind("SUPER + SHIFT + s", hl.dsp.exec_cmd("slurp | grim -g - - | wl-copy"))
+-- hl.bind("SUPER + SHIFT + s", hl.dsp.exec_cmd("slurp | grim -g - - | wl-copy"))
+hl.bind("SUPER + SHIFT + s", hl.dsp.exec_cmd([[sh -c 'grim -g "$(slurp -d)" - | wl-copy']]))
 hl.bind("code:107", hl.dsp.exec_cmd("~/.local/bin/screenshot"))
 hl.bind("SHIFT + code:107", hl.dsp.exec_cmd("~/.local/bin/screenshot-active-window.sh"))
 hl.bind("SUPER + code:107", hl.dsp.exec_cmd("~/.local/bin/screenshot-active-window.sh -s"))
