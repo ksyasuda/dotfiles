@@ -168,13 +168,11 @@ hl.bind(
 -- )
 
 -- Disable keybinds with one master keybind
--- https://wiki.hypr.land/0.49.0/Configuring/Uncommon-tips--tricks/#disabling-keybinds-with-one-master-keybind
--- PAGE DOWN
-hl.bind(mainMod .. " + code:117", hl.dsp.submap("clean"))
--- TODO: manual review — wrap the following binds in hl.define_submap("clean", function() ... end). The next 'submap = reset' closes the block.
--- PAGE UP
-hl.bind(mainMod .. " + code:112", hl.dsp.submap("reset"))
--- (end of submap block)
+hl.bind(mainMod .. " + Page_Down", hl.dsp.submap("clean"))
+hl.define_submap("clean", function()
+	-- Page Up: exit clean submap
+	hl.bind(mainMod .. " + Page_Up", hl.dsp.submap("reset"))
+end)
 
 hl.bind("SUPER + l", hl.dsp.exec_cmd("hyprlock"))
 
