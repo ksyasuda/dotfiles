@@ -337,17 +337,8 @@ hl.window_rule({
 
 hl.window_rule({
 	match = {
-		class = "SubMiner",
+		class = "^SubMiner$",
 	},
-	opacity = "1.0 override",
-	pin = false,
-})
-
-hl.window_rule({
-	match = {
-		class = "SubMiner",
-	},
-
 	float = true,
 	border_size = 0,
 	xray = false,
@@ -356,8 +347,7 @@ hl.window_rule({
 	no_dim = true,
 	opaque = true,
 	dim_around = false,
-	allows_input = false,
-	opacity = "1.0 override",
+	opacity = "1.0 override 1.0 override",
 	pin = false,
 })
 

@@ -27,9 +27,9 @@ hl.monitor({
 	position = "0x0",
 	scale = 1,
 	vrr = 2,
-	-- cm = srgb
+	cm = srgb,
 	-- Optional HDR settings
-	cm = "hdr",
+	-- cm = "hdr",
 	bitdepth = 10,
 	sdr_min_luminance = 0.005,
 	sdr_max_luminance = 200,
