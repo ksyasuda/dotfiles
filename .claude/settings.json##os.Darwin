@@ -9,7 +9,6 @@
       "Read(~/.aws/**)"
     ]
   },
-  "model": "opus",
   "hooks": {
     "Notification": [
       {
