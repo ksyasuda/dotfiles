@@ -73,8 +73,8 @@ hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize())
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(
@@ -168,10 +168,26 @@ hl.bind(
 -- )
 
 -- Disable keybinds with one master keybind
-hl.bind(mainMod .. " + Page_Down", hl.dsp.submap("clean"))
+local function disableMouseWindowBinds()
+	hl.unbind(mainMod .. " + mouse:272")
+	hl.unbind(mainMod .. " + mouse:273")
+end
+
+local function restoreMouseWindowBinds()
+	hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+	hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+end
+
+hl.bind(mainMod .. " + Page_Down", function()
+	disableMouseWindowBinds()
+	hl.dispatch(hl.dsp.submap("clean"))
+end)
 hl.define_submap("clean", function()
 	-- Page Up: exit clean submap
-	hl.bind(mainMod .. " + Page_Up", hl.dsp.submap("reset"))
+	hl.bind(mainMod .. " + Page_Up", function()
+		restoreMouseWindowBinds()
+		hl.dispatch(hl.dsp.submap("reset"))
+	end)
 end)
 
 hl.bind("SUPER + l", hl.dsp.exec_cmd("hyprlock"))
@@ -181,8 +197,9 @@ hl.bind(mainMod .. " + a", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-anki-scr
 -- bind = $mainMod SHIFT, a, exec, ~/projects/scripts/screenshot-anki.sh -cdMinecraft
 
 -- GSM
-hl.bind("mouse:275", hl.dsp.exec_cmd("xdotool key alt+w"), { locked = true })
-hl.bind("mouse:276", hl.dsp.exec_cmd("xdotool key alt+grave"), { locked = true })
+-- mouse:275 / BTN_SIDE and mouse:276 / BTN_EXTRA pass through as native back/forward.
+-- hl.bind("mouse:275", hl.dsp.exec_cmd("xdotool key alt+w"), { locked = true })
+-- hl.bind("mouse:276", hl.dsp.exec_cmd("xdotool key alt+grave"), { locked = true })
 hl.bind("ALT + g", hl.dsp.exec_cmd("/opt/mpv-yomitan/mpv-yomitan.AppImage --toggle"))
 
 hl.bind("ALT + SHIFT + f", hl.dsp.exec_cmd("uwsm app -sb -- flameshot gui"))
@@ -200,6 +217,9 @@ hl.bind(
 hl.bind("ALT + SHIFT + O", hl.dsp.pass({ window = "class:^(SubMiner)$" }))
 hl.bind("ALT + SHIFT + I", hl.dsp.pass({ window = "class:^(SubMiner)$" }))
 hl.bind("ALT + SHIFT + C", hl.dsp.pass({ window = "class:^(SubMiner)$" }))
+
+-- gsm
+hl.bind("ALT + w", hl.dsp.pass({ window = "class:gamesentenceminer" }))
 
 -- {{{ scrolling
 hl.bind(mainMod .. " + comma", hl.dsp.layout("swapcol l"))

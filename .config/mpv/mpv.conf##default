@@ -176,9 +176,11 @@ slang=ja,jp,jpn,japanese,en,eng,english,English,enUS,en-US
 vlang=ja,jpn
 subs-with-matching-audio=yes
 sub-font="M PLUS 1 Medium"
-glsl-shaders="~~/shaders/ArtCNN_C4F32.glsl"
+video-sync=audio
+interpolation=no
+glsl-shaders="~~/shaders/ArtCNN_C4F16.glsl"
 scale=ewa_lanczossharp
-dither=error-diffusion
+dither=fruit
 deband=yes # Crucial for anime gradients
 input-ipc-server=/tmp/subminer-socket
 
@@ -209,4 +211,3 @@ profile-restore=copy
 cookies=yes
 cookies-file=/truenas/sudacode/japanese/youtube-cookies.txt
 ytdl-raw-options-append=cookies=/truenas/sudacode/japanese/youtube-cookies.txt
-

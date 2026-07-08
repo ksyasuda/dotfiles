@@ -65,13 +65,17 @@ hl.window_rule({
 
 hl.window_rule({
 	match = {
-		class = "ueberzugpp.*",
+		class = "^ueberzugpp_.*$",
 	},
-	-- TODO: manual review — unmapped window rule action: "no_focus on"
-	-- TODO: manual review — unmapped window rule action: "no_follow_mouse 1"
 	float = true,
-	-- TODO: manual review — unmapped window rule action: "no_shadow on"
-	-- TODO: manual review — unmapped window rule action: "no_anim on"
+	center = false,
+	no_initial_focus = true,
+	no_focus = true,
+	no_follow_mouse = true,
+	border_size = 0,
+	rounding = 0,
+	no_shadow = true,
+	no_anim = true,
 })
 
 hl.window_rule({
@@ -330,14 +334,24 @@ hl.window_rule({
 
 hl.window_rule({
 	match = {
-		class = "SubMiner",
+		class = "^SubMiner$",
 	},
 	float = true,
+	border_size = 0,
+	xray = false,
+	no_shadow = true,
+	no_blur = true,
+	no_dim = true,
+	opaque = true,
+	dim_around = false,
+	opacity = "1.0 override 1.0 override",
+	pin = false,
 })
 
 hl.window_rule({
 	match = {
-		class = "^SubMiner$",
+		class = "^gamesentenceminer$",
+		title = "GSM Overlay",
 	},
 	float = true,
 	border_size = 0,

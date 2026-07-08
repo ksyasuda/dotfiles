@@ -40,7 +40,6 @@
       "Bash(yadm push *)"
     ]
   },
-  "model": "sonnet",
   "hooks": {
     "Notification": [
       {
@@ -79,6 +78,8 @@
       "docker"
     ]
   },
-  "voiceEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "voiceEnabled": true
 }

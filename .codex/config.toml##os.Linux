@@ -1,5 +1,5 @@
 model = "gpt-5.5"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "xhigh"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
@@ -7,6 +7,12 @@ tool_output_token_limit = 25000
 # With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
 model_auto_compact_token_limit = 233000
 suppress_unstable_features_warning = true
+notify = ["/home/sudacode/.codex/scripts/codex-notify"]
+sandbox_mode = "workspace-write"
+
+[tui]
+notifications = ["agent-turn-complete"]
+notification_condition = "always"
 
 [sandbox_workspace_write]
 network_access = true
@@ -24,9 +30,10 @@ js_repl = false
 [mcp_servers.deepwiki]
 url = "https://mcp.deepwiki.com/mcp"
 
-[mcp_servers.anki]
-command = "npx"
-args = ["mcp-remote", "http://127.0.0.1:3141"]
+# [mcp_servers.anki]
+# command = "npx"
+# args = ["mcp-remote", "http://127.0.0.1:3141"]
+# enabled = false
 
 [mcp_servers.playwright]
 command = "npx"
@@ -213,6 +220,12 @@ trust_level = "trusted"
 [projects."/home/sudacode/projects/japanese/subminer.moe"]
 trust_level = "trusted"
 
+[projects."/home/sudacode/Pictures/wallpapers"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.cache/paru/clone/t3code-git"]
+trust_level = "trusted"
+
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
 
@@ -234,10 +247,10 @@ enabled = true
 [plugins."subminer-workflow@subminer-local"]
 enabled = true
 
-[plugins."browser@openai-bundled"]
+[plugins."coderabbit@openai-curated"]
 enabled = true
 
-[plugins."coderabbit@openai-curated"]
+[plugins."browser@openai-bundled"]
 enabled = true
 
 [tui.model_availability_nux]
@@ -283,7 +296,7 @@ diffRemoved = "#f38ba8"
 skill = "#cba6f7"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-24T02:02:38Z"
+last_updated = "2026-06-03T01:54:25Z"
 source_type = "local"
 source = "/home/sudacode/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
