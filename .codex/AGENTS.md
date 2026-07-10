@@ -24,6 +24,7 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 ## Build / Test
 
 - Release: read `docs/RELEASING.md` (or find best checklist if missing).
+- Do not write plans into `docs/plans`
 
 ## Git
 
