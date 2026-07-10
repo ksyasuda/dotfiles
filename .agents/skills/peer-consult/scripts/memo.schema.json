@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "verdict": { "type": "string", "minLength": 1 },
+    "evidence": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "risks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "alternatives": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "recommendation": { "type": "string", "minLength": 1 },
+    "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+  },
+  "required": [
+    "verdict",
+    "evidence",
+    "risks",
+    "alternatives",
+    "recommendation",
+    "confidence"
+  ],
+  "additionalProperties": false
+}

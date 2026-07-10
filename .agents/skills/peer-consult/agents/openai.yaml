@@ -1,0 +1,7 @@
+interface:
+  display_name: "Peer Consult"
+  short_description: "Independent cross-provider second opinions"
+  default_prompt: "Use $peer-consult to get an independent read-only second opinion on this decision."
+
+policy:
+  allow_implicit_invocation: true
