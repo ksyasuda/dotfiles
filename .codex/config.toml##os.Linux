@@ -1,5 +1,5 @@
 model = "gpt-5.6-sol"
-model_reasoning_effort = "xhigh"
+model_reasoning_effort = "high"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
@@ -16,7 +16,7 @@ notification_condition = "always"
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
-"gpt-5.6-sol" = 2
+"gpt-5.6-sol" = 4
 
 [sandbox_workspace_write]
 network_access = true
@@ -34,30 +34,12 @@ js_repl = false
 [mcp_servers.deepwiki]
 url = "https://mcp.deepwiki.com/mcp"
 
-# [mcp_servers.anki]
-# command = "npx"
-# args = ["mcp-remote", "http://127.0.0.1:3141"]
-# enabled = false
-
 [mcp_servers.playwright]
 command = "npx"
-args = ["@playwright/mcp@latest"]
+args = ["@playwright/mcp@latest", "--executable-path", "/usr/bin/helium-browser"]
 
-[mcp_servers.node_repl]
-args = []
-command = "/opt/codex-desktop/resources/node_repl"
-startup_timeout_sec = 120
-
-[mcp_servers.node_repl.env]
-NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = ""
-NODE_REPL_NODE_PATH = "/opt/codex-desktop/resources/node-runtime/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/home/sudacode/.codex"
-CODEX_HOME = "/home/sudacode/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "167fdf579477181fba1773c1efb067b00c5a64fe85dafb50a2001bde198dc739,70d5eb014dcfb1ab7db48b60db6df49336579ea7f2b76eb4b157be7897dca29d"
-BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-BROWSER_USE_MARKETPLACE_NAME = "openai-bundled"
-NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "BROWSER_USE_MARKETPLACE_NAME"
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
 
 [projects."/home/sudacode/projects"]
 trust_level = "trusted"
@@ -231,6 +213,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/usr/share/applications"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.agents/skills"]
 trust_level = "trusted"
 
 [notice.model_migrations]
