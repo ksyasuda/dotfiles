@@ -36,8 +36,8 @@
       "Read(./.env.*)",
       "Read(./secrets/**)",
       "Read(~/.aws/**)",
-      "Bash(git push *)",
-      "Bash(yadm push *)"
+      "Bash(git push --force*)",
+      "Bash(yadm push --force*)"
     ]
   },
   "hooks": {
@@ -69,14 +69,10 @@
     "enabled": false,
     "autoAllowBashIfSandboxed": true,
     "network": {
-      "allowUnixSockets": [
-        "/var/run/docker.sock"
-      ],
+      "allowUnixSockets": ["/var/run/docker.sock"],
       "allowLocalBinding": true
     },
-    "excludedCommands": [
-      "docker"
-    ]
+    "excludedCommands": ["docker"]
   },
   "effortLevel": "high",
   "tui": "fullscreen",

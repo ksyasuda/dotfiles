@@ -147,6 +147,7 @@ hl.bind("ALT + Tab", hl.dsp.focus({ last = true }))
 
 hl.bind("CTRL + F9", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
 hl.bind("CTRL + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("CTRL + SHIFT + M", hl.dsp.pass({ window = "class:^(discord)$" }))
 
 hl.bind("CTRL + SHIFT + D", hl.dsp.exec_cmd("~/.local/bin/dragon"))
 hl.bind("CTRL + ALT + F", hl.dsp.exec_cmd("~/.local/bin/favorite-wallpaper"))
