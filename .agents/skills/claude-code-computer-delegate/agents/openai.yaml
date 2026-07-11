@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude Code Computer Delegate"
+  short_description: "Route Claude Code computer-use tasks to Codex"
+  default_prompt: "Use $claude-code-computer-delegate to route computer-use work from Claude Code to the right Codex model."
