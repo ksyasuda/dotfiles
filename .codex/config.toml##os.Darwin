@@ -130,7 +130,7 @@ CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
 args = ["mcp"]
 cwd = "."
-enabled = false
+enabled = true
 
 [plugins."github@openai-curated"]
 enabled = true
@@ -164,7 +164,7 @@ enabled = true
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
-"gpt-5.6-sol" = 1
+"gpt-5.6-sol" = 4
 
 [marketplaces.openai-bundled]
 last_updated = "2026-07-10T05:36:55Z"
