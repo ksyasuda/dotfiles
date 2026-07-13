@@ -1,5 +1,5 @@
 model = "gpt-5.6-sol"
-model_reasoning_effort = "high"
+model_reasoning_effort = "medium"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
@@ -9,6 +9,7 @@ model_auto_compact_token_limit = 233000
 suppress_unstable_features_warning = true
 notify = ["/home/sudacode/.codex/scripts/codex-notify"]
 sandbox_mode = "workspace-write"
+service_tier = "fast"
 
 [tui]
 notifications = ["agent-turn-complete"]
@@ -216,6 +217,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/sudacode/.agents/skills"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/github/manatan"]
 trust_level = "trusted"
 
 [notice.model_migrations]

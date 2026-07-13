@@ -110,3 +110,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# >>> Codex installer >>>
+export PATH="/home/sudacode/.local/bin:$PATH"
+# <<< Codex installer <<<

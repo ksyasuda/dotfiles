@@ -9,6 +9,7 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Keep files <~500 LOC; split/refactor as needed.
 - Commits: Conventional Commits (`feat|fix|refactor|build|ci|chore|docs|style|perf|test`).
 - Prefer end-to-end verify; if blocked, say what’s missing.
+- Do not use em-dashes
 
 ## Docs
 
