@@ -9,7 +9,7 @@ model_auto_compact_token_limit = 233000
 suppress_unstable_features_warning = true
 notify = ["/home/sudacode/.codex/scripts/codex-notify"]
 sandbox_mode = "workspace-write"
-service_tier = "fast"
+service_tier = "default"
 
 [tui]
 notifications = ["agent-turn-complete"]
