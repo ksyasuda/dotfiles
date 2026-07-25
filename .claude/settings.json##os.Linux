@@ -1,7 +1,8 @@
 {
   "attribution": {
     "commit": "",
-    "pr": ""
+    "pr": "",
+    "sessionUrl": false
   },
   "permissions": {
     "allow": [
@@ -40,6 +41,7 @@
       "Bash(yadm push --force*)"
     ]
   },
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -69,13 +71,18 @@
     "enabled": false,
     "autoAllowBashIfSandboxed": true,
     "network": {
-      "allowUnixSockets": ["/var/run/docker.sock"],
+      "allowUnixSockets": [
+        "/var/run/docker.sock"
+      ],
       "allowLocalBinding": true
     },
-    "excludedCommands": ["docker"]
+    "excludedCommands": [
+      "docker"
+    ]
   },
   "effortLevel": "high",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }
