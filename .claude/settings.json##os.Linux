@@ -42,6 +42,9 @@
     ]
   },
   "model": "opus[1m]",
+  "env": {
+    "PLAYWRIGHT_MCP_EXECUTABLE_PATH": "/opt/helium-browser-bin/helium"
+  },
   "hooks": {
     "Notification": [
       {
