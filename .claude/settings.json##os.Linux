@@ -52,7 +52,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "notify-send 'Claude Code' 'Claude Code needs your attention'"
+            "command": "notify-send -a 'Claude Code' -i claude-desktop 'Claude Code' 'Claude Code needs your attention'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.cwd // \".\"' | { read -r d; notify-send -a 'Claude Code' -i claude-desktop -u normal 'Claude Code' \"Finished: $(basename \"$d\")\"; } 2>/dev/null || true",
+            "async": true
           }
         ]
       }
