@@ -80,7 +80,7 @@
     "playwright@claude-plugins-official": true,
     "coderabbit@claude-plugins-official": true,
     "discord@claude-plugins-official": true,
-    "chrome-devtools-mcp@claude-plugins-official": true
+    "chrome-devtools-mcp@claude-plugins-official": false
   },
   "sandbox": {
     "enabled": false,
