@@ -31,6 +31,7 @@ skills = true
 shell_snapshot = true
 multi_agent = true
 js_repl = false
+default_mode_request_user_input = true
 
 [mcp_servers.deepwiki]
 url = "https://mcp.deepwiki.com/mcp"
@@ -220,6 +221,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/sudacode/github/manatan"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/Downloads/jdownloader/tmp"]
 trust_level = "trusted"
 
 [notice.model_migrations]
