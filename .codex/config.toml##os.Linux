@@ -1,5 +1,5 @@
 model = "gpt-5.6-sol"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "high"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
@@ -224,6 +224,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/sudacode/Downloads/jdownloader/tmp"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/games/ModEngine2"]
 trust_level = "trusted"
 
 [notice.model_migrations]

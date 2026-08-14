@@ -147,7 +147,11 @@ hl.bind("ALT + Tab", hl.dsp.focus({ last = true }))
 
 hl.bind("CTRL + F9", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
 hl.bind("CTRL + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("CTRL + SHIFT + M", hl.dsp.pass({ window = "class:^(discord)$" }))
+-- Discord mute: also re-bound inside the "clean" submap below so it keeps working there
+local function bindDiscordMute()
+	hl.bind("CTRL + SHIFT + M", hl.dsp.pass({ window = "class:^(discord)$" }))
+end
+bindDiscordMute()
 
 hl.bind("CTRL + SHIFT + D", hl.dsp.exec_cmd("~/.local/bin/dragon"))
 hl.bind("CTRL + ALT + F", hl.dsp.exec_cmd("~/.local/bin/favorite-wallpaper"))
@@ -189,6 +193,8 @@ hl.define_submap("clean", function()
 		restoreMouseWindowBinds()
 		hl.dispatch(hl.dsp.submap("reset"))
 	end)
+	-- only other keybind allowed in clean
+	bindDiscordMute()
 end)
 
 hl.bind("SUPER + l", hl.dsp.exec_cmd("hyprlock"))

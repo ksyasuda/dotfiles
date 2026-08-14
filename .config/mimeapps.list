@@ -71,6 +71,7 @@ x-scheme-handler/tonsite=org.telegram.desktop.desktop;
 x-scheme-handler/tradingview=tradingview.desktop;TradingView.desktop;
 application/x-wine-extension-ini=nvim.desktop;
 x-scheme-handler/subminer=subminer.desktop;SubMiner.desktop;
+x-scheme-handler/t3code=t3code-url-handler.desktop;
 
 [Default Applications]
 application/x-extension-htm=helium.desktop;zen.desktop
@@ -159,5 +160,5 @@ x-scheme-handler/subminer=subminer.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 x-scheme-handler/mux=mux.desktop
 x-scheme-handler/claude=com.anthropic.claude-desktop.desktop
-x-scheme-handler/t3code=t3code.desktop
+x-scheme-handler/t3code=t3code-url-handler.desktop
 x-scheme-handler/codex=ChatGPT.desktop
