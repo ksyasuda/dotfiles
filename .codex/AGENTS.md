@@ -1,26 +1,49 @@
 # AGENTS.MD
 
-Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
-
 ## Agent Protocol
 
 - PRs: use `gh pr view/diff` (no URLs).
 - Need upstream file: stage in `/tmp/`, then cherry-pick; never overwrite tracked.
-- Keep files <~500 LOC; split/refactor as needed.
 - Commits: Conventional Commits (`feat|fix|refactor|build|ci|chore|docs|style|perf|test`).
 - Prefer end-to-end verify; if blocked, say what’s missing.
 - Do not use em-dashes
 
+## Coding Preferences - general
+
+- Keep things simple. Channel "yagni" energy unless told otherwise
+- Typesafety is useful, take full advantage of it
+- Don't be scared to propose bold ideas if they can meaningfully benefit our
+  work
+- Be careful with destructive actions that are not explicitly requested by the
+  user
+- Tests are good! Endless smoke tests, "regression tests" for feature deletions
+  and things like that are not good. Tests should be focused and not slop
+- Comments are a great way to clarify functionality and how code is used, but
+  don't comment on every line. Feel free to describe (concisely) how functions
+  are used above function definitions, classes, etc
+- Keep comments up to date. When making changes, it's important to keep things in
+  sync
+
+## Coding Preferences (Typescript focused)
+
+- `any` is the enemy. Inferred types are our friend. Our system should adapt to
+  changes, instead of requiring changes everywhere
+- If TS code looks like it was written by a Python dev, then it's bad TS code
+- Avoid one-line functions that are just casting wrappers
+
+## Questions are read-only
+
+- A question is a request for an answer, not for changes. If the message opens
+  with something along the lines of "how hard would it be", "what would it look
+  like if we did X", "what are your thoughts", "why does", "should we", "is it
+  possible", or otherwise asks rather than instructs - answer it and do not edit
+  files
+- If the answer is obvious and the change is trivial, still answer it first and
+  offer to make the change after. Ask before making it
+
 ## Docs
 
-- Keep notes short; update docs when behavior/API changes (no ship w/o docs).
-
-## PR Feedback
-
-- Active PR: `gh pr view --json number,title,url --jq '"PR #\\(.number): \\(.title)\\n\\(.url)"'`.
-- PR comments: `gh pr view …` + `gh api …/comments --paginate`.
-- Replies: cite fix + file/line; resolve threads only after fix lands.
-- When merging a PR: thank the contributor in `CHANGELOG.md`.
+- Keep notes short; update docs when behavior/API changes
 
 ## Build / Test
 
@@ -30,7 +53,6 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 ## Git
 
 - Safe by default: `git status/diff/log`. Push only when user asks.
-- `git checkout` ok for PR review / explicit request.
 - Branch changes require user consent.
 - Destructive ops forbidden unless explicit (`reset --hard`, `clean`, `restore`, `rm`, …).
 - Don’t delete/rename unexpected stuff; stop + ask.
@@ -39,7 +61,7 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - If user types a command (“pull and push”), that’s consent for that command.
 - No amend unless asked.
 - Big review: `git --no-pager diff --color=never`.
-- Multi-agent: check `git status/diff` before edits; ship small commits.
+- Multi-agent: check `git status/diff` before edits.
 
 ## Language/Stack Notes
 
