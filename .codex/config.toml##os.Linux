@@ -7,12 +7,11 @@ tool_output_token_limit = 25000
 # With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
 model_auto_compact_token_limit = 233000
 suppress_unstable_features_warning = true
-notify = ["/home/sudacode/.codex/scripts/codex-notify"]
 sandbox_mode = "workspace-write"
 service_tier = "default"
 
 [tui]
-notifications = ["agent-turn-complete"]
+notifications = ["agent-turn-complete", "approval-requested"]
 notification_condition = "always"
 
 [tui.model_availability_nux]
@@ -245,9 +244,6 @@ enabled = true
 enabled = true
 
 [plugins."chrome@openai-bundled"]
-enabled = true
-
-[plugins."subminer-workflow@subminer-local"]
 enabled = true
 
 [plugins."coderabbit@openai-curated"]
