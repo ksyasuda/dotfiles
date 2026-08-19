@@ -5,9 +5,13 @@ description: Delegate self-contained tasks to Claude or Codex subagents run as f
 
 # Delegate
 
-Hand a self-contained task to a fresh Claude or Codex subagent and get back a
-structured report. Each invocation is one subagent; run several in parallel for
-independent tasks.
+Hand a self-contained task to a fresh `claude` or `codex` CLI process and get
+back a structured report. Each invocation is one subagent; run several in
+parallel for independent tasks.
+
+You call the CLIs directly. The command shapes below are the default recipe,
+not a fixed harness — adjust flags when the task needs it (extra directories,
+different tools, a longer timeout), and say what you changed in your report.
 
 ## When to delegate
 
@@ -61,45 +65,123 @@ The subagent starts with zero context. Write a self-contained task containing:
 
 Pass raw evidence; do not tell the subagent the answer you expect.
 
+Wrap the brief in this scaffold. Keep the constraint block matching the mode
+and keep the report sections verbatim — the result-handling steps below assume
+them.
+
+```
+You are a subagent completing a delegated task inside the current repository.
+Work independently; the caller cannot answer questions mid-task. If the task is
+ambiguous, choose the safest reasonable interpretation and note the choice in
+your report.
+
+<constraints for the chosen mode — see below>
+- Do not delegate further or invoke Claude or Codex recursively.
+
+End your reply with a report containing these sections:
+- Summary: what you did or found, in a few sentences.
+- Details: key evidence, decisions, or findings, with file:line references.
+- Files changed: list each changed file, or "none".
+- Verification: what you ran and the outcome, or "not verified" and why.
+- Open questions: anything unresolved the caller must decide, or "none".
+
+Task:
+<self-contained task brief>
+```
+
+`read` constraints:
+
+```
+Hard constraints:
+- You are in read-only mode. Do not modify, create, rename, or delete files.
+- Do not commit, branch, push, or contact external systems that change state.
+- Base claims on repository evidence. Cite file paths and line numbers.
+```
+
+`write` constraints:
+
+```
+Hard constraints:
+- Work only inside the given repository directory.
+- Do not commit, branch, push, or open pull requests unless the task says to.
+- Do not delete or rename files the task does not cover; if something looks
+  wrong or unexpected, stop and report instead of guessing.
+- Verify your work (build, tests, or a targeted check) when feasible.
+```
+
 ## Run it
 
-Resolve `<skill-dir>` to the directory containing this `SKILL.md`. Send the
-task on stdin; do not interpolate it into the shell command.
+Always send the prompt on stdin via a quoted heredoc (`<<'TASK'`) so nothing in
+the brief is expanded or re-parsed by the shell. Run the CLI from the target
+repo with `cd <repo> && ...`.
+
+Codex, read-only:
 
 ```bash
-python3 <skill-dir>/scripts/delegate.py \
-  --provider codex \
-  --tier standard \
-  --mode read \
-  --repo "$PWD" <<'TASK'
-<self-contained task brief>
+cd /path/to/repo && codex exec \
+  --ignore-user-config \
+  --model gpt-5.6-sol \
+  --config model_reasoning_effort="medium" \
+  --config approval_policy="never" \
+  --sandbox read-only \
+  --ephemeral \
+  --skip-git-repo-check \
+  --output-last-message /tmp/delegate-codex-1.md \
+  --cd /path/to/repo - <<'TASK'
+<scaffold + brief>
+TASK
+cat /tmp/delegate-codex-1.md
+```
+
+Codex, write mode: swap `--sandbox read-only` for `--sandbox workspace-write`.
+
+`--output-last-message` writes just the final report; Codex's stdout also
+carries its reasoning stream, which is useful when a run fails or you want to
+see what it actually did. Add `--add-dir <dir>` for extra writable roots.
+
+Claude, read-only:
+
+```bash
+cd /path/to/repo && claude --print \
+  --model claude-opus-4-8 \
+  --effort medium \
+  --disable-slash-commands \
+  --no-session-persistence \
+  --permission-mode plan \
+  --tools Read,Glob,Grep <<'TASK'
+<scaffold + brief>
 TASK
 ```
 
-Flags:
+Claude, write mode: replace the last two lines with
 
-- `--provider claude|codex` (required)
-- `--tier quick|quick-context|standard|deep` (default `standard`)
-- `--mode read|write` (default `read`)
-- `--model <approved-model>` for an explicit allowed override
-- `--repo <dir>` (default cwd)
-- `--timeout <seconds>` (default 1800)
-- `--dry-run` to inspect routing and command construction without running
+```bash
+  --permission-mode acceptEdits \
+  --tools Read,Glob,Grep,Edit,Write,Bash \
+  --allowedTools Edit,Write,Bash
+```
+
+Claude prints the final message on stdout. Widen `--tools` when a task
+genuinely needs more (for example `WebSearch` for external research, or
+`Bash` in read mode for a `git diff` the subagent must see) — that is a
+deliberate choice, so note it when you report back.
+
+Give long runs a timeout that fits the task (the Bash tool's `timeout` is in
+milliseconds; 1800000 is a reasonable ceiling for a `deep` tier run).
 
 Parallel delegation: launch each invocation as a separate background shell
-command, then collect the outputs. Never point two `write`-mode subagents at
-overlapping files; split by file/directory or run them sequentially.
+command, write each Codex report to its own `--output-last-message` path, then
+collect the outputs. Never point two `write`-mode subagents at overlapping
+files; split by file/directory or run them sequentially.
 
 ## Handle the result
 
-The report ends with Summary / Details / Files changed / Verification / Open
-questions sections. Then:
-
-- Treat it as a subagent's claim, not ground truth: spot-check load-bearing
-  findings, and for `write` mode review the diff (`git diff`) and re-run
-  verification before building on it.
+- Treat the report as a subagent's claim, not ground truth: spot-check
+  load-bearing findings, and for `write` mode review the diff (`git diff`) and
+  re-run verification before building on it.
 - Relay the outcome to the user in your own words; credit which provider/model
   produced it when it matters.
-- On failure, report the provider, model, and exact error. Retry once with the
-  same route if transient; escalate tier or switch provider only deliberately,
-  and say you did.
+- On failure, report the provider, model, and exact error. A nonzero exit or
+  empty output is a failure even if the CLI printed something — check both.
+  Retry once with the same route if transient; escalate tier or switch provider
+  only deliberately, and say you did.

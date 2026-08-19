@@ -228,6 +228,12 @@ trust_level = "trusted"
 [projects."/home/sudacode/games/ModEngine2"]
 trust_level = "trusted"
 
+[projects."/truenas/jellyfin/anime/BanG Dream! It's MyGO!!!!!/Season-1"]
+trust_level = "trusted"
+
+[projects."/tmp/claude-1000/-home-sudacode--agents-skills-claude-code-computer-delegate/df15b0bc-3ae1-4e90-a006-21c31ddc8634/scratchpad"]
+trust_level = "trusted"
+
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
 

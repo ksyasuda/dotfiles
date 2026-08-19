@@ -1,93 +1,184 @@
 ---
 name: claude-code-computer-delegate
-description: "Route Claude Code computer-use, browser-use, GUI automation, and workstation interaction tasks to Codex subagents only. Use when Claude Code needs another agent to inspect or operate a desktop app, browser, local UI, terminal-driven workflow, or repo task involving computer control. Always use GPT-5.6 Codex models only: gpt-5.6-terra for narrow/simple work and gpt-5.6-sol for complex/high-risk work. Never use gpt-5.6-luna, Luna aliases, Claude models, or non-GPT-5.6 Codex models."
+description: "Delegate desktop GUI and workstation control to a Codex subagent that acts as remote hands while Claude Code reads the screenshots. Use when a task needs to see or operate the local desktop: take a screenshot, check what is currently on screen, inspect or drive a native or Electron app window, read window/workspace/monitor state, launch a desktop program, or run a live-session workflow that a sandboxed shell cannot reach. Not for web pages (use the Chrome DevTools or Playwright MCP tools) and not for ordinary repo edits (use the delegate skill). Codex only: gpt-5.6-terra for narrow work, gpt-5.6-sol for complex or risky work; never gpt-5.6-luna, Luna aliases, or Claude models."
 ---
 
 # Claude Code Computer Delegate
 
-## Overview
+## The one thing to understand first
 
-Delegate computer-use work from Claude Code to Codex subagents. Route every task to `gpt-5.6-terra` or `gpt-5.6-sol`; reject Luna and every other model.
+**Codex is the hands. Claude Code is the eyes.**
 
-## Hard Rules
+Verified on this machine: a `codex exec` subagent *cannot view image files*. Asked to
+screenshot the desktop and describe it, it replies `CANNOT VIEW IMAGES`. So never ask
+Codex "what does the screen look like" or "check whether the dialog appeared". It is
+blind.
 
-- Use provider `codex` only.
-- Use only `gpt-5.6-terra` or `gpt-5.6-sol`.
-- Never use `gpt-5.6-luna`, `luna`, aliases, "latest", fallback models, Claude models, or pre-5.6 Codex models.
-- If a requested model violates these rules, stop and report the conflict. Do not silently substitute.
-- Do not delegate recursively. The Codex subagent must complete the task itself and report back.
-- Prefer read-only delegation for inspection, diagnosis, screenshots, or review. Use write mode only for explicit implementation or file edits.
+The working division of labor:
 
-## Route Selection
+| Step | Who | How |
+|---|---|---|
+| Capture screen, drive windows, launch apps, run live-session commands | Codex subagent | `grim`, `hyprctl`, `wtype` |
+| Interpret pixels: layout, colors, error text, "did it work" | Claude Code (you) | `Read` the PNG path Codex reports |
+| Decide the next action | Claude Code (you) | Send a follow-up brief |
 
-Choose the smallest adequate route:
+Codex reasons only over **text**: `hyprctl -j clients` JSON, command output, exit codes,
+log files. Have it report those. Have it report *screenshot paths*, never screenshot
+*descriptions*.
 
-| Complexity | Use | Model | Effort |
-|---|---|---|---|
-| Narrow | Single screen, one command, simple browser/GUI check, small file inspection, bounded terminal task | `gpt-5.6-terra` | medium |
-| Narrow but context-heavy | Same scope, but with long logs, many screenshots, or nuanced UI state | `gpt-5.6-terra` | high |
-| Standard | Multi-step computer workflow, multi-file repo task, ordinary debugging, meaningful trade-offs | `gpt-5.6-sol` | medium |
-| Deep | Architecture, security, concurrency, risky edits, broad ambiguity, high-impact user/system state | `gpt-5.6-sol` | high |
+## Use this skill when
 
-Default to `gpt-5.6-sol` when failure could change user data, spend money, publish, delete, overwrite, or affect credentials. Default to `gpt-5.6-terra` when the task is reversible, local, and easy to verify.
+- "What's on my screen right now", "take a screenshot", "look at my desktop"
+- Inspecting or operating a native/Electron/GTK/Qt app window
+- Reading window, workspace, or monitor layout state
+- Launching or focusing a desktop program
+- A command that must touch the live graphical session
 
-## Preferred Invocation
+## Do NOT use this skill when
 
-When the local `delegate` broker is available, use it because it enforces the approved Codex model set and safe execution modes:
+- **Web page or web app work.** You have `chrome-devtools` and `playwright` MCP tools
+  in-process. They give you the DOM, console, network, and snapshots you can actually
+  see. Delegating browser work to a blind subagent is strictly worse. Use the MCP tools.
+- **Plain repo work** (reading code, edits, reviews) with no GUI involved. Use the
+  `delegate` skill instead.
+- The task is a single command you can just run in Bash yourself. Do that.
+
+## Hard model policy
+
+- Provider `codex` only. Model must be `gpt-5.6-terra` or `gpt-5.6-sol`.
+- Never `gpt-5.6-luna`, `luna`, aliases, `latest`, fallbacks, Claude models, or pre-5.6
+  Codex models.
+- If the user names a model outside this set, stop and report the conflict. Do not
+  silently substitute.
+- The subagent must not delegate further.
+
+| Complexity | Model | Effort |
+|---|---|---|
+| Single screenshot, one command, bounded lookup | `gpt-5.6-terra` | medium |
+| Same scope, long logs or fiddly state | `gpt-5.6-terra` | high |
+| Multi-step GUI workflow, ordinary debugging | `gpt-5.6-sol` | medium |
+| Risky, ambiguous, or touching credentials/money/user data | `gpt-5.6-sol` | high |
+
+Default to `sol` when a mistake could change user data, spend money, publish, delete, or
+overwrite. Default to `terra` when the action is reversible and easy to verify.
+
+## Sandbox: the part that used to silently fail
+
+GUI access requires `--sandbox danger-full-access`. This is not optional and there is no
+narrower mode that works.
+
+Measured on this box (Wayland, Hyprland 0.56.2):
+
+| Sandbox | `grim` screenshot | `hyprctl` |
+|---|---|---|
+| `read-only` | fails, `failed to create display` | fails, `Couldn't set socket timeout` |
+| `workspace-write` | fails, `failed to create display` | fails |
+| `workspace-write --add-dir /run/user/1000` | still fails | still fails |
+| `danger-full-access` | works | works |
+
+The sandbox passes `WAYLAND_DISPLAY` and `XDG_RUNTIME_DIR` through as environment
+variables but blocks the compositor sockets themselves, so the failure looks like a
+missing display rather than a permission error. `--add-dir` does not fix it.
+
+Because `danger-full-access` removes the sandbox entirely, keep the blast radius in the
+brief instead: name the exact commands allowed, and forbid everything else.
+
+## Run it
 
 ```bash
-python3 /Users/sudacode/.agents/skills/delegate/scripts/delegate.py \
-  --provider codex \
-  --tier quick \
-  --mode read \
-  --repo "$PWD" <<'TASK'
-<self-contained computer-use task>
-TASK
-```
-
-Map tiers as follows:
-
-- `quick` -> `gpt-5.6-terra`, medium
-- `quick-context` -> `gpt-5.6-terra`, high
-- `standard` -> `gpt-5.6-sol`, medium
-- `deep` -> `gpt-5.6-sol`, high
-
-Use `--mode write` only when the user explicitly wants implementation or edits.
-
-## Direct Codex Fallback
-
-If the broker is unavailable, call Codex directly with an approved model:
-
-```bash
-codex exec \
+cd "$PWD" && timeout 900 codex exec \
   --ignore-user-config \
   --model gpt-5.6-terra \
-  --config 'model_reasoning_effort="medium"' \
-  --config 'approval_policy="never"' \
-  --sandbox read-only \
+  --config model_reasoning_effort="medium" \
+  --config approval_policy="never" \
+  --sandbox danger-full-access \
   --ephemeral \
   --skip-git-repo-check \
-  --cd "$PWD" \
-  -
+  --output-last-message /tmp/codex-gui-1.md \
+  --cd "$PWD" - <<'TASK'
+<brief from the template below>
+TASK
+cat /tmp/codex-gui-1.md
 ```
 
-For write tasks, use `--sandbox workspace-write`; never grant broader access unless the user explicitly approves that exact operation.
+Notes that matter:
 
-## Task Brief
+- Always feed the brief on stdin via a **quoted** heredoc (`<<'TASK'`) so the shell does
+  not expand anything in it. The trailing `-` is what tells Codex to read stdin.
+- `--output-last-message` gives you the clean report; stdout also carries the reasoning
+  stream, which is what you want when a run fails.
+- Give screenshots a path you can reach afterward. Prefer your scratchpad directory.
+- A nonzero exit or empty report file is a failure even if stdout printed something.
+  Check both.
 
-Write a complete brief; the Codex subagent starts with no conversation context. Include:
+## Brief template
 
-- Goal and definition of done.
-- Exact app, browser tab, local URL, file path, command, or screen state involved.
-- Constraints: forbidden actions, allowed edits, credentials/payment/publishing restrictions.
-- Verification expected: screenshot, command output, tests, or concise report.
-- Reporting format: summary, actions taken, evidence, files changed, verification, open questions.
+Codex starts with zero context.
 
-Pass raw evidence such as errors, logs, screenshots paths, or diffs. Do not tell Codex the answer to find.
+```
+You are a subagent with direct access to the live graphical session.
 
-## Safety Checks
+Environment: Wayland + Hyprland. Available: grim (screenshot), slurp (region),
+wtype (typing), hyprctl (window control and JSON introspection), xdotool
+(XWayland windows only), playwright, google-chrome-stable, firefox.
 
-- Before launching: state selected model, tier, mode, and why.
-- After completion: inspect the report and verify load-bearing claims before acting on them.
-- For write mode: review `git diff` and run targeted tests/checks before reporting success.
-- On failure: report selected model, exact command path used, and the error. Retry once only for transient failures, with the same allowed model family.
+You CANNOT view images. Never describe the contents of a screenshot. Capture it,
+report the absolute path, and let the caller look at it.
+
+Hard constraints:
+- Run only these commands: <explicit list>
+- Do not close, move, or resize the user's existing windows unless told to.
+- Do not type into or click on windows the task does not name.
+- Do not delegate further or invoke Codex/Claude recursively.
+
+Report, in these sections:
+- Summary: what you did.
+- Screenshots: absolute path of each, and what each was meant to capture.
+- Structural state: relevant `hyprctl -j clients` output or command stdout, verbatim.
+- Commands run: each with its exit code.
+- Open questions: anything you could not determine without vision.
+
+Task:
+<self-contained task>
+```
+
+Pass raw evidence. Do not tell Codex the answer you expect it to find.
+
+## Desktop cookbook (verified available here)
+
+Prefer structured text over pixels wherever possible, since that is the part Codex can
+reason about.
+
+```bash
+grim /path/shot.png                  # whole screen
+grim -g "$(slurp)" /path/region.png  # region (interactive, needs a human)
+hyprctl -j clients                   # every window: class, title, at[x,y], size[w,h], workspace
+hyprctl -j activewindow              # focused window
+hyprctl -j monitors                  # geometry and scale
+hyprctl notify -1 3000 "rgb(44ccff)" "message"
+wtype 'text to type'                 # types into the focused window
+```
+
+`hyprctl -j clients` is the highest-value call: it returns exact window rectangles, so
+Codex can position and identify windows without seeing anything.
+
+## Known limits, state honestly
+
+- **No synthetic mouse clicks.** `ydotool` is not installed and the user is not in the
+  `input` group, so `/dev/uinput` is not writable. There is no working click injection.
+  If a task needs a click, say so and ask the user, rather than having Codex flail.
+- **Hyprland 0.56 changed the dispatch API** to a Lua form (`hl.dsp.window.close()`).
+  Old `hyprctl dispatch <name>` strings error out. Verify a dispatcher before relying on
+  it.
+- `xdotool` only reaches XWayland clients, not native Wayland ones.
+- **Screenshots are downscaled when you Read them.** A 3440x1440 capture is shown to you
+  at 2000x837. If you derive coordinates from the image, multiply by the stated factor
+  before handing them to anything.
+
+## After the run
+
+- Read the screenshot yourself before believing any claim about UI state.
+- Treat the report as a claim. Spot-check load-bearing parts against the raw output.
+- On failure, report the model, the exact command, and the error. Retry once only for
+  transient faults, on the same model family. If the error is `failed to create display`,
+  the sandbox flag was wrong, not the task.
