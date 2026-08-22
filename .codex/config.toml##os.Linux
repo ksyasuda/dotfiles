@@ -42,6 +42,10 @@ args = ["@playwright/mcp@latest", "--executable-path", "/usr/bin/helium-browser"
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 
+[mcp_servers.anki]
+command = "npx"
+args = ["-y", "@ankimcp/anki-mcp-server", "--stdio"]
+
 [projects."/home/sudacode/projects"]
 trust_level = "trusted"
 
@@ -232,6 +236,18 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/tmp/claude-1000/-home-sudacode--agents-skills-claude-code-computer-delegate/df15b0bc-3ae1-4e90-a006-21c31ddc8634/scratchpad"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/.local/share/Steam/steamapps/common/DARK SOULS III/Game"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/kiku"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/Documents/anki"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/Documents/anki/stats"]
 trust_level = "trusted"
 
 [notice.model_migrations]
