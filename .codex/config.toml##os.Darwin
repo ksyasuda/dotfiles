@@ -1,5 +1,5 @@
-model = "gpt-5.5"
-model_reasoning_effort = "medium"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
@@ -94,6 +94,15 @@ trust_level = "trusted"
 [projects."/Users/sudacode/projects/japanese/anilist-jiten"]
 trust_level = "trusted"
 
+[projects."/Users/sudacode/Documents/Codex/2026-08-16/on"]
+trust_level = "trusted"
+
+[projects."/Users/sudacode/Documents/Codex/2026-08-16/help"]
+trust_level = "trusted"
+
+[projects."/Users/sudacode/Documents/Codex/2026-08-19/this"]
+trust_level = "trusted"
+
 [mcp_servers.backlog]
 command = "backlog"
 args = ["mcp", "start"]
@@ -115,22 +124,23 @@ startup_timeout_sec = 120
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
 NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/sudacode/.codex"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/sudacode/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 CODEX_HOME = "/Users/sudacode/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,c8b7e809d7cf9e20a57123b2530d476ccec9a01a6230a7b2b924fea7d94d7f4a"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "9230e2bd8b24b7ac7a0ba6774c64bf0d78ecdabbdd91d0ed627b02a587bae2df"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.707.31428"
+BROWSER_USE_CODEX_APP_VERSION = "26.810.52044"
+SKY_CUA_SERVICE_PATH = "/Users/sudacode/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
 command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
 args = ["mcp"]
 cwd = "."
-enabled = true
+enabled = false
 
 [plugins."github@openai-curated"]
 enabled = true
@@ -156,7 +166,16 @@ enabled = true
 [plugins."visualize@openai-bundled"]
 enabled = true
 
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
 [plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
 enabled = true
 
 [notice.model_migrations]
@@ -167,12 +186,12 @@ enabled = true
 "gpt-5.6-sol" = 4
 
 [marketplaces.openai-bundled]
-last_updated = "2026-07-10T05:36:55Z"
+last_updated = "2026-08-16T07:38:41Z"
 source_type = "local"
 source = "/Users/sudacode/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-09T00:22:09Z"
+last_updated = "2026-08-16T07:39:44Z"
 source_type = "local"
 source = "/Users/sudacode/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -228,3 +247,8 @@ global = "vscode"
 "/Users/sudacode/github/SubMiner" = "vscode"
 "/Users/sudacode/projects/japanese/SubMiner" = "vscode"
 "/Users/sudacode/.codex/worktrees/204a/SubMiner" = "ghostty"
+
+[shell_environment_policy.set]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "9230e2bd8b24b7ac7a0ba6774c64bf0d78ecdabbdd91d0ed627b02a587bae2df"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/sudacode/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
