@@ -6,6 +6,42 @@ return {
 		"j-hui/fidget.nvim",
 		"ravitemer/mcphub.nvim",
 	},
+	keys = {
+		{
+			"<leader>Cf",
+			function()
+				require("codecompanion").chat({ window_opts = { height = 1, layout = "buffer" } })
+			end,
+			desc = "Fullscreen chat",
+		},
+		{
+			"<leader>Ch",
+			function()
+				require("codecompanion").chat({
+					window_opts = { height = 0.24, layout = "horizontal", position = "bottom" },
+				})
+			end,
+			desc = "Horizontal chat",
+		},
+		{ "<leader>Cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle chat" },
+		{ "<leader>oc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle chat" },
+		{
+			"<leader>Ci",
+			function()
+				vim.api.nvim_feedkeys(":CodeCompanion #{buffer} ", "n", false)
+			end,
+			mode = { "n", "v" },
+			desc = "Inline prompt",
+			silent = false,
+		},
+		{ "<leader>Ct", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle chat" },
+		{ "<leader>CA", "<cmd>CodeCompanionActions<cr>", desc = "Actions" },
+		{ "<leader>Ca", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add selection to chat" },
+		{ "<leader>Ce", "<cmd>CodeCompanion /explain<cr>", mode = "v", desc = "Explain selection" },
+		{ "<leader>Cf", "<cmd>CodeCompanion /fix<cr>", mode = "v", desc = "Fix selection" },
+		{ "<leader>Cl", "<cmd>CodeCompanion /lsp<cr>", mode = "v", desc = "Explain LSP diagnostics" },
+		{ "<leader>Ct", "<cmd>CodeCompanion /tests<cr>", mode = "v", desc = "Generate tests" },
+	},
 	opts = {
 		adapters = {
 			-- {{{ HTTP
@@ -177,7 +213,7 @@ return {
 					---@param adapter CodeCompanion.Adapter
 					---@param context table
 					---@return string
-					prompt_decorator = function(message, adapter, context)
+					prompt_decorator = function(message, _adapter, _context)
 						return string.format([[<prompt>%s</prompt>]], message)
 					end,
 					completion_provider = "cmp",
@@ -202,7 +238,7 @@ return {
 			action_palette = {
 				provider = "telescope",
 				width = 75,
-				heigth = 45,
+				height = 45,
 			},
 			chat = {
 				layout = "vertical",
@@ -291,7 +327,7 @@ return {
 			---@param tokens number
 			---@param adapter CodeCompanion.Adapter
 			---@return string
-			token_count = function(tokens, adapter)
+			token_count = function(tokens, _adapter)
 				return " (" .. tokens .. " tokens)"
 			end,
 		},
@@ -343,7 +379,7 @@ return {
 		},
 	},
 	init = function()
-		require("utils.codecompanion.fidget-spinner"):init()
+		require("utils.codecompanion.fidget-spinner").init()
 		require("utils.codecompanion.extmarks").setup()
 	end,
 }

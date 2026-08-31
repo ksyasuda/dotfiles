@@ -1,6 +1,5 @@
 return {
 	"echasnovski/mini.diff",
-	depends = { "echasnovski/mini.nvim" },
 	config = function()
 		local diff = require("mini.diff")
 		diff.setup({

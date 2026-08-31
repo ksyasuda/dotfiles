@@ -41,7 +41,6 @@ return {
 		integrations = {
 			cmp = true,
 			gitsigns = true,
-			nvimtree = true,
 			mini = {
 				enabled = true,
 				indentscope_color = "",
@@ -51,11 +50,7 @@ return {
 			diffview = true,
 			fidget = true,
 			noice = true,
-			indent_blankline = {
-				enabled = true,
-				scope_color = "lavendar", -- catppuccin color (eg. `lavender`) Default: text
-				colored_indent_levels = true,
-			},
+			snacks = true,
 			copilot_vim = true,
 			native_lsp = {
 				enabled = true,
@@ -77,7 +72,6 @@ return {
 					background = true,
 				},
 			},
-			notify = true,
 			treesitter = true,
 			rainbow_delimiters = true,
 			render_markdown = true,

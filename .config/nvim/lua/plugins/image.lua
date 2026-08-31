@@ -1,5 +1,21 @@
 return {
 	"3rd/image.nvim",
+	keys = {
+		{
+			"<leader>id",
+			function()
+				require("image").disable()
+			end,
+			desc = "Disable image rendering",
+		},
+		{
+			"<leader>ie",
+			function()
+				require("image").enable()
+			end,
+			desc = "Enable image rendering",
+		},
+	},
 	opts = {
 		backend = "kitty",
 		-- processor = "magick_rock", -- or "magick_cli"

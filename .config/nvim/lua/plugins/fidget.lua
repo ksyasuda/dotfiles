@@ -42,8 +42,6 @@ return {
 				icon_style = "Question", -- Highlight group for group icons
 				priority = 30, -- Ordering priority for LSP notification group
 				skip_history = true, -- Whether progress notifications should be omitted from history
-				-- How to format a progress message
-				format_message = require("fidget.progress.display").default_format_message,
 				-- How to format a progress annotation
 				format_annote = function(msg)
 					return msg.title
@@ -71,28 +69,11 @@ return {
 			filter = vim.log.levels.INFO, -- Minimum notifications level
 			history_size = 128, -- Number of removed messages to retain in history
 			override_vim_notify = false, -- Automatically override vim.notify() with Fidget
-			-- How to configure notification groups when instantiated
-			configs = { default = require("fidget.notification").default_config },
-			-- Conditionally redirect notifications to another backend
-			redirect = function(msg, level, opts)
-				if opts and opts.on_open then
-					return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
-				end
-			end,
-
 			-- Options related to how notifications are rendered as text
 			view = {
 				stack_upwards = true, -- Display notification items from bottom to top
 				icon_separator = " ", -- Separator between group name and icon
 				group_separator = "---", -- Separator between notification groups
-			},
-		},
-		integration = {
-			["nvim-tree"] = {
-				enable = true, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
-			},
-			["xcodebuild-nvim"] = {
-				enable = false, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
 			},
 		},
 		-- Options related to logging

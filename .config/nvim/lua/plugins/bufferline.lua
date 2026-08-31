@@ -7,7 +7,7 @@ return {
 			-- numbers = function(opts)
 			--   return string.format("%s", opts.id)
 			-- end,
-			numbers = function(opts)
+			numbers = function(_opts)
 				return ""
 			end,
 			-- number_style = "superscript" | "subscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
@@ -45,7 +45,7 @@ return {
 			-- diagnostics = false | "nvim_lsp" | "coc",
 			diagnostics = "nvim_lsp",
 			diagnostics_update_in_insert = false,
-			diagnostics_indicator = function(count, level, diagnostics_dict, context)
+			diagnostics_indicator = function(_count, _level, diagnostics_dict, _context)
 				local s = " "
 				for e, n in pairs(diagnostics_dict) do
 					local sym = e == "error" and " "

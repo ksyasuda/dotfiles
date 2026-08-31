@@ -1,6 +1,30 @@
+local function find_and_paste_image()
+	local builtin = require("telescope.builtin")
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+
+	builtin.find_files({
+		attach_mappings = function(_, map)
+			local function paste_image(prompt_bufnr)
+				local entry = action_state.get_selected_entry()
+				actions.close(prompt_bufnr)
+				require("img-clip").paste_image(nil, entry.path or entry[1])
+			end
+
+			map("i", "<CR>", paste_image)
+			map("n", "<CR>", paste_image)
+			return true
+		end,
+	})
+end
+
 return {
 	"HakonHarnes/img-clip.nvim",
 	event = "VeryLazy",
+	keys = {
+		{ "<leader>pi", find_and_paste_image, desc = "Find and paste image" },
+		{ "<leader>Ti", find_and_paste_image, desc = "Find and paste image" },
+	},
 	opts = {
 		default = {
 			-- file and directory options

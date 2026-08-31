@@ -1,5 +1,3 @@
-vim.notify = require("notify")
-
 local client_notifs = {}
 
 local function get_notif_data(client_id, token)
@@ -20,7 +18,7 @@ local function update_spinner(client_id, token)
 	local notif_data = get_notif_data(client_id, token)
 
 	if notif_data.spinner then
-		local new_spinner = (notif_data.spinner + 1) % #spinner_frames
+		local new_spinner = (notif_data.spinner % #spinner_frames) + 1
 		notif_data.spinner = new_spinner
 
 		notif_data.notification = vim.notify("", nil, {
@@ -42,10 +40,12 @@ end
 local function format_message(message, percentage)
 	return (percentage and percentage .. "%\t" or "") .. (message or "")
 end
+
+local hyprland_lsp = vim.api.nvim_create_augroup("HyprlandLsp", { clear = true })
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	group = hyprland_lsp,
 	pattern = { "*.hl", "hypr*.conf" },
-	callback = function(event)
-		-- print(string.format("starting hyprls for %s", vim.inspect(event)))
+	callback = function()
 		vim.lsp.start({
 			name = "hyprlang",
 			cmd = { "hyprls" },
@@ -94,6 +94,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 							})
 
 						notif_data.spinner = nil
+						client_notifs[client_id][result.token] = nil
 					end
 				end,
 			},
