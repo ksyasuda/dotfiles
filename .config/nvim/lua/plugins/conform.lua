@@ -1,18 +1,13 @@
 return {
 	"stevearc/conform.nvim",
 	opts = {
-		on_init = function(client)
-			require("conform").formatters.shfmt = {
-				append_args = { "-i", "0", "-ci", "-sr" },
-			}
-		end,
 		formatters_by_ft = {
 			python = function(bufnr)
 				if require("conform").get_formatter_info("ruff_format", bufnr).available then
 					return {
 						"ruff_fix",
-						"ruff_format",
 						"ruff_organize_imports",
+						"ruff_format",
 					}
 				else
 					return { "isort", "black" }
@@ -25,14 +20,17 @@ return {
 			javascriptreact = { "prettier" },
 			typescript = { "prettier" },
 			typescriptreact = { "prettier" },
-			md = { "markdownlint" },
-			["*"] = { "codespell" },
+			markdown = { "markdownlint" },
 			["_"] = { "trim_whitespace" },
 		},
+		formatters = {
+			shfmt = {
+				append_args = { "-i", "0", "-ci", "-sr" },
+			},
+		},
 		format_on_save = {
-			-- These options will be passed to conform.format()
 			timeout_ms = 500,
-			-- lsp_format = "fallback",
+			lsp_format = "never",
 		},
 	},
 }

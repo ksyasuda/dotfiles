@@ -1,10 +1,17 @@
 return {
 	"folke/noice.nvim",
 	event = "VeryLazy",
+	keys = {
+		{ "<leader>Nd", "<cmd>Noice dismiss<cr>", desc = "Dismiss messages" },
+		{ "<leader>Ne", "<cmd>Noice errors<cr>", desc = "Errors" },
+		{ "<leader>Nh", "<cmd>Noice telescope<cr>", desc = "Message history" },
+		{ "<leader>Nl", "<cmd>Noice last<cr>", desc = "Last message" },
+		{ "<leader>Ns", "<cmd>Noice stats<cr>", desc = "Statistics" },
+	},
 	opts = {
 		lsp = {
 			progress = {
-				enabled = true,
+				enabled = false,
 				-- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
 				-- See the section on formatting for more details on how to customize.
 				--- @type NoiceFormat|string
@@ -99,10 +106,9 @@ return {
 			-- Noice can be used as `vim.notify` so you can route any notification like other messages
 			-- Notification messages have their level and other properties set.
 			-- event is always "notify" and kind can be any log level as a string
-			-- The default routes will forward notifications to nvim-notify
+			-- Keep command and message history available through Noice.
 			-- Benefit of using Noice for this is the routing and consistent history view
-			enabled = true,
-			view = "notify",
+			enabled = false,
 		},
 		documentation = {
 			view = "hover",
@@ -118,7 +124,9 @@ return {
 		markdown = {
 			hover = {
 				["|(%S-)|"] = vim.cmd.help, -- vim help links
-				["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
+				["%[.-%]%((%S-)%)"] = function(url)
+					require("noice.util").open(url)
+				end, -- markdown links
 			},
 			highlights = {
 				["|%S-|"] = "@text.reference",
@@ -131,11 +139,6 @@ return {
 		},
 	},
 	dependencies = {
-		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 		"MunifTanjim/nui.nvim",
-		-- OPTIONAL:
-		--   `nvim-notify` is only needed, if you want to use the notification view.
-		--   If not available, we use `mini` as the fallback
-		"rcarriga/nvim-notify",
 	},
 }

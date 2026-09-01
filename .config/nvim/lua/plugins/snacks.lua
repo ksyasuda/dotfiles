@@ -2,6 +2,68 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
+	keys = {
+		{
+			"<leader>fb",
+			function()
+				Snacks.explorer()
+			end,
+			desc = "File browser",
+		},
+		{
+			"<leader>gg",
+			function()
+				Snacks.lazygit()
+			end,
+			desc = "Lazygit",
+		},
+		{
+			"<leader>nc",
+			function()
+				Snacks.notifier.hide()
+			end,
+			desc = "Dismiss notifications",
+		},
+		{
+			"<leader>nh",
+			function()
+				Snacks.notifier.show_history()
+			end,
+			desc = "Notification history",
+		},
+		{
+			"<leader>nt",
+			function()
+				Snacks.explorer()
+			end,
+			desc = "File explorer",
+		},
+		{
+			"<leader>sn",
+			function()
+				Snacks.win({
+					file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
+					width = 0.6,
+					height = 0.6,
+					wo = {
+						spell = false,
+						wrap = false,
+						signcolumn = "yes",
+						statuscolumn = " ",
+						conceallevel = 3,
+					},
+				})
+			end,
+			desc = "Neovim news",
+		},
+		{
+			"<leader>Tn",
+			function()
+				Snacks.notifier.show_history()
+			end,
+			desc = "Notifications",
+		},
+	},
 	---@type snacks.Config
 	opts = {
 		-- your configuration comes here
@@ -73,7 +135,7 @@ return {
 				debug = "  ",
 				trace = "  ",
 			},
-			keep = function(notif)
+			keep = function()
 				return vim.fn.getcmdpos() > 0
 			end,
 			---@type snacks.notifier.style
@@ -92,43 +154,7 @@ return {
 		scroll = { enabled = false },
 		statuscolumn = { enabled = false },
 		words = { enabled = false },
-		terminal = {
-			enabled = true,
-			bo = {
-				filetype = "snacks_terminal",
-			},
-			wo = {},
-			keys = {
-				q = "hide",
-				gf = function(self)
-					local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
-					if f == "" then
-						Snacks.notify.warn("No file under cursor")
-					else
-						self:hide()
-						vim.schedule(function()
-							vim.cmd("e " .. f)
-						end)
-					end
-				end,
-				term_normal = {
-					"<esc>",
-					function(self)
-						self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
-						if self.esc_timer:is_active() then
-							self.esc_timer:stop()
-							vim.cmd("stopinsert")
-						else
-							self.esc_timer:start(200, 0, function() end)
-							return "<esc>"
-						end
-					end,
-					mode = "t",
-					expr = true,
-					desc = "Double escape to normal mode",
-				},
-			},
-		},
+		terminal = { enabled = false },
 		win = { enabled = true },
 		styles = {
 			input = {

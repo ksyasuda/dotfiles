@@ -42,16 +42,4 @@ function M.git_paste_prompt()
 	end)
 end
 
---- Sets up the git-paste module.
----
---- The module expects an optional configuration table:
----   { telescope_key = "<leader>pg" } (or any other keymap you prefer)
----
----@param opts table|nil
-function M.setup(opts)
-	opts = opts or {}
-	local telescope_key = opts.telescope_key or "<leader>pg"
-	vim.keymap.set("n", telescope_key, M.git_paste_prompt, { desc = "Git Paste: paste content from git raw URL" })
-end
-
 return M

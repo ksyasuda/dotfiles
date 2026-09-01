@@ -1,6 +1,52 @@
+local terminals = {}
+
+local function toggle(name)
+	return function()
+		terminals[name]:toggle()
+	end
+end
+
 return {
 	"akinsho/toggleterm.nvim",
 	version = "*",
+	keys = {
+		{ "<C-T>", "<cmd>ToggleTerm name=toggleterm<cr>", desc = "Toggle terminal" },
+		{ "<leader>-", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle horizontal terminal" },
+		{ "<leader>|", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle vertical terminal" },
+		{ "<leader>ob", toggle("btop"), desc = "Open btop" },
+		{ "<leader>od", toggle("lazydocker"), desc = "Open Lazydocker" },
+		{
+			"<leader>oh",
+			"<cmd>ToggleTerm direction=horizontal name=toggleterm-hori<cr>",
+			desc = "Open horizontal terminal",
+		},
+		{ "<leader>oi", toggle("iotop"), desc = "Open iotop" },
+		{ "<leader>on", toggle("rmpc"), desc = "Open rmpc" },
+		{ "<leader>oN", toggle("nvtop"), desc = "Open nvtop" },
+		{ "<leader>op", toggle("ipython"), desc = "Open IPython" },
+		{ "<leader>oP", toggle("ipython-full"), desc = "Open full IPython" },
+		{ "<leader>ot", "<cmd>ToggleTerm name=toggleterm<cr>", desc = "Open terminal" },
+		{ "<leader>oT", "<cmd>ToggleTerm name=toggleterm-full direction=tab<cr>", desc = "Open full terminal" },
+		{
+			"<leader>ov",
+			"<cmd>ToggleTerm direction=vertical name=toggleterm-vert<cr>",
+			desc = "Open vertical terminal",
+		},
+		{ "<leader>tf", "<cmd>ToggleTerm name=toggleterm<cr>", desc = "Toggle terminal" },
+		{
+			"<leader>th",
+			"<cmd>ToggleTerm direction=horizontal name=toggleterm-hori<cr>",
+			desc = "Toggle horizontal terminal",
+		},
+		{ "<leader>ts", "<cmd>TermSelect<cr>", desc = "Select terminal" },
+		{ "<leader>tt", "<cmd>ToggleTerm name=toggleterm<cr>", desc = "Toggle terminal" },
+		{ "<leader>tT", "<cmd>ToggleTerm name=toggleterm-full direction=tab<cr>", desc = "Toggle full terminal" },
+		{
+			"<leader>tv",
+			"<cmd>ToggleTerm direction=vertical name=toggleterm-vert<cr>",
+			desc = "Toggle vertical terminal",
+		},
+	},
 	opts = {
 		-- size can be a number or function which is passed the current terminal
 		size = function(term)
@@ -10,7 +56,6 @@ return {
 				return vim.o.columns * 0.45
 			end
 		end,
-		open_mapping = { [[<c-t>]] }, -- or { [[<c-\>]], [[<c-¥>]] } if you also use a Japanese keyboard.
 		-- on_create = fun(t: Terminal), -- function to run when the terminal is first created
 		-- on_open = fun(t: Terminal), -- function to run when the terminal opens
 		-- on_close = fun(t: Terminal), -- function to run when the terminal closes
@@ -82,4 +127,38 @@ return {
 			horizontal_breakpoint = 135,
 		},
 	},
+	config = function(_, opts)
+		require("toggleterm").setup(opts)
+		local Terminal = require("toggleterm.terminal").Terminal
+
+		local programs = {
+			btop = { cmd = "/usr/bin/btop", display_name = "btop", direction = "tab", hidden = true },
+			ipython = { cmd = "ipython", display_name = "ipython", direction = "vertical", hidden = true },
+			["ipython-full"] = { cmd = "ipython", display_name = "ipython-full", direction = "tab", hidden = true },
+			iotop = { cmd = "sudo iotop", display_name = "iotop", direction = "tab", hidden = true },
+			lazydocker = { cmd = "lazydocker", display_name = "lazydocker", direction = "tab", hidden = true },
+			nvtop = { cmd = "nvtop", display_name = "nvtop", direction = "tab", hidden = true },
+			rmpc = { cmd = "rmpc", display_name = "rmpc", direction = "tab", hidden = true },
+		}
+
+		for name, program in pairs(programs) do
+			program.on_stderr = function(_, job, data, process_name)
+				vim.notify(
+					("%s encountered an error on job %d\n%s"):format(process_name, job, table.concat(data, "\n")),
+					vim.log.levels.ERROR
+				)
+			end
+			terminals[name] = Terminal:new(program)
+		end
+
+		local terminal_keys = vim.api.nvim_create_augroup("TerminalKeys", { clear = true })
+		vim.api.nvim_create_autocmd("TermOpen", {
+			group = terminal_keys,
+			pattern = "term://*",
+			callback = function(args)
+				vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { buffer = args.buf })
+				vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], { buffer = args.buf })
+			end,
+		})
+	end,
 }

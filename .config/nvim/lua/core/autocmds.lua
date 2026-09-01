@@ -39,29 +39,13 @@ autocmd("TextYankPost", {
 	group = highlight_yank,
 	pattern = "*",
 	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 420 })
+		vim.hl.on_yank({ higroup = "IncSearch", timeout = 420 })
 	end,
 })
 -- }}}
 
--- {{{ Disable indent-blankline for dashboard
-function disable_for_dashboard()
-	local buftype = vim.api.nvim_buf_get_option(0, "buftype")
-	local filetype = vim.api.nvim_buf_get_option(0, "filetype")
-	if buftype == "nofile" and filetype == "dashboard" then
-		vim.b.indent_blankline_enabled = false
-	end
-end
-vim.cmd([[
-    augroup IndentBlankline
-        autocmd!
-        autocmd FileType dashboard lua disable_for_dashboard()
-    augroup END
-]])
--- }}}
-
 -- {{{ Code companion hook
-local group = augroup("CodeCompanionHooks", {})
+local group = augroup("CodeCompanionHooks", { clear = true })
 
 autocmd({ "User" }, {
 	pattern = "CodeCompanionInline*",

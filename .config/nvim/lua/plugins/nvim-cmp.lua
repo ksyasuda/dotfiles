@@ -22,7 +22,7 @@ return {
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 		local has_words_before = function()
-			if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+			if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then
 				return false
 			end
 			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -43,7 +43,7 @@ return {
 
 		cmp.setup.cmdline(":", {
 			mapping = cmp.mapping.preset.cmdline(),
-			sources = cmp.config.sources({ { name = "path" } }, {
+			sources = cmp.config.sources({ { name = "async_path" } }, {
 				{ name = "cmdline", option = { ignore_cmds = { "Man", "!" } } },
 			}),
 			matching = { disallow_symbol_nonprefix_matching = false },
@@ -51,7 +51,7 @@ return {
 
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-		require("cmp").setup({
+		cmp.setup({
 			snippet = {
 				expand = function(args)
 					-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
@@ -180,7 +180,7 @@ return {
 				{ name = "render-markdown", group_index = 2 },
 				{
 					name = "html-css",
-					group_indx = 2,
+					group_index = 2,
 					option = {
 						enable_on = { "html", "jsx", "tsx", "typescript", "typescriptreact" }, -- html is enabled by default
 						notify = false,

@@ -2,9 +2,7 @@ return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		-- "jonarrien/telescope-cmdline.nvim",
 		"nat-418/telescope-color-names.nvim",
-		"nvim-telescope/telescope-file-browser.nvim",
 		"ghassan0/telescope-glyph.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
 		{
@@ -12,6 +10,64 @@ return {
 			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
 		},
 		"folke/noice.nvim",
+	},
+	cmd = "Telescope",
+	keys = {
+		{ "//", "<cmd>Telescope current_buffer_fuzzy_find previewer=false<cr>", desc = "Find in current buffer" },
+		{
+			"??",
+			"<cmd>Telescope lsp_document_symbols theme=dropdown layout_config={width=0.5}<cr>",
+			desc = "Document symbols",
+		},
+		{ "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+		{
+			"<leader>fc",
+			'<cmd>Telescope color_names theme=dropdown layout_config={width=0.45,height=25,prompt_position="bottom"} layout_strategy=vertical<cr>',
+			desc = "Color names",
+		},
+		{
+			"<leader>ff",
+			"<cmd>Telescope find_files find_command=rg,--ignore,--follow,--hidden,--files prompt_prefix=🔍<cr>",
+			desc = "Find files",
+		},
+		{ "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+		{
+			"<leader>fG",
+			'<cmd>Telescope glyph theme=dropdown layout_config={width=0.45,height=35,prompt_position="bottom"} layout_strategy=vertical<cr>',
+			desc = "Glyphs",
+		},
+		{ "<leader>fr", "<cmd>Telescope oldfiles theme=dropdown layout_config={width=0.5}<cr>", desc = "Recent files" },
+		{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Git commits" },
+		{ "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Git files" },
+		{ "<leader>hc", "<cmd>Telescope commands<cr>", desc = "Commands" },
+		{ "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+		{ "<leader>hm", "<cmd>Telescope man_pages theme=dropdown layout_config={width=0.75}<cr>", desc = "Man pages" },
+		{ "<leader>hs", "<cmd>Telescope spell_suggest<cr>", desc = "Spelling suggestions" },
+		{ "<leader>ht", "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
+		{ "<leader>hv", "<cmd>Telescope vim_options<cr>", desc = "Neovim options" },
+		{ "<leader>s/", "<cmd>Telescope search_history<cr>", desc = "Search history" },
+		{ "<leader>sF", "<cmd>Telescope fidget<cr>", desc = "Fidget history" },
+		{
+			"<leader>sf",
+			"<cmd>Telescope find_files find_command=rg,--ignore,--follow,--hidden,--files prompt_prefix=🔍<cr>",
+			desc = "Search files",
+		},
+		{ "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+		{ "<leader>sh", "<cmd>Telescope command_history<cr>", desc = "Command history" },
+		{ "<leader>sm", "<cmd>Telescope man_pages<cr>", desc = "Man pages" },
+		{ "<leader>Tc", "<cmd>Telescope colorscheme<cr>", desc = "Colorschemes" },
+		{
+			"<leader>TC",
+			'<cmd>Telescope color_names theme=dropdown layout_config={width=0.45,height=25,prompt_position="bottom"} layout_strategy=vertical<cr>',
+			desc = "Color names",
+		},
+		{
+			"<leader>Tg",
+			'<cmd>Telescope glyph theme=dropdown layout_config={width=0.45,height=35,prompt_position="bottom"} layout_strategy=vertical<cr>',
+			desc = "Glyphs",
+		},
+		{ "<leader>TN", "<cmd>Telescope noice theme=dropdown layout_config={width=0.75}<cr>", desc = "Noice history" },
+		{ "<leader>Tr", "<cmd>Telescope reloader<cr>", desc = "Reload Lua module" },
 	},
 	opts = {
 		defaults = {
@@ -95,19 +151,6 @@ return {
 					enabled = true,
 				},
 			},
-			file_browser = {
-				theme = "ivy",
-				-- disables netrw and use telescope-file-browser in its place
-				hijack_netrw = true,
-				mappings = {
-					["i"] = {
-						-- your custom insert mode mappings
-					},
-					["n"] = {
-						-- your custom normal mode mappings
-					},
-				},
-			},
 			-- ["ui-select"] = {
 			-- 	require("telescope.themes").get_dropdown({
 			-- 		winblend = 10,
@@ -119,4 +162,24 @@ return {
 			-- },
 		},
 	},
+	config = function(_, opts)
+		local telescope = require("telescope")
+		local actions = require("telescope.actions")
+		local config = require("telescope.config")
+		local vimgrep_arguments = vim.deepcopy(config.values.vimgrep_arguments)
+		vim.list_extend(vimgrep_arguments, { "--hidden", "--glob", "!**/.git/*" })
+
+		opts.defaults.vimgrep_arguments = vimgrep_arguments
+		opts.defaults.mappings = vim.tbl_deep_extend("force", opts.defaults.mappings or {}, {
+			i = {
+				["<C-h>"] = actions.results_scrolling_left,
+				["<C-l>"] = actions.results_scrolling_right,
+			},
+		})
+		telescope.setup(opts)
+
+		for _, extension in ipairs({ "color_names", "fzf", "glyph", "noice", "ui-select" }) do
+			pcall(telescope.load_extension, extension)
+		end
+	end,
 }

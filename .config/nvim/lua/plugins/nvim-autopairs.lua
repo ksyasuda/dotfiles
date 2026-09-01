@@ -3,7 +3,7 @@ return {
 	event = "InsertEnter",
 	config = true,
 	opts = {
-		enabled = function(bufnr)
+		enabled = function(_bufnr)
 			return true
 		end,
 		disable_filetype = { "TelescopePrompt", "spectre_panel" },
