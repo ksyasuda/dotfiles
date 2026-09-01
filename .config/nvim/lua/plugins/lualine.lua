@@ -1,14 +1,49 @@
+local mcphub_spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+
+local function mcphub_status()
+	if not vim.g.loaded_mcphub then
+		return "󰐻 -"
+	end
+
+	local status = vim.g.mcphub_status or "stopped"
+	if status == "stopped" then
+		return "󰐻 -"
+	end
+
+	if vim.g.mcphub_executing or status == "starting" or status == "restarting" then
+		local frame = math.floor(vim.uv.now() / 100) % #mcphub_spinner_frames + 1
+		return "󰐻 " .. mcphub_spinner_frames[frame]
+	end
+
+	return "󰐻 " .. (vim.g.mcphub_servers_count or 0)
+end
+
+local function mcphub_color()
+	if not vim.g.loaded_mcphub then
+		return { fg = "#6c7086" }
+	end
+
+	local status = vim.g.mcphub_status or "stopped"
+	if status == "ready" or status == "restarted" then
+		return { fg = "#50fa7b" }
+	elseif status == "starting" or status == "restarting" then
+		return { fg = "#ffb86c" }
+	end
+
+	return { fg = "#ff5555" }
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		"AndreM222/copilot-lualine",
 		"nvim-tree/nvim-web-devicons",
-		"ravitemer/mcphub.nvim",
 	},
 	config = function()
 		require("lualine").setup({
 			options = {
-				theme = "catppuccin",
+				-- theme = "catppuccin",
+				theme = "auto",
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 			},
@@ -18,7 +53,7 @@ return {
 				lualine_c = { "filename" },
 				lualine_x = {
 					"searchcount",
-					require("mcphub.extensions.lualine"),
+					{ mcphub_status, color = mcphub_color },
 					{
 						"copilot",
 						symbols = {

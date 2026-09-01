@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark">
+	<title>Neovim Config Field Manual</title>
+	<script>document.documentElement.classList.add("js");</script>
+	<style>
+		:root {
+			--base: #24273a;
+			--mantle: #1e2030;
+			--crust: #181926;
+			--surface: #363a4f;
+			--surface-high: #494d64;
+			--text: #cad3f5;
+			--subtext: #a5adcb;
+			--muted: #6e738d;
+			--green: #a6da95;
+			--teal: #8bd5ca;
+			--yellow: #eed49f;
+			--peach: #f5a97f;
+			--red: #ed8796;
+			--blue: #8aadf4;
+			--mauve: #c6a0f6;
+			--line: color-mix(in srgb, var(--surface-high) 72%, transparent);
+			--mono: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", monospace;
+			--serif: "Iowan Old Style", "Baskerville", "Palatino Linotype", serif;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			color: var(--text);
+			background:
+				radial-gradient(circle at 78% 12%, rgb(139 213 202 / 9%), transparent 26rem),
+				linear-gradient(90deg, rgb(255 255 255 / 2%) 1px, transparent 1px),
+				linear-gradient(rgb(255 255 255 / 2%) 1px, transparent 1px),
+				var(--crust);
+			background-size: auto, 44px 44px, 44px 44px, auto;
+			font-family: var(--serif);
+			font-size: 17px;
+			line-height: 1.65;
+		}
+
+		a { color: inherit; }
+		button { font: inherit; }
+		::selection { color: var(--crust); background: var(--green); }
+		:focus-visible {
+			outline: 2px solid var(--yellow);
+			outline-offset: 4px;
+		}
+
+		.reading-progress {
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 20;
+			width: 0;
+			height: 3px;
+			background: linear-gradient(90deg, var(--green), var(--teal));
+			box-shadow: 0 0 18px var(--teal);
+		}
+
+		.layout {
+			display: grid;
+			grid-template-columns: 18rem minmax(0, 1fr);
+			min-height: 100vh;
+		}
+
+		.rail {
+			position: sticky;
+			top: 0;
+			height: 100vh;
+			padding: 2rem 1.5rem;
+			border-right: 1px solid var(--line);
+			background: rgb(24 25 38 / 84%);
+			backdrop-filter: blur(14px);
+		}
+
+		.brand {
+			display: grid;
+			grid-template-columns: 2.5rem 1fr;
+			gap: 0.8rem;
+			align-items: center;
+			margin-bottom: 3rem;
+		}
+
+		.brand-mark {
+			display: grid;
+			place-items: center;
+			width: 2.5rem;
+			aspect-ratio: 1;
+			color: var(--crust);
+			background: var(--green);
+			font: 800 1.35rem/1 var(--mono);
+			clip-path: polygon(16% 0, 100% 0, 84% 100%, 0 100%);
+		}
+
+		.brand strong,
+		.brand small { display: block; font-family: var(--mono); }
+		.brand strong { color: var(--green); font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; }
+		.brand small { color: var(--muted); font-size: 0.68rem; }
+
+		.nav-label,
+		.eyebrow,
+		.kicker {
+			font: 700 0.68rem/1.2 var(--mono);
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+		}
+
+		.nav-label { color: var(--muted); }
+		.rail nav { display: grid; gap: 0.22rem; margin-top: 0.8rem; }
+		.rail nav a {
+			position: relative;
+			padding: 0.55rem 0.75rem 0.55rem 1.2rem;
+			color: var(--subtext);
+			font: 500 0.76rem/1.3 var(--mono);
+			text-decoration: none;
+			transition: color 160ms ease, transform 160ms ease;
+		}
+		.rail nav a::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 50%;
+			width: 0.45rem;
+			height: 1px;
+			background: var(--surface-high);
+			transition: width 160ms ease, background 160ms ease;
+		}
+		.rail nav a:hover,
+		.rail nav a.active { color: var(--green); transform: translateX(0.18rem); }
+		.rail nav a.active::before { width: 0.8rem; background: var(--green); }
+
+		.rail-foot {
+			position: absolute;
+			left: 1.5rem;
+			right: 1.5rem;
+			bottom: 1.7rem;
+			padding-top: 1rem;
+			border-top: 1px solid var(--line);
+			color: var(--muted);
+			font: 0.68rem/1.55 var(--mono);
+		}
+
+		main { min-width: 0; overflow: hidden; }
+		.hero,
+		.section { padding-inline: clamp(2rem, 7vw, 7rem); }
+
+		.hero {
+			position: relative;
+			display: grid;
+			align-content: center;
+			min-height: 92vh;
+			padding-block: 6rem;
+			border-bottom: 1px solid var(--line);
+		}
+
+		.hero::after {
+			content: "NVIM";
+			position: absolute;
+			right: -0.08em;
+			bottom: -0.24em;
+			z-index: -1;
+			color: rgb(166 218 149 / 4%);
+			font: 900 clamp(8rem, 22vw, 21rem)/1 var(--mono);
+			letter-spacing: -0.12em;
+			pointer-events: none;
+		}
+
+		.eyebrow { color: var(--teal); }
+		h1 {
+			max-width: 12ch;
+			margin: 1.2rem 0 1.4rem;
+			font: 800 clamp(3.2rem, 8vw, 7.8rem)/0.91 var(--mono);
+			letter-spacing: -0.07em;
+		}
+		h1 .outline { color: transparent; -webkit-text-stroke: 1px var(--green); }
+		.lede { max-width: 43rem; margin: 0; color: var(--subtext); font-size: clamp(1.1rem, 2vw, 1.4rem); }
+
+		.hero-meta {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.6rem;
+			margin-top: 2.5rem;
+		}
+		.chip {
+			padding: 0.42rem 0.7rem;
+			border: 1px solid var(--line);
+			color: var(--subtext);
+			background: rgb(36 39 58 / 70%);
+			font: 0.68rem/1 var(--mono);
+			letter-spacing: 0.04em;
+		}
+		.chip.good { color: var(--green); border-color: rgb(166 218 149 / 40%); }
+
+		.section {
+			padding-block: clamp(5rem, 10vw, 9rem);
+			border-bottom: 1px solid var(--line);
+		}
+
+		.section-head {
+			display: grid;
+			grid-template-columns: minmax(0, 0.45fr) minmax(20rem, 1fr);
+			gap: clamp(2rem, 6vw, 7rem);
+			margin-bottom: 4rem;
+		}
+		.section-number { color: var(--muted); font: 0.72rem var(--mono); }
+		h2 { margin: 0.55rem 0 0; font: 750 clamp(2rem, 4.5vw, 4.6rem)/1 var(--mono); letter-spacing: -0.055em; }
+		.section-head p { align-self: end; max-width: 43rem; margin: 0; color: var(--subtext); font-size: 1.08rem; }
+
+		.boot-flow {
+			display: grid;
+			grid-template-columns: repeat(7, minmax(8rem, 1fr));
+			overflow-x: auto;
+			padding: 1.5rem 0 0.6rem;
+			scrollbar-color: var(--surface-high) transparent;
+		}
+		.boot-step {
+			position: relative;
+			min-height: 13rem;
+			padding: 1.1rem 1rem;
+			border-top: 1px solid var(--surface-high);
+			border-bottom: 1px solid var(--surface-high);
+			border-left: 1px solid var(--surface-high);
+			background: linear-gradient(180deg, rgb(54 58 79 / 52%), rgb(30 32 48 / 62%));
+		}
+		.boot-step:last-child { border-right: 1px solid var(--surface-high); }
+		.boot-step::after {
+			content: "›";
+			position: absolute;
+			right: -0.5rem;
+			top: 50%;
+			z-index: 2;
+			color: var(--green);
+			font: 1.4rem var(--mono);
+			transform: translateY(-50%);
+		}
+		.boot-step:last-child::after { display: none; }
+		.boot-index { color: var(--green); font: 0.72rem var(--mono); }
+		.boot-step h3 { margin: 2.4rem 0 0.8rem; font: 700 0.82rem/1.3 var(--mono); }
+		.boot-step p { margin: 0; color: var(--muted); font: 0.72rem/1.55 var(--mono); }
+
+		.ownership {
+			display: grid;
+			grid-template-columns: 0.8fr 1.2fr;
+			border: 1px solid var(--line);
+			background: rgb(30 32 48 / 58%);
+		}
+		.owner-list { border-right: 1px solid var(--line); }
+		.owner {
+			display: grid;
+			grid-template-columns: 2.2rem 1fr;
+			gap: 0.8rem;
+			padding: 1.1rem 1.2rem;
+			border-bottom: 1px solid var(--line);
+			cursor: pointer;
+			transition: background 150ms ease;
+		}
+		.owner:last-child { border-bottom: 0; }
+		.owner:hover,
+		.owner.active { background: rgb(139 213 202 / 8%); }
+		.owner-key { color: var(--teal); font: 700 0.72rem var(--mono); }
+		.owner strong { display: block; font: 700 0.8rem var(--mono); }
+		.owner span { color: var(--muted); font: 0.7rem var(--mono); }
+		.owner-detail { display: grid; align-content: center; min-height: 26rem; padding: clamp(2rem, 5vw, 5rem); }
+		.owner-detail > div { display: none; }
+		.owner-detail > div.active { display: block; animation: detail-in 240ms ease both; }
+		.owner-detail .kicker { color: var(--yellow); }
+		.owner-detail h3 { margin: 0.8rem 0 1rem; font: 700 clamp(1.6rem, 3vw, 3rem)/1.05 var(--mono); }
+		.owner-detail p { max-width: 38rem; color: var(--subtext); }
+
+		.split {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1px;
+			background: var(--line);
+			border: 1px solid var(--line);
+		}
+		.panel { padding: clamp(1.5rem, 4vw, 3.5rem); background: var(--mantle); }
+		.panel .kicker { color: var(--peach); }
+		.panel h3 { margin: 1rem 0; font: 700 1.35rem var(--mono); }
+		.panel p { color: var(--subtext); }
+
+		code,
+		pre { font-family: var(--mono); }
+		code { color: var(--teal); font-size: 0.86em; }
+		pre {
+			position: relative;
+			overflow: auto;
+			margin: 1.5rem 0 0;
+			padding: 1.3rem;
+			border: 1px solid var(--surface);
+			background: var(--crust);
+			color: var(--text);
+			font-size: 0.76rem;
+			line-height: 1.7;
+			tab-size: 2;
+		}
+		.lua-key { color: var(--mauve); }
+		.lua-str { color: var(--green); }
+		.lua-note { color: var(--muted); }
+
+		.mapping-rule {
+			display: grid;
+			grid-template-columns: 1fr auto 1fr;
+			gap: 1.2rem;
+			align-items: stretch;
+		}
+		.rule-box { padding: 2rem; border: 1px solid var(--line); background: rgb(36 39 58 / 76%); }
+		.rule-box h3 { margin: 0 0 1rem; color: var(--green); font: 700 1rem var(--mono); }
+		.rule-box p { margin-bottom: 0; color: var(--subtext); }
+		.rule-arrow { display: grid; place-items: center; color: var(--muted); font: 1.6rem var(--mono); }
+
+		.removed {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1px;
+			background: var(--line);
+			border: 1px solid var(--line);
+		}
+		.removed article { min-height: 13rem; padding: 1.5rem; background: var(--mantle); }
+		.removed del { color: var(--red); font: 700 0.75rem var(--mono); text-decoration-thickness: 2px; }
+		.removed strong { display: block; margin-top: 2rem; color: var(--green); font: 0.84rem var(--mono); }
+		.removed p { color: var(--muted); font-size: 0.9rem; }
+
+		.checks { display: grid; gap: 0.8rem; max-width: 64rem; }
+		.check {
+			display: grid;
+			grid-template-columns: 3rem 1fr auto;
+			gap: 1rem;
+			align-items: center;
+			padding: 1rem;
+			border: 1px solid var(--line);
+			background: var(--mantle);
+		}
+		.check-state { color: var(--green); font: 700 0.75rem var(--mono); }
+		.check code { overflow-wrap: anywhere; }
+		.copy {
+			padding: 0.5rem 0.7rem;
+			border: 1px solid var(--surface-high);
+			color: var(--subtext);
+			background: transparent;
+			font: 0.65rem var(--mono);
+			cursor: pointer;
+		}
+		.copy:hover { color: var(--crust); border-color: var(--green); background: var(--green); }
+
+		.callout {
+			margin-top: 3rem;
+			padding: 1.4rem 1.5rem;
+			border-left: 3px solid var(--yellow);
+			background: rgb(238 212 159 / 7%);
+			color: var(--subtext);
+		}
+		.callout strong { color: var(--yellow); font-family: var(--mono); }
+
+		footer {
+			display: flex;
+			justify-content: space-between;
+			gap: 2rem;
+			padding: 3rem clamp(2rem, 7vw, 7rem);
+			color: var(--muted);
+			font: 0.68rem var(--mono);
+		}
+
+		.js .reveal { opacity: 0; transform: translateY(1rem); }
+		.reveal.visible { animation: reveal 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+		@keyframes reveal { to { opacity: 1; transform: none; } }
+		@keyframes detail-in { from { opacity: 0; transform: translateY(0.5rem); } to { opacity: 1; transform: none; } }
+
+		@media (max-width: 900px) {
+			.layout { display: block; }
+			.rail { position: relative; height: auto; padding: 1rem; border-right: 0; border-bottom: 1px solid var(--line); }
+			.brand { margin: 0; }
+			.rail .nav-label,
+			.rail nav,
+			.rail-foot { display: none; }
+			.hero { min-height: 76vh; }
+			.section-head,
+			.ownership,
+			.split { grid-template-columns: 1fr; }
+			.owner-list { border-right: 0; border-bottom: 1px solid var(--line); }
+			.mapping-rule { grid-template-columns: 1fr; }
+			.rule-arrow { transform: rotate(90deg); }
+			.removed { grid-template-columns: 1fr 1fr; }
+		}
+
+		@media (max-width: 560px) {
+			.hero,
+			.section { padding-inline: 1.2rem; }
+			h1 { font-size: 3.3rem; }
+			.section-head { grid-template-columns: 1fr; }
+			.removed { grid-template-columns: 1fr; }
+			.check { grid-template-columns: 2.5rem 1fr; }
+			.copy { grid-column: 2; justify-self: start; }
+			footer { flex-direction: column; padding-inline: 1.2rem; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			html { scroll-behavior: auto; }
+			*, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+			.reveal { opacity: 1; transform: none; }
+		}
+	</style>
+</head>
+<body>
+	<div class="reading-progress" aria-hidden="true"></div>
+	<div class="layout">
+		<aside class="rail">
+			<div class="brand">
+				<div class="brand-mark">N</div>
+				<div><strong>Field manual</strong><small>~/.config/nvim</small></div>
+			</div>
+			<div class="nav-label">Index</div>
+			<nav aria-label="Page sections">
+				<a href="#boot">01 / Boot sequence</a>
+				<a href="#ownership">02 / Tool ownership</a>
+				<a href="#keymaps">03 / Keymap model</a>
+				<a href="#plugins">04 / Plugin loading</a>
+				<a href="#cleanup">05 / What left</a>
+				<a href="#checks">06 / Maintenance loop</a>
+			</nav>
+			<div class="rail-foot">Macchiato palette<br>Lua modules + Lazy specs<br>Generated 2026.08</div>
+		</aside>
+
+		<main>
+			<header class="hero">
+				<div class="eyebrow">Neovim configuration / annotated system map</div>
+				<h1>Small core.<br><span class="outline">Deep tools.</span></h1>
+				<p class="lede">A practical map of how this Lua configuration boots, where behavior belongs, and which plugin owns each editing concern.</p>
+				<div class="hero-meta">
+					<span class="chip good">58 declared plugins</span>
+					<span class="chip">Lazy-loaded mappings</span>
+					<span class="chip">No LSP format fallback</span>
+					<span class="chip">0 Luacheck warnings</span>
+				</div>
+			</header>
+
+			<section class="section" id="boot">
+				<div class="section-head reveal">
+					<div><span class="section-number">01</span><h2>Boot sequence</h2></div>
+					<p><code>init.lua</code> is intentionally boring. It establishes Lazy first, then layers presentation, mappings, editor events, highlights, and one specialized LSP helper.</p>
+				</div>
+				<div class="boot-flow reveal" aria-label="Neovim startup sequence">
+					<article class="boot-step"><span class="boot-index">01</span><h3>core.lazy</h3><p>Bootstraps Lazy and loads core options before plugins.</p></article>
+					<article class="boot-step"><span class="boot-index">02</span><h3>plugins/*</h3><p>Lazy discovers specs and installs handlers for events, commands, and keys.</p></article>
+					<article class="boot-step"><span class="boot-index">03</span><h3>colorscheme</h3><p>Catppuccin Macchiato supplies the visual baseline.</p></article>
+					<article class="boot-step"><span class="boot-index">04</span><h3>core.keymaps</h3><p>Core editing, LSP, commands, and group labels register.</p></article>
+					<article class="boot-step"><span class="boot-index">05</span><h3>autocmds</h3><p>Editor-level reactions attach once through named augroups.</p></article>
+					<article class="boot-step"><span class="boot-index">06</span><h3>highlights</h3><p>Small local highlight overrides apply after the theme.</p></article>
+					<article class="boot-step"><span class="boot-index">07</span><h3>Hyprland LSP</h3><p>The file-pattern-specific helper starts only where relevant.</p></article>
+				</div>
+			</section>
+
+			<section class="section" id="ownership">
+				<div class="section-head reveal">
+					<div><span class="section-number">02</span><h2>One owner per concern</h2></div>
+					<p>Maintenance gets easier when two plugins do not compete for the same surface. Select a row to inspect the boundary.</p>
+				</div>
+				<div class="ownership reveal">
+					<div class="owner-list" role="tablist" aria-label="Tool ownership" aria-orientation="vertical">
+						<div class="owner active" id="owner-format" role="tab" tabindex="0" aria-selected="true" aria-controls="detail-format" data-owner="format"><span class="owner-key">F</span><div><strong>Conform</strong><span>formatting</span></div></div>
+						<div class="owner" id="owner-lint" role="tab" tabindex="-1" aria-selected="false" aria-controls="detail-lint" data-owner="lint"><span class="owner-key">L</span><div><strong>nvim-lint</strong><span>diagnostics on save</span></div></div>
+						<div class="owner" id="owner-complete" role="tab" tabindex="-1" aria-selected="false" aria-controls="detail-complete" data-owner="complete"><span class="owner-key">C</span><div><strong>nvim-cmp + LuaSnip</strong><span>completion</span></div></div>
+						<div class="owner" id="owner-notify" role="tab" tabindex="-1" aria-selected="false" aria-controls="detail-notify" data-owner="notify"><span class="owner-key">N</span><div><strong>Snacks + Fidget + Noice</strong><span>three distinct UI channels</span></div></div>
+						<div class="owner" id="owner-files" role="tab" tabindex="-1" aria-selected="false" aria-controls="detail-files" data-owner="files"><span class="owner-key">E</span><div><strong>Snacks Explorer</strong><span>file browsing</span></div></div>
+						<div class="owner" id="owner-terminal" role="tab" tabindex="-1" aria-selected="false" aria-controls="detail-terminal" data-owner="terminal"><span class="owner-key">T</span><div><strong>ToggleTerm</strong><span>terminal sessions</span></div></div>
+					</div>
+					<div class="owner-detail">
+						<div class="active" id="detail-format" role="tabpanel" aria-labelledby="owner-format" data-detail="format"><span class="kicker">Deterministic output</span><h3>Formatters only.</h3><p>Conform runs explicit tools per filetype. Python prefers Ruff, with isort and Black as the fallback toolchain. LSP formatting is deliberately set to <code>never</code>, so a newly attached server cannot silently change save behavior.</p></div>
+						<div id="detail-lint" role="tabpanel" aria-labelledby="owner-lint" data-detail="lint"><span class="kicker">Diagnostics after write</span><h3>Lint without mutation.</h3><p>nvim-lint runs once on <code>BufWritePost</code>. Ruff supplies Python diagnostics. Pydoclint and Codespell join only when their executables exist, avoiding noisy missing-tool warnings.</p></div>
+						<div id="detail-complete" role="tabpanel" aria-labelledby="owner-complete" data-detail="complete"><span class="kicker">Insert-mode intelligence</span><h3>Completion needs no shim.</h3><p>nvim-cmp gathers sources and LuaSnip expands snippets. None-ls was not part of this path, so removing it does not remove completion.</p></div>
+						<div id="detail-notify" role="tabpanel" aria-labelledby="owner-notify" data-detail="notify"><span class="kicker">Clear channel boundaries</span><h3>Three surfaces, zero contention.</h3><p>Snacks owns general notifications. Fidget owns LSP progress. Noice owns the command line and message history, with its notification forwarding and LSP progress disabled.</p></div>
+						<div id="detail-files" role="tabpanel" aria-labelledby="owner-files" data-detail="files"><span class="kicker">One tree</span><h3>Explorer replaces two browsers.</h3><p><code>&lt;leader&gt;fb</code> and <code>&lt;leader&gt;nt</code> both open Snacks Explorer, preserving muscle memory while removing nvim-tree and Telescope file-browser.</p></div>
+						<div id="detail-terminal" role="tabpanel" aria-labelledby="owner-terminal" data-detail="terminal"><span class="kicker">Session-aware shells</span><h3>Named tools stay alive.</h3><p>ToggleTerm owns splits, tabs, floats, and named sessions for btop, IPython, iotop, Lazydocker, nvtop, and rmpc. Snacks Terminal remains explicitly disabled.</p></div>
+					</div>
+				</div>
+			</section>
+
+			<section class="section" id="keymaps">
+				<div class="section-head reveal">
+					<div><span class="section-number">03</span><h2>Keymaps follow ownership</h2></div>
+					<p>The configuration uses two mapping paths. The deciding question is whether the mapping requires a plugin.</p>
+				</div>
+				<div class="mapping-rule reveal">
+					<div class="rule-box"><h3>Core behavior</h3><p>Editing motions, workspace operations, LSP calls, and local helper commands use <code>vim.keymap.set</code> inside <code>lua/core/keymaps/</code>.</p></div>
+					<div class="rule-arrow" aria-hidden="true">◆</div>
+					<div class="rule-box"><h3>Plugin behavior</h3><p>Telescope, Snacks, CodeCompanion, images, Diffview, and terminals declare mappings in their Lazy <code>keys</code> tables. The mapping becomes the load trigger.</p></div>
+				</div>
+				<div class="split reveal" style="margin-top: 1px">
+					<article class="panel"><span class="kicker">Core example</span><h3>Direct and unsurprising</h3><pre><span class="lua-key">map</span>(<span class="lua-str">"n"</span>, <span class="lua-str">"&lt;leader&gt;ca"</span>, vim.lsp.buf.code_action, {
+	desc = <span class="lua-str">"Code action"</span>,
+})</pre></article>
+					<article class="panel"><span class="kicker">Plugin example</span><h3>Mapping as load boundary</h3><pre>keys = {
+	{ <span class="lua-str">"&lt;leader&gt;fb"</span>, <span class="lua-key">function</span>()
+		Snacks.explorer()
+	<span class="lua-key">end</span>, desc = <span class="lua-str">"File browser"</span> },
+}</pre></article>
+				</div>
+				<div class="callout reveal"><strong>which-key has one job:</strong> it labels prefix groups. It no longer converts mapping tables or acts as a second mapping registry.</div>
+			</section>
+
+			<section class="section" id="plugins">
+				<div class="section-head reveal">
+					<div><span class="section-number">04</span><h2>Lazy is the seam</h2></div>
+					<p>Every file in <code>lua/plugins/</code> returns one plugin spec. The spec keeps the trigger, dependencies, mappings, options, and exceptional setup in one navigable place.</p>
+				</div>
+				<div class="split reveal">
+					<article class="panel"><span class="kicker">Prefer data</span><h3><code>opts</code> for ordinary setup</h3><p>When a plugin follows <code>require(module).setup(opts)</code>, its configuration stays declarative. Lazy can merge it and call setup at the correct time.</p><pre><span class="lua-key">return</span> {
+	<span class="lua-str">"stevearc/conform.nvim"</span>,
+	opts = { <span class="lua-note">-- formatter policy</span> },
+}</pre></article>
+					<article class="panel"><span class="kicker">Use code selectively</span><h3><code>config</code> for real orchestration</h3><p>ToggleTerm needs named terminal objects and a terminal-buffer autocmd. That lifecycle is real behavior, so a focused <code>config</code> function is justified.</p><pre>config = <span class="lua-key">function</span>(_, opts)
+	require(<span class="lua-str">"toggleterm"</span>).setup(opts)
+	<span class="lua-note">-- create named sessions once</span>
+<span class="lua-key">end</span></pre></article>
+				</div>
+				<div class="callout reveal"><strong>Avoid eager requires:</strong> do not call plugin modules while Lua is merely building a spec table. Wrap callback references in a function so Lazy can finish registering the plugin before it loads.</div>
+			</section>
+
+			<section class="section" id="cleanup">
+				<div class="section-head reveal">
+					<div><span class="section-number">05</span><h2>Complexity removed</h2></div>
+					<p>The cleanup favors replacement over compatibility layers. Old aliases remain where useful, but dead modules and duplicate owners do not.</p>
+				</div>
+				<div class="removed reveal">
+					<article><del>nvim-tree</del><strong>Snacks Explorer</strong><p>One browser, two preserved entry mappings.</p></article>
+					<article><del>Telescope file-browser</del><strong>Telescope search</strong><p>Search stays focused on pickers and discovery.</p></article>
+					<article><del>nvim-notify</del><strong>Snacks Notifier</strong><p>General messages move to the plugin already loaded at startup.</p></article>
+					<article><del>none-ls</del><strong>Conform + nvim-lint</strong><p>Formatting, linting, and completion now have separate owners.</p></article>
+					<article><del>Opencode</del><strong>CodeCompanion</strong><p>One in-editor AI workflow remains, alongside Copilot completion.</p></article>
+					<article><del>converter modules</del><strong>Native mapping APIs</strong><p>Less indirection between a key and the behavior it invokes.</p></article>
+				</div>
+			</section>
+
+			<section class="section" id="checks">
+				<div class="section-head reveal">
+					<div><span class="section-number">06</span><h2>Maintenance loop</h2></div>
+					<p>Run these from <code>~/.config/nvim</code>. Each check covers a different failure class: style drift, static mistakes, or startup integration.</p>
+				</div>
+				<div class="checks reveal">
+					<div class="check"><span class="check-state">01</span><code>stylua --check .</code><button class="copy" data-copy="stylua --check .">copy</button></div>
+					<div class="check"><span class="check-state">02</span><code>luacheck .</code><button class="copy" data-copy="luacheck .">copy</button></div>
+					<div class="check"><span class="check-state">03</span><code>jq empty lazy-lock.json</code><button class="copy" data-copy="jq empty lazy-lock.json">copy</button></div>
+					<div class="check"><span class="check-state">04</span><code>nvim --headless -i NONE -u ./init.lua '+qa'</code><button class="copy" data-copy="nvim --headless -i NONE -u ./init.lua '+qa'">copy</button></div>
+				</div>
+				<div class="callout reveal"><strong>Tool availability:</strong> optional linters should be conditional. The configuration registers Pydoclint and Codespell only when the corresponding executable is installed.</div>
+			</section>
+
+			<footer><span>Neovim Config Field Manual</span><span>Small core / explicit ownership / load on demand</span></footer>
+		</main>
+	</div>
+
+	<script>
+		const progress = document.querySelector(".reading-progress");
+		const sections = [...document.querySelectorAll("main section")];
+		const navLinks = [...document.querySelectorAll(".rail nav a")];
+
+		function updateScrollState() {
+			const max = document.documentElement.scrollHeight - innerHeight;
+			progress.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
+			let current = sections[0]?.id;
+			for (const section of sections) {
+				if (section.getBoundingClientRect().top < innerHeight * 0.38) current = section.id;
+			}
+			for (const link of navLinks) link.classList.toggle("active", link.hash === `#${current}`);
+		}
+
+		addEventListener("scroll", updateScrollState, { passive: true });
+		updateScrollState();
+
+		const revealElements = document.querySelectorAll(".reveal");
+		if ("IntersectionObserver" in window) {
+			const observer = new IntersectionObserver((entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				}
+			}, { threshold: 0.12 });
+			revealElements.forEach((element) => observer.observe(element));
+		} else {
+			revealElements.forEach((element) => element.classList.add("visible"));
+		}
+
+		function selectOwner(owner) {
+			const name = owner.dataset.owner;
+			document.querySelectorAll(".owner").forEach((item) => {
+				const selected = item === owner;
+				item.classList.toggle("active", selected);
+				item.setAttribute("aria-selected", String(selected));
+				item.tabIndex = selected ? 0 : -1;
+			});
+			document.querySelectorAll("[data-detail]").forEach((detail) => detail.classList.toggle("active", detail.dataset.detail === name));
+		}
+		const owners = [...document.querySelectorAll(".owner")];
+		owners.forEach((owner, index) => {
+			owner.addEventListener("click", () => selectOwner(owner));
+			owner.addEventListener("keydown", (event) => {
+				if (event.key === "Enter" || event.key === " ") {
+					event.preventDefault();
+					selectOwner(owner);
+				}
+				if (["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft", "Home", "End"].includes(event.key)) {
+					event.preventDefault();
+					const nextIndex = event.key === "Home" ? 0
+						: event.key === "End" ? owners.length - 1
+						: ["ArrowDown", "ArrowRight"].includes(event.key) ? (index + 1) % owners.length
+						: (index - 1 + owners.length) % owners.length;
+					selectOwner(owners[nextIndex]);
+					owners[nextIndex].focus();
+				}
+			});
+		});
+
+		async function copyText(text) {
+			if (navigator.clipboard?.writeText) {
+				try {
+					await navigator.clipboard.writeText(text);
+					return;
+				} catch {}
+			}
+			const field = document.createElement("textarea");
+			field.value = text;
+			field.setAttribute("readonly", "");
+			field.style.position = "fixed";
+			field.style.opacity = "0";
+			document.body.append(field);
+			field.select();
+			const copied = document.execCommand("copy");
+			field.remove();
+			if (!copied) throw new Error("Copy is unavailable");
+		}
+
+		document.querySelectorAll(".copy").forEach((button) => {
+			button.setAttribute("aria-live", "polite");
+			button.addEventListener("click", async () => {
+				try {
+					await copyText(button.dataset.copy);
+					button.textContent = "copied";
+				} catch {
+					button.textContent = "copy failed";
+				}
+				setTimeout(() => { button.textContent = "copy"; }, 1200);
+			});
+		});
+	</script>
+</body>
+</html>
