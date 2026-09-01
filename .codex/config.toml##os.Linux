@@ -9,6 +9,7 @@ model_auto_compact_token_limit = 233000
 suppress_unstable_features_warning = true
 sandbox_mode = "workspace-write"
 service_tier = "default"
+approvals_reviewer = "auto_review"
 
 [tui]
 notifications = ["agent-turn-complete", "approval-requested"]
@@ -248,6 +249,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/sudacode/Documents/anki/stats"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/sudacode-blog"]
 trust_level = "trusted"
 
 [notice.model_migrations]

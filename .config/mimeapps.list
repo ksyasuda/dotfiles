@@ -71,7 +71,7 @@ x-scheme-handler/tonsite=org.telegram.desktop.desktop;
 x-scheme-handler/tradingview=tradingview.desktop;TradingView.desktop;
 application/x-wine-extension-ini=nvim.desktop;
 x-scheme-handler/subminer=subminer.desktop;SubMiner.desktop;
-x-scheme-handler/t3code=t3code-url-handler.desktop;
+x-scheme-handler/t3code=t3code-url-handler.desktop;t3code.desktop;
 
 [Default Applications]
 application/x-extension-htm=helium.desktop;zen.desktop

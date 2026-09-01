@@ -299,13 +299,18 @@ hl.window_rule({
 -- {{{ GSM Overlay and LunaTranslator tweaks
 hl.window_rule({
 	match = {
-		class = "gsm_overlay",
+		class = "gamesentenceminer",
 	},
 	float = true,
-	-- TODO: manual review — unmapped window rule action: "border_size 0"
-	-- TODO: manual review — unmapped window rule action: "xray off"
-	-- TODO: manual review — unmapped window rule action: "no_shadow on"
-	-- TODO: manual review — unmapped window rule action: "no_blur on"
+	border_size = 0,
+	xray = false,
+	no_shadow = true,
+	no_blur = true,
+	no_dim = true,
+	opaque = true,
+	dim_around = false,
+	opacity = "1.0 override 1.0 override",
+	pin = false,
 })
 
 hl.window_rule({
