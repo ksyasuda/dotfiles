@@ -11,7 +11,7 @@ local menu = "~/.config/rofi/launchers/type-6/launcher.sh 1"
 local mainMod = "ALT" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("~/.config/rofi/launchers/type-2/launcher.sh 10"))
+-- hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("~/.config/rofi/launchers/type-2/launcher.sh 10"))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("uwsm stop"))

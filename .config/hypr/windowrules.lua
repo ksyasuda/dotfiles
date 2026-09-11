@@ -299,7 +299,7 @@ hl.window_rule({
 -- {{{ GSM Overlay and LunaTranslator tweaks
 hl.window_rule({
 	match = {
-		class = "gamesentenceminer",
+		class = "com.beangate.gamesentenceminer",
 	},
 	float = true,
 	border_size = 0,
@@ -393,6 +393,19 @@ hl.window_rule({
 	},
 	float = true,
 	pin = true,
+})
+
+hl.window_rule({
+	match = {
+		class = "open-whispr",
+		title = "Voice Recorder",
+	},
+	float = true,
+	xray = false,
+	no_shadow = true,
+	no_blur = true,
+	no_dim = true,
+	opaque = true,
 })
 
 -- TODO: manual review — top-level key 'windowurle = no_vrr on, match:class mpv' has no enclosing section
