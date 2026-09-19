@@ -209,11 +209,15 @@ hl.bind(mainMod .. " + a", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-anki-scr
 -- hl.bind("mouse:276", hl.dsp.exec_cmd("xdotool key alt+grave"), { locked = true })
 hl.bind("ALT + g", hl.dsp.exec_cmd("/opt/mpv-yomitan/mpv-yomitan.AppImage --toggle"))
 
--- Hold Left Shift to show the GSM overlay while this submap is active.
 hl.bind("SUPER + g", hl.dsp.submap("gsm"))
 hl.define_submap("gsm", function()
+	hl.bind("CTRL + SHIFT + g", hl.dsp.exec_cmd("~/.local/bin/gsm-ocr-command menu_ocr"))
+	hl.bind("CTRL + SHIFT + o", hl.dsp.exec_cmd("~/.local/bin/gsm-ocr-command area_select_ocr"))
+	hl.bind("ALT + t", hl.dsp.global("com.beangate.gamesentenceminer:gsm:app:translate"))
 	hl.bind("SUPER + SHIFT + g", hl.dsp.submap("reset"))
-	hl.bind("SHIFT + Shift_L", hl.dsp.pass({ window = "class:^(gsm_overlay)$" }))
+	hl.bind("SHIFT + Shift_L", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
+	hl.bind("SHIFT + SPACE", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
+	hl.bind("code:276", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
 end)
 
 hl.bind("ALT + SHIFT + f", hl.dsp.exec_cmd("uwsm app -sb -- flameshot gui"))

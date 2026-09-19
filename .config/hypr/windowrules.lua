@@ -297,6 +297,27 @@ hl.window_rule({
 -- }}}
 
 -- {{{ GSM Overlay and LunaTranslator tweaks
+-- Open the GSM overlay at its manually aligned screen position.
+hl.window_rule({
+	match = {
+		class = "com.beangate.gamesentenceminer",
+		title = "^GSM Overlay$",
+	},
+	move = "4 3",
+	no_initial_focus = false,
+	focus_on_activate = true,
+	stay_focused = true,
+})
+
+-- Raise on open; the overlay rule retains focus until it is hidden.
+hl.on("window.open", function(window)
+	if window.class ~= "com.beangate.gamesentenceminer" or window.title ~= "GSM Overlay" then
+		return
+	end
+	hl.dispatch(hl.dsp.focus({ window = window }))
+	hl.dispatch(hl.dsp.window.alter_zorder({ window = window, mode = "top" }))
+end)
+
 hl.window_rule({
 	match = {
 		class = "com.beangate.gamesentenceminer",

@@ -48,6 +48,13 @@ url = "https://developers.openai.com/mcp"
 command = "npx"
 args = ["-y", "@ankimcp/anki-mcp-server", "--stdio"]
 
+[mcp_servers.hyprland_desktop]
+command = "/home/sudacode/.codex/bridges/hyprland-desktop/.venv/bin/python"
+args = ["/home/sudacode/.codex/bridges/hyprland-desktop/server.py"]
+env_vars = ["XDG_RUNTIME_DIR", "WAYLAND_DISPLAY", "HYPRLAND_INSTANCE_SIGNATURE", "DISPLAY", "XAUTHORITY", "YDOTOOL_SOCKET"]
+startup_timeout_sec = 15
+tool_timeout_sec = 60
+
 [projects."/home/sudacode/projects"]
 trust_level = "trusted"
 

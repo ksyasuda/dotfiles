@@ -404,11 +404,8 @@ hl.config({
 })
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("uwsm app -sb -- hyprpm update -n")
-	hl.exec_cmd("uwsm app -sb -- hyprpm reload -n")
 	hl.exec_cmd(notification_daemon)
 	hl.exec_cmd(terminal)
-	hl.exec_cmd("uwsm app -sb -S both -t scope -- hyprpm update -n")
 	hl.exec_cmd("uwsm app -sb -S both -t scope -- hyprpm reload -n")
 	hl.exec_cmd("uwsm app -sb -t service -- nm-applet")
 	hl.exec_cmd(
