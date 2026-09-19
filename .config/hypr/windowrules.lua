@@ -297,15 +297,41 @@ hl.window_rule({
 -- }}}
 
 -- {{{ GSM Overlay and LunaTranslator tweaks
+-- Open the GSM overlay at its manually aligned screen position.
 hl.window_rule({
 	match = {
-		class = "gsm_overlay",
+		class = "com.beangate.gamesentenceminer",
+		title = "^GSM Overlay$",
+	},
+	move = "4 3",
+	no_initial_focus = false,
+	focus_on_activate = true,
+	stay_focused = true,
+})
+
+-- Raise on open; the overlay rule retains focus until it is hidden.
+hl.on("window.open", function(window)
+	if window.class ~= "com.beangate.gamesentenceminer" or window.title ~= "GSM Overlay" then
+		return
+	end
+	hl.dispatch(hl.dsp.focus({ window = window }))
+	hl.dispatch(hl.dsp.window.alter_zorder({ window = window, mode = "top" }))
+end)
+
+hl.window_rule({
+	match = {
+		class = "com.beangate.gamesentenceminer",
 	},
 	float = true,
-	-- TODO: manual review — unmapped window rule action: "border_size 0"
-	-- TODO: manual review — unmapped window rule action: "xray off"
-	-- TODO: manual review — unmapped window rule action: "no_shadow on"
-	-- TODO: manual review — unmapped window rule action: "no_blur on"
+	border_size = 0,
+	xray = false,
+	no_shadow = true,
+	no_blur = true,
+	no_dim = true,
+	opaque = true,
+	dim_around = false,
+	opacity = "1.0 override 1.0 override",
+	pin = false,
 })
 
 hl.window_rule({
@@ -388,6 +414,19 @@ hl.window_rule({
 	},
 	float = true,
 	pin = true,
+})
+
+hl.window_rule({
+	match = {
+		class = "open-whispr",
+		title = "Voice Recorder",
+	},
+	float = true,
+	xray = false,
+	no_shadow = true,
+	no_blur = true,
+	no_dim = true,
+	opaque = true,
 })
 
 -- TODO: manual review — top-level key 'windowurle = no_vrr on, match:class mpv' has no enclosing section

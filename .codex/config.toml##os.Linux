@@ -1,5 +1,5 @@
-model = "gpt-5.6-sol"
-model_reasoning_effort = "high"
+model = "gpt-6-astra"
+model_reasoning_effort = "medium"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
@@ -9,6 +9,7 @@ model_auto_compact_token_limit = 233000
 suppress_unstable_features_warning = true
 sandbox_mode = "workspace-write"
 service_tier = "default"
+approvals_reviewer = "auto_review"
 
 [tui]
 notifications = ["agent-turn-complete", "approval-requested"]
@@ -17,6 +18,7 @@ notification_condition = "always"
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 4
+gpt-6-astra = 4
 
 [sandbox_workspace_write]
 network_access = true
@@ -45,6 +47,13 @@ url = "https://developers.openai.com/mcp"
 [mcp_servers.anki]
 command = "npx"
 args = ["-y", "@ankimcp/anki-mcp-server", "--stdio"]
+
+[mcp_servers.hyprland_desktop]
+command = "/home/sudacode/.codex/bridges/hyprland-desktop/.venv/bin/python"
+args = ["/home/sudacode/.codex/bridges/hyprland-desktop/server.py"]
+env_vars = ["XDG_RUNTIME_DIR", "WAYLAND_DISPLAY", "HYPRLAND_INSTANCE_SIGNATURE", "DISPLAY", "XAUTHORITY", "YDOTOOL_SOCKET"]
+startup_timeout_sec = 15
+tool_timeout_sec = 60
 
 [projects."/home/sudacode/projects"]
 trust_level = "trusted"
@@ -248,6 +257,15 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/sudacode/Documents/anki/stats"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/sudacode-blog"]
+trust_level = "trusted"
+
+[projects."/home/sudacode/projects/japanese/Mangatan"]
+trust_level = "trusted"
+
+[projects."/truenas/jellyfin/anime/I Made Friends with the Second Prettiest Girl in My Class/Season-1"]
 trust_level = "trusted"
 
 [notice.model_migrations]

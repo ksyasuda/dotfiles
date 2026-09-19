@@ -11,7 +11,7 @@ local menu = "~/.config/rofi/launchers/type-6/launcher.sh 1"
 local mainMod = "ALT" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("~/.config/rofi/launchers/type-2/launcher.sh 10"))
+-- hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("~/.config/rofi/launchers/type-2/launcher.sh 10"))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("uwsm stop"))
@@ -116,7 +116,7 @@ hl.bind(mainMod .. " + SHIFT + d", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-
 hl.bind("SUPER + SHIFT + j", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-jellyfin-dir.sh"))
 hl.bind("SUPER + t", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-launch-texthooker-steam.sh"))
 hl.bind(mainMod .. " + SHIFT + t", hl.dsp.exec_cmd("~/projects/scripts/popup-ai-translator.py"))
-hl.bind("SUPER + SHIFT + g", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-vn-helper.sh"))
+-- hl.bind("SUPER + SHIFT + g", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-vn-helper.sh"))
 hl.bind(mainMod .. " + SHIFT + i", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-image-browser.sh"))
 
 -- ncmcppp
@@ -208,6 +208,17 @@ hl.bind(mainMod .. " + a", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-anki-scr
 -- hl.bind("mouse:275", hl.dsp.exec_cmd("xdotool key alt+w"), { locked = true })
 -- hl.bind("mouse:276", hl.dsp.exec_cmd("xdotool key alt+grave"), { locked = true })
 hl.bind("ALT + g", hl.dsp.exec_cmd("/opt/mpv-yomitan/mpv-yomitan.AppImage --toggle"))
+
+hl.bind("SUPER + g", hl.dsp.submap("gsm"))
+hl.define_submap("gsm", function()
+	hl.bind("CTRL + SHIFT + g", hl.dsp.exec_cmd("~/.local/bin/gsm-ocr-command menu_ocr"))
+	hl.bind("CTRL + SHIFT + o", hl.dsp.exec_cmd("~/.local/bin/gsm-ocr-command area_select_ocr"))
+	hl.bind("ALT + t", hl.dsp.global("com.beangate.gamesentenceminer:gsm:app:translate"))
+	hl.bind("SUPER + SHIFT + g", hl.dsp.submap("reset"))
+	hl.bind("SHIFT + Shift_L", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
+	hl.bind("SHIFT + SPACE", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
+	hl.bind("code:276", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
+end)
 
 hl.bind("ALT + SHIFT + f", hl.dsp.exec_cmd("uwsm app -sb -- flameshot gui"))
 

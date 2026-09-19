@@ -404,11 +404,8 @@ hl.config({
 })
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("uwsm app -sb -- hyprpm update -n")
-	hl.exec_cmd("uwsm app -sb -- hyprpm reload -n")
 	hl.exec_cmd(notification_daemon)
 	hl.exec_cmd(terminal)
-	hl.exec_cmd("uwsm app -sb -S both -t scope -- hyprpm update -n")
 	hl.exec_cmd("uwsm app -sb -S both -t scope -- hyprpm reload -n")
 	hl.exec_cmd("uwsm app -sb -t service -- nm-applet")
 	hl.exec_cmd(
@@ -419,3 +416,4 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("uwsm app -sb -t service -- tailscale systray")
 	hl.exec_cmd("~/.local/bin/aria")
 end)
+pcall(require, "/home/sudacode/.config/hypr/openwhispr-binds.lua")
