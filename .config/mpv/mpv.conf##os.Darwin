@@ -12,7 +12,8 @@ autofit=69%                     # Reasonable default size
 
 # Audio (macOS-specific)
 volume=75
-ao=coreaudio                    # Native macOS audio
+# ao=coreaudio                  # Native macOS audio (fails to open AirPods: "unable to set the input channel layout")
+ao=avfoundation                 # Apple-managed output; works with AirPods
 audio-buffer=1.5                # More headroom for transient underruns
 audio-wait-open=0.3             # Give CoreAudio a little setup time
 
