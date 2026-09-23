@@ -211,6 +211,8 @@ hl.bind("ALT + g", hl.dsp.exec_cmd("/opt/mpv-yomitan/mpv-yomitan.AppImage --togg
 
 hl.bind("SUPER + g", hl.dsp.submap("gsm"))
 hl.define_submap("gsm", function()
+	hl.bind("ALT + f", hl.dsp.window.fullscreen(""))
+	hl.bind("SUPER + SHIFT + s", hl.dsp.exec_cmd([[sh -c 'grim -g "$(slurp -d)" - | wl-copy']]))
 	hl.bind("CTRL + SHIFT + g", hl.dsp.exec_cmd("~/.local/bin/gsm-ocr-command menu_ocr"))
 	hl.bind("CTRL + SHIFT + o", hl.dsp.exec_cmd("~/.local/bin/gsm-ocr-command area_select_ocr"))
 	hl.bind("ALT + t", hl.dsp.global("com.beangate.gamesentenceminer:gsm:app:translate"))
