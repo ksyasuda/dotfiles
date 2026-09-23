@@ -344,11 +344,9 @@ label:focus {
 #custom-codexbar {
   padding: 0 10px;
   margin: 5px 1px;
-  background-color: @surface0;
+  background-color: @pink;
+  color: @mantle;
   border-radius: 0.69em;
 }
 
-#custom-codexbar.low      { color: @green; }
-#custom-codexbar.mid      { color: @yellow; }
-#custom-codexbar.high     { color: @peach; }
-#custom-codexbar.critical { color: @red; }
+#custom-codexbar.critical { box-shadow: inset 0 -3px @red; }

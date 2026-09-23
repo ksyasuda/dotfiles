@@ -1,4 +1,5 @@
 {
+  "include": ["~/.config/waybar/modules/custom-codexbar.json"],
   "layer": "bottom",
   "position": "top",
   "height": 40,
@@ -327,14 +328,5 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": false,
-  },
-  "custom/codexbar": {
-    "exec": "codexbar --icon \"<span font='Font Awesome 7 Brands'>&#xe7cf;</span>\" | sed 's/ *|//g'",
-    "return-type": "json",
-    "interval": 300,
-    "signal": 12,
-    "tooltip": true,
-    "on-click": "python3 ~/.config/waybar/scripts/aibar-popup.py",
-    "on-click-right": "python3 ~/.config/waybar/scripts/aibar-popup.py --claude",
   },
 }
