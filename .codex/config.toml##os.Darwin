@@ -103,6 +103,9 @@ trust_level = "trusted"
 [projects."/Users/sudacode/Documents/Codex/2026-08-19/this"]
 trust_level = "trusted"
 
+[projects."/Volumes/jellyfin/anime/A Returner's Magic Should Be Special/Season-1"]
+trust_level = "trusted"
+
 [mcp_servers.backlog]
 command = "backlog"
 args = ["mcp", "start"]
@@ -184,6 +187,7 @@ enabled = true
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 4
+gpt-6-astra = 1
 
 [marketplaces.openai-bundled]
 last_updated = "2026-08-16T07:38:41Z"
