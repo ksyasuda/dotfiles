@@ -297,6 +297,19 @@ hl.window_rule({
 -- }}}
 
 -- {{{ GSM Overlay and LunaTranslator tweaks
+-- Keep the audio timing review over the game on the current workspace.
+hl.window_rule({
+	match = {
+		title = "^Confirm Anki Card Details$",
+	},
+	float = true,
+	center = true,
+	workspace = "unset",
+	no_initial_focus = false,
+	focus_on_activate = true,
+	stay_focused = true,
+})
+
 -- Open the GSM overlay at its manually aligned screen position.
 hl.window_rule({
 	match = {
@@ -309,13 +322,26 @@ hl.window_rule({
 	stay_focused = true,
 })
 
--- Raise on open; the overlay rule retains focus until it is hidden.
+-- Explicitly focus GSM popups so the fullscreen game releases input.
 hl.on("window.open", function(window)
-	if window.class ~= "com.beangate.gamesentenceminer" or window.title ~= "GSM Overlay" then
+	local is_overlay = window.class == "com.beangate.gamesentenceminer" and window.title == "GSM Overlay"
+	local is_review = window.title == "Confirm Anki Card Details"
+	if not is_overlay and not is_review then
 		return
 	end
 	hl.dispatch(hl.dsp.focus({ window = window }))
 	hl.dispatch(hl.dsp.window.alter_zorder({ window = window, mode = "top" }))
+
+	-- Repeat after mapping finishes, when the game's input grab can be released.
+	if is_review then
+		hl.timer(function()
+			if not window.mapped or window.hidden then
+				return
+			end
+			hl.dispatch(hl.dsp.focus({ window = window }))
+			hl.dispatch(hl.dsp.window.alter_zorder({ window = window, mode = "top" }))
+		end, { timeout = 150, type = "oneshot" })
+	end
 end)
 
 hl.window_rule({

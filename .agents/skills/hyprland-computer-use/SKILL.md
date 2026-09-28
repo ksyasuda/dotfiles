@@ -5,8 +5,10 @@ description: Inspect and operate native Wayland and XWayland desktop apps on thi
 
 # Hyprland computer use
 
-Use the `hyprland_desktop` MCP tools for the live desktop. The server is configured
-in `~/.codex/config.toml`; its code lives in `~/.codex/bridges/hyprland-desktop`.
+Use the `hyprland_desktop` MCP tools for the live desktop. Codex configures it in
+`~/.codex/config.toml` with code in `~/.codex/bridges/hyprland-desktop`. Claude Code
+registers the same server in `~/.claude.json` (user scope) through the symlink
+`~/.claude/bridges/hyprland-desktop`; there the tools are `mcp__hyprland_desktop__*`.
 It runs as the logged-in user and exposes specific desktop operations over stdio.
 It is independent of the macOS/Windows Computer Use plugin.
 

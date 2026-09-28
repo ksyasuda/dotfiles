@@ -56,6 +56,26 @@ env_vars = ["XDG_RUNTIME_DIR", "WAYLAND_DISPLAY", "HYPRLAND_INSTANCE_SIGNATURE",
 startup_timeout_sec = 15
 tool_timeout_sec = 60
 
+[mcp_servers.node_repl]
+args = []
+command = "/usr/lib/chatgpt/resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/usr/lib/chatgpt/resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/usr/lib/chatgpt/resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/home/sudacode/.codex:/usr/lib/chatgpt/resources/cua_node/lib/node_modules"
+CODEX_HOME = "/home/sudacode/.codex"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_TINYSKY_ENABLED = "1"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.915.31945"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/home/sudacode/.codex/plugins/cache/openai-bundled/browser/26.915.31945/scripts/browser-service.mjs"}'
+CODEX_CLI_PATH = "/usr/lib/chatgpt/resources/codex"
+
 [projects."/home/sudacode/projects"]
 trust_level = "trusted"
 
@@ -275,6 +295,9 @@ trust_level = "trusted"
 [projects."/home/sudacode/projects/japanese/hachidori"]
 trust_level = "trusted"
 
+[projects."/home/sudacode/projects/japanese/yomitan-css"]
+trust_level = "trusted"
+
 [notice.model_migrations]
 "gpt-5.3-codex" = "gpt-5.4"
 
@@ -299,6 +322,21 @@ enabled = true
 [plugins."browser@openai-bundled"]
 enabled = true
 
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
 [desktop]
 sansFontSize = 18
 codeFontSize = 16
@@ -307,6 +345,7 @@ appearanceLightCodeThemeId = "catppuccin"
 appearanceDarkCodeThemeId = "catppuccin"
 git-pull-request-merge-method = "squash"
 git-show-sidebar-pr-icons = true
+followUpQueueMode = "queue"
 
 [desktop.appearanceLightChromeTheme]
 accent = "#8839ef"
@@ -339,11 +378,9 @@ diffRemoved = "#f38ba8"
 skill = "#cba6f7"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-06-03T01:54:25Z"
 source_type = "local"
 source = "/home/sudacode/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-23T22:00:53Z"
 source_type = "local"
 source = "/home/sudacode/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
