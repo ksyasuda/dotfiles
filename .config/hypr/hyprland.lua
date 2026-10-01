@@ -417,3 +417,5 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("~/.local/bin/aria")
 end)
 pcall(require, "/home/sudacode/.config/hypr/openwhispr-binds.lua")
+
+hl.bind("SHIFT + SUPER + 4", hl.dsp.global("com.t3tools.T3Code:capture-window"))
