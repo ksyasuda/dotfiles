@@ -40,17 +40,26 @@ hl.bind(mainMod .. " + SHIFT + c", hl.dsp.window.center())
 hl.bind("CTRL+ALT + j", hl.dsp.focus({ monitor = "r" }))
 hl.bind("CTRL+ALT + k", hl.dsp.focus({ monitor = "l" }))
 
--- Switch workspaces with mainMod + [0-9]
-for i = 1, 10 do
-	local key = i % 10
-	hl.bind(
-		mainMod .. " + " .. key,
-		hl.dsp.focus({
-			workspace = i,
-			silent = true,
-		})
-	)
+-- Keep workspace switching available in the default and GSM submaps.
+local function bindWorkspaceSwitching()
+	-- Switch workspaces with mainMod + [0-9]
+	for i = 1, 10 do
+		local key = i % 10
+		hl.bind(
+			mainMod .. " + " .. key,
+			hl.dsp.focus({
+				workspace = i,
+				silent = true,
+			})
+		)
+	end
+
+	-- Scroll through existing workspaces with mainMod + scroll
+	hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+	hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 end
+bindWorkspaceSwitching()
+
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
 	local key = i % 10 -- workspace 10 maps to key 0
@@ -67,10 +76,6 @@ end
 -- Example special workspace (scratchpad)
 -- hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("magic"))
 -- hl.bind("CTRL + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-
--- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
@@ -211,6 +216,7 @@ hl.bind("ALT + g", hl.dsp.exec_cmd("/opt/mpv-yomitan/mpv-yomitan.AppImage --togg
 
 hl.bind("SUPER + g", hl.dsp.submap("gsm"))
 hl.define_submap("gsm", function()
+	bindWorkspaceSwitching()
 	hl.bind("ALT + f", hl.dsp.window.fullscreen(""))
 	hl.bind("SUPER + SHIFT + s", hl.dsp.exec_cmd([[sh -c 'grim -g "$(slurp -d)" - | wl-copy']]))
 	hl.bind("CTRL + SHIFT + g", hl.dsp.exec_cmd("~/.local/bin/gsm-ocr-command menu_ocr"))

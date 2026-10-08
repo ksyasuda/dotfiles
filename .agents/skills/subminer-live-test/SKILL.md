@@ -1,6 +1,6 @@
 ---
 name: subminer-live-test
-description: Build and install SubMiner, then verify changes, features, or fixes in the live Hyprland desktop using hyprland-computer-use and local anime videos. Use only in a SubMiner checkout or worktree when the user requests live testing or an implementation needs real installed-app verification. Clean up test-created Anki notes and stats sessions through the supported app paths. Do not invoke for read-only questions or headless unit checks.
+description: Build and install SubMiner, then verify changes, features, or fixes in the live Hyprland desktop using hyprland-computer-use and local anime videos. Use only in a SubMiner checkout or worktree when the user requests live testing, or when a change depends on something the headless e2e harness (`bun run test:e2e`) cannot show, such as Hyprland placement, stacking, fullscreen, click-through, focus, global shortcuts, the packaged AppImage, launcher, or mpv plugin, real media or dictionaries, or the real Anki collection and stats database. Clean up test-created Anki notes and stats sessions through the supported app paths. Do not invoke for read-only questions, headless unit checks, or behavior the e2e harness covers.
 ---
 
 # SubMiner live testing
@@ -10,6 +10,15 @@ This is a machine-specific user skill for SubMiner. Keep it under `~/.agents/ski
 Run all repository commands and resolve all repository paths against the SubMiner checkout or worktree being tested. Do not build from the original checkout when testing another worktree. All worktrees share the installed app, Anki collection, and stats database on this machine. Run one live testing session at a time and coordinate with any other agent using these resources.
 
 The user authorizes building and installing the app for this workflow, and deleting the Anki notes and stats sessions created by the test. This applies to both user invocation and agent-selected live verification during implementation. Limit cleanup to artifacts whose ownership you can prove. Follow tool and sandbox approval requirements.
+
+## Try the headless harness first
+
+Unless the user explicitly asked for a live test, check the change with the headless e2e harness before building anything. It boots the built app against a real mpv, a synthetic clip, a fixture dictionary, and a fake AnkiConnect, isolated from the desktop, Anki collection, and stats database. See the "Headless End-to-End Harness" section of `docs/workflow/verification.md` in the checkout.
+
+- Run `bun run build`, then `bun run test:e2e`. For a one-off check, use `bun run e2e start` and drive it with `bun run e2e eval|shot|mpv|app|anki`, then `bun run e2e stop`.
+- It covers subtitle rendering and tokenization, seeking, lookup popups, modals, startup ordering, and mining up to the AnkiConnect request with generated media.
+- Continue with this skill only for behavior it cannot show: Hyprland placement, stacking, fullscreen, click-through, focus handoff, and global shortcuts; the packaged AppImage, installed launcher, and mpv plugin auto-start; real media, ASS styling, the character dictionary, Jellyfin or stream sources; and the real Anki collection (note types, duplicates, field grouping) or stats aggregates and cleanup.
+- If the harness was enough, report its result and stop. If not, say in the report which part of the behavior needed the live run and why.
 
 ## Prepare
 

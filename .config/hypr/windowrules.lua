@@ -310,12 +310,13 @@ hl.window_rule({
 	stay_focused = true,
 })
 
--- Open the GSM overlay at its manually aligned screen position.
+-- Open the GSM overlay on workspace 6 at its manually aligned screen position.
 hl.window_rule({
 	match = {
 		class = "com.beangate.gamesentenceminer",
 		title = "^GSM Overlay$",
 	},
+	workspace = "6",
 	move = "4 3",
 	no_initial_focus = false,
 	focus_on_activate = true,

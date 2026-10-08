@@ -38,7 +38,7 @@ window {
     anchor:                      center;
     fullscreen:                  false;
     width:                       46.65%;
-    height:                      44%;
+    height:                      50%;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -61,14 +61,14 @@ mainbox {
 imagebox {
     padding:                     24px;
     background-color:            transparent;
-    background-image:            url("~/.config/rofi/images/oshinoko.png", both);
+    background-image:            url("~/.config/rofi/images/oshinoko-full-body.png", both);
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
 }
 
 listbox {
     spacing:                     20px;
-    padding:                     20px;
+    padding:                     34px 20px 20px;
     background-color:            transparent;
     orientation:                 vertical;
     children:                    [ "message", "listview" ];
