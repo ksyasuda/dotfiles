@@ -1,5 +1,5 @@
-model = "gpt-6-astra"
-model_reasoning_effort = "medium"
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
 personality = "pragmatic"
 tool_output_token_limit = 25000
 # Leave room for native compaction near the 272–273k context window.
@@ -8,7 +8,7 @@ tool_output_token_limit = 25000
 model_auto_compact_token_limit = 233000
 suppress_unstable_features_warning = true
 sandbox_mode = "workspace-write"
-service_tier = "default"
+service_tier = "fast"
 approvals_reviewer = "auto_review"
 
 [tui]
@@ -20,6 +20,7 @@ screen_reader_detection_done = true
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 4
 gpt-6-astra = 4
+"gpt-6.1-sol" = 4
 
 [sandbox_workspace_write]
 network_access = true

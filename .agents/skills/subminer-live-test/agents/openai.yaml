@@ -1,0 +1,4 @@
+interface:
+  display_name: "SubMiner live testing"
+  short_description: "Build, install, test on Hyprland, and clean up"
+  default_prompt: "Use $subminer-live-test to verify the current change in the installed app and remove test cards and stats sessions afterward."
