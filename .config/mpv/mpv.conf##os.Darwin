@@ -131,6 +131,7 @@ demuxer-readahead-secs=20
 
 msg-level=subs2srs,animecards,mpvacious=error
 
+stream-lavf-o=reconnect=1,reconnect_streamed=1,reconnect_delay_max=5
 
 ############
 # Profiles #
