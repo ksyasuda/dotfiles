@@ -225,7 +225,7 @@ hl.define_submap("gsm", function()
 	hl.bind("SUPER + SHIFT + g", hl.dsp.submap("reset"))
 	hl.bind("SHIFT + Shift_L", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
 	hl.bind("SHIFT + SPACE", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
-	hl.bind("code:276", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
+	hl.bind("mouse:276", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
 end)
 
 hl.bind("ALT + SHIFT + f", hl.dsp.exec_cmd("uwsm app -sb -- flameshot gui"))
