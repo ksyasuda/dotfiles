@@ -305,10 +305,10 @@ hl.config({
 		rounding = 10,
 		rounding_power = 2,
 		-- Change transparency of focused and unfocused windows
-		-- active_opacity = 0.88
-		active_opacity = 1.0,
-		-- inactive_opacity = 0.88
-		inactive_opacity = 1.0,
+		active_opacity = 0.90,
+		-- active_opacity = 1.0,
+		inactive_opacity = 0.88,
+		-- inactive_opacity = 1.0,
 		shadow = {
 			enabled = true,
 			range = 4,
@@ -414,6 +414,9 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("uwsm app -sb -t service -- /usr/lib/polkit-kde-authentication-agent-1")
 	hl.exec_cmd("uwsm app -sb -t service -- gnome-keyring-daemon --start --components=secrets,ssh,pkcs11")
 	hl.exec_cmd("uwsm app -sb -t service -- tailscale systray")
+	hl.exec_cmd(
+		'uwsm app -sb -t service -- mpvpaper -o "no-config no-audio loop-file=inf hwdec=auto panscan=1 video-pan-y=-0.05 scale=ewa_lanczossharp dscale=lanczos" ALL "$HOME/Pictures/wallpapers/lofi-hip-hop-ai-4k.mp4"'
+	)
 	hl.exec_cmd("~/.local/bin/aria")
 end)
 

@@ -225,7 +225,12 @@ hl.define_submap("gsm", function()
 	hl.bind("SUPER + SHIFT + g", hl.dsp.submap("reset"))
 	hl.bind("SHIFT + Shift_L", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
 	hl.bind("SHIFT + SPACE", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
-	hl.bind("mouse:276", hl.dsp.global("com.beangate.gamesentenceminer:gsm:manual-show"))
+	-- Use Right Shift to avoid the Left Shift binding; ydotool input reaches compositor shortcuts.
+	hl.bind(
+		"mouse:276",
+		hl.dsp.exec_cmd([[env YDOTOOL_SOCKET="$XDG_RUNTIME_DIR/.ydotool_socket" ydotool key 54:1 57:1 57:0 54:0]]),
+		{ release = true }
+	)
 end)
 
 hl.bind("ALT + SHIFT + f", hl.dsp.exec_cmd("uwsm app -sb -- flameshot gui"))
