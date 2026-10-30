@@ -185,7 +185,7 @@ hl.window_rule({
 
 hl.window_rule({
 	match = {
-		title = "(.*)(- YouTube(.*))",
+		title = ".*YouTube.*",
 	},
 	opacity = "1.0 override",
 })
