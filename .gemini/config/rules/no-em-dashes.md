@@ -4,4 +4,4 @@ trigger: always_on
 
 # No em dashes
 
-Never use em dashes, en dashes, or hyphen-as-dash substitutes in prose or lists. Do not reach for parentheses as a replacement either. Separate thoughts with periods or commas instead.
+Never use em dashes (`—`). Regular hyphens (`-`) are fine in compound words, code, and occasional separation, just avoid using dashes excessively. In prose, prefer periods or commas to separate thoughts.
