@@ -145,7 +145,7 @@ profile-cond=get("video-params/gamma", "") ~= "pq" and get("video-params/gamma",
 profile-restore=copy
 # put SDR-only tweaks here
 deband=yes
-target-colorspace-hint=auto
+target-colorspace-hint=no
 
 [svp]
 interpolation=no

@@ -171,6 +171,13 @@ hl.window_rule({
 
 hl.window_rule({
 	match = {
+		class = "Lichii",
+	},
+	opacity = "1.0 override",
+})
+
+hl.window_rule({
+	match = {
 		class = "^(remote-viewer)$",
 	},
 	opacity = "1.0 override",
